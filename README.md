@@ -21,7 +21,7 @@ These credentials should be specified in the project's `application.conf` and `e
 * Scheduling: Configure notifications for immediate delivery or schedule them for future deployment.
 * Multi-Channel Support: Dispatch notifications either via email or Slack.
 * Administration: View, pause, resume, and delete scheduled notifications through dedicated endpoints.
-* Dashboard: A simple dashboard to view and manage scheduled tasks.
+* Dashboard: A dashboard sample to view and manage scheduled tasks.
 
 ---
 
@@ -31,7 +31,7 @@ For convenience, it is included a *[Postman Collection](./.postman/ktask.postman
 
 ### Notification Endpoints
 
-#### Email Notifications
+#### Email
 
 - **Endpoint**: `POST /push/email`
 - **Description**: Send or schedule an email notification.
@@ -46,7 +46,7 @@ For convenience, it is included a *[Postman Collection](./.postman/ktask.postman
   }
   ```
 
-#### Slack Notifications
+#### Slack
 
 - **Endpoint**: `POST /push/slack`
 - **Description**: Send or schedule a Slack notification.
@@ -61,6 +61,7 @@ For convenience, it is included a *[Postman Collection](./.postman/ktask.postman
   }
   ```
 
+---
 ### Administration Endpoints
 
 #### List Scheduled Tasks
@@ -109,7 +110,7 @@ For convenience, it is included a *[Postman Collection](./.postman/ktask.postman
     "totalTasks": 6
   }
   ```
----
+
 #### Delete Scheduled Task
 
 - **Endpoint**: `DELETE /scheduler/tasks/{taskId}/{taskGroup}`
@@ -124,7 +125,7 @@ For convenience, it is included a *[Postman Collection](./.postman/ktask.postman
 
 ### Dashboard
 
-A simple dashboard to view and manage scheduled tasks is available at the endpoint: `/scheduler/tasks/dashboard`
+A dashboard to view and manage scheduled tasks is available at the endpoint: `/scheduler/tasks/dashboard`
 
 <img src=".screenshots/dashboard.jpg" alt="dashboard">
 
