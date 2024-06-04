@@ -1,0 +1,12 @@
+*
+!*Dockerfile*
+!build.gradle.kts
+!settings.gradle.kts
+!/src
+!gradle/**
+!gradlew
+!gradlew.bat
+!keystore.p12
+!ktask-base/**
+!ktask-server/**
+!build/libs/**

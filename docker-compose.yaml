@@ -1,0 +1,26 @@
+# https://ktor.io/docs/docker-compose.html
+# https://ktor.io/docs/docker.html
+
+version: '3.8'
+
+services:
+  ktask:
+    build:
+      context: .
+      dockerfile: docker-full-build.Dockerfile
+    image: ktask-image:latest
+    container_name: v1
+    ports:
+      - "8080:8080"
+      - "8443:8443"
+      - "5005:5005"
+    env_file:
+      - .env
+    environment:
+      JAVA_OPTS: "-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5005" # Enables remote debugging on port 5005
+      KTASK_KTOR_SECURITY_SSL_KEY_STORE: "/app/keystore.p12"
+    networks:
+      - default_network
+
+networks:
+  default_network: { }

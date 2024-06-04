@@ -1,0 +1,27 @@
+/*
+ * Copyright (c) 2024-Present Perracodex. Use of this source code is governed by an MIT license.
+ */
+
+package ktask.base.settings.config.parser
+
+import ktask.base.settings.annotation.ConfigurationAPI
+import ktask.base.settings.config.ConfigurationCatalog
+import ktask.base.settings.config.sections.DeploymentSettings
+import kotlin.reflect.KClass
+
+/**
+ * Maps a configuration path to a data class type.
+ *
+ * @property mappingName The corresponding name of the property in the [ConfigurationCatalog] class,
+ *                       to which the configuration values will be mapped to.
+ * @property path The section in the configuration file, i.e. "ktor.deployment".
+ * @property kClass The target data class type which will map the configuration, i.e. [DeploymentSettings].
+ *
+ * @see ConfigurationCatalog
+ */
+@ConfigurationAPI
+data class ConfigClassMap<T : IConfigSection>(
+    val mappingName: String,
+    val path: String,
+    val kClass: KClass<T>
+)
