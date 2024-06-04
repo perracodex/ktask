@@ -109,9 +109,7 @@ For convenience, it is included a *[Postman Collection](./.postman/ktask.postman
     "totalTasks": 6
   }
   ```
-
 ---
-
 #### Delete Scheduled Task
 
 - **Endpoint**: `DELETE /scheduler/tasks/{taskId}/{taskGroup}`
@@ -121,6 +119,8 @@ For convenience, it is included a *[Postman Collection](./.postman/ktask.postman
 
 - **Endpoint**: `DELETE /scheduler/tasks`
 - **Output**: Total number of tasks deleted.
+
+---
 
 ### Dashboard
 
