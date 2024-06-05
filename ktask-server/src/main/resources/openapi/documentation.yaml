@@ -19,12 +19,12 @@ paths:
                 $ref: "#/components/schemas/HealthCheck"
   /push/email:
     post:
-      description: "Create a new scheduled Email notification."
+      description: "Create a new scheduled Email notification task."
       requestBody:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/EmailNotificationRequest"
+              $ref: "#/components/schemas/EmailTaskRequest"
         required: true
       responses:
         "400":
@@ -50,12 +50,12 @@ paths:
                   value: ""
   /push/slack:
     post:
-      description: "Create a new scheduled Slack notification."
+      description: "Create a new scheduled Slack notification task."
       requestBody:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/SlackNotificationRequest"
+              $ref: "#/components/schemas/SlackTaskRequest"
         required: true
       responses:
         "400":
@@ -348,6 +348,15 @@ components:
         - "configured"
         - "serverSpec"
         - "connectors"
+    LimitSpec:
+      type: "object"
+      properties:
+        limit:
+          type: "integer"
+          format: "int32"
+        refillMs:
+          type: "integer"
+          format: "int64"
     SecurityCheck:
       type: "object"
       properties:
@@ -357,20 +366,17 @@ components:
             type: "string"
         useSecureConnection:
           type: "boolean"
-        publicApiRateLimit:
-          type: "integer"
-          format: "int32"
-        publicApiRateRefillMs:
-          type: "integer"
-          format: "int64"
-        newTokenRateLimit:
-          type: "integer"
-          format: "int32"
-        newTokenRateRefillMs:
-          type: "integer"
-          format: "int64"
+        publicApi:
+          $ref: "#/components/schemas/LimitSpec"
+        privateApi:
+          $ref: "#/components/schemas/LimitSpec"
+        newToken:
+          $ref: "#/components/schemas/LimitSpec"
       required:
         - "errors"
+        - "publicApi"
+        - "privateApi"
+        - "newToken"
     Datasource:
       type: "object"
       properties:
@@ -547,7 +553,7 @@ components:
         - "application"
         - "snowflake"
         - "endpoints"
-    EmailNotificationRequest:
+    EmailTaskRequest:
       type: "object"
       properties:
         id:
@@ -559,16 +565,16 @@ components:
           type: "array"
           items:
             type: "string"
-        message:
-          type: "string"
         subject:
           type: "string"
+        message:
+          type: "string"
       required:
         - "id"
         - "recipients"
-        - "message"
         - "subject"
-    SlackNotificationRequest:
+        - "message"
+    SlackTaskRequest:
       type: "object"
       properties:
         id:
@@ -580,15 +586,15 @@ components:
           type: "array"
           items:
             type: "string"
-        message:
-          type: "string"
         channel:
+          type: "string"
+        message:
           type: "string"
       required:
         - "id"
         - "recipients"
-        - "message"
         - "channel"
+        - "message"
     TaskScheduleEntity:
       type: "object"
       properties:
