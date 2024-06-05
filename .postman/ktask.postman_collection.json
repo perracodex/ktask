@@ -1,570 +1,570 @@
 {
-  "info": {
-    "_postman_id": "c0b80b1b-efe6-4ec7-ae27-87dbfad61ee8",
-    "name": "ktask",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "_exporter_id": "24235465"
-  },
-  "item": [
-    {
-      "name": "admin",
-      "item": [
-        {
-          "name": "list",
-          "item": [
-            {
-              "name": "tasks",
-              "event": [
-                {
-                  "listen": "prerequest",
-                  "script": {
-                    "exec": [
-                      ""
-                    ],
-                    "type": "text/javascript",
-                    "packages": {}
-                  }
-                }
-              ],
-              "protocolProfileBehavior": {
-                "strictSSL": false,
-                "disableBodyPruning": true
-              },
-              "request": {
-                "method": "GET",
-                "header": [
-                  {
-                    "key": "Authorization",
-                    "value": "",
-                    "disabled": true
-                  }
-                ],
-                "body": {
-                  "mode": "raw",
-                  "raw": "",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                },
-                "url": {
-                  "raw": "http://localhost:8080/scheduler/tasks",
-                  "protocol": "http",
-                  "host": [
-                    "localhost"
-                  ],
-                  "port": "8080",
-                  "path": [
-                    "scheduler",
-                    "tasks"
-                  ]
-                }
-              },
-              "response": []
-            },
-            {
-              "name": "groups",
-              "event": [
-                {
-                  "listen": "prerequest",
-                  "script": {
-                    "exec": [
-                      ""
-                    ],
-                    "type": "text/javascript",
-                    "packages": {}
-                  }
-                }
-              ],
-              "protocolProfileBehavior": {
-                "strictSSL": false,
-                "disableBodyPruning": true
-              },
-              "request": {
-                "method": "GET",
-                "header": [
-                  {
-                    "key": "Authorization",
-                    "value": "",
-                    "disabled": true
-                  }
-                ],
-                "body": {
-                  "mode": "raw",
-                  "raw": "",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                },
-                "url": {
-                  "raw": "http://localhost:8080/scheduler/tasks/groups",
-                  "protocol": "http",
-                  "host": [
-                    "localhost"
-                  ],
-                  "port": "8080",
-                  "path": [
-                    "scheduler",
-                    "tasks",
-                    "groups"
-                  ]
-                }
-              },
-              "response": []
-            }
-          ]
-        },
-        {
-          "name": "state",
-          "item": [
-            {
-              "name": "resume",
-              "event": [
-                {
-                  "listen": "prerequest",
-                  "script": {
-                    "exec": [
-                      ""
-                    ],
-                    "type": "text/javascript",
-                    "packages": {}
-                  }
-                }
-              ],
-              "protocolProfileBehavior": {
-                "strictSSL": false
-              },
-              "request": {
-                "method": "POST",
-                "header": [
-                  {
-                    "key": "Authorization",
-                    "value": "",
-                    "disabled": true
-                  }
-                ],
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\r\n    \"id\": \"38befbfb-20a3-4bcd-91e1-a2c7240adfa0\",\r\n    \"target\": \"EMAIL\",\r\n    \"recipients\": [\"someone@gmail.com\"],\r\n    \"subject\": \"notification\",\r\n    \"content\": \"hello world\",\r\n    \"schedule\": \"2024-06-01T15:42:50\"\r\n}\r\n",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                },
-                "url": {
-                  "raw": "http://localhost:8080/scheduler/tasks/task-1iq4b3srtjpc0-158453489785400/38befbfb-20a3-4bcd-91e1-a2c7240adfa0/resume",
-                  "protocol": "http",
-                  "host": [
-                    "localhost"
-                  ],
-                  "port": "8080",
-                  "path": [
-                    "scheduler",
-                    "tasks",
-                    "task-1iq4b3srtjpc0-158453489785400",
-                    "38befbfb-20a3-4bcd-91e1-a2c7240adfa0",
-                    "resume"
-                  ]
-                }
-              },
-              "response": []
-            },
-            {
-              "name": "resume all",
-              "event": [
-                {
-                  "listen": "prerequest",
-                  "script": {
-                    "exec": [
-                      ""
-                    ],
-                    "type": "text/javascript",
-                    "packages": {}
-                  }
-                }
-              ],
-              "protocolProfileBehavior": {
-                "strictSSL": false
-              },
-              "request": {
-                "method": "POST",
-                "header": [
-                  {
-                    "key": "Authorization",
-                    "value": "",
-                    "disabled": true
-                  }
-                ],
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\r\n    \"id\": \"38befbfb-20a3-4bcd-91e1-a2c7240adfa0\",\r\n    \"target\": \"EMAIL\",\r\n    \"recipients\": [\"someone@gmail.com\"],\r\n    \"subject\": \"notification\",\r\n    \"content\": \"hello world\",\r\n    \"schedule\": \"2024-06-01T15:42:50\"\r\n}\r\n",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                },
-                "url": {
-                  "raw": "http://localhost:8080/scheduler/tasks/resume",
-                  "protocol": "http",
-                  "host": [
-                    "localhost"
-                  ],
-                  "port": "8080",
-                  "path": [
-                    "scheduler",
-                    "tasks",
-                    "resume"
-                  ]
-                }
-              },
-              "response": []
-            },
-            {
-              "name": "pause",
-              "event": [
-                {
-                  "listen": "prerequest",
-                  "script": {
-                    "exec": [
-                      ""
-                    ],
-                    "type": "text/javascript",
-                    "packages": {}
-                  }
-                }
-              ],
-              "protocolProfileBehavior": {
-                "strictSSL": false
-              },
-              "request": {
-                "method": "POST",
-                "header": [
-                  {
-                    "key": "Authorization",
-                    "value": "",
-                    "disabled": true
-                  }
-                ],
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\r\n    \"id\": \"38befbfb-20a3-4bcd-91e1-a2c7240adfa0\",\r\n    \"target\": \"EMAIL\",\r\n    \"recipients\": [\"someone@gmail.com\"],\r\n    \"subject\": \"notification\",\r\n    \"content\": \"hello world\",\r\n    \"schedule\": \"2024-06-01T15:42:50\"\r\n}\r\n",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                },
-                "url": {
-                  "raw": "http://localhost:8080/scheduler/tasks/task-1iq4b3srtjpc0-158453489785400/38befbfb-20a3-4bcd-91e1-a2c7240adfa0/pause",
-                  "protocol": "http",
-                  "host": [
-                    "localhost"
-                  ],
-                  "port": "8080",
-                  "path": [
-                    "scheduler",
-                    "tasks",
-                    "task-1iq4b3srtjpc0-158453489785400",
-                    "38befbfb-20a3-4bcd-91e1-a2c7240adfa0",
-                    "pause"
-                  ]
-                }
-              },
-              "response": []
-            },
-            {
-              "name": "pause all",
-              "event": [
-                {
-                  "listen": "prerequest",
-                  "script": {
-                    "exec": [
-                      ""
-                    ],
-                    "type": "text/javascript",
-                    "packages": {}
-                  }
-                }
-              ],
-              "protocolProfileBehavior": {
-                "strictSSL": false
-              },
-              "request": {
-                "method": "POST",
-                "header": [
-                  {
-                    "key": "Authorization",
-                    "value": "",
-                    "disabled": true
-                  }
-                ],
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\r\n    \"id\": \"38befbfb-20a3-4bcd-91e1-a2c7240adfa0\",\r\n    \"target\": \"EMAIL\",\r\n    \"recipients\": [\"someone@gmail.com\"],\r\n    \"subject\": \"notification\",\r\n    \"content\": \"hello world\",\r\n    \"schedule\": \"2024-06-01T15:42:50\"\r\n}\r\n",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                },
-                "url": {
-                  "raw": "http://localhost:8080/scheduler/tasks/pause",
-                  "protocol": "http",
-                  "host": [
-                    "localhost"
-                  ],
-                  "port": "8080",
-                  "path": [
-                    "scheduler",
-                    "tasks",
-                    "pause"
-                  ]
-                }
-              },
-              "response": []
-            }
-          ]
-        },
-        {
-          "name": "clean",
-          "item": [
-            {
-              "name": "delete",
-              "event": [
-                {
-                  "listen": "prerequest",
-                  "script": {
-                    "exec": [
-                      ""
-                    ],
-                    "type": "text/javascript",
-                    "packages": {}
-                  }
-                }
-              ],
-              "protocolProfileBehavior": {
-                "strictSSL": false
-              },
-              "request": {
-                "method": "DELETE",
-                "header": [
-                  {
-                    "key": "Authorization",
-                    "value": "",
-                    "disabled": true
-                  }
-                ],
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\r\n    \"id\": \"38befbfb-20a3-4bcd-91e1-a2c7240adfa0\",\r\n    \"target\": \"EMAIL\",\r\n    \"recipients\": [\"someone@gmail.com\"],\r\n    \"subject\": \"notification\",\r\n    \"content\": \"hello world\",\r\n    \"schedule\": \"2024-06-01T15:42:50\"\r\n}\r\n",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                },
-                "url": {
-                  "raw": "http://localhost:8080/scheduler/tasks/task_1iq133y9d1r0g_80432526029200/38befbfb-20a3-4bcd-91e1-a2c7240adfa0",
-                  "protocol": "http",
-                  "host": [
-                    "localhost"
-                  ],
-                  "port": "8080",
-                  "path": [
-                    "scheduler",
-                    "tasks",
-                    "task_1iq133y9d1r0g_80432526029200",
-                    "38befbfb-20a3-4bcd-91e1-a2c7240adfa0"
-                  ]
-                }
-              },
-              "response": []
-            },
-            {
-              "name": "delete all",
-              "event": [
-                {
-                  "listen": "prerequest",
-                  "script": {
-                    "exec": [
-                      ""
-                    ],
-                    "type": "text/javascript",
-                    "packages": {}
-                  }
-                }
-              ],
-              "protocolProfileBehavior": {
-                "strictSSL": false
-              },
-              "request": {
-                "method": "DELETE",
-                "header": [
-                  {
-                    "key": "Authorization",
-                    "value": "",
-                    "disabled": true
-                  }
-                ],
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\r\n    \"id\": \"38befbfb-20a3-4bcd-91e1-a2c7240adfa0\",\r\n    \"target\": \"EMAIL\",\r\n    \"recipients\": [\"someone@gmail.com\"],\r\n    \"subject\": \"notification\",\r\n    \"content\": \"hello world\",\r\n    \"schedule\": \"2024-06-01T15:42:50\"\r\n}\r\n",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                },
-                "url": {
-                  "raw": "http://localhost:8080/scheduler/tasks",
-                  "protocol": "http",
-                  "host": [
-                    "localhost"
-                  ],
-                  "port": "8080",
-                  "path": [
-                    "scheduler",
-                    "tasks"
-                  ]
-                }
-              },
-              "response": []
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "name": "push",
-      "item": [
-        {
-          "name": "email",
-          "event": [
-            {
-              "listen": "prerequest",
-              "script": {
-                "exec": [
-                  ""
-                ],
-                "type": "text/javascript",
-                "packages": {}
-              }
-            }
-          ],
-          "protocolProfileBehavior": {
-            "strictSSL": false
-          },
-          "request": {
-            "method": "POST",
-            "header": [
-              {
-                "key": "Authorization",
-                "value": "",
-                "disabled": true
-              }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": "{\r\n    \"id\": \"38befbfb-20a3-4bcd-91e1-a2c7240adfa0\",\r\n    \"schedule\": \"2024-05-01T15:42:50\",\r\n    \"recipients\": [\"someone@gmail.com\"],\r\n    \"message\": \"Hello World!\",\r\n    \"subject\": \"Something\"\r\n}\r\n",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            },
-            "url": {
-              "raw": "http://localhost:8080/push/email",
-              "protocol": "http",
-              "host": [
-                "localhost"
-              ],
-              "port": "8080",
-              "path": [
-                "push",
-                "email"
-              ]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "slack",
-          "event": [
-            {
-              "listen": "prerequest",
-              "script": {
-                "exec": [
-                  ""
-                ],
-                "type": "text/javascript",
-                "packages": {}
-              }
-            }
-          ],
-          "protocolProfileBehavior": {
-            "strictSSL": false
-          },
-          "request": {
-            "method": "POST",
-            "header": [
-              {
-                "key": "Authorization",
-                "value": "",
-                "disabled": true
-              }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": "{\r\n    \"id\": \"38befbfb-20a3-4bcd-91e1-a2c7240adfa0\",\r\n    \"schedule\": \"2024-05-01T15:42:50\",\r\n    \"recipients\": [\"slack_user_123\"],\r\n    \"message\": \"Hello World!\",\r\n    \"channel\": \"A_SLACK_CHANNEL_ID\"\r\n}\r\n",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            },
-            "url": {
-              "raw": "http://localhost:8080/push/slack",
-              "protocol": "http",
-              "host": [
-                "localhost"
-              ],
-              "port": "8080",
-              "path": [
-                "push",
-                "slack"
-              ]
-            }
-          },
-          "response": []
-        }
-      ]
-    }
-  ],
-  "event": [
-    {
-      "listen": "prerequest",
-      "script": {
-        "type": "text/javascript",
-        "packages": {},
-        "exec": [
-          ""
-        ]
-      }
-    },
-    {
-      "listen": "test",
-      "script": {
-        "type": "text/javascript",
-        "packages": {},
-        "exec": [
-          ""
-        ]
-      }
-    }
-  ]
+	"info": {
+		"_postman_id": "c0b80b1b-efe6-4ec7-ae27-87dbfad61ee8",
+		"name": "ktask",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "24235465"
+	},
+	"item": [
+		{
+			"name": "admin",
+			"item": [
+				{
+					"name": "list",
+					"item": [
+						{
+							"name": "tasks",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"strictSSL": false,
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "",
+										"disabled": true
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/scheduler/tasks",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"scheduler",
+										"tasks"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "groups",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"strictSSL": false,
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "",
+										"disabled": true
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/scheduler/tasks/groups",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"scheduler",
+										"tasks",
+										"groups"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "state",
+					"item": [
+						{
+							"name": "resume",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"strictSSL": false
+							},
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "",
+										"disabled": true
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"id\": \"38befbfb-20a3-4bcd-91e1-a2c7240adfa0\",\r\n    \"target\": \"EMAIL\",\r\n    \"recipients\": [\"someone@gmail.com\"],\r\n    \"subject\": \"notification\",\r\n    \"content\": \"hello world\",\r\n    \"schedule\": \"2024-06-01T15:42:50\"\r\n}\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/scheduler/tasks/task-1iq4b3srtjpc0-158453489785400/38befbfb-20a3-4bcd-91e1-a2c7240adfa0/resume",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"scheduler",
+										"tasks",
+										"task-1iq4b3srtjpc0-158453489785400",
+										"38befbfb-20a3-4bcd-91e1-a2c7240adfa0",
+										"resume"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "resume all",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"strictSSL": false
+							},
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "",
+										"disabled": true
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"id\": \"38befbfb-20a3-4bcd-91e1-a2c7240adfa0\",\r\n    \"target\": \"EMAIL\",\r\n    \"recipients\": [\"someone@gmail.com\"],\r\n    \"subject\": \"notification\",\r\n    \"content\": \"hello world\",\r\n    \"schedule\": \"2024-06-01T15:42:50\"\r\n}\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/scheduler/tasks/resume",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"scheduler",
+										"tasks",
+										"resume"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "pause",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"strictSSL": false
+							},
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "",
+										"disabled": true
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"id\": \"38befbfb-20a3-4bcd-91e1-a2c7240adfa0\",\r\n    \"target\": \"EMAIL\",\r\n    \"recipients\": [\"someone@gmail.com\"],\r\n    \"subject\": \"notification\",\r\n    \"content\": \"hello world\",\r\n    \"schedule\": \"2024-06-01T15:42:50\"\r\n}\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/scheduler/tasks/task-1iq4b3srtjpc0-158453489785400/38befbfb-20a3-4bcd-91e1-a2c7240adfa0/pause",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"scheduler",
+										"tasks",
+										"task-1iq4b3srtjpc0-158453489785400",
+										"38befbfb-20a3-4bcd-91e1-a2c7240adfa0",
+										"pause"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "pause all",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"strictSSL": false
+							},
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "",
+										"disabled": true
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"id\": \"38befbfb-20a3-4bcd-91e1-a2c7240adfa0\",\r\n    \"target\": \"EMAIL\",\r\n    \"recipients\": [\"someone@gmail.com\"],\r\n    \"subject\": \"notification\",\r\n    \"content\": \"hello world\",\r\n    \"schedule\": \"2024-06-01T15:42:50\"\r\n}\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/scheduler/tasks/pause",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"scheduler",
+										"tasks",
+										"pause"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "clean",
+					"item": [
+						{
+							"name": "delete",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"strictSSL": false
+							},
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "",
+										"disabled": true
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"id\": \"38befbfb-20a3-4bcd-91e1-a2c7240adfa0\",\r\n    \"target\": \"EMAIL\",\r\n    \"recipients\": [\"someone@gmail.com\"],\r\n    \"subject\": \"notification\",\r\n    \"content\": \"hello world\",\r\n    \"schedule\": \"2024-06-01T15:42:50\"\r\n}\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/scheduler/tasks/task_1iq133y9d1r0g_80432526029200/38befbfb-20a3-4bcd-91e1-a2c7240adfa0",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"scheduler",
+										"tasks",
+										"task_1iq133y9d1r0g_80432526029200",
+										"38befbfb-20a3-4bcd-91e1-a2c7240adfa0"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "delete all",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"strictSSL": false
+							},
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "",
+										"disabled": true
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"id\": \"38befbfb-20a3-4bcd-91e1-a2c7240adfa0\",\r\n    \"target\": \"EMAIL\",\r\n    \"recipients\": [\"someone@gmail.com\"],\r\n    \"subject\": \"notification\",\r\n    \"content\": \"hello world\",\r\n    \"schedule\": \"2024-06-01T15:42:50\"\r\n}\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/scheduler/tasks",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"scheduler",
+										"tasks"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "push",
+			"item": [
+				{
+					"name": "email",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"strictSSL": false
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": \"38befbfb-20a3-4bcd-91e1-a2c7240adfa0\",\r\n    \"schedule\": \"2024-05-01T15:42:50\",\r\n    \"recipients\": [\"someone@gmail.com\"],\r\n    \"message\": \"Hello World!\",\r\n    \"subject\": \"Something\",\r\n    \"asHtml\": true,\r\n    \"cc\": []\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/push/email",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"push",
+								"email"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "slack",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"strictSSL": false
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": \"38befbfb-20a3-4bcd-91e1-a2c7240adfa0\",\r\n    \"schedule\": \"2024-05-01T15:42:50\",\r\n    \"recipients\": [\"slack_user_123\"],\r\n    \"message\": \"Hello World!\",\r\n    \"channel\": \"A_SLACK_CHANNEL_ID\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/push/slack",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"push",
+								"slack"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	]
 }

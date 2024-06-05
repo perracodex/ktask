@@ -7,9 +7,6 @@ package ktask.server.domain.service
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import ktask.base.env.Tracer
-import ktask.base.errors.SystemError
-import ktask.base.persistence.validators.IValidator
-import ktask.base.persistence.validators.impl.EmailValidator
 import ktask.base.scheduler.service.SchedulerRequest
 import ktask.base.scheduler.service.TaskStartAt
 import ktask.base.utils.DateTimeUtils
@@ -43,56 +40,35 @@ internal object NotificationService {
     suspend fun schedule(request: ITaskRequest): Unit = withContext(Dispatchers.IO) {
         tracer.debug("Scheduling new notification for ID: ${request.id}")
 
-        // Identify the appropriate consumer class based on the notification type.
+        // Identify the target consumer class.
         val taskClass: Class<out AbsTaskConsumer> = when (request) {
-            is EmailTaskRequest -> EmailTaskConsumer::class.java
+            is EmailTaskRequest -> {
+                EmailTaskRequest.verifyRecipients(request = request)
+                EmailTaskConsumer::class.java
+            }
             is SlackTaskRequest -> SlackTaskConsumer::class.java
             else -> throw IllegalArgumentException("Unsupported notification request: $request")
         }
 
-        verifyRecipients(request = request)
-
         // Determine the start date/time for the task.
         // Note: If the scheduled time is in the past, the Task Scheduler Service
-        // will automatically start the task as soon as it becomes possible,
-        // It is configured to handle past schedules gracefully.
+        // will automatically start the task as soon as it becomes possible.
         val taskStartAt: TaskStartAt = request.schedule?.let {
             val scheduledDateTime: KLocalDateTime = request.schedule ?: DateTimeUtils.currentUTCDateTime()
             TaskStartAt.AtDateTime(datetime = scheduledDateTime)
         } ?: TaskStartAt.Immediate
 
-        // Iterate over each recipient and schedule a task for each of them.
+        // Iterate over each recipient and schedule a task for each one.
         request.recipients.forEach { recipient ->
             // Configure the task parameters specific to the current recipient.
             val taskParameters: MutableMap<String, Any> = request.toTaskParameters(recipient = recipient)
 
-            // Send the scheduling request for the task.
+            // Schedule the task.
             SchedulerRequest.send(taskId = request.id, taskClass = taskClass) {
                 startAt = taskStartAt
                 parameters = taskParameters
             }.also { taskKey ->
-                tracer.debug("Scheduled notification of type ${taskClass.name}. Task key: $taskKey")
-            }
-        }
-    }
-
-    /**
-     * Verifies the recipients of the notification request.
-     *
-     * @param request The [ITaskRequest] instance to be verified.
-     */
-    private fun verifyRecipients(request: ITaskRequest) {
-        if (request is EmailTaskRequest) {
-            // Validate the email addresses of the recipients before proceeding.
-            // This verification must be done at this point and not in the actual
-            // request dataclass init block, so the error is handled by the route
-            // scope allowing the to return a custom error response.
-            // If done in the init block, the error would be a generic 400 Bad Request.
-            request.recipients.forEach {
-                val result: IValidator.Result = EmailValidator.validate(value = it)
-                if (result is IValidator.Result.Failure) {
-                    SystemError.InvalidEmailFormat(id = request.id, email = it).raise()
-                }
+                tracer.debug("Scheduled ${taskClass.name}. Task key: $taskKey")
             }
         }
     }

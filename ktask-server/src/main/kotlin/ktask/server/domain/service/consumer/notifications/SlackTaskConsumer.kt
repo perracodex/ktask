@@ -49,6 +49,6 @@ internal class SlackTaskConsumer : AbsTaskConsumer() {
         const val CHANNEL_KEY: String = "CHANNEL"
 
         /** The key for the Slack message in the task parameters. */
-        const val MESSAGE_KEY: String = "MESSAGE_KEY"
+        const val MESSAGE_KEY: String = "MESSAGE"
     }
 }

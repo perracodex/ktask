@@ -4,11 +4,15 @@
 
 package ktask.server.domain.service.consumer.notifications
 
+import kotlinx.html.*
+import kotlinx.html.stream.appendHTML
 import ktask.base.env.Tracer
 import ktask.base.settings.AppSettings
 import ktask.base.settings.config.sections.EmailSettings
 import ktask.server.domain.service.consumer.AbsTaskConsumer
 import org.apache.commons.mail.DefaultAuthenticator
+import org.apache.commons.mail.Email
+import org.apache.commons.mail.HtmlEmail
 import org.apache.commons.mail.SimpleEmail
 
 /**
@@ -21,31 +25,95 @@ internal class EmailTaskConsumer : AbsTaskConsumer() {
         tracer.debug("Processing email task notification. ID: ${payload.taskId}")
 
         runCatching {
-            val emailSettings: EmailSettings = AppSettings.email
+            // Build the email message.
+
             val subject: String = payload.additionalParams[SUBJECT_KEY] as String
             val message: String = payload.additionalParams[MESSAGE_KEY] as String
+            val asHtml: Boolean = payload.additionalParams[AS_HTML_KEY] as Boolean
 
-            val email = SimpleEmail()
+            val email: Email = if (asHtml) {
+                HtmlEmail().apply {
+                    val htmlMessage: String = buildHtmlEmailContent(
+                        subject = subject,
+                        message = message,
+                        recipient = payload.recipient
+                    )
+                    setHtmlMsg(htmlMessage)
+
+                    // Set also the plain text message as fallback when the email client does not support HTML.
+                    setTextMsg(message)
+                }
+            } else {
+                SimpleEmail().apply {
+                    setMsg(message)
+                }
+            }
+
+            // Add recipients to be copied on the email notification.
+
+            val cc: List<String> = (payload.additionalParams[RECIPIENT_COPY_KEY] as? List<*>)
+                ?.filterIsInstance<String>() ?: emptyList()
+            if (cc.isNotEmpty()) {
+                email.addCc(*cc.toTypedArray())
+            }
+
+            // Configure email settings.
+
+            val emailSettings: EmailSettings = AppSettings.email
             email.hostName = emailSettings.hostName
             email.setSmtpPort(emailSettings.setSmtpPort)
             email.authenticator = DefaultAuthenticator(emailSettings.username, emailSettings.password)
             email.isSSLOnConnect = emailSettings.isSSLOnConnect
             email.setFrom(emailSettings.username)
-            email.subject = subject
-            email.setMsg(message)
             email.addTo(payload.recipient)
+            email.subject = subject
 
+            // Send the email notification.
             email.send()
         }.onFailure { error ->
             tracer.error("Failed to send email notification: $error")
         }
     }
 
+    /**
+     * Builds the HTML content for the email message using HTML DSL.
+     * Other libraries like Thymeleaf or FreeMarker can be used for more complex email templates.
+     *
+     * @param subject The subject or title of the email notification.
+     * @param message The message or information contained in the email notification.
+     * @param recipient The intended recipient of the email notification.
+     * @return The HTML content of the email message.
+     */
+    private fun buildHtmlEmailContent(subject: String, message: String, recipient: String): String {
+        return buildString {
+            appendHTML().html {
+                head {
+                    title { +subject }
+                }
+                body {
+                    h1 { +"Hello, $recipient!" }
+                    p { +message }
+                    p {
+                        +"Best regards,"
+                        br
+                        +"Your Company"
+                    }
+                }
+            }
+        }
+    }
+
     companion object {
         /** The key for the email subject in the task parameters. */
-        const val SUBJECT_KEY: String = "subject"
+        const val SUBJECT_KEY: String = "SUBJECT"
 
         /** The key for the email message in the task parameters. */
-        const val MESSAGE_KEY: String = "message"
+        const val MESSAGE_KEY: String = "MESSAGE"
+
+        /** The key to indicate whether the email message is in HTML format, or plain text. */
+        const val AS_HTML_KEY: String = "AS_HTML"
+
+        /** The key for the email recipients to be copied on the email notification. */
+        const val RECIPIENT_COPY_KEY: String = "CC"
     }
 }
