@@ -7,21 +7,22 @@ A [Quartz](https://github.com/quartz-scheduler) scheduler based notification sys
 ### Preface
 
 [KTask](https://github.com/perracodex/KTask) serves as a comprehensive example of a scheduler-based notification system.
-It showcases dispatching of Emails and Slack notifications at scheduled times.
+It showcases dispatching of tasks at scheduled times, for example sending emails, Slack messages, or any other custom action.
 
-The system allows for scheduling notifications to be sent either immediately or at a specified future time to multiple recipients.
+The system allows for scheduling tasks to be sent either immediately or at a specified future time to multiple recipients.
+If a task is sent with a past date, it will be dispatched either immediately or at the next available time.
 
-For functionality, the necessary credentials must be configured either for Email and/or Slack services.
-These credentials should be specified in the project's `application.conf` and `env` files.
+For functionality, and concretely for the supplied notification samples, the necessary credentials must be configured
+either for Email and/or Slack services. These credentials should be specified in the project's `application.conf` and `env` files.
 
 ---
 
 ### Features
 
-* Scheduling: Configure notifications for immediate delivery or schedule them for future deployment.
-* Multi-Channel Support: Dispatch notifications either via email or Slack.
-* Administration: View, pause, resume, and delete scheduled notifications through dedicated endpoints.
-* Dashboard: A dashboard sample to view and manage scheduled tasks.
+* Scheduling: Configure notifications for immediate delivery or scheduled for future deployment.
+* Extendable: Dispatch notifications either via email or Slack. Easily extendable to other types of notifications or custom actions.
+* Administration: View, pause, resume, and delete scheduled tasks through dedicated REST endpoints.
+* Dashboard: A dashboard sample is available to view and manage scheduled tasks.
 
 ---
 
@@ -41,8 +42,8 @@ For convenience, it is included a *[Postman Collection](./.postman/ktask.postman
     "id": "UUID",
     "schedule": "optional date-time",
     "recipients": ["email-addresses"],
-    "message": "string",
-    "subject": "string"
+    "subject": "string",
+    "message": "string"
   }
   ```
 
@@ -56,8 +57,8 @@ For convenience, it is included a *[Postman Collection](./.postman/ktask.postman
     "id": "UUID",
     "schedule": "optional date-time",
     "recipients": ["string"],
-    "message": "string",
-    "channel": "string"
+    "channel": "string",
+    "message": "string"
   }
   ```
 
@@ -122,10 +123,8 @@ For convenience, it is included a *[Postman Collection](./.postman/ktask.postman
 - **Output**: Total number of tasks deleted.
 
 ---
-
 ### Dashboard
 
 A dashboard to view and manage scheduled tasks is available at the endpoint: `/scheduler/tasks/dashboard`
 
 <img src=".screenshots/dashboard.jpg" alt="dashboard">
-

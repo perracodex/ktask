@@ -11,8 +11,8 @@ import ktask.base.env.health.routing.healthCheckRoute
 import ktask.base.plugins.RateLimitScope
 import ktask.base.scheduler.routing.schedulerRoutes
 import ktask.base.utils.snowflake.snowflakeRoute
-import ktask.server.domain.routing.emailNotificationRoute
-import ktask.server.domain.routing.slackNotificationRoute
+import ktask.server.domain.routing.emailTaskRoute
+import ktask.server.domain.routing.slackTaskRoute
 
 /**
  * Initializes and sets up routing for the application.
@@ -33,8 +33,8 @@ fun Application.configureRoutes() {
     routing {
         rateLimit(configuration = RateLimitName(name = RateLimitScope.PRIVATE_API.key)) {
             route("push") {
-                emailNotificationRoute()
-                slackNotificationRoute()
+                emailTaskRoute()
+                slackTaskRoute()
             }
 
             schedulerRoutes()

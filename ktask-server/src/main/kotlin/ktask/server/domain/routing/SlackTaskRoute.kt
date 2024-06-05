@@ -8,17 +8,17 @@ import io.ktor.http.*
 import io.ktor.server.application.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
-import ktask.server.domain.entity.SlackNotificationRequest
+import ktask.server.domain.entity.notification.SlackTaskRequest
 import ktask.server.domain.service.NotificationService
 
 /**
  * Creates a new scheduled Slack notification.
  */
-fun Route.slackNotificationRoute() {
+fun Route.slackTaskRoute() {
 
     route("slack") {
-        // Create a new scheduled Slack notification.
-        post<SlackNotificationRequest> { request ->
+        // Create a new scheduled Slack notification task.
+        post<SlackTaskRequest> { request ->
             NotificationService.schedule(request = request)
 
             call.respond(

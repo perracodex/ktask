@@ -14,12 +14,12 @@ import ktask.base.scheduler.service.SchedulerRequest
 import ktask.base.scheduler.service.TaskStartAt
 import ktask.base.utils.DateTimeUtils
 import ktask.base.utils.KLocalDateTime
-import ktask.server.domain.entity.EmailNotificationRequest
-import ktask.server.domain.entity.INotificationRequest
-import ktask.server.domain.entity.SlackNotificationRequest
-import ktask.server.domain.service.processors.AbsTaskProcessor
-import ktask.server.domain.service.processors.EmailTaskProcessor
-import ktask.server.domain.service.processors.SlackTaskProcessor
+import ktask.server.domain.entity.ITaskRequest
+import ktask.server.domain.entity.notification.EmailTaskRequest
+import ktask.server.domain.entity.notification.SlackTaskRequest
+import ktask.server.domain.service.consumer.AbsTaskConsumer
+import ktask.server.domain.service.consumer.notifications.EmailTaskConsumer
+import ktask.server.domain.service.consumer.notifications.SlackTaskConsumer
 
 /**
  * Notification service for managing scheduling related operations.
@@ -36,30 +36,21 @@ internal object NotificationService {
      * For notifications with multiple recipients, this function schedules a separate task
      * for each recipient, ensuring that all recipients receive their notifications.
      *
-     * @param request The [INotificationRequest] instance representing the notification to be scheduled.
+     * @param request The [ITaskRequest] instance representing the notification to be scheduled.
      * @return The ID of the scheduled notification if successful.
      * @throws IllegalArgumentException if the notification request type is unsupported.
      */
-    suspend fun schedule(request: INotificationRequest): Unit = withContext(Dispatchers.IO) {
+    suspend fun schedule(request: ITaskRequest): Unit = withContext(Dispatchers.IO) {
         tracer.debug("Scheduling new notification for ID: ${request.id}")
 
-        // Validate the email addresses of the recipients before proceeding.
-        // This verification must be done at this point and not in the actual
-        // request init block, so the error is handled by the route scope
-        // allowing the to return a custom error response.
-        request.recipients.forEach {
-            val result: IValidator.Result = EmailValidator.validate(value = it)
-            if (result is IValidator.Result.Failure) {
-                SystemError.InvalidEmailFormat(id = request.id, email = it).raise()
-            }
-        }
-
-        // Identify the appropriate processor class based on the notification type.
-        val taskClass: Class<out AbsTaskProcessor> = when (request) {
-            is EmailNotificationRequest -> EmailTaskProcessor::class.java
-            is SlackNotificationRequest -> SlackTaskProcessor::class.java
+        // Identify the appropriate consumer class based on the notification type.
+        val taskClass: Class<out AbsTaskConsumer> = when (request) {
+            is EmailTaskRequest -> EmailTaskConsumer::class.java
+            is SlackTaskRequest -> SlackTaskConsumer::class.java
             else -> throw IllegalArgumentException("Unsupported notification request: $request")
         }
+
+        verifyRecipients(request = request)
 
         // Determine the start date/time for the task.
         // Note: If the scheduled time is in the past, the Task Scheduler Service
@@ -81,6 +72,27 @@ internal object NotificationService {
                 parameters = taskParameters
             }.also { taskKey ->
                 tracer.debug("Scheduled notification of type ${taskClass.name}. Task key: $taskKey")
+            }
+        }
+    }
+
+    /**
+     * Verifies the recipients of the notification request.
+     *
+     * @param request The [ITaskRequest] instance to be verified.
+     */
+    private fun verifyRecipients(request: ITaskRequest) {
+        if (request is EmailTaskRequest) {
+            // Validate the email addresses of the recipients before proceeding.
+            // This verification must be done at this point and not in the actual
+            // request dataclass init block, so the error is handled by the route
+            // scope allowing the to return a custom error response.
+            // If done in the init block, the error would be a generic 400 Bad Request.
+            request.recipients.forEach {
+                val result: IValidator.Result = EmailValidator.validate(value = it)
+                if (result is IValidator.Result.Failure) {
+                    SystemError.InvalidEmailFormat(id = request.id, email = it).raise()
+                }
             }
         }
     }
