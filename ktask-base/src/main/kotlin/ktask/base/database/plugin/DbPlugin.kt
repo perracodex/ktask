@@ -21,7 +21,7 @@ class DbPluginConfig {
  * Custom Ktor plugin to configure the database.
  */
 val DbPlugin: ApplicationPlugin<DbPluginConfig> = createApplicationPlugin(
-    name = "DatabasePlugin",
+    name = "DbPlugin",
     createConfiguration = ::DbPluginConfig
 ) {
     DatabaseService.init(
