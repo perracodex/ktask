@@ -43,7 +43,9 @@ For convenience, it is included a *[Postman Collection](./.postman/ktask.postman
     "schedule": "optional date-time",
     "recipients": ["email-addresses"],
     "subject": "string",
-    "message": "string"
+    "message": "string",
+    "asHtml": "boolean",
+    "cc": ["optional email-addresses"]
   }
   ```
 
