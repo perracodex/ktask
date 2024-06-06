@@ -30,6 +30,19 @@ For convenience, it is included a *[Postman Collection](./.postman/ktask.postman
 
 ---
 
+### Workflow
+
+<img src=".screenshots/workflow.jpg" alt="workflow">
+
+---
+
+### Dashboard
+
+A dashboard to view and manage scheduled tasks is available at the endpoint: `/scheduler/tasks/dashboard`
+
+<img src=".screenshots/dashboard.jpg" alt="dashboard">
+
+---
 ### Notification Endpoints
 
 #### Email
@@ -123,16 +136,3 @@ For convenience, it is included a *[Postman Collection](./.postman/ktask.postman
 
 - **Endpoint**: `DELETE /scheduler/tasks`
 - **Output**: Total number of tasks deleted.
-
----
-
-### Workflow
-
-<img src=".screenshots/workflow.jpg" alt="workflow">
-
----
-### Dashboard
-
-A dashboard to view and manage scheduled tasks is available at the endpoint: `/scheduler/tasks/dashboard`
-
-<img src=".screenshots/dashboard.jpg" alt="dashboard">
