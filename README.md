@@ -123,6 +123,12 @@ For convenience, it is included a *[Postman Collection](./.postman/ktask.postman
 - **Output**: Total number of tasks deleted.
 
 ---
+
+### Workflow
+
+<img src=".screenshots/workflow.jpg" alt="workflow">
+
+---
 ### Dashboard
 
 A dashboard to view and manage scheduled tasks is available at the endpoint: `/scheduler/tasks/dashboard`
