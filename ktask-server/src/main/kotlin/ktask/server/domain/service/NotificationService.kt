@@ -65,13 +65,17 @@ internal object NotificationService {
             val taskParameters: MutableMap<String, Any> = request.toTaskParameters(recipient = recipient)
 
             // Schedule the task.
-            SchedulerRequest.send(taskId = request.id, taskClass = taskClass) {
-                startAt = taskStartAt
-                interval = request.interval
+            val scheduleRequest = SchedulerRequest(
+                taskId = request.id,
+                taskClass = taskClass,
+                startAt = taskStartAt,
                 parameters = taskParameters
-            }.also { taskKey ->
-                tracer.debug("Scheduled ${taskClass.name}. Task key: $taskKey")
-            }
+            )
+
+            (request.interval?.let { scheduleRequest.send(interval = it) } ?: scheduleRequest.send())
+                .also { taskKey ->
+                    tracer.debug("Scheduled ${taskClass.name} for recipient: $recipient. Task key: $taskKey")
+                }
         }
     }
 }

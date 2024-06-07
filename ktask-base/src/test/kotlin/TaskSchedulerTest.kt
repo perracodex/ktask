@@ -8,7 +8,6 @@ import ktask.base.persistence.serializers.SUUID
 import ktask.base.scheduler.service.SchedulerRequest
 import ktask.base.scheduler.service.SchedulerService
 import ktask.base.scheduler.service.SchedulerTask
-import ktask.base.scheduler.service.TaskStartAt
 import ktask.base.utils.TestUtils
 import org.quartz.*
 import kotlin.test.AfterTest
@@ -40,10 +39,11 @@ class SchedulerServiceTest {
         val uniqueTestKey = "uniqueTestTask_${System.nanoTime()}"
 
         val taskId: SUUID = SUUID.randomUUID()
-        val jobKey: JobKey = SchedulerRequest.send(taskId = taskId, taskClass = SimpleTestTask::class.java) {
-            startAt = TaskStartAt.Immediate
+        val jobKey: JobKey = SchedulerRequest(
+            taskId = taskId,
+            taskClass = SimpleTestTask::class.java,
             parameters = mapOf("uniqueKey" to uniqueTestKey)
-        }
+        ).send()
 
         // Wait for enough time to allow the task to execute.
         delay(timeMillis = 3000L)
