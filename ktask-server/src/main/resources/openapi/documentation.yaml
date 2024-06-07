@@ -553,9 +553,18 @@ components:
         - "application"
         - "snowflake"
         - "endpoints"
-    UInt:
+    Interval:
       type: "object"
-      properties: { }
+      properties:
+        days:
+          type: "integer"
+          format: "int32"
+        hours:
+          type: "integer"
+          format: "int32"
+        minutes:
+          type: "integer"
+          format: "int32"
     EmailTaskRequest:
       type: "object"
       properties:
@@ -565,7 +574,7 @@ components:
         schedule:
           $ref: "#/components/schemas/LocalDateTime"
         interval:
-          $ref: "#/components/schemas/UInt"
+          $ref: "#/components/schemas/Interval"
         recipients:
           type: "array"
           items:
@@ -595,7 +604,7 @@ components:
         schedule:
           $ref: "#/components/schemas/LocalDateTime"
         interval:
-          $ref: "#/components/schemas/UInt"
+          $ref: "#/components/schemas/Interval"
         recipients:
           type: "array"
           items:

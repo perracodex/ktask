@@ -6,6 +6,7 @@ package ktask.server.domain.entity.notification
 
 import kotlinx.serialization.Serializable
 import ktask.base.persistence.serializers.SUUID
+import ktask.base.utils.DateTimeUtils
 import ktask.base.utils.KLocalDateTime
 import ktask.server.domain.entity.ITaskRequest
 import ktask.server.domain.service.consumer.notifications.SlackTaskConsumer
@@ -15,7 +16,7 @@ import ktask.server.domain.service.consumer.notifications.SlackTaskConsumer
  *
  * @property id The unique identifier of the task request.
  * @property schedule Optional date/time when the task must be sent. Null to send immediately.
- * @property interval Optional interval in seconds at which the task should repeat. In minutes.
+ * @property interval Optional [DateTimeUtils.Interval] to repeat the task at regular intervals. Null to send only once.
  * @property recipients List of target recipients.
  * @property channel The Slack channel to send the notification to.
  * @property message The message or information contained in the notification.
@@ -24,7 +25,7 @@ import ktask.server.domain.service.consumer.notifications.SlackTaskConsumer
 data class SlackTaskRequest(
     override val id: SUUID,
     override val schedule: KLocalDateTime? = null,
-    override val interval: UInt? = null,
+    override val interval: DateTimeUtils.Interval? = null,
     override val recipients: List<String>,
     val channel: String,
     val message: String

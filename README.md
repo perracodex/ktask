@@ -54,12 +54,14 @@ A dashboard to view and manage scheduled tasks is available at the endpoint: `/s
   {
     "id": "UUID",
     "schedule": "optional date-time",
-    "recipients": ["email-addresses"],
-    "subject": "string",
+    "interval": { "days": 0, "hours": 0, "minutes": 0 },
+    "recipients": ["string"],
     "message": "string",
-    "asHtml": "boolean",
+    "subject": "string",
+    "asHtml": boolean,
     "cc": ["optional email-addresses"]
-  }
+
+}
   ```
 
 #### Slack
@@ -71,6 +73,7 @@ A dashboard to view and manage scheduled tasks is available at the endpoint: `/s
   {
     "id": "UUID",
     "schedule": "optional date-time",
+    "interval": { "days": 0, "hours": 0, "minutes": 0 },
     "recipients": ["string"],
     "channel": "string",
     "message": "string"
@@ -93,8 +96,8 @@ A dashboard to view and manage scheduled tasks is available at the endpoint: `/s
         "className": "EmailTaskProcessor",
         "nextFireTime": "2025-05-01T15:42:50",
         "state": "NORMAL",
-        "isDurable": false,
-        "shouldRecover": false,
+        "interval": "5m",
+        "runs": 10,
         "dataMap": "[(RECIPIENT, someone@gmail.com), (MESSAGE, Hello World!), (TASK_ID, 38befbfb-20a3-4bcd-91e1-a2c7240adfa0), (SUBJECT, Something)]"
       }
     ]
@@ -115,8 +118,10 @@ A dashboard to view and manage scheduled tasks is available at the endpoint: `/s
 
 - **Endpoint**: `POST /scheduler/tasks/pause`
 - **Endpoint**: `POST /scheduler/tasks/{taskId}/{taskGroup}/pause`
+
 - **Endpoint**: `POST /scheduler/tasks/resume`
 - **Endpoint**: `POST /scheduler/tasks/{taskId}/{taskGroup}/resume`
+
 - **Description**: Pause or resume a scheduled task.
 - **Sample Output**:
   ```json

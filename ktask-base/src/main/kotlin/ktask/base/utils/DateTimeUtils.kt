@@ -9,6 +9,7 @@ package ktask.base.utils
 import kotlinx.datetime.*
 import kotlinx.datetime.Instant
 import kotlinx.datetime.TimeZone
+import kotlinx.serialization.Serializable
 import java.time.ZoneId
 import java.util.*
 import kotlin.time.Duration
@@ -31,6 +32,23 @@ typealias KInstant = Instant
  * Singleton providing time-related utility functions.
  */
 object DateTimeUtils {
+
+    /**
+     * Represents a time interval.
+     *
+     * @property days The number of days in the interval.
+     * @property hours The number of hours in the interval.
+     * @property minutes The number of minutes in the interval.
+     */
+    @Serializable
+    data class Interval(val days: UInt = 0u, val hours: UInt = 0u, val minutes: UInt = 0u) {
+        /**
+         * Converts the overall interval into a total number of minutes.
+         */
+        fun toTotalMinutes(): UInt {
+            return (days * 24u * 60u) + (hours * 60u) + minutes
+        }
+    }
 
     /**
      * Returns the current date-time in UTC.

@@ -5,6 +5,7 @@
 package ktask.base.scheduler.service
 
 import ktask.base.persistence.serializers.SUUID
+import ktask.base.utils.DateTimeUtils
 import ktask.base.utils.DateTimeUtils.toJavaDate
 import ktask.base.utils.DateTimeUtils.toJavaInstant
 import ktask.base.utils.snowflake.SnowflakeFactory
@@ -16,13 +17,13 @@ import java.util.*
  *
  * @property taskClass The class of the task to be scheduled.
  * @property startAt The time at which the task should start.
- * @property interval Optional interval at which the task should repeat. In Minutes.
+ * @property interval Optional interval at which the task should repeat.
  * @property parameters Optional parameters to be passed to the task class.
  */
 data class SchedulerRequest(
     var taskClass: Class<out SchedulerTask>,
     var startAt: TaskStartAt = TaskStartAt.Immediate,
-    var interval: UInt? = null,
+    var interval: DateTimeUtils.Interval? = null,
     var parameters: Map<String, Any> = emptyMap()
 ) {
     companion object {
@@ -71,12 +72,15 @@ data class SchedulerRequest(
 
             // Apply repeat interval at which the task should repeat.
             config.interval?.let { interval ->
-                scheduleBuilder.withIntervalInMinutes(interval.toInt())
-                scheduleBuilder.repeatForever()
-            }
+                val intervalInMinutes: UInt = interval.toTotalMinutes()
+                if (intervalInMinutes > 0u) {
+                    scheduleBuilder.withIntervalInMinutes(intervalInMinutes.toInt())
+                    scheduleBuilder.repeatForever()
+                }
 
-            // When misfired reschedule to the next possible time.
-            scheduleBuilder.withMisfireHandlingInstructionNextWithExistingCount()
+                // When misfired reschedule to the next possible time. Only if the interval is set.
+                scheduleBuilder.withMisfireHandlingInstructionNextWithExistingCount()
+            }
 
             // Build the trigger with the schedule
             val trigger: SimpleTrigger = triggerBuilder.withSchedule(scheduleBuilder).build() as SimpleTrigger
