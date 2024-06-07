@@ -4,7 +4,6 @@
 
 package ktask.server.domain.service.consumer
 
-import ktask.base.env.Tracer
 import ktask.base.persistence.serializers.SUUID
 import ktask.base.scheduler.service.SchedulerTask
 
@@ -13,7 +12,6 @@ import ktask.base.scheduler.service.SchedulerTask
  * execution by abstracting common task-related data extraction and pre-processing tasks.
  */
 internal abstract class AbsTaskConsumer : SchedulerTask() {
-    private val tracer = Tracer<AbsTaskConsumer>()
 
     /**
      * Represents the data necessary for task processing, encapsulating task-specific parameters.
@@ -41,12 +39,8 @@ internal abstract class AbsTaskConsumer : SchedulerTask() {
     }
 
     override fun start(properties: Map<String, Any>) {
-        runCatching {
-            val payload: TaskPayload = properties.let { TaskPayload.map(properties = it) }
-            consume(payload = payload)
-        }.onFailure { error ->
-            tracer.error("Failed to process task: $error")
-        }
+        val payload: TaskPayload = properties.let { TaskPayload.map(properties = it) }
+        consume(payload = payload)
     }
 
     /**

@@ -13,11 +13,13 @@ import ktask.server.domain.service.consumer.AbsTaskConsumer
  *
  * @property id The unique identifier of the task request.
  * @property schedule Optional date/time when the task must be sent. Null to send immediately.
+ * @property interval Optional interval in seconds at which the task should repeat. In minutes.
  * @property recipients List of target recipients.
  */
 interface ITaskRequest {
     val id: SUUID
     val schedule: KLocalDateTime?
+    val interval: UInt?
     val recipients: List<String>
 
     /**

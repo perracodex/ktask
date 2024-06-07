@@ -18,6 +18,7 @@ import ktask.server.domain.service.consumer.notifications.EmailTaskConsumer
  *
  * @property id The unique identifier of the task request.
  * @property schedule Optional date/time when the task must be sent. Null to send immediately.
+ * @property interval Optional interval in seconds at which the task should repeat. In minutes.
  * @property recipients List of target recipients.
  * @property cc List of recipients to be copied on the email notification.
  * @property subject The subject or title of the email notification.
@@ -28,6 +29,7 @@ import ktask.server.domain.service.consumer.notifications.EmailTaskConsumer
 data class EmailTaskRequest(
     override val id: SUUID,
     override val schedule: KLocalDateTime? = null,
+    override val interval: UInt? = null,
     override val recipients: List<String>,
     val cc: List<String> = emptyList(),
     val subject: String,

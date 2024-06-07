@@ -553,6 +553,9 @@ components:
         - "application"
         - "snowflake"
         - "endpoints"
+    UInt:
+      type: "object"
+      properties: { }
     EmailTaskRequest:
       type: "object"
       properties:
@@ -561,6 +564,8 @@ components:
           format: "uuid"
         schedule:
           $ref: "#/components/schemas/LocalDateTime"
+        interval:
+          $ref: "#/components/schemas/UInt"
         recipients:
           type: "array"
           items:
@@ -589,6 +594,8 @@ components:
           format: "uuid"
         schedule:
           $ref: "#/components/schemas/LocalDateTime"
+        interval:
+          $ref: "#/components/schemas/UInt"
         recipients:
           type: "array"
           items:
@@ -615,8 +622,11 @@ components:
           $ref: "#/components/schemas/LocalDateTime"
         state:
           type: "string"
-        shouldRecover:
-          type: "boolean"
+        interval:
+          type: "string"
+        runs:
+          type: "integer"
+          format: "int32"
         dataMap:
           type: "string"
       required:

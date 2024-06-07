@@ -22,25 +22,21 @@ internal class SlackTaskConsumer : AbsTaskConsumer() {
     override fun consume(payload: TaskPayload) {
         tracer.debug("Processing Slack task notification. ID: ${payload.taskId}")
 
-        runCatching {
-            val slackSettings: SlackSettings = AppSettings.slack
-            val channel: String = payload.additionalParams[CHANNEL_KEY] as String
-            val message: String = payload.additionalParams[MESSAGE_KEY] as String
+        val slackSettings: SlackSettings = AppSettings.slack
+        val channel: String = payload.additionalParams[CHANNEL_KEY] as String
+        val message: String = payload.additionalParams[MESSAGE_KEY] as String
 
-            val slack: Slack = Slack.getInstance()
-            val response: ChatPostMessageResponse = slack.methods(slackSettings.token).chatPostMessage { request ->
-                request.channel(channel)
-                request.username(payload.recipient)
-                request.text(message)
-            }
+        val slack: Slack = Slack.getInstance()
+        val response: ChatPostMessageResponse = slack.methods(slackSettings.token).chatPostMessage { request ->
+            request.channel(channel)
+            request.username(payload.recipient)
+            request.text(message)
+        }
 
-            if (response.isOk) {
-                tracer.debug("Successfully sent Slack notification. ID: ${payload.taskId}")
-            } else {
-                tracer.error("Failed to send Slack notification. ID: ${payload.taskId}. Response: $response")
-            }
-        }.onFailure { error ->
-            tracer.error("Failed to send Slack notification: $error")
+        if (response.isOk) {
+            tracer.debug("Successfully sent Slack notification. ID: ${payload.taskId}")
+        } else {
+            tracer.error("Failed to send Slack notification. ID: ${payload.taskId}. Response: $response")
         }
     }
 

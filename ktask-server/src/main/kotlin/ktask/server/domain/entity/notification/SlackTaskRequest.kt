@@ -15,6 +15,7 @@ import ktask.server.domain.service.consumer.notifications.SlackTaskConsumer
  *
  * @property id The unique identifier of the task request.
  * @property schedule Optional date/time when the task must be sent. Null to send immediately.
+ * @property interval Optional interval in seconds at which the task should repeat. In minutes.
  * @property recipients List of target recipients.
  * @property channel The Slack channel to send the notification to.
  * @property message The message or information contained in the notification.
@@ -23,6 +24,7 @@ import ktask.server.domain.service.consumer.notifications.SlackTaskConsumer
 data class SlackTaskRequest(
     override val id: SUUID,
     override val schedule: KLocalDateTime? = null,
+    override val interval: UInt? = null,
     override val recipients: List<String>,
     val channel: String,
     val message: String

@@ -46,6 +46,7 @@ internal object NotificationService {
                 EmailTaskRequest.verifyRecipients(request = request)
                 EmailTaskConsumer::class.java
             }
+
             is SlackTaskRequest -> SlackTaskConsumer::class.java
             else -> throw IllegalArgumentException("Unsupported notification request: $request")
         }
@@ -66,6 +67,7 @@ internal object NotificationService {
             // Schedule the task.
             SchedulerRequest.send(taskId = request.id, taskClass = taskClass) {
                 startAt = taskStartAt
+                interval = request.interval
                 parameters = taskParameters
             }.also { taskKey ->
                 tracer.debug("Scheduled ${taskClass.name}. Task key: $taskKey")

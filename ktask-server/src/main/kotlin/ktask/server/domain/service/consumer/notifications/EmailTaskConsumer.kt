@@ -24,55 +24,52 @@ internal class EmailTaskConsumer : AbsTaskConsumer() {
     override fun consume(payload: TaskPayload) {
         tracer.debug("Processing email task notification. ID: ${payload.taskId}")
 
-        runCatching {
-            // Build the email message.
+        // Build the email message.
 
-            val subject: String = payload.additionalParams[SUBJECT_KEY] as String
-            val message: String = payload.additionalParams[MESSAGE_KEY] as String
-            val asHtml: Boolean = payload.additionalParams[AS_HTML_KEY] as Boolean
+        val subject: String = payload.additionalParams[SUBJECT_KEY] as String
+        val message: String = payload.additionalParams[MESSAGE_KEY] as String
+        val asHtml: Boolean = payload.additionalParams[AS_HTML_KEY] as Boolean
 
-            val email: Email = if (asHtml) {
-                HtmlEmail().apply {
-                    val htmlMessage: String = buildHtmlEmailContent(
-                        subject = subject,
-                        message = message,
-                        recipient = payload.recipient
-                    )
-                    setHtmlMsg(htmlMessage)
+        val email: Email = if (asHtml) {
+            HtmlEmail().apply {
+                val htmlMessage: String = buildHtmlEmailContent(
+                    subject = subject,
+                    message = message,
+                    recipient = payload.recipient
+                )
+                setHtmlMsg(htmlMessage)
 
-                    // Set also the plain text message as fallback when the email client does not support HTML.
-                    setTextMsg(message)
-                }
-            } else {
-                SimpleEmail().apply {
-                    setMsg(message)
-                }
+                // Set also the plain text message as fallback when the email client does not support HTML.
+                setTextMsg(message)
             }
-
-            // Add recipients to be copied on the email notification.
-
-            val cc: List<String> = (payload.additionalParams[RECIPIENT_COPY_KEY] as? List<*>)
-                ?.filterIsInstance<String>() ?: emptyList()
-            if (cc.isNotEmpty()) {
-                email.addCc(*cc.toTypedArray())
+        } else {
+            SimpleEmail().apply {
+                setMsg(message)
             }
-
-            // Configure email settings.
-
-            val emailSettings: EmailSettings = AppSettings.email
-            email.hostName = emailSettings.hostName
-            email.setSmtpPort(emailSettings.setSmtpPort)
-            email.authenticator = DefaultAuthenticator(emailSettings.username, emailSettings.password)
-            email.isSSLOnConnect = emailSettings.isSSLOnConnect
-            email.setFrom(emailSettings.username)
-            email.addTo(payload.recipient)
-            email.subject = subject
-
-            // Send the email notification.
-            email.send()
-        }.onFailure { error ->
-            tracer.error("Failed to send email notification: $error")
         }
+
+        // Add recipients to be copied on the email notification.
+
+        val cc: List<String> = (payload.additionalParams[RECIPIENT_COPY_KEY] as? List<*>)
+            ?.filterIsInstance<String>() ?: emptyList()
+        if (cc.isNotEmpty()) {
+            email.addCc(*cc.toTypedArray())
+        }
+
+        // Configure email settings.
+
+        val emailSettings: EmailSettings = AppSettings.email
+        email.hostName = emailSettings.hostName
+        email.setSmtpPort(emailSettings.setSmtpPort)
+        email.authenticator = DefaultAuthenticator(emailSettings.username, emailSettings.password)
+        email.isSSLOnConnect = emailSettings.isSSLOnConnect
+        email.setFrom(emailSettings.username)
+        email.addTo(payload.recipient)
+        email.subject = subject
+
+        // Send the email notification.
+        val result: String = email.send()
+        tracer.debug("Email notification sent to ${payload.recipient}. Result: $result")
     }
 
     /**
