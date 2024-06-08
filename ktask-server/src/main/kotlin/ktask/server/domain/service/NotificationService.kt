@@ -54,9 +54,9 @@ internal object NotificationService {
         // Determine the start date/time for the task.
         // Note: If the scheduled time is in the past, the Task Scheduler Service
         // will automatically start the task as soon as it becomes possible.
-        val taskStartAt: TaskStartAt = request.schedule?.let {
-            val scheduledDateTime: KLocalDateTime = request.schedule ?: DateTimeUtils.currentUTCDateTime()
-            TaskStartAt.AtDateTime(datetime = scheduledDateTime)
+        val taskStartAt: TaskStartAt = request.schedule?.let { schedule ->
+            val startDateTime: KLocalDateTime = schedule.startAt ?: DateTimeUtils.currentUTCDateTime()
+            TaskStartAt.AtDateTime(datetime = startDateTime)
         } ?: TaskStartAt.Immediate
 
         // Iterate over each recipient and schedule a task for each one.
@@ -64,7 +64,7 @@ internal object NotificationService {
             // Configure the task parameters specific to the current recipient.
             val taskParameters: MutableMap<String, Any> = request.toTaskParameters(recipient = recipient)
 
-            // Schedule the task.
+            // Prepare the scheduling request.
             val scheduleRequest = SchedulerRequest(
                 taskId = request.id,
                 taskClass = taskClass,
@@ -72,10 +72,18 @@ internal object NotificationService {
                 parameters = taskParameters
             )
 
-            (request.interval?.let { scheduleRequest.send(interval = it) } ?: scheduleRequest.send())
-                .also { taskKey ->
-                    tracer.debug("Scheduled ${taskClass.name} for recipient: $recipient. Task key: $taskKey")
-                }
+            // Send the scheduling request.
+            val interval: DateTimeUtils.Interval? = request.schedule?.interval
+            val cron: String? = request.schedule?.cron
+            val taskKey = if (interval != null) {
+                scheduleRequest.send(interval = interval)
+            } else if (cron != null) {
+                scheduleRequest.send(cron = cron)
+            } else {
+                scheduleRequest.send()
+            }
+
+            tracer.debug("Scheduled ${taskClass.name} for recipient: $recipient. Task key: $taskKey")
         }
     }
 }

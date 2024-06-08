@@ -16,7 +16,7 @@ import ktask.base.scheduler.service.SchedulerService
 fun Route.deleteAllSchedulerTasksRoute() {
     // Deletes all scheduler tasks.
     delete {
-        val tasks: Int = SchedulerService.deleteAll()
-        call.respond(status = HttpStatusCode.OK, message = "Tasks deleted: $tasks")
+        val deletedCount: Int = SchedulerService.deleteAll()
+        call.respond(status = HttpStatusCode.OK, message = deletedCount)
     }
 }

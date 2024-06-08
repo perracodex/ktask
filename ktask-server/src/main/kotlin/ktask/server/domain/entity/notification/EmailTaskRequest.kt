@@ -9,8 +9,6 @@ import ktask.base.errors.SystemError
 import ktask.base.persistence.serializers.SUUID
 import ktask.base.persistence.validators.IValidator
 import ktask.base.persistence.validators.impl.EmailValidator
-import ktask.base.utils.DateTimeUtils
-import ktask.base.utils.KLocalDateTime
 import ktask.server.domain.entity.ITaskRequest
 import ktask.server.domain.service.consumer.notifications.EmailTaskConsumer
 
@@ -18,8 +16,7 @@ import ktask.server.domain.service.consumer.notifications.EmailTaskConsumer
  * Represents a request to send an Email notification task.
  *
  * @property id The unique identifier of the task request.
- * @property schedule Optional date/time when the task must be sent. Null to send immediately.
- * @property interval Optional [DateTimeUtils.Interval] to repeat the task at regular intervals. Null to send only once.
+ * @property schedule Optional [ITaskRequest.Schedule] for the task.
  * @property recipients List of target recipients.
  * @property cc List of recipients to be copied on the email notification.
  * @property subject The subject or title of the email notification.
@@ -29,8 +26,7 @@ import ktask.server.domain.service.consumer.notifications.EmailTaskConsumer
 @Serializable
 data class EmailTaskRequest(
     override val id: SUUID,
-    override val schedule: KLocalDateTime? = null,
-    override val interval: DateTimeUtils.Interval? = null,
+    override val schedule: ITaskRequest.Schedule? = null,
     override val recipients: List<String>,
     val cc: List<String> = emptyList(),
     val subject: String,

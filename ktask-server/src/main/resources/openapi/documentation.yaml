@@ -88,10 +88,8 @@ paths:
           content:
             '*/*':
               schema:
-                type: "string"
-              examples:
-                Example#1:
-                  value: ""
+                type: "integer"
+                format: "int32"
     get:
       description: "Gets all scheduler tasks."
       responses:
@@ -123,13 +121,8 @@ paths:
           content:
             '*/*':
               schema:
-                type: "boolean"
-        "404":
-          description: "Not Found"
-          content:
-            '*/*':
-              schema:
-                type: "boolean"
+                type: "integer"
+                format: "int32"
   /scheduler/tasks/{name}/{group}/pause:
     post:
       description: "Pause a concrete scheduler task."
@@ -150,13 +143,7 @@ paths:
           content:
             '*/*':
               schema:
-                type: "boolean"
-        "404":
-          description: "Not Found"
-          content:
-            '*/*':
-              schema:
-                type: "boolean"
+                $ref: "#/components/schemas/TaskStateChangeEntity"
   /scheduler/tasks/{name}/{group}/resume:
     post:
       description: "Resume a concrete scheduled task."
@@ -177,13 +164,7 @@ paths:
           content:
             '*/*':
               schema:
-                type: "boolean"
-        "404":
-          description: "Not Found"
-          content:
-            '*/*':
-              schema:
-                type: "boolean"
+                $ref: "#/components/schemas/TaskStateChangeEntity"
   /scheduler/tasks/dashboard:
     get:
       description: "The scheduler dashboard route."
@@ -565,6 +546,15 @@ components:
         minutes:
           type: "integer"
           format: "int32"
+    Schedule:
+      type: "object"
+      properties:
+        startAt:
+          $ref: "#/components/schemas/LocalDateTime"
+        interval:
+          $ref: "#/components/schemas/Interval"
+        cron:
+          type: "string"
     EmailTaskRequest:
       type: "object"
       properties:
@@ -572,9 +562,7 @@ components:
           type: "string"
           format: "uuid"
         schedule:
-          $ref: "#/components/schemas/LocalDateTime"
-        interval:
-          $ref: "#/components/schemas/Interval"
+          $ref: "#/components/schemas/Schedule"
         recipients:
           type: "array"
           items:
@@ -602,9 +590,7 @@ components:
           type: "string"
           format: "uuid"
         schedule:
-          $ref: "#/components/schemas/LocalDateTime"
-        interval:
-          $ref: "#/components/schemas/Interval"
+          $ref: "#/components/schemas/Schedule"
         recipients:
           type: "array"
           items:
@@ -644,6 +630,18 @@ components:
         - "className"
         - "state"
         - "dataMap"
+    TaskStateChangeEntity:
+      type: "object"
+      properties:
+        totalAffected:
+          type: "integer"
+          format: "int32"
+        alreadyInState:
+          type: "integer"
+          format: "int32"
+        totalTasks:
+          type: "integer"
+          format: "int32"
     HeaderValueParam:
       type: "object"
       properties:
@@ -697,15 +695,3 @@ components:
         - "contentType"
         - "locale"
         - "fragments"
-    TaskStateChangeEntity:
-      type: "object"
-      properties:
-        totalAffected:
-          type: "integer"
-          format: "int32"
-        alreadyInState:
-          type: "integer"
-          format: "int32"
-        totalTasks:
-          type: "integer"
-          format: "int32"
