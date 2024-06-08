@@ -49,14 +49,33 @@ A dashboard to view and manage scheduled tasks is available at the endpoint: `/s
 ### Email
 - **Description**: Send or schedule an email notification.
 - **Endpoint**: `POST /push/email`
-- **Request Body**
+
+Immediate dispatch
+
+  ```json
+  {
+  "id": "38befbfb-20a3-4bcd-91e1-a2c7240adfa0",
+  "recipients": [
+    "person_1@email.com",
+    "person_2@email.com"
+  ],
+  "message": "Hello World!",
+  "subject": "Something",
+  "asHtml": true,
+  "cc": []
+}
+  ```
+
+Interval dispatch
   ```json
   {
     "id": "38befbfb-20a3-4bcd-91e1-a2c7240adfa0",
     "schedule": {
-        "startAt": "2024-05-01T15:42:50", 
-        "interval": { "days": 0, "hours": 0, "minutes": 0 },
-        "cron": ""
+      "start": "2024-01-01T15:42:50",
+      "days": 0,
+      "hours": 0,
+      "minutes": 0,
+      "seconds": 0
     },
     "recipients": ["person_1@email.com", "person_2@email.com"],
     "message": "Hello World!",
@@ -66,22 +85,77 @@ A dashboard to view and manage scheduled tasks is available at the endpoint: `/s
   }
   ```
 
+Cron dispatch
+
+  ```json
+  {
+  "id": "38befbfb-20a3-4bcd-91e1-a2c7240adfa0",
+  "schedule": {
+    "start": "2024-01-01T15:42:50",
+    "cron": "0 0 12 ? * MON-FRI"
+  },
+  "recipients": [
+    "person_1@email.com",
+    "person_2@email.com"
+  ],
+  "message": "Hello World!",
+  "subject": "Something",
+  "asHtml": true,
+  "cc": []
+}
+  ```
+
 ### Slack
 - **Description**: Send or schedule a Slack notification.
 - **Endpoint**: `POST /push/slack`
-- **Request Body**
+
+Immediate dispatch
   ```json
   {
     "id": "38befbfb-20a3-4bcd-91e1-a2c7240adfa0",
-    "schedule": {
-        "startAt": "2024-05-01T15:42:50", 
-        "interval": { "days": 0, "hours": 0, "minutes": 0 },
-        "cron": ""
-    },
     "recipients": ["user_1", "user_2"],
     "channel": "general",
     "message": "Hello World!"
   }
+  ```
+
+Interval dispatch
+
+  ```json
+  {
+  "id": "38befbfb-20a3-4bcd-91e1-a2c7240adfa0",
+  "schedule": {
+    "start": "2024-01-01T15:42:50",
+    "days": 0,
+    "hours": 0,
+    "minutes": 0,
+    "seconds": 0
+  },
+  "recipients": [
+    "user_1",
+    "user_2"
+  ],
+  "channel": "general",
+  "message": "Hello World!"
+}
+  ```
+
+Cron dispatch
+
+  ```json
+  {
+  "id": "38befbfb-20a3-4bcd-91e1-a2c7240adfa0",
+  "schedule": {
+    "start": "2024-01-01T15:42:50",
+    "cron": "0 0 12 ? * MON-FRI"
+  },
+  "recipients": [
+    "user_1",
+    "user_2"
+  ],
+  "channel": "general",
+  "message": "Hello World!"
+}
   ```
 
 ---
