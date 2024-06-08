@@ -48,6 +48,11 @@ A dashboard to view and manage scheduled tasks is available at the endpoint: `/s
 
 For cron expressions refer to: [Quartz Cron Expression Documentation](http://www.quartz-scheduler.org/documentation/quartz-2.3.0/tutorials/crontrigger.html)
 
+For a friendly interface to generate cron expressions, refer to:
+
+* [Cron Maker](http://www.cronmaker.com/)
+* [Cron Expression Generator](https://www.freeformatter.com/cron-expression-generator-quartz.html)
+
 A cron expression is composed of the following fields:
 
 ```
