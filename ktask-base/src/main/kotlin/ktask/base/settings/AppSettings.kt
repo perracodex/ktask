@@ -35,20 +35,17 @@ object AppSettings {
     /** The database settings. */
     val database: DatabaseSettings get() = configuration.database
 
-    /** The email settings. */
-    val email: EmailSettings get() = configuration.email
-
     /** The deployment settings. */
     val deployment: DeploymentSettings get() = configuration.deployment
 
     /** The runtime settings. */
     val runtime: RuntimeSettings get() = configuration.runtime
 
+    /** The scheduler settings. */
+    val scheduler: SchedulerSettings get() = configuration.scheduler
+
     /** The application security settings. */
     val security: SecuritySettings get() = configuration.security
-
-    /** The Slack settings. */
-    val slack: SlackSettings get() = configuration.slack
 
     /**
      * Loads the application settings from the provided [ApplicationConfig].
@@ -74,11 +71,10 @@ object AppSettings {
                 ConfigClassMap(mappingName = "apiSchema", path = "apiSchema", kClass = ApiSchemaSettings::class),
                 ConfigClassMap(mappingName = "cors", path = "cors", kClass = CorsSettings::class),
                 ConfigClassMap(mappingName = "database", path = "database", kClass = DatabaseSettings::class),
-                ConfigClassMap(mappingName = "email", path = "email", kClass = EmailSettings::class),
                 ConfigClassMap(mappingName = "deployment", path = "ktor.deployment", kClass = DeploymentSettings::class),
                 ConfigClassMap(mappingName = "runtime", path = "runtime", kClass = RuntimeSettings::class),
-                ConfigClassMap(mappingName = "security", path = "security", kClass = SecuritySettings::class),
-                ConfigClassMap(mappingName = "slack", path = "slack", kClass = SlackSettings::class)
+                ConfigClassMap(mappingName = "scheduler", path = "scheduler", kClass = SchedulerSettings::class),
+                ConfigClassMap(mappingName = "security", path = "security", kClass = SecuritySettings::class)
             )
 
             runBlocking {

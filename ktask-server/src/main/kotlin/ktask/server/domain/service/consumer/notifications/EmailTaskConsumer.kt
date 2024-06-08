@@ -8,7 +8,7 @@ import kotlinx.html.*
 import kotlinx.html.stream.appendHTML
 import ktask.base.env.Tracer
 import ktask.base.settings.AppSettings
-import ktask.base.settings.config.sections.EmailSettings
+import ktask.base.settings.config.sections.SchedulerSettings
 import ktask.server.domain.service.consumer.AbsTaskConsumer
 import org.apache.commons.mail.DefaultAuthenticator
 import org.apache.commons.mail.Email
@@ -58,12 +58,12 @@ internal class EmailTaskConsumer : AbsTaskConsumer() {
 
         // Configure email settings.
 
-        val emailSettings: EmailSettings = AppSettings.email
-        email.hostName = emailSettings.hostName
-        email.setSmtpPort(emailSettings.setSmtpPort)
-        email.authenticator = DefaultAuthenticator(emailSettings.username, emailSettings.password)
-        email.isSSLOnConnect = emailSettings.isSSLOnConnect
-        email.setFrom(emailSettings.username)
+        val emailSpec: SchedulerSettings.EmailSpec = AppSettings.scheduler.emailSpec
+        email.hostName = emailSpec.hostName
+        email.setSmtpPort(emailSpec.smtpPort)
+        email.authenticator = DefaultAuthenticator(emailSpec.username, emailSpec.password)
+        email.isSSLOnConnect = emailSpec.isSSLOnConnect
+        email.setFrom(emailSpec.username)
         email.addTo(payload.recipient)
         email.subject = subject
 

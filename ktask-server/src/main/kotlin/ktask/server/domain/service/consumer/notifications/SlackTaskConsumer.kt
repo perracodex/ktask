@@ -8,7 +8,7 @@ import com.slack.api.Slack
 import com.slack.api.methods.response.chat.ChatPostMessageResponse
 import ktask.base.env.Tracer
 import ktask.base.settings.AppSettings
-import ktask.base.settings.config.sections.SlackSettings
+import ktask.base.settings.config.sections.SchedulerSettings
 import ktask.server.domain.service.consumer.AbsTaskConsumer
 
 /**
@@ -22,12 +22,12 @@ internal class SlackTaskConsumer : AbsTaskConsumer() {
     override fun consume(payload: TaskPayload) {
         tracer.debug("Processing Slack task notification. ID: ${payload.taskId}")
 
-        val slackSettings: SlackSettings = AppSettings.slack
+        val slackSpec: SchedulerSettings.SlackSpec = AppSettings.scheduler.slackSpec
         val channel: String = payload.additionalParams[CHANNEL_KEY] as String
         val message: String = payload.additionalParams[MESSAGE_KEY] as String
 
         val slack: Slack = Slack.getInstance()
-        val response: ChatPostMessageResponse = slack.methods(slackSettings.token).chatPostMessage { request ->
+        val response: ChatPostMessageResponse = slack.methods(slackSpec.token).chatPostMessage { request ->
             request.channel(channel)
             request.username(payload.recipient)
             request.text(message)

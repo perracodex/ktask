@@ -22,10 +22,9 @@ import ktask.base.settings.config.sections.security.SecuritySettings
  * @property cors The CORS settings for the application.
  * @property database The database settings for the application.
  * @property deployment The deployment settings for the application.
- * @property email The email settings for the application.
  * @property runtime The runtime settings for the application.
+ * @property scheduler The scheduler settings for the application.
  * @property security The security settings for the application.
- * @property slack The Slack settings for the application.
  */
 @Serializable
 data class ConfigurationCatalog(
@@ -33,8 +32,7 @@ data class ConfigurationCatalog(
     val cors: CorsSettings,
     val database: DatabaseSettings,
     val deployment: DeploymentSettings,
-    val email: EmailSettings,
     val runtime: RuntimeSettings,
-    val security: SecuritySettings,
-    val slack: SlackSettings
+    val scheduler: SchedulerSettings,
+    val security: SecuritySettings
 )
