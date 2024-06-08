@@ -5,11 +5,11 @@
 import io.ktor.test.dispatcher.*
 import kotlinx.coroutines.delay
 import ktask.base.persistence.serializers.SUUID
-import ktask.base.scheduler.service.SchedulerRequest
-import ktask.base.scheduler.service.SchedulerService
-import ktask.base.scheduler.service.SchedulerTask
-import ktask.base.scheduler.service.TaskStartAt
+import ktask.base.scheduler.service.core.SchedulerService
+import ktask.base.scheduler.service.request.SchedulerRequest
 import ktask.base.scheduler.service.schedule.Schedule
+import ktask.base.scheduler.service.schedule.TaskStartAt
+import ktask.base.scheduler.service.task.SchedulerTask
 import ktask.base.utils.TestUtils
 import org.quartz.*
 import kotlin.test.AfterTest

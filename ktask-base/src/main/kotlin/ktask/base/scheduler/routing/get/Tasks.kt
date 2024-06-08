@@ -9,7 +9,7 @@ import io.ktor.server.application.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
 import ktask.base.scheduler.entity.TaskScheduleEntity
-import ktask.base.scheduler.service.SchedulerService
+import ktask.base.scheduler.service.core.SchedulerService
 
 /**
  * Gets all scheduler tasks.

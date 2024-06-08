@@ -5,7 +5,7 @@
 package ktask.server.domain.service.consumer
 
 import ktask.base.persistence.serializers.SUUID
-import ktask.base.scheduler.service.SchedulerTask
+import ktask.base.scheduler.service.task.SchedulerTask
 
 /**
  * Abstract base class for processing scheduled tasks, implying the handling of task

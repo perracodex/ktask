@@ -2,8 +2,9 @@
  * Copyright (c) 2024-Present Perracodex. Use of this source code is governed by an MIT license.
  */
 
-package ktask.base.scheduler.service
+package ktask.base.scheduler.service.task
 
+import ktask.base.scheduler.service.core.SchedulerService
 import ktask.base.settings.AppSettings
 import org.quartz.Job
 import org.quartz.JobDataMap

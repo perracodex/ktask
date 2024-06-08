@@ -6,7 +6,7 @@ package ktask.base.plugins
 
 import io.ktor.server.application.*
 import ktask.base.scheduler.plugin.SchedulerPlugin
-import ktask.base.scheduler.service.SchedulerService
+import ktask.base.scheduler.service.core.SchedulerService
 
 /**
  * Configures the task scheduler for scheduling tasks.
