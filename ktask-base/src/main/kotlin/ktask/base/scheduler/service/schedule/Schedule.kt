@@ -77,27 +77,26 @@ sealed class Schedule {
      * │ │ ┌───────────── hour (0-23)
      * │ │ │ ┌───────────── day of month (1-31)
      * │ │ │ │ ┌───────────── month (1-12 or JAN-DEC)
-     * │ │ │ │ │ ┌───────────── day of week (0-7, SUN-SAT. Both 0 & 7 = Sunday)
+     * │ │ │ │ │ ┌───────────── weekday (0-7, SUN-SAT. Both 0 and 7 mean Sunday)
      * │ │ │ │ │ │ ┌───────────── year (optional)
      * │ │ │ │ │ │ │
      * │ │ │ │ │ │ │
      * * * * * * * *
      * ```
-     *
-     * ```
      * Sample cron expressions:
-     *   - "0 0 0 * * ?" - At midnight every day.
-     *   - "0 0 12 ? * MON-FRI" - At noon every weekday.
-     *   - "0 0/30 9-17 * * ?" - Every 30 minutes between 9 AM to 5 PM.
-     *   - "0 0 0 1 * ?" - At midnight on the first day of every month.
-     *   - "0 0 6 ? * SUN" - At 6 AM every Sunday.
-     *   - "0 0 14 * * ?" - At 2 PM every day.
-     *   - "0 15 10 ? * *" - At 10:15 AM every day.
-     *   - "0 0/15 * * * ?" - Every 15 minutes.
-     *   - "0 0 0 ? * MON#1" - At midnight on the first Monday of every month.
-     *   - "30 0 0 * * ?" - At 00:00:30 (30 seconds past midnight) every day.
-     *   - "0/1 * * * * ?" - Every second.
-     *   - "0 * * * * ?" - Every minute.
+     * ```
+     * "0 0 0 * * ?" - At midnight every day.
+     * "0 0 12 ? * MON-FRI" - At noon every weekday.
+     * "0 0/30 9-17 * * ?" - Every 30 minutes between 9 AM to 5 PM.
+     * "0 0 0 1 * ?" - At midnight on the first day of every month.
+     * "0 0 6 ? * SUN" - At 6 AM every Sunday.
+     * "0 0 14 * * ?" - At 2 PM every day.
+     * "0 15 10 ? * *" - At 10:15 AM every day.
+     * "0 0/15 * * * ?" - Every 15 minutes.
+     * "0 0 0 ? * MON#1" - At midnight on the first Monday of every month.
+     * "30 0 0 * * ?" - At 00:00:30 (30 seconds past midnight) every day.
+     * "0/1 * * * * ?" - Every second.
+     * "0 * * * * ?" - Every minute.
      * ```
      *
      * @property start Optional datetime when the task must start. Null to start immediately.
