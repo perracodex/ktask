@@ -6,6 +6,7 @@ package ktask.base.utils.snowflake
 
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toLocalDateTime
+import ktask.base.env.Tracer
 import ktask.base.utils.DateTimeUtils
 import ktask.base.utils.KInstant
 import ktask.base.utils.KLocalDateTime
@@ -21,6 +22,9 @@ import kotlin.time.Duration.Companion.nanoseconds
  * See: [Snowflake ID](https://en.wikipedia.org/wiki/Snowflake_ID)
  */
 object SnowflakeFactory {
+    private val tracer = Tracer<SnowflakeFactory>()
+
+    private const val NO_MACHINE_ID: Int = Int.MIN_VALUE
 
     /**
      * The machine ID used to generate the Snowflake ID.
@@ -132,6 +136,12 @@ object SnowflakeFactory {
                 } while (currentTimestampMs <= lastTimestampMs)
                 lastTimestampMs = currentTimestampMs
             }
+        }
+
+        // Verify the machine ID is set.
+        if (machineId == null) {
+            tracer.warning("Machine ID not set.")
+            machineId = NO_MACHINE_ID
         }
 
         // Construct the ID.

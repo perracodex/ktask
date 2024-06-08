@@ -55,7 +55,7 @@ internal object NotificationService {
         // Note: If the scheduled time is in the past, the Task Scheduler Service
         // will automatically start the task as soon as it becomes possible.
         val taskStartAt: TaskStartAt = request.schedule?.let { schedule ->
-            val startDateTime: KLocalDateTime = schedule.startAt ?: DateTimeUtils.currentUTCDateTime()
+            val startDateTime: KLocalDateTime = schedule.start ?: DateTimeUtils.currentUTCDateTime()
             TaskStartAt.AtDateTime(datetime = startDateTime)
         } ?: TaskStartAt.Immediate
 
@@ -72,16 +72,10 @@ internal object NotificationService {
                 parameters = taskParameters
             )
 
-            // Send the scheduling request.
-            val interval: DateTimeUtils.Interval? = request.schedule?.interval
-            val cron: String? = request.schedule?.cron
-            val taskKey = if (interval != null) {
-                scheduleRequest.send(interval = interval)
-            } else if (cron != null) {
-                scheduleRequest.send(cron = cron)
-            } else {
-                scheduleRequest.send()
-            }
+            // Schedule the task based on the specified schedule type.
+            val taskKey = request.schedule?.let {
+                scheduleRequest.send(schedule = it)
+            } ?: scheduleRequest.send()
 
             tracer.debug("Scheduled ${taskClass.name} for recipient: $recipient. Task key: $taskKey")
         }

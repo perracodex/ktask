@@ -534,27 +534,9 @@ components:
         - "application"
         - "snowflake"
         - "endpoints"
-    Interval:
-      type: "object"
-      properties:
-        days:
-          type: "integer"
-          format: "int32"
-        hours:
-          type: "integer"
-          format: "int32"
-        minutes:
-          type: "integer"
-          format: "int32"
     Schedule:
       type: "object"
-      properties:
-        startAt:
-          $ref: "#/components/schemas/LocalDateTime"
-        interval:
-          $ref: "#/components/schemas/Interval"
-        cron:
-          type: "string"
+      properties: { }
     EmailTaskRequest:
       type: "object"
       properties:

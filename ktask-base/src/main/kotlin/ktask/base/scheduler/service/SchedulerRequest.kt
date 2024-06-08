@@ -5,7 +5,7 @@
 package ktask.base.scheduler.service
 
 import ktask.base.persistence.serializers.SUUID
-import ktask.base.utils.DateTimeUtils
+import ktask.base.scheduler.service.schedule.Schedule
 import ktask.base.utils.DateTimeUtils.toJavaDate
 import ktask.base.utils.DateTimeUtils.toJavaInstant
 import ktask.base.utils.snowflake.SnowflakeFactory
@@ -47,13 +47,26 @@ class SchedulerRequest(
     }
 
     /**
-     * Schedule the task to be repeated at specified intervals.
+     * Schedule the task based on the specified [Schedule].
      *
-     * @param interval The interval at which the task should be repeated.
+     * @param schedule The [Schedule] at which the task should be executed.
      */
-    fun send(interval: DateTimeUtils.Interval): JobKey {
+    fun send(schedule: Schedule): JobKey {
         val job: BasicJob = buildJob()
 
+        return when (schedule) {
+            is Schedule.Interval -> send(job = job, interval = schedule)
+            is Schedule.Cron -> send(job = job, cron = schedule.cron)
+        }
+    }
+
+    /**
+     * Schedule the task to be repeated at specified intervals.
+     *
+     * @param job The job details and trigger builder for the task.
+     * @param interval The interval at which the task should be repeated.
+     */
+    private fun send(job: BasicJob, interval: Schedule.Interval): JobKey {
         // Define the schedule builder and set misfire instructions to
         // handle cases where the trigger misses its scheduled time,
         // in which case the task will be executed immediately.
@@ -62,9 +75,9 @@ class SchedulerRequest(
 
         // Apply repeat interval at which the task should repeat.
         interval.let {
-            val intervalInMinutes: UInt = it.toTotalMinutes()
-            if (intervalInMinutes > 0u) {
-                scheduleBuilder.withIntervalInMinutes(intervalInMinutes.toInt())
+            val intervalInSeconds: UInt = it.toTotalSeconds()
+            if (intervalInSeconds > 0u) {
+                scheduleBuilder.withIntervalInSeconds(intervalInSeconds.toInt())
                 scheduleBuilder.repeatForever()
             }
 
@@ -108,14 +121,14 @@ class SchedulerRequest(
      *   - "0 0/15 * * * ?" - Every 15 minutes.
      *   - "0 0 0 ? * MON#1" - At midnight on the first Monday of every month.
      *   - "30 0 0 * * ?" - At 00:00:30 (30 seconds past midnight) every day.
+     *   - "0/1 * * * * ?" - Every second.
      *   - "0 * * * * ?" - Every minute.
      * ```
      *
+     * @param job The job details and trigger builder for the task.
      * @param cron The cron expression at which the task should be executed.
      */
-    fun send(cron: String): JobKey {
-        val job: BasicJob = buildJob()
-
+    private fun send(job: BasicJob, cron: String): JobKey {
         val trigger: CronTrigger = job.triggerBuilder
             .withSchedule(CronScheduleBuilder.cronSchedule(cron))
             .build()
