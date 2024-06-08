@@ -520,7 +520,7 @@
 						],
 						"body": {
 							"mode": "raw",
-                          "raw": "{\r\n    \"id\": \"38befbfb-20a3-4bcd-91e1-a2c7240adfa0\",\r\n    \"schedule\": {\r\n        \"start\": \"2024-05-01T15:42:50\",\r\n        \"days\": 0, \"hours\": 0, \"minutes\": 0, \"seconds\": 0\r\n    },\r\n    \"recipients\": [\"someone@gmail.com\"],\r\n    \"message\": \"Hello World!\",\r\n    \"subject\": \"Something\",\r\n    \"asHtml\": true,\r\n    \"cc\": []\r\n}\r\n",
+                          "raw": "{\r\n    \"id\": \"38befbfb-20a3-4bcd-91e1-a2c7240adfa0\",\r\n    \"schedule\": {\r\n        \"start\": \"2024-05-01T15:42:50\",\r\n        \"days\": 0, \"hours\": 0, \"minutes\": 1, \"seconds\": 0\r\n    },\r\n    \"recipients\": [\"someone@gmail.com\"],\r\n    \"message\": \"Hello World!\",\r\n    \"subject\": \"Something\",\r\n    \"asHtml\": true,\r\n    \"cc\": []\r\n}\r\n",
                           "options": {
                             "raw": {
                               "language": "json"
@@ -675,7 +675,7 @@
               ],
               "body": {
                 "mode": "raw",
-                "raw": "{\r\n    \"id\": \"38befbfb-20a3-4bcd-91e1-a2c7240adfa0\",\r\n    \"schedule\": {\r\n        \"start\": \"2024-05-01T15:42:50\", \r\n        \"days\": 0, \"hours\": 0, \"minutes\": 0, \"seconds\": 0\r\n    },\r\n    \"recipients\": [\"slack_user_123\"],\r\n    \"message\": \"Hello World!\",\r\n    \"channel\": \"A_SLACK_CHANNEL_ID\"\r\n}\r\n",
+                "raw": "{\r\n    \"id\": \"38befbfb-20a3-4bcd-91e1-a2c7240adfa0\",\r\n    \"schedule\": {\r\n        \"start\": \"2024-05-01T15:42:50\", \r\n        \"days\": 0, \"hours\": 0, \"minutes\": 1, \"seconds\": 0\r\n    },\r\n    \"recipients\": [\"slack_user_123\"],\r\n    \"message\": \"Hello World!\",\r\n    \"channel\": \"A_SLACK_CHANNEL_ID\"\r\n}\r\n",
                 "options": {
                   "raw": {
                     "language": "json"
