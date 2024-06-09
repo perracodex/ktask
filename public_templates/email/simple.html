@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<!--suppress HtmlRequiredLangAttribute, ThymeleafVariablesResolveInspection -->
+<html xmlns:th="http://www.thymeleaf.org" th:attr="lang=${language}">
+<head>
+    <title>Hello World</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+        }
+
+        .container {
+            margin: 0 auto;
+            padding: 20px;
+            max-width: 600px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .header {
+            background-color: #f7f7f7;
+            padding: 10px 20px;
+            text-align: center;
+            border-bottom: 1px solid #ccc;
+        }
+
+        .content {
+            padding: 20px;
+        }
+
+        .footer {
+            background-color: #f7f7f7;
+            padding: 10px 20px;
+            text-align: center;
+            border-top: 1px solid #ccc;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <h1 th:text="${subject}">Email Subject</h1>
+    </div>
+    <div class="content">
+        <p th:text="'Hello, ' + ${name}">Hello,</p>
+        <p th:text="${message}">Sample message.</p>
+        <p>Best regards,<br th:text="${sender}">Sender</p>
+    </div>
+    <div class="footer">
+        <p>&copy; 2024 <span th:text="${corporation}">KTask Team</span></p>
+    </div>
+</div>
+</body>
+</html>

@@ -235,129 +235,17 @@ paths:
                 $ref: "#/components/schemas/SnowflakeData"
 components:
   schemas:
-    LocalDateTime:
-      type: "object"
-      properties: { }
-    RuntimeCheck:
+    ApplicationCheck:
       type: "object"
       properties:
         errors:
           type: "array"
           items:
             type: "string"
-        machineId:
-          type: "integer"
-          format: "int32"
-        environment:
-          type: "string"
-          enum:
-            - "DEV"
-            - "PROD"
-            - "STAGING"
-            - "TEST"
-        developmentModeEnabled:
+        apiSchemaEnabled:
           type: "boolean"
-        utc:
-          $ref: "#/components/schemas/LocalDateTime"
-        local:
-          $ref: "#/components/schemas/LocalDateTime"
       required:
         - "errors"
-        - "environment"
-        - "utc"
-        - "local"
-    Configured:
-      type: "object"
-      properties:
-        protocol:
-          type: "string"
-        port:
-          type: "integer"
-          format: "int32"
-        sslPort:
-          type: "integer"
-          format: "int32"
-        host:
-          type: "string"
-        allowedHosts:
-          type: "array"
-          items:
-            type: "string"
-      required:
-        - "protocol"
-        - "host"
-        - "allowedHosts"
-    ServerSpec:
-      type: "object"
-      properties:
-        serverHost:
-          type: "string"
-        serverPort:
-          type: "integer"
-          format: "int32"
-        localHost:
-          type: "string"
-        localPort:
-          type: "integer"
-          format: "int32"
-        remoteHostHost:
-          type: "string"
-        remoteAddress:
-          type: "string"
-        remotePort:
-          type: "integer"
-          format: "int32"
-        httpVersion:
-          type: "string"
-        scheme:
-          type: "string"
-    DeploymentCheck:
-      type: "object"
-      properties:
-        errors:
-          type: "array"
-          items:
-            type: "string"
-        configured:
-          $ref: "#/components/schemas/Configured"
-        serverSpec:
-          $ref: "#/components/schemas/ServerSpec"
-        connectors:
-          type: "string"
-      required:
-        - "errors"
-        - "configured"
-        - "serverSpec"
-        - "connectors"
-    LimitSpec:
-      type: "object"
-      properties:
-        limit:
-          type: "integer"
-          format: "int32"
-        refillMs:
-          type: "integer"
-          format: "int64"
-    SecurityCheck:
-      type: "object"
-      properties:
-        errors:
-          type: "array"
-          items:
-            type: "string"
-        useSecureConnection:
-          type: "boolean"
-        publicApi:
-          $ref: "#/components/schemas/LimitSpec"
-        privateApi:
-          $ref: "#/components/schemas/LimitSpec"
-        newToken:
-          $ref: "#/components/schemas/LimitSpec"
-      required:
-        - "errors"
-        - "publicApi"
-        - "privateApi"
-        - "newToken"
     Datasource:
       type: "object"
       properties:
@@ -456,17 +344,154 @@ components:
         - "errors"
         - "configuration"
         - "tables"
-    ApplicationCheck:
+    Configured:
+      type: "object"
+      properties:
+        protocol:
+          type: "string"
+        port:
+          type: "integer"
+          format: "int32"
+        sslPort:
+          type: "integer"
+          format: "int32"
+        host:
+          type: "string"
+        allowedHosts:
+          type: "array"
+          items:
+            type: "string"
+      required:
+        - "protocol"
+        - "host"
+        - "allowedHosts"
+    ServerSpec:
+      type: "object"
+      properties:
+        serverHost:
+          type: "string"
+        serverPort:
+          type: "integer"
+          format: "int32"
+        localHost:
+          type: "string"
+        localPort:
+          type: "integer"
+          format: "int32"
+        remoteHostHost:
+          type: "string"
+        remoteAddress:
+          type: "string"
+        remotePort:
+          type: "integer"
+          format: "int32"
+        httpVersion:
+          type: "string"
+        scheme:
+          type: "string"
+    DeploymentCheck:
       type: "object"
       properties:
         errors:
           type: "array"
           items:
             type: "string"
-        apiSchemaEnabled:
-          type: "boolean"
+        configured:
+          $ref: "#/components/schemas/Configured"
+        serverSpec:
+          $ref: "#/components/schemas/ServerSpec"
+        connectors:
+          type: "string"
       required:
         - "errors"
+        - "configured"
+        - "serverSpec"
+        - "connectors"
+    LocalDateTime:
+      type: "object"
+      properties: { }
+    RuntimeCheck:
+      type: "object"
+      properties:
+        errors:
+          type: "array"
+          items:
+            type: "string"
+        machineId:
+          type: "integer"
+          format: "int32"
+        environment:
+          type: "string"
+          enum:
+            - "DEV"
+            - "PROD"
+            - "STAGING"
+            - "TEST"
+        developmentModeEnabled:
+          type: "boolean"
+        utc:
+          $ref: "#/components/schemas/LocalDateTime"
+        local:
+          $ref: "#/components/schemas/LocalDateTime"
+      required:
+        - "errors"
+        - "environment"
+        - "utc"
+        - "local"
+    EmailSpec:
+      type: "object"
+      properties:
+        hostName:
+          type: "string"
+        smtpPort:
+          type: "integer"
+          format: "int32"
+      required:
+        - "hostName"
+    SchedulerCheck:
+      type: "object"
+      properties:
+        errors:
+          type: "array"
+          items:
+            type: "string"
+        totalTasks:
+          type: "integer"
+          format: "int32"
+        email:
+          $ref: "#/components/schemas/EmailSpec"
+      required:
+        - "errors"
+        - "email"
+    LimitSpec:
+      type: "object"
+      properties:
+        limit:
+          type: "integer"
+          format: "int32"
+        refillMs:
+          type: "integer"
+          format: "int64"
+    SecurityCheck:
+      type: "object"
+      properties:
+        errors:
+          type: "array"
+          items:
+            type: "string"
+        useSecureConnection:
+          type: "boolean"
+        publicApi:
+          $ref: "#/components/schemas/LimitSpec"
+        privateApi:
+          $ref: "#/components/schemas/LimitSpec"
+        newToken:
+          $ref: "#/components/schemas/LimitSpec"
+      required:
+        - "errors"
+        - "publicApi"
+        - "privateApi"
+        - "newToken"
     SnowflakeData:
       type: "object"
       properties:
@@ -509,34 +534,68 @@ components:
           type: "array"
           items:
             type: "string"
-        runtime:
-          $ref: "#/components/schemas/RuntimeCheck"
-        deployment:
-          $ref: "#/components/schemas/DeploymentCheck"
-        security:
-          $ref: "#/components/schemas/SecurityCheck"
-        database:
-          $ref: "#/components/schemas/DatabaseCheck"
         application:
           $ref: "#/components/schemas/ApplicationCheck"
-        snowflake:
-          $ref: "#/components/schemas/SnowflakeCheck"
+        database:
+          $ref: "#/components/schemas/DatabaseCheck"
+        deployment:
+          $ref: "#/components/schemas/DeploymentCheck"
         endpoints:
           type: "array"
           items:
             type: "string"
+        runtime:
+          $ref: "#/components/schemas/RuntimeCheck"
+        scheduler:
+          $ref: "#/components/schemas/SchedulerCheck"
+        security:
+          $ref: "#/components/schemas/SecurityCheck"
+        snowflake:
+          $ref: "#/components/schemas/SnowflakeCheck"
       required:
         - "health"
-        - "runtime"
-        - "deployment"
-        - "security"
-        - "database"
         - "application"
-        - "snowflake"
+        - "database"
+        - "deployment"
         - "endpoints"
+        - "runtime"
+        - "scheduler"
+        - "security"
+        - "snowflake"
     Schedule:
       type: "object"
       properties: { }
+    Recipient:
+      type: "object"
+      properties:
+        target:
+          type: "string"
+        name:
+          type: "string"
+        language:
+          type: "string"
+      required:
+        - "target"
+        - "name"
+    EmailParams:
+      type: "object"
+      properties:
+        template:
+          type: "string"
+        sender:
+          type: "string"
+        cc:
+          type: "array"
+          items:
+            type: "string"
+        subject:
+          type: "string"
+        message:
+          type: "string"
+      required:
+        - "sender"
+        - "cc"
+        - "subject"
     EmailTaskRequest:
       type: "object"
       properties:
@@ -548,23 +607,27 @@ components:
         recipients:
           type: "array"
           items:
-            type: "string"
-        cc:
-          type: "array"
-          items:
-            type: "string"
-        subject:
-          type: "string"
-        message:
-          type: "string"
-        asHtml:
-          type: "boolean"
+            $ref: "#/components/schemas/Recipient"
+        params:
+          $ref: "#/components/schemas/EmailParams"
       required:
         - "id"
         - "recipients"
-        - "cc"
-        - "subject"
-        - "message"
+        - "params"
+    SlackParams:
+      type: "object"
+      properties:
+        template:
+          type: "string"
+        sender:
+          type: "string"
+        channel:
+          type: "string"
+        message:
+          type: "string"
+      required:
+        - "sender"
+        - "channel"
     SlackTaskRequest:
       type: "object"
       properties:
@@ -576,16 +639,13 @@ components:
         recipients:
           type: "array"
           items:
-            type: "string"
-        channel:
-          type: "string"
-        message:
-          type: "string"
+            $ref: "#/components/schemas/Recipient"
+        params:
+          $ref: "#/components/schemas/SlackParams"
       required:
         - "id"
         - "recipients"
-        - "channel"
-        - "message"
+        - "params"
     TaskScheduleEntity:
       type: "object"
       properties:

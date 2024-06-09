@@ -6,9 +6,10 @@ package ktask.server.domain.routing
 
 import io.ktor.http.*
 import io.ktor.server.application.*
+import io.ktor.server.request.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
-import ktask.server.domain.entity.notification.SlackTaskRequest
+import ktask.server.domain.entity.notification.slack.SlackTaskRequest
 import ktask.server.domain.service.NotificationService
 
 /**
@@ -18,7 +19,8 @@ fun Route.slackTaskRoute() {
 
     route("slack") {
         // Create a new scheduled Slack notification task.
-        post<SlackTaskRequest> { request ->
+        post {
+            val request = call.receive<SlackTaskRequest>()
             NotificationService.schedule(request = request)
 
             call.respond(

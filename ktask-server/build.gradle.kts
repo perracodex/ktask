@@ -20,6 +20,7 @@ dependencies {
     implementation(libs.ktor.server.netty)
     implementation(libs.ktor.server.rateLimit)
     implementation(libs.ktor.server.tests)
+    implementation(libs.ktor.server.thymeleaf)
 
     implementation(libs.quartz.scheduler)
 

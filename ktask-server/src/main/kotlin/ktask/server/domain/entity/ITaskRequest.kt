@@ -18,7 +18,7 @@ import ktask.server.domain.service.consumer.AbsTaskConsumer
 interface ITaskRequest {
     val id: SUUID
     val schedule: Schedule?
-    val recipients: List<String>
+    val recipients: List<Recipient>
 
     /**
      * Converts the notification request into a map of parameters suitable for task processing.
@@ -26,10 +26,10 @@ interface ITaskRequest {
      *
      * Subclasses should override this method to include additional type-specific parameters.
      */
-    fun toTaskParameters(recipient: String): MutableMap<String, Any> {
+    fun toTaskParameters(recipient: Recipient): MutableMap<String, Any> {
         return mutableMapOf(
             AbsTaskConsumer.TASK_ID_KEY to id,
-            AbsTaskConsumer.RECIPIENT_KEY to recipient,
+            AbsTaskConsumer.RECIPIENT_KEY to recipient
         )
     }
 }
