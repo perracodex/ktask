@@ -5,6 +5,7 @@
 package ktask.server.domain.entity
 
 import kotlinx.serialization.Serializable
+import java.util.*
 
 /**
  * Represents a recipient of a notification.
@@ -21,6 +22,13 @@ data class Recipient(
 ) : java.io.Serializable {
     init {
         require(target.isNotBlank()) { "Target cannot be blank." }
-        require(name.isNotBlank()) { "Name cannot be blank." }
+        require(name.isNotBlank()) { "Target: $target. Name cannot be blank." }
+
+        language?.let { lang ->
+            require(lang.length == 2) { "Target: $target. Language code must be 2 characters long. Got: $lang." }
+            require(Locale.getISOLanguages().contains(lang.lowercase())) {
+                "Target: $target. Language code must be a valid ISO 639-1 language code. Got: $lang."
+            }
+        }
     }
 }
