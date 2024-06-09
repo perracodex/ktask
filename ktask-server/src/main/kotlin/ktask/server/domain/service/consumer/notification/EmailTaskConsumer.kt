@@ -7,13 +7,11 @@ package ktask.server.domain.service.consumer.notification
 import ktask.base.env.Tracer
 import ktask.base.settings.AppSettings
 import ktask.base.settings.config.sections.SchedulerSettings
-import ktask.server.domain.entity.notification.email.EmailParams
+import ktask.server.domain.entity.notification.email.EmailParamsRequest
 import ktask.server.domain.service.consumer.AbsTaskConsumer
 import org.apache.commons.mail.DefaultAuthenticator
 import org.apache.commons.mail.Email
 import org.apache.commons.mail.HtmlEmail
-import org.apache.commons.mail.SimpleEmail
-import org.thymeleaf.context.Context
 
 /**
  * Represents a scheduled task that processes emails.
@@ -24,37 +22,22 @@ internal class EmailTaskConsumer : AbsTaskConsumer() {
     override fun consume(payload: TaskPayload) {
         tracer.debug("Processing email task notification. ID: ${payload.taskId}")
 
-        // Build the email message.
+        val parameters: EmailParamsRequest = EmailParamsRequest.deserialize(
+            string = payload.additionalParams[PARAMETERS_KEY] as String
+        )
 
-        val parameters: EmailParams = payload.additionalParams[PARAMETERS_KEY] as EmailParams
+        // Build the message.
 
-        val email: Email = if (parameters.template.isNullOrBlank()) {
-            SimpleEmail().apply {
-                setMsg(parameters.message!!)
-            }
-        } else {
-            HtmlEmail().apply {
-                // Set the variables to be used in the template.
-                val context: Context = Context().apply {
-                    setVariable("language", payload.recipient.language ?: "en")
-                    setVariable("recipient", payload.recipient.target)
-                    setVariable("subject", parameters.subject)
-                    setVariable("name", payload.recipient.name)
-                    setVariable("message", parameters.message)
-                    setVariable("sender", parameters.sender)
-                }
+        val email: Email = HtmlEmail().apply {
+            val message: String = buildMessage(
+                type = TemplateType.EMAIL,
+                recipient = payload.recipient,
+                template = parameters.template,
+                fields = parameters.fields
+            )
 
-                // Generate the message from the template.
-                val htmlMessage: String = loadTemplate(
-                    type = TemplateType.EMAIL,
-                    recipient = payload.recipient,
-                    template = parameters.template,
-                    context = context
-                )
-
-                setHtmlMsg(htmlMessage)
-                setTextMsg("Your email client does not support HTML messages.")
-            }
+            setHtmlMsg(message)
+            setTextMsg("Your email client does not support HTML messages.")
         }
 
         // Add recipients to be copied on the email notification.
@@ -74,7 +57,7 @@ internal class EmailTaskConsumer : AbsTaskConsumer() {
         email.addTo(payload.recipient.target)
         email.subject = parameters.subject
 
-        // Send the email notification.
+        // Send the email.
         val result: String = email.send()
         tracer.debug("Email notification sent to ${payload.recipient.target}. Task ID: ${payload.taskId}. Result: $result")
     }

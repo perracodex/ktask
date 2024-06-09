@@ -54,7 +54,8 @@ For this feature to function correctly, templates must be provided in the corres
   "recipients": [
     {
       "target": "person_1_email",
-      "name": "person_name_1"
+      "name": "person_name_1",
+      "language": "en"
     },
     {
       "target": "person_1_email",
@@ -70,8 +71,6 @@ For this feature to function correctly, templates must be provided in the corres
 }
 ```
 
-* Not providing a language will default to a template without a language specification.
-
 * The system will automatically use the appropriate template based on the specified language.
   These templates should be stored in the project's root directory under the [public_templates](./public_templates) folder.
 
@@ -80,7 +79,48 @@ For this feature to function correctly, templates must be provided in the corres
 * New templates will be recognized and utilized without requiring a server restart.
 
 ---
-## Cron expressions
+
+## Message Template Fields
+
+A typical email json request object looks like next, where the `fields` object contains the dynamic data
+that will be replaced in the target message template.
+
+```json
+{
+  "id": "38befbfb-20a3-4bcd-91e1-a2c7240adfa0",
+  "recipients": [
+    {
+      "target": "nickname_1@email.com",
+      "name": "person_name_1",
+      "language": "en"
+    },
+    {
+      "target": "nickname_2@email.com",
+      "name": "person_name_2",
+      "language": "es"
+    }
+  ],
+  "params": {
+    "template": "simple",
+    "cc": [],
+    "subject": "Something",
+    "fields": {
+      "sender": "Sender Name",
+      "content": "Some dynamic content!"
+    }
+  }
+}
+```
+
+* The `fields` object does not contain fixed data and can be customized based on a target template.
+
+* If any of the `fields` items are found in a target template, they will be replaced with its corresponding value.
+
+* Not specifying the `fields` object will result in the template being sent as is.
+
+---
+
+## Cron Expressions
 
 For cron expressions refer to: [Quartz Cron Expression Documentation](http://www.quartz-scheduler.org/documentation/quartz-2.3.0/tutorials/crontrigger.html)
 
@@ -136,7 +176,8 @@ Immediate dispatch
   "recipients": [
     {
       "target": "nickname_1@email.com",
-      "name": "person_name_1"
+      "name": "person_name_1",
+      "language": "en"
     },
     {
       "target": "nickname_2@email.com",
@@ -147,9 +188,11 @@ Immediate dispatch
   "params": {
     "template": "simple",
     "cc": [],
-    "sender": "Sender Name",
     "subject": "Something",
-    "message": "Hello World!"
+    "fields": {
+      "sender": "Sender Name",
+      "content": "Some dynamic content!"
+    }
   }
 }
 ```
@@ -169,7 +212,8 @@ Interval dispatch
   "recipients": [
     {
       "target": "nickname_1@email.com",
-      "name": "person_name_1"
+      "name": "person_name_1",
+      "language": "en"
     },
     {
       "target": "nickname_2@email.com",
@@ -180,9 +224,11 @@ Interval dispatch
   "params": {
     "template": "simple",
     "cc": [],
-    "sender": "Sender Name",
     "subject": "Something",
-    "message": "Hello World!"
+    "fields": {
+      "sender": "Sender Name",
+      "content": "Some dynamic content!"
+    }
   }
 }
 ```
@@ -199,7 +245,8 @@ Cron dispatch
   "recipients": [
     {
       "target": "nickname_1@email.com",
-      "name": "person_name_1"
+      "name": "person_name_1",
+      "language": "en"
     },
     {
       "target": "nickname_2@email.com",
@@ -211,8 +258,10 @@ Cron dispatch
     "template": "simple",
     "cc": [],
     "sender": "Sender Name",
-    "subject": "Something",
-    "message": "Hello World!"
+    "fields": {
+      "sender": "Sender Name",
+      "content": "Some dynamic content!"
+    }
   }
 }
 ```
@@ -228,20 +277,23 @@ Immediate dispatch
   "id": "38befbfb-20a3-4bcd-91e1-a2c7240adfa0",
   "recipients": [
     {
-      "target": "person_1_slack_id",
-      "name": "person_name_1"
+      "target": "nickname_1@email.com",
+      "name": "person_name_1",
+      "language": "en"
     },
     {
-      "target": "person_2_slack_id",
+      "target": "nickname_2@email.com",
       "name": "person_name_2",
       "language": "es"
     }
   ],
   "params": {
     "template": "simple",
-    "sender": "Sender Name",
     "channel": "SLACK_CHANNEL_ID",
-    "message": "Hello World!"
+    "fields": {
+      "sender": "Sender Name",
+      "content": "Some dynamic content!"
+    }
   }
 }
 ```
@@ -260,20 +312,23 @@ Interval dispatch
   },
   "recipients": [
     {
-      "target": "person_1_slack_id",
-      "name": "person_name_1"
+      "target": "nickname_1@email.com",
+      "name": "person_name_1",
+      "language": "en"
     },
     {
-      "target": "person_2_slack_id",
+      "target": "nickname_2@email.com",
       "name": "person_name_2",
       "language": "es"
     }
   ],
   "params": {
     "template": "simple",
-    "sender": "Sender Name",
     "channel": "SLACK_CHANNEL_ID",
-    "message": "Hello World!"
+    "fields": {
+      "sender": "Sender Name",
+      "content": "Some dynamic content!"
+    }
   }
 }
 ```
@@ -290,7 +345,8 @@ Cron dispatch
   "recipients": [
     {
       "target": "person_1_slack_id",
-      "name": "person_name_1"
+      "name": "person_name_1",
+      "language": "en"
     },
     {
       "target": "person_2_slack_id",
@@ -300,9 +356,11 @@ Cron dispatch
   ],
   "params": {
     "template": "simple",
-    "sender": "Sender Name",
     "channel": "SLACK_CHANNEL_ID",
-    "message": "Hello World!"
+    "fields": {
+      "sender": "Sender Name",
+      "content": "Some dynamic content!"
+    }
   }
 }
 ```

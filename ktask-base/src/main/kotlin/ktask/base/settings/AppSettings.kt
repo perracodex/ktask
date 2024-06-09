@@ -6,6 +6,7 @@ package ktask.base.settings
 
 import io.ktor.server.config.*
 import kotlinx.coroutines.runBlocking
+import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 import ktask.base.env.Tracer
 import ktask.base.settings.annotation.ConfigurationAPI
@@ -95,21 +96,15 @@ object AppSettings {
      * @return The JSON string representation of the current settings.
      */
     fun serialize(): String {
-        return Json.encodeToString(
-            serializer = ConfigurationCatalog.serializer(),
-            value = configuration
-        )
+        return Json.encodeToString<ConfigurationCatalog>(value = configuration)
     }
 
     /**
      * Deserializes the provided JSON string into the current settings.
      *
-     * @param jsonString The JSON string to deserialize.
+     * @param string The JSON string to deserialize.
      */
-    fun deserialize(jsonString: String) {
-        configuration = Json.decodeFromString(
-            deserializer = ConfigurationCatalog.serializer(),
-            string = jsonString
-        )
+    fun deserialize(string: String) {
+        configuration = Json.decodeFromString<ConfigurationCatalog>(string = string)
     }
 }

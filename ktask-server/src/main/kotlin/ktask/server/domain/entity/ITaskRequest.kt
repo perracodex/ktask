@@ -29,7 +29,7 @@ interface ITaskRequest {
     fun toTaskParameters(recipient: Recipient): MutableMap<String, Any> {
         return mutableMapOf(
             AbsTaskConsumer.TASK_ID_KEY to id,
-            AbsTaskConsumer.RECIPIENT_KEY to recipient
+            AbsTaskConsumer.RECIPIENT_KEY to recipient.serialize()
         )
     }
 }

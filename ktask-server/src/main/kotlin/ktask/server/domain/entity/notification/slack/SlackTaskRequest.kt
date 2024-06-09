@@ -17,14 +17,14 @@ import ktask.server.domain.service.consumer.AbsTaskConsumer
  * @property id The unique identifier of the task request.
  * @property schedule Optional [Schedule] for the task.
  * @property recipients List of target recipients.
- * @property params The [SlackParams] for the notification.
+ * @property params The [SlackParamsRequest] for the notification.
  */
 @Serializable
 data class SlackTaskRequest(
     override val id: SUUID,
     override val schedule: Schedule? = null,
     override val recipients: List<Recipient>,
-    val params: SlackParams
+    val params: SlackParamsRequest
 ) : ITaskRequest {
     init {
         require(recipients.isNotEmpty()) { "At least one recipient must be specified." }
@@ -32,7 +32,7 @@ data class SlackTaskRequest(
 
     override fun toTaskParameters(recipient: Recipient): MutableMap<String, Any> {
         return super.toTaskParameters(recipient = recipient).also { parameter ->
-            parameter[AbsTaskConsumer.PARAMETERS_KEY] = params
+            parameter[AbsTaskConsumer.PARAMETERS_KEY] = params.serialize()
         }
     }
 }

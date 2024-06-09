@@ -6,6 +6,7 @@ package ktask.server.domain.service.consumer
 
 import ktask.base.persistence.serializers.SUUID
 import ktask.base.scheduler.service.task.SchedulerTask
+import ktask.base.utils.DateTimeUtils
 import ktask.server.domain.entity.Recipient
 import org.thymeleaf.TemplateEngine
 import org.thymeleaf.context.Context
@@ -46,7 +47,7 @@ internal abstract class AbsTaskConsumer : SchedulerTask() {
             fun map(properties: Map<String, Any>): TaskPayload {
                 return TaskPayload(
                     taskId = properties[TASK_ID_KEY] as SUUID,
-                    recipient = properties[RECIPIENT_KEY] as Recipient,
+                    recipient = Recipient.deserialize(string = properties[RECIPIENT_KEY] as String),
                     additionalParams = properties.filterKeys { key ->
                         key !in setOf(TASK_ID_KEY, RECIPIENT_KEY)
                     }
@@ -75,24 +76,36 @@ internal abstract class AbsTaskConsumer : SchedulerTask() {
      * @param type The type of template to load.
      * @param recipient The recipient of the message.
      * @param template The name of the template file to load.
-     * @param context The context to use for processing the template.
+     * @param fields Optional additional fields to include in the template.
      * @return The processed template as a string.
      */
-    protected fun loadTemplate(
+    protected fun buildMessage(
         type: TemplateType,
         recipient: Recipient,
         template: String,
-        context: Context
+        fields: Map<String, String>? = null
     ): String {
-        // Resolve the template name based on the recipient's language.
-        // Example: "simple-message" -> "simple-message-en"
-        val targetTemplate: String = if (recipient.language.isNullOrBlank()) {
-            context.setVariable("language", "en")
-            template
-        } else {
-            context.setVariable("language", recipient.language)
-            "$template-${recipient.language}"
+
+        val language: String = recipient.language.lowercase()
+
+        // Set the variables to be used in the template.
+        val context: Context = Context().apply {
+            setVariable("language", language)
+            setVariable("recipient", recipient.target)
+            setVariable("name", recipient.name)
+
+            // Set the additional fields in the context.
+            // These fields are not bound to the consumer's payload,
+            // but that may exist in the template.
+            fields?.forEach(this::setVariable)
+
+            // Add the formatted/localized date to the context.
+            val formattedDate = DateTimeUtils.localizedCurrentDate(language = language)
+            setVariable("date", formattedDate)
         }
+
+        // Resolve the template name based on the recipient's language.
+        val targetTemplate = "$template-${language}"
 
         // The task runs in a different class loader, so the template engine
         // doesn't have any resolvers set by default, even if the application

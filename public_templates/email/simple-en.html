@@ -2,6 +2,7 @@
 <!--suppress HtmlRequiredLangAttribute, ThymeleafVariablesResolveInspection -->
 <html xmlns:th="http://www.thymeleaf.org" th:attr="lang=${language}">
 <head>
+    <meta charset="UTF-8">
     <title>Hello World</title>
     <style>
         body {
@@ -42,8 +43,11 @@
         <h1 th:text="${subject}">Email Subject</h1>
     </div>
     <div class="content">
+        <p>
+            <span th:text="${date}">Date</span>
+        </p>
         <p th:text="'Hello, ' + ${name}">Hello,</p>
-        <p th:text="${message}">Sample message.</p>
+        <p th:text="${content}">Dynamic content.</p>
         <p>Best regards,<br th:text="${sender}">Sender</p>
     </div>
     <div class="footer">

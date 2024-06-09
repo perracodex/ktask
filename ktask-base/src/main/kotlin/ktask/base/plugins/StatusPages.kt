@@ -9,6 +9,7 @@ import io.ktor.server.application.*
 import io.ktor.server.plugins.*
 import io.ktor.server.plugins.statuspages.*
 import io.ktor.server.response.*
+import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 import ktask.base.env.Tracer
 import ktask.base.errors.AppException
@@ -85,10 +86,7 @@ private suspend fun ApplicationCall.respondError(cause: AppException) {
     this.response.header(name = HttpHeaders.ETag, value = cause.error.code)
 
     // Serialize the error response.
-    val json: String = Json.encodeToString(
-        serializer = AppException.ErrorResponse.serializer(),
-        value = cause.toErrorResponse()
-    )
+    val json: String = Json.encodeToString<AppException.ErrorResponse>(value = cause.toErrorResponse())
 
     // Send the serialized error response.
     this.respondText(

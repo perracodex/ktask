@@ -9,9 +9,8 @@ import com.slack.api.methods.response.chat.ChatPostMessageResponse
 import ktask.base.env.Tracer
 import ktask.base.settings.AppSettings
 import ktask.base.settings.config.sections.SchedulerSettings
-import ktask.server.domain.entity.notification.slack.SlackParams
+import ktask.server.domain.entity.notification.slack.SlackParamsRequest
 import ktask.server.domain.service.consumer.AbsTaskConsumer
-import org.thymeleaf.context.Context
 
 
 /**
@@ -25,35 +24,30 @@ internal class SlackTaskConsumer : AbsTaskConsumer() {
     override fun consume(payload: TaskPayload) {
         tracer.debug("Processing Slack task notification. ID: ${payload.taskId}")
 
+        val parameters: SlackParamsRequest = SlackParamsRequest.deserialize(
+            string = payload.additionalParams[PARAMETERS_KEY] as String
+        )
+
+        // Build the message.
+
+        val message: String = buildMessage(
+            type = TemplateType.SLACK,
+            recipient = payload.recipient,
+            template = parameters.template,
+            fields = parameters.fields
+        )
+
+        // Send the Slack notification.
+
         val slackSpec: SchedulerSettings.SlackSpec = AppSettings.scheduler.slackSpec
-        val parameters: SlackParams = payload.additionalParams[PARAMETERS_KEY] as SlackParams
-
-        val message: String = if (parameters.template.isNullOrBlank()) {
-            parameters.message!!
-        } else {
-            // Set the variables to be used in the template.
-            val context: Context = Context().apply {
-                setVariable("recipient", payload.recipient.target)
-                setVariable("name", payload.recipient.name)
-                setVariable("message", parameters.message)
-                setVariable("sender", parameters.sender)
-            }
-
-            // Generate the message from the template.
-            loadTemplate(
-                type = TemplateType.SLACK,
-                recipient = payload.recipient,
-                template = parameters.template,
-                context = context
-            )
-        }
-
         val slack: Slack = Slack.getInstance()
         val response: ChatPostMessageResponse = slack.methods(slackSpec.token).chatPostMessage { request ->
             request.channel(parameters.channel)
             request.username(payload.recipient.name)
             request.text(message)
         }
+
+        // Handle the response.
 
         if (response.isOk) {
             tracer.debug("Slack notification sent to ${payload.recipient.target}. ID: ${payload.taskId}. Result: $response")

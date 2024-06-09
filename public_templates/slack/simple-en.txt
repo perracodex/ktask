@@ -1,5 +1,7 @@
+[[${date}]]
+
 Hello, [[${name}]]! :wave:
 
-You have a new notification: [[${message}]].
+You have a new notification: [[${content}]].
 
 Here is the link: <https://example.com|Click Here>

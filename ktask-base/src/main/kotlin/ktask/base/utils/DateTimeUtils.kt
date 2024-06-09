@@ -10,6 +10,7 @@ import kotlinx.datetime.*
 import kotlinx.datetime.Instant
 import kotlinx.datetime.TimeZone
 import java.time.ZoneId
+import java.time.format.DateTimeFormatter
 import java.util.*
 import kotlin.time.Duration
 import kotlin.time.DurationUnit
@@ -110,5 +111,19 @@ object DateTimeUtils {
             if (minutes > 0) append("${minutes}m ")
             if (seconds > 0) append("${seconds}s")
         }.trim()
+    }
+
+    /**
+     * Returns the current date formatted according to the specified language.
+     *
+     * @param language The ISO language code to format the date.
+     * @return The formatted date with the month in title case.
+     */
+    fun localizedCurrentDate(language: String): String {
+        val locale: Locale = Locale.forLanguageTag(language)
+        val dateFormatter: DateTimeFormatter = DateTimeFormatter.ofPattern("MMMM d, yyyy", locale)
+        val currentDate: LocalDate = Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault()).date
+        val formattedDate: String = currentDate.toJavaLocalDate().format(dateFormatter)
+        return formattedDate.replaceFirstChar { if (it.isLowerCase()) it.titlecase(locale) else it.toString() }
     }
 }

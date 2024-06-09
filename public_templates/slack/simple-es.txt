@@ -1,5 +1,7 @@
+[[${date}]]
+
 Hola, [[${name}]]! :wave:
 
-Tienes una nueva notificación: [[${message}]].
+Tienes una nueva notificación: [[${content}]].
 
 Aquí tienes el enlace: <https://example.com|Haga clic aquí>
