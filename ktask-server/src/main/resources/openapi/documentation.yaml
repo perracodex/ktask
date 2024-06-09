@@ -578,7 +578,7 @@ components:
         - "target"
         - "name"
         - "language"
-    EmailParamsRequest:
+    EmailParams:
       type: "object"
       properties:
         template:
@@ -612,12 +612,12 @@ components:
           items:
             $ref: "#/components/schemas/Recipient"
         params:
-          $ref: "#/components/schemas/EmailParamsRequest"
+          $ref: "#/components/schemas/EmailParams"
       required:
         - "id"
         - "recipients"
         - "params"
-    SlackParamsRequest:
+    SlackParams:
       type: "object"
       properties:
         template:
@@ -646,7 +646,7 @@ components:
           items:
             $ref: "#/components/schemas/Recipient"
         params:
-          $ref: "#/components/schemas/SlackParamsRequest"
+          $ref: "#/components/schemas/SlackParams"
       required:
         - "id"
         - "recipients"

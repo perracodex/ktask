@@ -9,7 +9,7 @@ import com.slack.api.methods.response.chat.ChatPostMessageResponse
 import ktask.base.env.Tracer
 import ktask.base.settings.AppSettings
 import ktask.base.settings.config.sections.SchedulerSettings
-import ktask.server.domain.entity.notification.slack.SlackParamsRequest
+import ktask.server.domain.entity.notification.slack.SlackParams
 import ktask.server.domain.service.consumer.AbsTaskConsumer
 
 
@@ -24,7 +24,7 @@ internal class SlackTaskConsumer : AbsTaskConsumer() {
     override fun consume(payload: TaskPayload) {
         tracer.debug("Processing Slack task notification. ID: ${payload.taskId}")
 
-        val parameters: SlackParamsRequest = SlackParamsRequest.deserialize(
+        val parameters: SlackParams = SlackParams.deserialize(
             string = payload.additionalParams[PARAMETERS_KEY] as String
         )
 

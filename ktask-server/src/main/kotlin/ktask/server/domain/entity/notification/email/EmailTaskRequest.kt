@@ -20,14 +20,14 @@ import ktask.server.domain.service.consumer.AbsTaskConsumer
  * @property id The unique identifier of the task request.
  * @property schedule Optional [Schedule] for the task.
  * @property recipients List of target recipients.
- * @property params The [EmailParamsRequest] for the notification.
+ * @property params The [EmailParams] for the notification.
  */
 @Serializable
 data class EmailTaskRequest(
     override val id: SUUID,
     override val schedule: Schedule? = null,
     override val recipients: List<Recipient>,
-    val params: EmailParamsRequest
+    val params: EmailParams
 ) : ITaskRequest {
 
     override fun toTaskParameters(recipient: Recipient): MutableMap<String, Any> {
