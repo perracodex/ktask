@@ -69,7 +69,7 @@
         .table-sub-row {
             background-color: #484d60;
             color: #cfd0d5;
-            padding: 10px;
+            padding: 4px;
             border-radius: 6px;
             margin-top: 5px;
         }
@@ -81,13 +81,6 @@
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
-        }
-
-        .table-sub-row span {
-            text-align: left;
-            padding: 8px;
-            white-space: normal;
-            overflow: visible;
         }
 
         button {
@@ -171,7 +164,7 @@
 <div class="table-header">
     <span>Name</span>
     <span>Group</span>
-    <span>Class Name</span>
+    <span>Consumer</span>
     <span>Next Fire Time</span>
     <span>State</span>
     <span>Interval</span>
@@ -183,7 +176,7 @@
         <div class="table-row">
             <span th:text="${item.name}">Task Name</span>
             <span th:text="${item.group}">Task Group</span>
-            <span th:text="${item.className}">Class Name</span>
+            <span th:text="${item.className}">Consumer</span>
             <span th:text="${item.nextFireTime}">Next Fire Time</span>
             <span th:text="${item.state}">State</span>
             <span th:text="${item.interval}">Interval</span>
@@ -205,7 +198,9 @@
             </div>
         </div>
         <div class="table-sub-row">
-            <span th:text="${item.dataMap}">Data Map Content</span>
+            <ul>
+                <li th:each="entry : ${item.dataMap}" th:text="${entry}">Data Map Entry</li>
+            </ul>
         </div>
     </div>
 </div>
