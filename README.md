@@ -319,14 +319,18 @@ Cron dispatch
 ```json
 [
   {
-    "name": "task-1iq2xnjwmccg0-125193306528400",
+    "name": "task-1iqsn1me8ivi8-84944151523100",
     "group": "38befbfb-20a3-4bcd-91e1-a2c7240adfa0",
-    "className": "EmailTaskProcessor",
-    "nextFireTime": "2025-05-01T15:42:50",
+    "consumer": "EmailTaskConsumer",
+    "nextFireTime": "2024-06-09T14:18:50",
     "state": "NORMAL",
-    "interval": "5m",
-    "runs": 10,
-    "dataMap": "[(RECIPIENT, person_1@email.com), (MESSAGE, Hello World!), (TASK_ID, 38befbfb-20a3-4bcd-91e1-a2c7240adfa0), (SUBJECT, Something)]"
+    "interval": "1m",
+    "runs": 11,
+    "dataMap": [
+      "RECIPIENT: Recipient(target=nickname_1@email.com, name=person_name_1, language=null)",
+      "PARAMETERS: EmailParams(template=simple, sender=Sender Name, cc=[], subject=Something, message=Hello World!)",
+      "TASK_ID: 38befbfb-20a3-4bcd-91e1-a2c7240adfa0"
+    ]
   }
 ]
 ```
