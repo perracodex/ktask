@@ -10,7 +10,7 @@ import ktask.base.settings.config.sections.SchedulerSettings
 import ktask.server.domain.entity.notification.email.EmailParamsRequest
 import ktask.server.domain.service.consumer.AbsTaskConsumer
 import org.apache.commons.mail.DefaultAuthenticator
-import org.apache.commons.mail.Email
+import org.apache.commons.mail.EmailAttachment
 import org.apache.commons.mail.HtmlEmail
 
 /**
@@ -28,7 +28,7 @@ internal class EmailTaskConsumer : AbsTaskConsumer() {
 
         // Build the message.
 
-        val email: Email = HtmlEmail().apply {
+        val email: HtmlEmail = HtmlEmail().apply {
             val message: String = buildMessage(
                 type = TemplateType.EMAIL,
                 recipient = payload.recipient,
@@ -44,6 +44,17 @@ internal class EmailTaskConsumer : AbsTaskConsumer() {
 
         if (parameters.cc.isNotEmpty()) {
             email.addCc(*parameters.cc.toTypedArray())
+        }
+
+        // Add attachments to the email.
+
+        parameters.attachments?.forEach { attachmentPath ->
+            val attachment: EmailAttachment = EmailAttachment().apply {
+                path = attachmentPath
+                disposition = EmailAttachment.ATTACHMENT
+            }
+
+            email.attach(attachment)
         }
 
         // Configure email settings.

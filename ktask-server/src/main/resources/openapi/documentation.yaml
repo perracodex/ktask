@@ -577,12 +577,11 @@ components:
       required:
         - "target"
         - "name"
-    EmailParams:
+        - "language"
+    EmailParamsRequest:
       type: "object"
       properties:
         template:
-          type: "string"
-        sender:
           type: "string"
         cc:
           type: "array"
@@ -590,10 +589,14 @@ components:
             type: "string"
         subject:
           type: "string"
-        message:
+        attachments:
+          type: "array"
+          items:
+            type: "string"
+        fields:
           type: "string"
       required:
-        - "sender"
+        - "template"
         - "cc"
         - "subject"
     EmailTaskRequest:
@@ -609,24 +612,26 @@ components:
           items:
             $ref: "#/components/schemas/Recipient"
         params:
-          $ref: "#/components/schemas/EmailParams"
+          $ref: "#/components/schemas/EmailParamsRequest"
       required:
         - "id"
         - "recipients"
         - "params"
-    SlackParams:
+    SlackParamsRequest:
       type: "object"
       properties:
         template:
           type: "string"
-        sender:
-          type: "string"
         channel:
           type: "string"
-        message:
+        attachments:
+          type: "array"
+          items:
+            type: "string"
+        fields:
           type: "string"
       required:
-        - "sender"
+        - "template"
         - "channel"
     SlackTaskRequest:
       type: "object"
@@ -641,7 +646,7 @@ components:
           items:
             $ref: "#/components/schemas/Recipient"
         params:
-          $ref: "#/components/schemas/SlackParams"
+          $ref: "#/components/schemas/SlackParamsRequest"
       required:
         - "id"
         - "recipients"
@@ -653,7 +658,7 @@ components:
           type: "string"
         group:
           type: "string"
-        className:
+        consumer:
           type: "string"
         nextFireTime:
           $ref: "#/components/schemas/LocalDateTime"
@@ -665,11 +670,13 @@ components:
           type: "integer"
           format: "int32"
         dataMap:
-          type: "string"
+          type: "array"
+          items:
+            type: "string"
       required:
         - "name"
         - "group"
-        - "className"
+        - "consumer"
         - "state"
         - "dataMap"
     TaskStateChangeEntity:

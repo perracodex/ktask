@@ -14,6 +14,7 @@ import kotlinx.serialization.json.Json
  * @property template The template to be used for the notification.
  * @property cc List of recipients to be copied on the notification.
  * @property subject The subject or title of the notification.
+ * @property attachments Optional list of file paths to be attached to the notification.
  * @property fields Optional fields to be included in the template.
  */
 @Serializable
@@ -21,6 +22,7 @@ data class EmailParamsRequest(
     val template: String,
     val cc: List<String> = emptyList(),
     val subject: String,
+    val attachments: List<String>? = null,
     val fields: Map<String, String>? = null
 ) {
     init {

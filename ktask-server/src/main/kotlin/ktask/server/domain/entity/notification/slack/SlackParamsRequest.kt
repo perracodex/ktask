@@ -13,12 +13,14 @@ import kotlinx.serialization.json.Json
  *
  * @property template The template to be used for the notification.
  * @property channel The channel to send the notification to.
+ * @property attachments Optional list of file paths to be attached to the notification.
  * @property fields Optional fields to be included in the template.
  */
 @Serializable
 data class SlackParamsRequest(
     val template: String,
     val channel: String,
+    val attachments: List<String>? = null,
     val fields: Map<String, String>? = null
 ) {
     init {

@@ -103,6 +103,7 @@ that will be replaced in the target message template.
   "params": {
     "template": "simple",
     "cc": [],
+    "attachments": [],
     "subject": "Something",
     "fields": {
       "sender": "Sender Name",
@@ -188,6 +189,7 @@ Immediate dispatch
   "params": {
     "template": "simple",
     "cc": [],
+    "attachments": [],
     "subject": "Something",
     "fields": {
       "sender": "Sender Name",
@@ -224,6 +226,7 @@ Interval dispatch
   "params": {
     "template": "simple",
     "cc": [],
+    "attachments": [],
     "subject": "Something",
     "fields": {
       "sender": "Sender Name",
@@ -257,6 +260,7 @@ Cron dispatch
   "params": {
     "template": "simple",
     "cc": [],
+    "attachments": [],
     "sender": "Sender Name",
     "fields": {
       "sender": "Sender Name",
@@ -290,6 +294,7 @@ Immediate dispatch
   "params": {
     "template": "simple",
     "channel": "SLACK_CHANNEL_ID",
+    "attachments": [],
     "fields": {
       "sender": "Sender Name",
       "content": "Some dynamic content!"
@@ -325,6 +330,7 @@ Interval dispatch
   "params": {
     "template": "simple",
     "channel": "SLACK_CHANNEL_ID",
+    "attachments": [],
     "fields": {
       "sender": "Sender Name",
       "content": "Some dynamic content!"
@@ -357,6 +363,7 @@ Cron dispatch
   "params": {
     "template": "simple",
     "channel": "SLACK_CHANNEL_ID",
+    "attachments": [],
     "fields": {
       "sender": "Sender Name",
       "content": "Some dynamic content!"

@@ -37,6 +37,18 @@ internal class SlackTaskConsumer : AbsTaskConsumer() {
             fields = parameters.fields
         )
 
+        // Append attachment links to the message.
+
+        val attachmentLinks: String? = parameters.attachments?.joinToString("\n") { attachmentUrl ->
+            "Attachment: <${attachmentUrl}|Download>"
+        }
+
+        val finalMessage: String = if (attachmentLinks != null) {
+            "$message\n\n$attachmentLinks"
+        } else {
+            message
+        }
+
         // Send the Slack notification.
 
         val slackSpec: SchedulerSettings.SlackSpec = AppSettings.scheduler.slackSpec
@@ -44,7 +56,7 @@ internal class SlackTaskConsumer : AbsTaskConsumer() {
         val response: ChatPostMessageResponse = slack.methods(slackSpec.token).chatPostMessage { request ->
             request.channel(parameters.channel)
             request.username(payload.recipient.name)
-            request.text(message)
+            request.text(finalMessage)
         }
 
         // Handle the response.
