@@ -33,12 +33,12 @@ data class SchedulerCheck(
         errors = mutableListOf(),
         isStarted = SchedulerService.isStarted(),
         isPaused = SchedulerService.isPaused(),
-        totalTasks = SchedulerService.tasks.all().size,
+        totalTasks = SchedulerService.totalTasks(),
         email = EmailSpec(),
         templatesPath = AppSettings.scheduler.templatesPath
     ) {
         if (!isStarted) {
-            errors.add("${this::class.simpleName}. Scheduler is not start.")
+            errors.add("${this::class.simpleName}. Scheduler is not started.")
         }
 
         if (email.hostName.isBlank()) {

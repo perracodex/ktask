@@ -52,7 +52,7 @@ object DatabaseService {
     fun init(
         settings: DatabaseSettings,
         isolationLevel: IsolationLevel = IsolationLevel.TRANSACTION_REPEATABLE_READ,
-        schemaSetup: (SchemaBuilder.() -> Unit)? = null
+        schemaSetup: (SchemaBuilder.() -> Unit) = {}
     ) {
         buildDatabase(settings = settings)
 
@@ -70,7 +70,7 @@ object DatabaseService {
             connectDatabase(settings = settings, isolationLevel = isolationLevel)
         }
 
-        schemaSetup?.let {
+        schemaSetup.let {
             tracer.info("Setting database schema.")
             val schemaBuilder = SchemaBuilder()
             schemaSetup.invoke(schemaBuilder)
