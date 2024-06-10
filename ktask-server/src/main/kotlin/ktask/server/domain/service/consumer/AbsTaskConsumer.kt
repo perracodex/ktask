@@ -107,9 +107,9 @@ internal abstract class AbsTaskConsumer : SchedulerTask() {
 
         // Set the variables to be used in the template.
         val context: Context = Context().apply {
-            setVariable("locale", locale)
-            setVariable("recipient", payload.recipient.target)
-            setVariable("name", payload.recipient.name)
+            setVariable(LOCALE_PLACEHOLDER, locale)
+            setVariable(RECIPIENT_PLACEHOLDER, payload.recipient.target)
+            setVariable(NAME_PLACEHOLDER, payload.recipient.name)
 
             // Set the additional fields in the context.
             // These fields are not bound to the consumer's payload,
@@ -118,7 +118,7 @@ internal abstract class AbsTaskConsumer : SchedulerTask() {
 
             // Add the formatted/localized date to the context.
             val formattedDate: String = DateTimeUtils.localizedCurrentDate(language = locale)
-            setVariable("date", formattedDate)
+            setVariable(DATE_PLACEHOLDER, formattedDate)
         }
 
         // Resolve the template name based on the recipient's language.
@@ -149,5 +149,10 @@ internal abstract class AbsTaskConsumer : SchedulerTask() {
         const val RECIPIENT_TARGET_KEY: String = "RECIPIENT_TARGET"
         const val TASK_ID_KEY: String = "TASK_ID"
         const val TEMPLATE_KEY: String = "TEMPLATE"
+
+        private const val LOCALE_PLACEHOLDER: String = "locale"
+        private const val RECIPIENT_PLACEHOLDER: String = "recipient"
+        private const val NAME_PLACEHOLDER: String = "name"
+        private const val DATE_PLACEHOLDER: String = "date"
     }
 }
