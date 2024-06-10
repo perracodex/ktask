@@ -7,6 +7,7 @@ package ktask.server.domain.service.consumer
 import ktask.base.persistence.serializers.SUUID
 import ktask.base.scheduler.service.task.SchedulerTask
 import ktask.base.settings.AppSettings
+import ktask.base.utils.CastUtils
 import ktask.base.utils.DateTimeUtils
 import ktask.server.domain.entity.Recipient
 import org.thymeleaf.TemplateEngine
@@ -52,8 +53,8 @@ internal abstract class AbsTaskConsumer : SchedulerTask() {
 
                 val taskId: SUUID = properties[TASK_ID_KEY] as SUUID
                 val template: String = properties[TEMPLATE_KEY] as String
-                val fields: Map<String, String> = parameterToStringMap(parameter = properties[FIELDS_KEY])
-                val attachments: List<String> = parameterToStringList(parameter = properties[ATTACHMENTS_KEY])
+                val fields: Map<String, String> = CastUtils.toStringMap(map = properties[FIELDS_KEY])
+                val attachments: List<String> = CastUtils.toStringList(list = properties[ATTACHMENTS_KEY])
 
                 val recipient = Recipient(
                     target = properties[RECIPIENT_TARGET_KEY] as String,
@@ -148,28 +149,5 @@ internal abstract class AbsTaskConsumer : SchedulerTask() {
         const val RECIPIENT_TARGET_KEY: String = "RECIPIENT_TARGET"
         const val TASK_ID_KEY: String = "TASK_ID"
         const val TEMPLATE_KEY: String = "TEMPLATE"
-
-        /**
-         * Converts the parameter to a list of strings.
-         *
-         * @param parameter The parameter to convert.
-         * @return The list of strings.
-         */
-        fun parameterToStringList(parameter: Any?): List<String> {
-            return (parameter as? List<*>)?.filterIsInstance<String>().orEmpty()
-        }
-
-        /**
-         * Converts the parameter to a map of strings.
-         *
-         * @param parameter The parameter to convert.
-         * @return The map of strings.
-         */
-        fun parameterToStringMap(parameter: Any?): Map<String, String> {
-            return (parameter as? Map<*, *>)?.entries
-                ?.filter { it.key is String && it.value is String }
-                ?.associate { it.key as String to it.value as String }
-                ?: emptyMap()
-        }
     }
 }
