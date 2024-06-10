@@ -114,9 +114,9 @@ object DateTimeUtils {
     }
 
     /**
-     * Returns the current date formatted according to the specified language.
+     * Returns the current date formatted according to the specified language or locale.
      *
-     * @param language The ISO language code to format the date.
+     * @param language The ISO language code, or locale, to format the date.
      * @return The formatted date with the month in title case.
      */
     fun localizedCurrentDate(language: String): String {

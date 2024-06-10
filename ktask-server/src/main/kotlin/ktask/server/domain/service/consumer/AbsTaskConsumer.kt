@@ -6,6 +6,7 @@ package ktask.server.domain.service.consumer
 
 import ktask.base.persistence.serializers.SUUID
 import ktask.base.scheduler.service.task.SchedulerTask
+import ktask.base.settings.AppSettings
 import ktask.base.utils.DateTimeUtils
 import ktask.server.domain.entity.Recipient
 import org.thymeleaf.TemplateEngine
@@ -41,16 +42,40 @@ internal abstract class AbsTaskConsumer : SchedulerTask() {
     data class TaskPayload(
         val taskId: SUUID,
         val recipient: Recipient,
+        val template: String,
+        val fields: Map<String, String> = emptyMap(),
+        val attachments: List<String> = emptyList(),
         val additionalParams: Map<String, Any> = emptyMap()
     ) {
         companion object {
             fun map(properties: Map<String, Any>): TaskPayload {
+
+                val taskId: SUUID = properties[TASK_ID_KEY] as SUUID
+                val template: String = properties[TEMPLATE_KEY] as String
+                val fields: Map<String, String> = parameterToStringMap(parameter = properties[FIELDS_KEY])
+                val attachments: List<String> = parameterToStringList(parameter = properties[ATTACHMENTS_KEY])
+
+                val recipient = Recipient(
+                    target = properties[RECIPIENT_TARGET_KEY] as String,
+                    name = properties[RECIPIENT_NAME_KEY] as String,
+                    locale = properties[RECIPIENT_LOCALE_KEY] as String
+                )
+
+                // The consumer-specific parameters.
+                val additionalParams = properties.filterKeys { key ->
+                    key !in setOf(
+                        ATTACHMENTS_KEY, FIELDS_KEY, TASK_ID_KEY, TEMPLATE_KEY,
+                        RECIPIENT_TARGET_KEY, RECIPIENT_NAME_KEY, RECIPIENT_LOCALE_KEY
+                    )
+                }
+
                 return TaskPayload(
-                    taskId = properties[TASK_ID_KEY] as SUUID,
-                    recipient = Recipient.deserialize(string = properties[RECIPIENT_KEY] as String),
-                    additionalParams = properties.filterKeys { key ->
-                        key !in setOf(TASK_ID_KEY, RECIPIENT_KEY)
-                    }
+                    taskId = taskId,
+                    recipient = recipient,
+                    template = template,
+                    fields = fields,
+                    attachments = attachments,
+                    additionalParams = additionalParams
                 )
             }
         }
@@ -70,49 +95,40 @@ internal abstract class AbsTaskConsumer : SchedulerTask() {
 
     /**
      * Loads a template file and processes it with the provided context.
-     * If the recipient has a language set, the template file will be resolved.
-     * If the template file is not found, the task will fail.
      *
      * @param type The type of template to load.
-     * @param recipient The recipient of the message.
-     * @param template The name of the template file to load.
-     * @param fields Optional additional fields to include in the template.
+     * @param payload The [TaskPayload] containing the data to be used in the template.
      * @return The processed template as a string.
      */
-    protected fun buildMessage(
-        type: TemplateType,
-        recipient: Recipient,
-        template: String,
-        fields: Map<String, String>? = null
-    ): String {
+    protected fun buildMessage(type: TemplateType, payload: TaskPayload): String {
 
-        val language: String = recipient.language.lowercase()
+        val locale: String = payload.recipient.locale.lowercase()
 
         // Set the variables to be used in the template.
         val context: Context = Context().apply {
-            setVariable("language", language)
-            setVariable("recipient", recipient.target)
-            setVariable("name", recipient.name)
+            setVariable("locale", locale)
+            setVariable("recipient", payload.recipient.target)
+            setVariable("name", payload.recipient.name)
 
             // Set the additional fields in the context.
             // These fields are not bound to the consumer's payload,
             // but that may exist in the template.
-            fields?.forEach(this::setVariable)
+            payload.fields.forEach(this::setVariable)
 
             // Add the formatted/localized date to the context.
-            val formattedDate = DateTimeUtils.localizedCurrentDate(language = language)
+            val formattedDate: String = DateTimeUtils.localizedCurrentDate(language = locale)
             setVariable("date", formattedDate)
         }
 
         // Resolve the template name based on the recipient's language.
-        val targetTemplate = "$template-${language}"
+        val targetTemplate = "${payload.template}-${locale}"
 
         // The task runs in a different class loader, so the template engine
         // doesn't have any resolvers set by default, even if the application
         // has them configured. We need to set the resolvers manually.
         val templateEngine: TemplateEngine = TemplateEngine().apply {
             addTemplateResolver(FileTemplateResolver().apply {
-                prefix = "$PUBLIC_TEMPLATES/${type.location}/"
+                prefix = "${AppSettings.scheduler.templatesPath}/${type.location}/"
                 suffix = type.suffix
                 characterEncoding = "utf-8"
                 templateMode = type.mode
@@ -125,16 +141,35 @@ internal abstract class AbsTaskConsumer : SchedulerTask() {
     }
 
     companion object {
-        /** The location of the public templates. */
-        private const val PUBLIC_TEMPLATES = "public_templates"
-
-        /** The key for the task ID in the payload. */
+        const val ATTACHMENTS_KEY: String = "ATTACHMENTS"
+        const val FIELDS_KEY: String = "FIELDS"
+        const val RECIPIENT_LOCALE_KEY: String = "RECIPIENT_LOCALE"
+        const val RECIPIENT_NAME_KEY: String = "RECIPIENT_NAME"
+        const val RECIPIENT_TARGET_KEY: String = "RECIPIENT_TARGET"
         const val TASK_ID_KEY: String = "TASK_ID"
+        const val TEMPLATE_KEY: String = "TEMPLATE"
 
-        /** The key for the recipient in the payload. */
-        const val RECIPIENT_KEY: String = "RECIPIENT"
+        /**
+         * Converts the parameter to a list of strings.
+         *
+         * @param parameter The parameter to convert.
+         * @return The list of strings.
+         */
+        fun parameterToStringList(parameter: Any?): List<String> {
+            return (parameter as? List<*>)?.filterIsInstance<String>() ?: emptyList()
+        }
 
-        /** The key for the additional parameters in the payload. */
-        const val PARAMETERS_KEY: String = "PARAMETERS"
+        /**
+         * Converts the parameter to a map of strings.
+         *
+         * @param parameter The parameter to convert.
+         * @return The map of strings.
+         */
+        fun parameterToStringMap(parameter: Any?): Map<String, String> {
+            return (parameter as? Map<*, *>)?.entries
+                ?.filter { it.key is String && it.value is String }
+                ?.associate { it.key as String to it.value as String }
+                ?: emptyMap()
+        }
     }
 }

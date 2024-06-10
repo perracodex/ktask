@@ -2,7 +2,7 @@
  * Copyright (c) 2024-Present Perracodex. Use of this source code is governed by an MIT license.
  */
 
-package ktask.base.scheduler.routing.state
+package ktask.base.scheduler.routing.scheduler
 
 import io.ktor.http.*
 import io.ktor.server.application.*
@@ -12,12 +12,12 @@ import ktask.base.scheduler.entity.TaskStateChangeEntity
 import ktask.base.scheduler.service.core.SchedulerService
 
 /**
- * Pauses all the scheduler tasks.
+ * Resume all the scheduler tasks.
  */
-fun Route.pauseAllSchedulerTasksRoute() {
-    // Pauses all the scheduler tasks.
-    post("/pause") {
-        val state: TaskStateChangeEntity = SchedulerService.pause()
+fun Route.resumeSchedulerRoute() {
+    // Resume all the scheduler tasks.
+    post("resume") {
+        val state: TaskStateChangeEntity = SchedulerService.resume()
         call.respond(status = HttpStatusCode.OK, message = state)
     }
 }

@@ -5,14 +5,15 @@
 package ktask.base.scheduler.routing
 
 import io.ktor.server.routing.*
-import ktask.base.scheduler.routing.delete.deleteAllSchedulerTasksRoute
-import ktask.base.scheduler.routing.delete.deleteSchedulerTaskRoute
-import ktask.base.scheduler.routing.get.getSchedulerTaskGroupsRoute
-import ktask.base.scheduler.routing.get.getSchedulerTasksRoute
-import ktask.base.scheduler.routing.state.pauseAllSchedulerTasksRoute
-import ktask.base.scheduler.routing.state.pauseSchedulerTaskRoute
-import ktask.base.scheduler.routing.state.resumeAllSchedulerTasksRoute
-import ktask.base.scheduler.routing.state.resumeSchedulerTaskRoute
+import ktask.base.scheduler.routing.scheduler.pauseSchedulerRoute
+import ktask.base.scheduler.routing.scheduler.resumeSchedulerRoute
+import ktask.base.scheduler.routing.scheduler.schedulerStateRoute
+import ktask.base.scheduler.routing.tasks.delete.deleteAllSchedulerTasksRoute
+import ktask.base.scheduler.routing.tasks.delete.deleteSchedulerTaskRoute
+import ktask.base.scheduler.routing.tasks.get.getSchedulerTaskGroupsRoute
+import ktask.base.scheduler.routing.tasks.get.getSchedulerTasksRoute
+import ktask.base.scheduler.routing.tasks.state.pauseSchedulerTaskRoute
+import ktask.base.scheduler.routing.tasks.state.resumeSchedulerTaskRoute
 import ktask.base.scheduler.routing.view.schedulerDashboardRoute
 
 /**
@@ -20,19 +21,21 @@ import ktask.base.scheduler.routing.view.schedulerDashboardRoute
  */
 fun Route.schedulerRoutes() {
 
-    route("scheduler/tasks") {
+    route("scheduler") {
         schedulerDashboardRoute()
+        schedulerStateRoute()
+        pauseSchedulerRoute()
+        resumeSchedulerRoute()
 
-        getSchedulerTasksRoute()
-        getSchedulerTaskGroupsRoute()
+        route("task") {
+            getSchedulerTasksRoute()
+            getSchedulerTaskGroupsRoute()
 
-        deleteSchedulerTaskRoute()
-        deleteAllSchedulerTasksRoute()
+            deleteSchedulerTaskRoute()
+            deleteAllSchedulerTasksRoute()
 
-        pauseAllSchedulerTasksRoute()
-        pauseSchedulerTaskRoute()
-
-        resumeAllSchedulerTasksRoute()
-        resumeSchedulerTaskRoute()
+            pauseSchedulerTaskRoute()
+            resumeSchedulerTaskRoute()
+        }
     }
 }

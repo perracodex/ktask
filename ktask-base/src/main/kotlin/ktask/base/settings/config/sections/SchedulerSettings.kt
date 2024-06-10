@@ -12,11 +12,13 @@ import ktask.base.settings.config.parser.IConfigSection
  *
  * @property emailSpec The email configuration settings.
  * @property slackSpec The Slack configuration settings.
+ * @property templatesPath The path location containing templates.
  */
 @Serializable
 data class SchedulerSettings(
     val emailSpec: EmailSpec,
-    val slackSpec: SlackSpec
+    val slackSpec: SlackSpec,
+    val templatesPath: String,
 ) : IConfigSection {
 
     /**

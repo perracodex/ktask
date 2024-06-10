@@ -17,6 +17,7 @@ import ktask.base.settings.AppSettings
  * @property isPaused Whether the scheduler is paused.
  * @property totalTasks The total number of tasks in the scheduler.
  * @property email The email specification for the scheduler.
+ *
  */
 @HealthCheckAPI
 @Serializable
@@ -25,14 +26,16 @@ data class SchedulerCheck(
     val isStarted: Boolean,
     val isPaused: Boolean,
     val totalTasks: Int,
-    val email: EmailSpec
+    val email: EmailSpec,
+    val templatesPath: String
 ) {
     constructor() : this(
         errors = mutableListOf(),
         isStarted = SchedulerService.isStarted(),
         isPaused = SchedulerService.isPaused(),
         totalTasks = SchedulerService.tasks.all().size,
-        email = EmailSpec()
+        email = EmailSpec(),
+        templatesPath = AppSettings.scheduler.templatesPath
     ) {
         if (!isStarted) {
             errors.add("${this::class.simpleName}. Scheduler is not start.")
@@ -44,6 +47,10 @@ data class SchedulerCheck(
 
         if (email.smtpPort <= 0) {
             errors.add("${this::class.simpleName}. Email SMTP port is invalid.")
+        }
+
+        if (templatesPath.isBlank()) {
+            errors.add("${this::class.simpleName}. Templates path is empty.")
         }
     }
 

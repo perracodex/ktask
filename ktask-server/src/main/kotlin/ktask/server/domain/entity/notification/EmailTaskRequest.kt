@@ -2,7 +2,7 @@
  * Copyright (c) 2024-Present Perracodex. Use of this source code is governed by an MIT license.
  */
 
-package ktask.server.domain.entity.notification.email
+package ktask.server.domain.entity.notification
 
 import kotlinx.serialization.Serializable
 import ktask.base.errors.SystemError
@@ -12,7 +12,7 @@ import ktask.base.persistence.validators.impl.EmailValidator
 import ktask.base.scheduler.service.schedule.Schedule
 import ktask.server.domain.entity.ITaskRequest
 import ktask.server.domain.entity.Recipient
-import ktask.server.domain.service.consumer.AbsTaskConsumer
+import ktask.server.domain.service.consumer.notification.EmailTaskConsumer
 
 /**
  * Represents a request to send an Email notification task.
@@ -20,19 +20,28 @@ import ktask.server.domain.service.consumer.AbsTaskConsumer
  * @property id The unique identifier of the task request.
  * @property schedule Optional [Schedule] for the task.
  * @property recipients List of target recipients.
- * @property params The [EmailParams] for the notification.
+ * @property template The template to be used for the notification.
+ * @property fields Optional fields to be included in the template.
+ * @property attachments Optional list of file paths to be attached to the notification.
+ * @property cc List of recipients to be copied on the notification.
+ * @property subject The subject or title of the notification.
  */
 @Serializable
 data class EmailTaskRequest(
     override val id: SUUID,
     override val schedule: Schedule? = null,
     override val recipients: List<Recipient>,
-    val params: EmailParams
+    override val template: String,
+    override val fields: Map<String, String>? = null,
+    override val attachments: List<String>? = null,
+    val cc: List<String> = emptyList(),
+    val subject: String,
 ) : ITaskRequest {
 
     override fun toTaskParameters(recipient: Recipient): MutableMap<String, Any> {
         return super.toTaskParameters(recipient = recipient).also { parameter ->
-            parameter[AbsTaskConsumer.PARAMETERS_KEY] = params.serialize()
+            parameter[EmailTaskConsumer.CC_KEY] = cc
+            parameter[EmailTaskConsumer.SUBJECT_KEY] = subject
         }
     }
 

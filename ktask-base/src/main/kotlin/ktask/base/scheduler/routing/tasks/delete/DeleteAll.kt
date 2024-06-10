@@ -2,7 +2,7 @@
  * Copyright (c) 2024-Present Perracodex. Use of this source code is governed by an MIT license.
  */
 
-package ktask.base.scheduler.routing.delete
+package ktask.base.scheduler.routing.tasks.delete
 
 import io.ktor.http.*
 import io.ktor.server.application.*

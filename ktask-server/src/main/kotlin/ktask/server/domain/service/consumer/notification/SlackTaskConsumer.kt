@@ -9,7 +9,6 @@ import com.slack.api.methods.response.chat.ChatPostMessageResponse
 import ktask.base.env.Tracer
 import ktask.base.settings.AppSettings
 import ktask.base.settings.config.sections.SchedulerSettings
-import ktask.server.domain.entity.notification.slack.SlackParams
 import ktask.server.domain.service.consumer.AbsTaskConsumer
 
 
@@ -24,29 +23,25 @@ internal class SlackTaskConsumer : AbsTaskConsumer() {
     override fun consume(payload: TaskPayload) {
         tracer.debug("Processing Slack task notification. ID: ${payload.taskId}")
 
-        val parameters: SlackParams = SlackParams.deserialize(
-            string = payload.additionalParams[PARAMETERS_KEY] as String
-        )
+        val channel: String = payload.additionalParams[CHANNEL_KEY] as String
 
         // Build the message.
 
         val message: String = buildMessage(
             type = TemplateType.SLACK,
-            recipient = payload.recipient,
-            template = parameters.template,
-            fields = parameters.fields
+            payload = payload,
         )
 
         // Append attachment links to the message.
 
-        val attachmentLinks: String? = parameters.attachments?.joinToString("\n") { attachmentUrl ->
+        val attachmentLinks: String = payload.attachments.joinToString("\n") { attachmentUrl ->
             "Attachment: <${attachmentUrl}|Download>"
         }
 
-        val finalMessage: String = if (attachmentLinks != null) {
-            "$message\n\n$attachmentLinks"
-        } else {
+        val finalMessage: String = if (attachmentLinks.isBlank()) {
             message
+        } else {
+            "$message\n$attachmentLinks"
         }
 
         // Send the Slack notification.
@@ -54,7 +49,7 @@ internal class SlackTaskConsumer : AbsTaskConsumer() {
         val slackSpec: SchedulerSettings.SlackSpec = AppSettings.scheduler.slackSpec
         val slack: Slack = Slack.getInstance()
         val response: ChatPostMessageResponse = slack.methods(slackSpec.token).chatPostMessage { request ->
-            request.channel(parameters.channel)
+            request.channel(channel)
             request.username(payload.recipient.name)
             request.text(finalMessage)
         }
@@ -66,5 +61,9 @@ internal class SlackTaskConsumer : AbsTaskConsumer() {
         } else {
             tracer.error("Failed to send Slack notification. ID: ${payload.taskId}. Response: $response")
         }
+    }
+
+    companion object {
+        const val CHANNEL_KEY: String = "CHANNEL"
     }
 }

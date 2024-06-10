@@ -5,41 +5,24 @@
 package ktask.server.domain.entity
 
 import kotlinx.serialization.Serializable
-import kotlinx.serialization.encodeToString
-import kotlinx.serialization.json.Json
-import java.util.*
+import ktask.base.utils.LocaleUtils
 
 /**
  * Represents a recipient of a notification.
  *
  * @property target The target address of the recipient.
  * @property name The name of the recipient.
- * @property language The language of the recipient. Must be a valid ISO 639-1 language code.
+ * @property locale The recipient language locale.
  */
 @Serializable
 data class Recipient(
     val target: String,
     val name: String,
-    val language: String
+    val locale: String
 ) {
     init {
         require(target.isNotBlank()) { "Target cannot be blank." }
         require(name.isNotBlank()) { "Target: $target. Name cannot be blank." }
-
-        require(language.isNotBlank()) { "Target: $target. Language cannot be blank." }
-        require(language.length == 2) { "Target: $target. Language code must be 2 characters long. Got: $language." }
-        require(Locale.getISOLanguages().contains(language.lowercase())) {
-            "Target: $target. Language code must be a valid ISO 639-1 language code. Got: $language."
-        }
-    }
-
-    fun serialize(): String {
-        return Json.encodeToString<Recipient>(value = this)
-    }
-
-    companion object {
-        fun deserialize(string: String): Recipient {
-            return Json.decodeFromString<Recipient>(string)
-        }
+        require(LocaleUtils.isValidLocale(string = locale)) { "Target: $target. Invalid locale: $locale." }
     }
 }

@@ -45,9 +45,9 @@ A dashboard to view and manage scheduled tasks is available at the endpoint: `/s
 
 ## Language Support
 
-The system supports sending notifications in multiple languages.
-The desired language can be specified within the recipient object.
-For this feature to function correctly, templates must be provided in the corresponding language.
+The system supports sending notifications in multiple languages or locales.
+The desired language or locale can be specified within the recipient object.
+For this feature to function correctly, templates must be provided in the corresponding language or locale.
 
 ```json
 {
@@ -60,19 +60,20 @@ For this feature to function correctly, templates must be provided in the corres
     {
       "target": "person_1_email",
       "name": "person_name_1",
-      "language": "es"
+      "language": "en-us"
     },
     {
-      "target": "person_2_email",
-      "name": "person_name_2",
-      "language": "fr"
+      "target": "person_1_email",
+      "name": "person_name_1",
+      "language": "es"
     }
   ]
 }
 ```
 
-* The system will automatically use the appropriate template based on the specified language.
-  These templates should be stored in the project's root directory under the [public_templates](./public_templates) folder.
+* The system will automatically use the appropriate template based on the specified language or locale.
+
+* Templates must be stored in the project's root directory under the [public_templates](./public_templates) folder.
 
 * If a language-specific template is not found, the notification will not be sent until the template is provided.
 
@@ -82,8 +83,8 @@ For this feature to function correctly, templates must be provided in the corres
 
 ## Message Template Fields
 
-A typical email json request object looks like next, where the `fields` object contains the dynamic data
-that will be replaced in the target message template.
+A typical email json request object looks like next, where the `fields` object can contain any dynamic data
+that intended to replace placeholders in the target template.
 
 ```json
 {
@@ -100,22 +101,22 @@ that will be replaced in the target message template.
       "language": "es"
     }
   ],
-  "params": {
-    "template": "simple",
-    "cc": [],
-    "attachments": [],
-    "subject": "Something",
-    "fields": {
-      "sender": "Sender Name",
-      "content": "Some dynamic content!"
-    }
+  "template": "simple",
+  "cc": [],
+  "attachments": [],
+  "subject": "Something",
+  "fields": {
+    "sender": "Sender Name",
+    "content": "Some dynamic content!"
   }
 }
 ```
 
-* The `fields` object does not contain fixed data and can be customized based on a target template.
+* The `fields` items can be customized based on a target template.
+*
+* The target template must contain the corresponding placeholders, which are the `fields` items keys.
 
-* If any of the `fields` items are found in a target template, they will be replaced with its corresponding value.
+* If any of the `fields` items are not found in a target template, they will be ignored.
 
 * Not specifying the `fields` object will result in the template being sent as is.
 
@@ -186,15 +187,13 @@ Immediate dispatch
       "language": "es"
     }
   ],
-  "params": {
-    "template": "simple",
-    "cc": [],
-    "attachments": [],
-    "subject": "Something",
-    "fields": {
-      "sender": "Sender Name",
-      "content": "Some dynamic content!"
-    }
+  "template": "simple",
+  "cc": [],
+  "attachments": [],
+  "subject": "Something",
+  "fields": {
+    "sender": "Sender Name",
+    "content": "Some dynamic content!"
   }
 }
 ```
@@ -223,15 +222,13 @@ Interval dispatch
       "language": "es"
     }
   ],
-  "params": {
-    "template": "simple",
-    "cc": [],
-    "attachments": [],
-    "subject": "Something",
-    "fields": {
-      "sender": "Sender Name",
-      "content": "Some dynamic content!"
-    }
+  "template": "simple",
+  "cc": [],
+  "attachments": [],
+  "subject": "Something",
+  "fields": {
+    "sender": "Sender Name",
+    "content": "Some dynamic content!"
   }
 }
 ```
@@ -257,15 +254,13 @@ Cron dispatch
       "language": "es"
     }
   ],
-  "params": {
-    "template": "simple",
-    "cc": [],
-    "attachments": [],
+  "template": "simple",
+  "cc": [],
+  "attachments": [],
+  "sender": "Sender Name",
+  "fields": {
     "sender": "Sender Name",
-    "fields": {
-      "sender": "Sender Name",
-      "content": "Some dynamic content!"
-    }
+    "content": "Some dynamic content!"
   }
 }
 ```
@@ -291,14 +286,12 @@ Immediate dispatch
       "language": "es"
     }
   ],
-  "params": {
-    "template": "simple",
-    "channel": "SLACK_CHANNEL_ID",
-    "attachments": [],
-    "fields": {
-      "sender": "Sender Name",
-      "content": "Some dynamic content!"
-    }
+  "template": "simple",
+  "channel": "SLACK_CHANNEL_ID",
+  "attachments": [],
+  "fields": {
+    "sender": "Sender Name",
+    "content": "Some dynamic content!"
   }
 }
 ```
@@ -327,14 +320,12 @@ Interval dispatch
       "language": "es"
     }
   ],
-  "params": {
-    "template": "simple",
-    "channel": "SLACK_CHANNEL_ID",
-    "attachments": [],
-    "fields": {
-      "sender": "Sender Name",
-      "content": "Some dynamic content!"
-    }
+  "template": "simple",
+  "channel": "SLACK_CHANNEL_ID",
+  "attachments": [],
+  "fields": {
+    "sender": "Sender Name",
+    "content": "Some dynamic content!"
   }
 }
 ```
@@ -360,14 +351,12 @@ Cron dispatch
       "language": "es"
     }
   ],
-  "params": {
-    "template": "simple",
-    "channel": "SLACK_CHANNEL_ID",
-    "attachments": [],
-    "fields": {
-      "sender": "Sender Name",
-      "content": "Some dynamic content!"
-    }
+  "template": "simple",
+  "channel": "SLACK_CHANNEL_ID",
+  "attachments": [],
+  "fields": {
+    "sender": "Sender Name",
+    "content": "Some dynamic content!"
   }
 }
 ```
@@ -384,7 +373,7 @@ Cron dispatch
 ```json
 [
   {
-    "name": "task-1iqsn1me8ivi8-84944151523100",
+    "name": "task-1ig2n1me8ivi8-84944151523100",
     "group": "38befbfb-20a3-4bcd-91e1-a2c7240adfa0",
     "consumer": "EmailTaskConsumer",
     "nextFireTime": "2024-06-09T14:18:50",
