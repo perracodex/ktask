@@ -111,14 +111,14 @@ internal abstract class AbsTaskConsumer : SchedulerTask() {
             setVariable(RECIPIENT_PLACEHOLDER, payload.recipient.target)
             setVariable(NAME_PLACEHOLDER, payload.recipient.name)
 
-            // Set the additional fields in the context.
-            // These fields are not bound to the consumer's payload,
-            // but that may exist in the template.
-            payload.fields.forEach(this::setVariable)
-
             // Add the formatted/localized date to the context.
             val formattedDate: String = DateTimeUtils.localizedCurrentDate(language = locale)
             setVariable(DATE_PLACEHOLDER, formattedDate)
+
+            // Set the additional fields in the context.
+            // These fields are not bound to the consumer's payload,
+            // but that may exist in the template.
+            payload.fields.forEach { (key, value) -> setVariable(key.lowercase(), value) }
         }
 
         // Resolve the template name based on the recipient's language.
