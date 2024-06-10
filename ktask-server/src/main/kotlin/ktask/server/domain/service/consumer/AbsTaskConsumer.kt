@@ -156,7 +156,7 @@ internal abstract class AbsTaskConsumer : SchedulerTask() {
          * @return The list of strings.
          */
         fun parameterToStringList(parameter: Any?): List<String> {
-            return (parameter as? List<*>)?.filterIsInstance<String>() ?: emptyList()
+            return (parameter as? List<*>)?.filterIsInstance<String>().orEmpty()
         }
 
         /**
