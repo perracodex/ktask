@@ -6,8 +6,8 @@ package ktask.base.env.health.checks
 
 import kotlinx.serialization.Serializable
 import ktask.base.env.health.annotation.HealthCheckAPI
-import ktask.base.utils.snowflake.SnowflakeData
-import ktask.base.utils.snowflake.SnowflakeFactory
+import ktask.base.snowflake.SnowflakeData
+import ktask.base.snowflake.SnowflakeFactory
 
 /**
  * A health check that generates a snowflake id and parses it.

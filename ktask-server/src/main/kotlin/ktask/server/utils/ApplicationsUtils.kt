@@ -9,8 +9,8 @@ import io.github.cdimascio.dotenv.dotenv
 import io.ktor.server.application.*
 import ktask.base.env.Tracer
 import ktask.base.settings.AppSettings
+import ktask.base.snowflake.SnowflakeFactory
 import ktask.base.utils.NetworkUtils
-import ktask.base.utils.snowflake.SnowflakeFactory
 
 /**
  * Utility functions for the application server.

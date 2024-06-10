@@ -11,7 +11,7 @@ import io.ktor.server.plugins.callid.*
 import io.ktor.server.plugins.callloging.*
 import io.ktor.server.request.*
 import ktask.base.settings.AppSettings
-import ktask.base.utils.snowflake.SnowflakeFactory
+import ktask.base.snowflake.SnowflakeFactory
 import org.slf4j.event.Level
 
 /**

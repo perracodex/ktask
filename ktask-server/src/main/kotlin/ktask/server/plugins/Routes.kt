@@ -10,7 +10,7 @@ import io.ktor.server.routing.*
 import ktask.base.env.health.routing.healthCheckRoute
 import ktask.base.plugins.RateLimitScope
 import ktask.base.scheduler.routing.schedulerRoutes
-import ktask.base.utils.snowflake.snowflakeRoute
+import ktask.base.snowflake.snowflakeRoute
 import ktask.server.domain.routing.emailTaskRoute
 import ktask.server.domain.routing.slackTaskRoute
 
