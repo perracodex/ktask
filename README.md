@@ -34,6 +34,17 @@ For convenience, it is included a *[Postman Collection](./.postman/ktask.postman
 
 <img src=".screenshots/workflow.jpg" alt="workflow">
 
+### When a task is about to start, the following steps are executed:
+
+1. Create a new instance of the task consumer class.
+2. Inject the App Settings into the task instance, enabling access to output SDK configuration settings.
+3. Deserialize the scheduler concrete task parameters and assign them to the task instance.
+4. Resolve the task's configured template based on the appropriate language or locale.
+5. Replace the template placeholders with the task parameters.
+6. Convert the template into the final message.
+7. Configure the target consumer output SDK (e.g., email or Slack SDK).
+8. Dispatch the message to the target recipient using the configured SDK.
+
 ---
 ## Dashboard
 
