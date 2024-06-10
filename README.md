@@ -34,7 +34,7 @@ For convenience, it is included a *[Postman Collection](./.postman/ktask.postman
 
 <img src=".screenshots/workflow.jpg" alt="workflow">
 
-### When a task is about to start, the following steps are executed:
+### When a scheduled task is about to be started by the Task Scheduler Service, the following steps are executed:
 
 1. Create a new instance of the task consumer class.
 2. Inject the App Settings into the task instance, enabling access to output SDK configuration settings.
