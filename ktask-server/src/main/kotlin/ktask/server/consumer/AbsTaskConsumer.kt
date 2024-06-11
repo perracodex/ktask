@@ -40,6 +40,8 @@ internal abstract class AbsTaskConsumer : SchedulerTask() {
     /**
      * Represents the placeholders used in the template files.
      * These are tags in the template files that are replaced with the actual values.
+     *
+     * Keys must be in lowercase to match the templates context variables.
      */
     private enum class Placeholder(val key: String) {
         LOCALE(key = "locale"),
