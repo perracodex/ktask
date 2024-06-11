@@ -6,7 +6,7 @@ package ktask.server.domain.entity
 
 import ktask.base.persistence.serializers.SUUID
 import ktask.base.scheduler.service.schedule.Schedule
-import ktask.server.domain.service.consumer.AbsTaskConsumer
+import ktask.server.consumer.AbsTaskConsumer
 
 /**
  * Represents a request to schedule a task.

@@ -10,9 +10,9 @@ import ktask.base.persistence.serializers.SUUID
 import ktask.base.persistence.validators.IValidator
 import ktask.base.persistence.validators.impl.EmailValidator
 import ktask.base.scheduler.service.schedule.Schedule
+import ktask.server.consumer.notification.EmailTaskConsumer
 import ktask.server.domain.entity.ITaskRequest
 import ktask.server.domain.entity.Recipient
-import ktask.server.domain.service.consumer.notification.EmailTaskConsumer
 
 /**
  * Represents a request to send an Email notification task.

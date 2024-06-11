@@ -11,12 +11,12 @@ import ktask.base.scheduler.service.request.SchedulerRequest
 import ktask.base.scheduler.service.schedule.TaskStartAt
 import ktask.base.utils.DateTimeUtils
 import ktask.base.utils.KLocalDateTime
+import ktask.server.consumer.AbsTaskConsumer
+import ktask.server.consumer.notification.EmailTaskConsumer
+import ktask.server.consumer.notification.SlackTaskConsumer
 import ktask.server.domain.entity.ITaskRequest
 import ktask.server.domain.entity.notification.EmailTaskRequest
 import ktask.server.domain.entity.notification.SlackTaskRequest
-import ktask.server.domain.service.consumer.AbsTaskConsumer
-import ktask.server.domain.service.consumer.notification.EmailTaskConsumer
-import ktask.server.domain.service.consumer.notification.SlackTaskConsumer
 
 /**
  * Notification service for managing scheduling related operations.

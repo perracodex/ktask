@@ -11,8 +11,8 @@ import ktask.base.env.health.routing.healthCheckRoute
 import ktask.base.plugins.RateLimitScope
 import ktask.base.scheduler.routing.schedulerRoutes
 import ktask.base.snowflake.snowflakeRoute
-import ktask.server.domain.routing.emailTaskRoute
-import ktask.server.domain.routing.slackTaskRoute
+import ktask.server.routing.emailTaskRoute
+import ktask.server.routing.slackTaskRoute
 
 /**
  * Initializes and sets up routing for the application.

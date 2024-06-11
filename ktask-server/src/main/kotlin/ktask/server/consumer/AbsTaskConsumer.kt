@@ -2,7 +2,7 @@
  * Copyright (c) 2024-Present Perracodex. Use of this source code is governed by an MIT license.
  */
 
-package ktask.server.domain.service.consumer
+package ktask.server.consumer
 
 import ktask.base.persistence.serializers.SUUID
 import ktask.base.scheduler.service.task.SchedulerTask
@@ -16,8 +16,10 @@ import org.thymeleaf.templatemode.TemplateMode
 import org.thymeleaf.templateresolver.FileTemplateResolver
 
 /**
- * Abstract base class for processing scheduled tasks, implying the handling of task
- * execution by abstracting common task-related data extraction and pre-processing tasks.
+ * Abstract base class for processing scheduled tasks, providing a common steps for task execution,
+ * handling the extraction, pre-processing, and consumption of task-related data, including
+ * the loading and processing of template files. Extending classes must implement the [consume]
+ * method to define task-specific behavior.
  */
 internal abstract class AbsTaskConsumer : SchedulerTask() {
 

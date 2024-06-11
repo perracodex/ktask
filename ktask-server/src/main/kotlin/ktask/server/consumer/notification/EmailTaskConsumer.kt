@@ -2,13 +2,13 @@
  * Copyright (c) 2024-Present Perracodex. Use of this source code is governed by an MIT license.
  */
 
-package ktask.server.domain.service.consumer.notification
+package ktask.server.consumer.notification
 
 import ktask.base.env.Tracer
 import ktask.base.settings.AppSettings
 import ktask.base.settings.config.sections.SchedulerSettings
 import ktask.base.utils.CastUtils
-import ktask.server.domain.service.consumer.AbsTaskConsumer
+import ktask.server.consumer.AbsTaskConsumer
 import org.apache.commons.mail.DefaultAuthenticator
 import org.apache.commons.mail.EmailAttachment
 import org.apache.commons.mail.HtmlEmail

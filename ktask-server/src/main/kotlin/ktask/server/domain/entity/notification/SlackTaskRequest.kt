@@ -7,9 +7,9 @@ package ktask.server.domain.entity.notification
 import kotlinx.serialization.Serializable
 import ktask.base.persistence.serializers.SUUID
 import ktask.base.scheduler.service.schedule.Schedule
+import ktask.server.consumer.notification.SlackTaskConsumer
 import ktask.server.domain.entity.ITaskRequest
 import ktask.server.domain.entity.Recipient
-import ktask.server.domain.service.consumer.notification.SlackTaskConsumer
 
 /**
  * Represents a request to send a Slack notification task.

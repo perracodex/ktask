@@ -2,7 +2,7 @@
  * Copyright (c) 2024-Present Perracodex. Use of this source code is governed by an MIT license.
  */
 
-package ktask.server.domain.routing
+package ktask.server.routing
 
 import io.ktor.http.*
 import io.ktor.server.application.*
