@@ -19,11 +19,19 @@ import org.apache.commons.mail.HtmlEmail
 internal class EmailTaskConsumer : AbsTaskConsumer() {
     private val tracer = Tracer<EmailTaskConsumer>()
 
+    /**
+     * Represents the concrete properties for the email task.
+     */
+    enum class Property(val key: String) {
+        CC(key = "CC"),
+        SUBJECT(key = "SUBJECT")
+    }
+
     override fun consume(payload: TaskPayload) {
         tracer.debug("Processing email task notification. ID: ${payload.taskId}")
 
-        val cc: List<String> = CastUtils.toStringList(list = payload.additionalParams[CC_KEY])
-        val subject: String = payload.additionalParams[SUBJECT_KEY] as String
+        val cc: List<String> = CastUtils.toStringList(list = payload.additionalParameters[Property.CC.key])
+        val subject: String = payload.additionalParameters[Property.SUBJECT.key] as String
 
         // Build the message.
 
@@ -68,10 +76,5 @@ internal class EmailTaskConsumer : AbsTaskConsumer() {
         // Send the email.
         val result: String = email.send()
         tracer.debug("Email notification sent to ${payload.recipient.target}. Task ID: ${payload.taskId}. Result: $result")
-    }
-
-    companion object {
-        const val CC_KEY: String = "CC"
-        const val SUBJECT_KEY: String = "SUBJECT"
     }
 }

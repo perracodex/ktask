@@ -34,13 +34,13 @@ interface ITaskRequest {
      */
     fun toTaskParameters(recipient: Recipient): MutableMap<String, Any> {
         return mutableMapOf(
-            AbsTaskConsumer.TASK_ID_KEY to id,
-            AbsTaskConsumer.RECIPIENT_TARGET_KEY to recipient.target,
-            AbsTaskConsumer.RECIPIENT_NAME_KEY to recipient.name,
-            AbsTaskConsumer.RECIPIENT_LOCALE_KEY to recipient.locale,
-            AbsTaskConsumer.TEMPLATE_KEY to template,
-            AbsTaskConsumer.FIELDS_KEY to (fields ?: emptyMap()),
-            AbsTaskConsumer.ATTACHMENTS_KEY to (attachments ?: emptyList())
+            AbsTaskConsumer.Property.TASK_ID.key to id,
+            AbsTaskConsumer.Property.RECIPIENT_TARGET.key to recipient.target,
+            AbsTaskConsumer.Property.RECIPIENT_NAME.key to recipient.name,
+            AbsTaskConsumer.Property.RECIPIENT_LOCALE.key to recipient.locale,
+            AbsTaskConsumer.Property.TEMPLATE.key to template,
+            AbsTaskConsumer.Property.FIELDS.key to (fields ?: emptyMap()),
+            AbsTaskConsumer.Property.ATTACHMENTS.key to (attachments ?: emptyList())
         )
     }
 }

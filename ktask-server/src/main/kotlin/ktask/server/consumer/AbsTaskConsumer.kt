@@ -24,6 +24,31 @@ import org.thymeleaf.templateresolver.FileTemplateResolver
 internal abstract class AbsTaskConsumer : SchedulerTask() {
 
     /**
+     * Represents the properties used in the task payload.
+     * These are the common properties shared by all task consumers.
+     */
+    enum class Property(val key: String) {
+        ATTACHMENTS(key = "ATTACHMENTS"),
+        FIELDS(key = "FIELDS"),
+        RECIPIENT_LOCALE(key = "RECIPIENT_LOCALE"),
+        RECIPIENT_NAME(key = "RECIPIENT_NAME"),
+        RECIPIENT_TARGET(key = "RECIPIENT_TARGET"),
+        TASK_ID(key = "TASK_ID"),
+        TEMPLATE(key = "TEMPLATE")
+    }
+
+    /**
+     * Represents the placeholders used in the template files.
+     * These are tags in the template files that are replaced with the actual values.
+     */
+    private enum class Placeholder(val key: String) {
+        LOCALE(key = "locale"),
+        RECIPIENT(key = "recipient"),
+        NAME(key = "name"),
+        DATE(key = "date")
+    }
+
+    /**
      * Represents the type of template to load.
      *
      * @param mode The mode of the template (HTML or text).
@@ -40,7 +65,7 @@ internal abstract class AbsTaskConsumer : SchedulerTask() {
      *
      * @param taskId The unique identifier of the task.
      * @param recipient The target recipient of the task.
-     * @param additionalParams A map of additional parameters required for the task.
+     * @param additionalParameters A map of additional parameters required for the task.
      */
     data class TaskPayload(
         val taskId: SUUID,
@@ -48,28 +73,25 @@ internal abstract class AbsTaskConsumer : SchedulerTask() {
         val template: String,
         val fields: Map<String, String> = emptyMap(),
         val attachments: List<String> = emptyList(),
-        val additionalParams: Map<String, Any> = emptyMap()
+        val additionalParameters: Map<String, Any> = emptyMap()
     ) {
         companion object {
-            fun map(properties: Map<String, Any>): TaskPayload {
+            fun build(properties: Map<String, Any>): TaskPayload {
 
-                val taskId: SUUID = properties[TASK_ID_KEY] as SUUID
-                val template: String = properties[TEMPLATE_KEY] as String
-                val fields: Map<String, String> = CastUtils.toStringMap(map = properties[FIELDS_KEY])
-                val attachments: List<String> = CastUtils.toStringList(list = properties[ATTACHMENTS_KEY])
+                val taskId: SUUID = properties[Property.TASK_ID.key] as SUUID
+                val template: String = properties[Property.TEMPLATE.key] as String
+                val fields: Map<String, String> = CastUtils.toStringMap(map = properties[Property.FIELDS.key])
+                val attachments: List<String> = CastUtils.toStringList(list = properties[Property.ATTACHMENTS.key])
 
                 val recipient = Recipient(
-                    target = properties[RECIPIENT_TARGET_KEY] as String,
-                    name = properties[RECIPIENT_NAME_KEY] as String,
-                    locale = properties[RECIPIENT_LOCALE_KEY] as String
+                    target = properties[Property.RECIPIENT_TARGET.key] as String,
+                    name = properties[Property.RECIPIENT_NAME.key] as String,
+                    locale = properties[Property.RECIPIENT_LOCALE.key] as String
                 )
 
-                // The consumer-specific parameters.
-                val additionalParams = properties.filterKeys { key ->
-                    key !in setOf(
-                        ATTACHMENTS_KEY, FIELDS_KEY, TASK_ID_KEY, TEMPLATE_KEY,
-                        RECIPIENT_TARGET_KEY, RECIPIENT_NAME_KEY, RECIPIENT_LOCALE_KEY
-                    )
+                // Get the consumer-specific properties, which are not part of the common payload.
+                val additionalParameters: Map<String, Any> = properties.filterKeys { key ->
+                    key !in Property.entries.map { it.key }
                 }
 
                 return TaskPayload(
@@ -78,19 +100,21 @@ internal abstract class AbsTaskConsumer : SchedulerTask() {
                     template = template,
                     fields = fields,
                     attachments = attachments,
-                    additionalParams = additionalParams
+                    additionalParameters = additionalParameters
                 )
             }
         }
     }
 
     override fun start(properties: Map<String, Any>) {
-        val payload: TaskPayload = properties.let { TaskPayload.map(properties = it) }
+        val payload: TaskPayload = properties.let { TaskPayload.build(properties = it) }
         consume(payload = payload)
     }
 
     /**
-     * Processes the task with the provided data.
+     * Processes the task with the provided payload.
+     * Extending classes must implement this method to define
+     * the task-specific consumption behavior.
      *
      * @param payload The [TaskPayload] containing the data required to process the task.
      */
@@ -109,13 +133,13 @@ internal abstract class AbsTaskConsumer : SchedulerTask() {
 
         // Set the variables to be used in the template.
         val context: Context = Context().apply {
-            setVariable(LOCALE_PLACEHOLDER, locale)
-            setVariable(RECIPIENT_PLACEHOLDER, payload.recipient.target)
-            setVariable(NAME_PLACEHOLDER, payload.recipient.name)
+            setVariable(Placeholder.LOCALE.key, locale)
+            setVariable(Placeholder.RECIPIENT.key, payload.recipient.target)
+            setVariable(Placeholder.NAME.key, payload.recipient.name)
 
             // Add the formatted/localized date to the context.
             val formattedDate: String = DateTimeUtils.localizedCurrentDate(language = locale)
-            setVariable(DATE_PLACEHOLDER, formattedDate)
+            setVariable(Placeholder.DATE.key, formattedDate)
 
             // Set the additional fields in the context.
             // These fields are not bound to the consumer's payload,
@@ -141,20 +165,5 @@ internal abstract class AbsTaskConsumer : SchedulerTask() {
         // Process the template with the context variables.
         // Note that if the template is not found, the task will fail.
         return templateEngine.process(targetTemplate, context)
-    }
-
-    companion object {
-        const val ATTACHMENTS_KEY: String = "ATTACHMENTS"
-        const val FIELDS_KEY: String = "FIELDS"
-        const val RECIPIENT_LOCALE_KEY: String = "RECIPIENT_LOCALE"
-        const val RECIPIENT_NAME_KEY: String = "RECIPIENT_NAME"
-        const val RECIPIENT_TARGET_KEY: String = "RECIPIENT_TARGET"
-        const val TASK_ID_KEY: String = "TASK_ID"
-        const val TEMPLATE_KEY: String = "TEMPLATE"
-
-        private const val LOCALE_PLACEHOLDER: String = "locale"
-        private const val RECIPIENT_PLACEHOLDER: String = "recipient"
-        private const val NAME_PLACEHOLDER: String = "name"
-        private const val DATE_PLACEHOLDER: String = "date"
     }
 }

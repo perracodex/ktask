@@ -38,7 +38,7 @@ data class SlackTaskRequest(
 
     override fun toTaskParameters(recipient: Recipient): MutableMap<String, Any> {
         return super.toTaskParameters(recipient = recipient).also { parameter ->
-            parameter[SlackTaskConsumer.CHANNEL_KEY] = channel
+            parameter[SlackTaskConsumer.Property.CHANNEL.key] = channel
         }
     }
 }

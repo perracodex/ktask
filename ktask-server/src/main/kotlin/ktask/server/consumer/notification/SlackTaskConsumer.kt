@@ -20,10 +20,17 @@ import ktask.server.consumer.AbsTaskConsumer
 internal class SlackTaskConsumer : AbsTaskConsumer() {
     private val tracer = Tracer<SlackTaskConsumer>()
 
+    /**
+     * Represents the concrete properties for the Slack task.
+     */
+    enum class Property(val key: String) {
+        CHANNEL(key = "CHANNEL")
+    }
+
     override fun consume(payload: TaskPayload) {
         tracer.debug("Processing Slack task notification. ID: ${payload.taskId}")
 
-        val channel: String = payload.additionalParams[CHANNEL_KEY] as String
+        val channel: String = payload.additionalParameters[Property.CHANNEL.key] as String
 
         // Build the message.
 
@@ -61,9 +68,5 @@ internal class SlackTaskConsumer : AbsTaskConsumer() {
         } else {
             tracer.error("Failed to send Slack notification. ID: ${payload.taskId}. Response: $response")
         }
-    }
-
-    companion object {
-        const val CHANNEL_KEY: String = "CHANNEL"
     }
 }

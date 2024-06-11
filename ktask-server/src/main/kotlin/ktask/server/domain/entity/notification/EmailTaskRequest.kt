@@ -40,8 +40,8 @@ data class EmailTaskRequest(
 
     override fun toTaskParameters(recipient: Recipient): MutableMap<String, Any> {
         return super.toTaskParameters(recipient = recipient).also { parameter ->
-            parameter[EmailTaskConsumer.CC_KEY] = cc
-            parameter[EmailTaskConsumer.SUBJECT_KEY] = subject
+            parameter[EmailTaskConsumer.Property.CC.key] = cc
+            parameter[EmailTaskConsumer.Property.SUBJECT.key] = subject
         }
     }
 
