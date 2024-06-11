@@ -7,6 +7,7 @@ package ktask.server.domain.service.consumer.notification
 import ktask.base.env.Tracer
 import ktask.base.settings.AppSettings
 import ktask.base.settings.config.sections.SchedulerSettings
+import ktask.base.utils.CastUtils
 import ktask.server.domain.service.consumer.AbsTaskConsumer
 import org.apache.commons.mail.DefaultAuthenticator
 import org.apache.commons.mail.EmailAttachment
@@ -21,7 +22,7 @@ internal class EmailTaskConsumer : AbsTaskConsumer() {
     override fun consume(payload: TaskPayload) {
         tracer.debug("Processing email task notification. ID: ${payload.taskId}")
 
-        val cc: List<String> = parameterToStringList(parameter = payload.additionalParams[CC_KEY])
+        val cc: List<String> = CastUtils.toStringList(list = payload.additionalParams[CC_KEY])
         val subject: String = payload.additionalParams[SUBJECT_KEY] as String
 
         // Build the message.

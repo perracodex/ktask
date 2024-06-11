@@ -32,7 +32,7 @@ For convenience, it is included a *[Postman Collection](./.postman/ktask.postman
 ---
 ## Workflow
 
-<img src=".screenshots/workflow.jpg" alt="workflow">
+<img src=".screenshots/workflow.jpg" width="1275" alt="workflow">
 
 ### When a scheduled task is about to be started by the Task Scheduler Service, the following steps are executed:
 
@@ -50,7 +50,7 @@ For convenience, it is included a *[Postman Collection](./.postman/ktask.postman
 
 A dashboard to view and manage scheduled tasks is available at the endpoint: `/scheduler/tasks/dashboard`
 
-<img src=".screenshots/dashboard.jpg" alt="dashboard">
+<img src=".screenshots/dashboard.jpg" width="1280" alt="dashboard">
 
 ---
 
@@ -378,23 +378,29 @@ Cron dispatch
 ### List Scheduled Tasks
 
 - **Description**: Retrieve a list of all scheduled tasks.
-- **Endpoint**: `GET /scheduler/tasks`
+- **Endpoint**: `GET /scheduler/task`
 - **Sample Output**
 
 ```json
 [
   {
-    "name": "task-1ig2n1me8ivi8-84944151523100",
+    "name": "task-1iqz98gc7tg2k-137337807472199",
     "group": "38befbfb-20a3-4bcd-91e1-a2c7240adfa0",
     "consumer": "EmailTaskConsumer",
-    "nextFireTime": "2024-06-09T14:18:50",
+    "nextFireTime": "2024-06-11T11:53:50",
     "state": "NORMAL",
-    "interval": "1m",
-    "runs": 11,
+    "interval": "1d",
+    "runs": 17,
     "dataMap": [
-      "RECIPIENT: Recipient(target=nickname_1@email.com, name=person_name_1, language=null)",
-      "PARAMETERS: EmailParams(template=simple, sender=Sender Name, cc=[], subject=Something, message=Hello World!)",
-      "TASK_ID: 38befbfb-20a3-4bcd-91e1-a2c7240adfa0"
+      "ATTACHMENTS: [https://localhost:8080/files/document_1.pdf, https://localhost:8080/files/document_2.pdf]",
+      "CC: [manager@email.com]",
+      "FIELDS: {sender=Sender Name, content=Some dynamic content! Can be a text, a url, etc.}",
+      "RECIPIENT_LOCALE: en",
+      "RECIPIENT_NAME: person_name_1",
+      "RECIPIENT_TARGET: nickname_1@email.com",
+      "SUBJECT: Something",
+      "TASK_ID: 38befbfb-20a3-4bcd-91e1-a2c7240adfa0",
+      "TEMPLATE: simple"
     ]
   }
 ]
@@ -402,7 +408,7 @@ Cron dispatch
 
 ### List Task Groups
 - **Description**: Retrieve a list of task groups.
-- **Endpoint**: `GET /scheduler/tasks/groups`
+- **Endpoint**: `GET /scheduler/task/group`
 - **Sample Output**
 
 ```json
@@ -414,28 +420,47 @@ Cron dispatch
 
 ### Pause/Resume Scheduled Tasks
 
-- **Description**: Pause or resume a scheduled task.
-
-#### Pause
-- **Endpoint**: `POST /scheduler/tasks/pause`
-- **Endpoint**: `POST /scheduler/tasks/{taskId}/{taskGroup}/pause`
-
-#### Resume
-- **Endpoint**: `POST /scheduler/tasks/resume`
-- **Endpoint**: `POST /scheduler/tasks/{taskId}/{taskGroup}/resume`
+- **Endpoint**: `POST /scheduler/task/{taskId}/{taskGroup}/pause`
+- **Endpoint**: `POST /scheduler/task/{taskId}/{taskGroup}/resume`
 
 **Sample Output**
 
-  ```json
-  {
-    "totalAffected": 6,
+```json
+{
+    "totalAffected": 0,
     "alreadyInState": 0,
-    "totalTasks": 6
-  }
-  ```
+    "totalTasks": 2,
+    "state": "NORMAL"
+}
+```
 
 ### Delete Scheduled Tasks
 
-- **Endpoint**: `DELETE /scheduler/tasks`
-- **Endpoint**: `DELETE /scheduler/tasks/{taskId}/{taskGroup}`
+- **Endpoint**: `DELETE /scheduler/task`
+- **Endpoint**: `DELETE /scheduler/task/{taskId}/{taskGroup}`
 - **Output**: Total number of tasks deleted.
+
+### Pause/Resume the Scheduled Service
+
+- **Endpoint**: `POST /scheduler/pause`
+- **Endpoint**: `POST /scheduler/resume`
+
+**Sample Output**
+
+```json
+{
+  "totalAffected": 0,
+  "alreadyInState": 0,
+  "totalTasks": 2,
+  "state": "RUNNING"
+}
+```
+
+### Get State of the Scheduled Service
+
+- **Endpoint**: `DELETE /scheduler/state`
+- **Output**: `RUNNING`, `PAUSED`, `STOPPED`
+
+### Restart (reboot) the Scheduled Service
+
+- **Endpoint**: `DELETE /scheduler/restart`
