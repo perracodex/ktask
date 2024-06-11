@@ -16,7 +16,7 @@ import org.thymeleaf.templatemode.TemplateMode
 import org.thymeleaf.templateresolver.FileTemplateResolver
 
 /**
- * Abstract base class for processing scheduled tasks, providing a common steps for task execution,
+ * Abstract base class for processing scheduled tasks, providing common steps for task execution,
  * handling the extraction, pre-processing, and consumption of task-related data, including
  * the loading and processing of template files. Extending classes must implement the [consume]
  * method to define task-specific behavior.
