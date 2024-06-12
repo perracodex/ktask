@@ -10,15 +10,18 @@ import ktask.base.settings.config.parser.IConfigSection
 /**
  * Contains settings related to the scheduler.
  *
+ * Note that all credentials in this settings section are stored in plain text in memory.
+ * For enhanced security, it is recommended to hash these credentials in memory.
+ *
+ * @property templatesPath The location where the message templates are stored.
  * @property emailSpec The email configuration settings.
  * @property slackSpec The Slack configuration settings.
- * @property templatesPath The path location containing templates.
  */
 @Serializable
 data class SchedulerSettings(
+    val templatesPath: String,
     val emailSpec: EmailSpec,
     val slackSpec: SlackSpec,
-    val templatesPath: String,
 ) : IConfigSection {
 
     /**
