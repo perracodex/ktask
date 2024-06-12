@@ -30,6 +30,7 @@ either for Email and/or Slack services. These credentials should be specified in
 For convenience, it is included a *[Postman Collection](./.postman/ktask.postman_collection.json)* with all the available REST endpoints.
 
 ---
+
 ## Workflow
 
 <img src=".screenshots/workflow.jpg" width="1275" alt="workflow">
@@ -46,6 +47,7 @@ For convenience, it is included a *[Postman Collection](./.postman/ktask.postman
 8. Dispatch the message to the target recipient using the configured SDK.
 
 ---
+
 ## Dashboard
 
 A dashboard to view and manage scheduled tasks is available at the endpoint: `/scheduler/tasks/dashboard`
@@ -175,9 +177,11 @@ Sample expressions:
 ```
 
 ---
+
 ## Notification Endpoints
 
 ### Email
+
 - **Description**: Send or schedule an email notification.
 - **Endpoint**: `POST /push/email`
 
@@ -277,6 +281,7 @@ Cron dispatch
 ```
 
 ### Slack
+
 - **Description**: Send or schedule a Slack notification.
 - **Endpoint**: `POST /push/slack`
 
@@ -373,6 +378,7 @@ Cron dispatch
 ```
 
 ---
+
 ## Administration Endpoints
 
 ### List Scheduled Tasks
@@ -407,6 +413,7 @@ Cron dispatch
 ```
 
 ### List Task Groups
+
 - **Description**: Retrieve a list of task groups.
 - **Endpoint**: `GET /scheduler/task/group`
 - **Sample Output**
@@ -427,10 +434,10 @@ Cron dispatch
 
 ```json
 {
-    "totalAffected": 0,
-    "alreadyInState": 0,
-    "totalTasks": 2,
-    "state": "NORMAL"
+  "totalAffected": 0,
+  "alreadyInState": 0,
+  "totalTasks": 2,
+  "state": "NORMAL"
 }
 ```
 
@@ -458,9 +465,12 @@ Cron dispatch
 
 ### Get State of the Scheduled Service
 
-- **Endpoint**: `DELETE /scheduler/state`
+- **Endpoint**: `POST /scheduler/state`
 - **Output**: `RUNNING`, `PAUSED`, `STOPPED`
 
 ### Restart (reboot) the Scheduled Service
 
-- **Endpoint**: `DELETE /scheduler/restart`
+- **Endpoint**: `POST /scheduler/restart`
+
+Optionally, can specify a boolean parameter to indicate whether actively executing tasks should be interrupted.
+The default value is `false`, meaning the scheduler will await for the executing tasks to finish before restarting.
