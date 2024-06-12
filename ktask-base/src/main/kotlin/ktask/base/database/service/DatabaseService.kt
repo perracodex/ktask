@@ -12,7 +12,6 @@ import ktask.base.env.health.checks.DatabaseCheck
 import ktask.base.settings.AppSettings
 import ktask.base.settings.config.sections.DatabaseSettings
 import org.flywaydb.core.Flyway
-import org.flywaydb.core.api.configuration.FluentConfiguration
 import org.jetbrains.exposed.sql.Database
 import org.jetbrains.exposed.sql.DatabaseConfig
 import org.jetbrains.exposed.sql.SchemaUtils
@@ -168,14 +167,29 @@ object DatabaseService {
      * @param settings The target [DatabaseSettings] to be used for the migration.
      */
     private fun runMigrations(settings: DatabaseSettings) {
-        val configuration: FluentConfiguration = Flyway.configure()
-        val flyway: Flyway = configuration.dataSource(
+        Flyway.configure().dataSource(
             settings.jdbcUrl,
             settings.username,
             settings.password
-        ).load()
+        ).load().apply {
+            info().pending().let { pending ->
+                if (pending.isEmpty()) {
+                    tracer.info("No migrations to apply.")
+                } else {
+                    val migrations: String = pending.joinToString(separator = "\n") { migration ->
+                        "Version: ${migration.version}. " +
+                                "Description: ${migration.description}. " +
+                                "Type: ${migration.type}. " +
+                                "State: ${migration.state}. " +
+                                "Script: ${migration.script}"
+                    }
 
-        flyway.migrate()
+                    tracer.info("Migrations being applied:\n$migrations")
+                }
+            }
+
+            migrate()
+        }
     }
 
     /**
