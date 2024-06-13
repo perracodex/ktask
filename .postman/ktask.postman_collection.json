@@ -549,312 +549,472 @@
 			]
 		},
 		{
-			"name": "push email",
-			"item": [
-				{
-					"name": "immediate",
-					"event": [
-						{
-							"listen": "prerequest",
-							"script": {
-								"exec": [
-									""
-								],
-								"type": "text/javascript",
-								"packages": {}
-							}
-						}
-					],
-					"protocolProfileBehavior": {
-						"strictSSL": false
-					},
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "",
-								"disabled": true
-							}
-						],
-						"body": {
-							"mode": "raw",
-                          "raw": "{\r\n    \"id\": \"38befbfb-20a3-4bcd-91e1-a2c7240adfa0\",\r\n    \"recipients\": [\r\n        { \"target\": \"nickname_1@email.com\", \"name\": \"person_name_1\", \"locale\": \"en\" },\r\n        { \"target\": \"nickname_2@email.com\", \"name\": \"person_name_2\", \"locale\": \"es\" }\r\n    ],\r\n    \"template\": \"simple\",\r\n    \"cc\": [],\r\n    \"attachments\": [],\r\n    \"subject\": \"Something\",\r\n    \"fields\": {\r\n        \"sender\": \"Sender Name\",\r\n        \"content\": \"Some dynamic content!\"\r\n    }\r\n}\r\n",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://localhost:8080/push/email",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"push",
-								"email"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "interval",
-					"event": [
-						{
-							"listen": "prerequest",
-							"script": {
-								"exec": [
-									""
-								],
-								"type": "text/javascript",
-								"packages": {}
-							}
-						}
-					],
-					"protocolProfileBehavior": {
-						"strictSSL": false
-					},
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "",
-								"disabled": true
-							}
-						],
-						"body": {
-							"mode": "raw",
-                          "raw": "{\r\n    \"id\": \"38befbfb-20a3-4bcd-91e1-a2c7240adfa0\",\r\n    \"schedule\": {\r\n        \"start\": \"2024-05-01T15:42:50\",\r\n        \"days\": 0, \"hours\": 0, \"minutes\": 1, \"seconds\": 0\r\n    },\r\n    \"recipients\": [\r\n        { \"target\": \"nickname_1@email.com\", \"name\": \"person_name_1\", \"locale\": \"en\" },\r\n        { \"target\": \"nickname_2@email.com\", \"name\": \"person_name_2\", \"locale\": \"es\" }\r\n    ],\r\n    \"template\": \"simple\",\r\n    \"cc\": [],\r\n    \"attachments\": [],\r\n    \"subject\": \"Something\",\r\n    \"fields\": {\r\n        \"sender\": \"Sender Name\",\r\n        \"content\": \"Some dynamic content!\"\r\n    }\r\n}\r\n",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://localhost:8080/push/email",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"push",
-								"email"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "cron",
-					"event": [
-						{
-							"listen": "prerequest",
-							"script": {
-								"exec": [
-									""
-								],
-								"type": "text/javascript",
-								"packages": {}
-							}
-						}
-					],
-					"protocolProfileBehavior": {
-						"strictSSL": false
-					},
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "",
-								"disabled": true
-							}
-						],
-						"body": {
-							"mode": "raw",
-                          "raw": "{\r\n    \"id\": \"38befbfb-20a3-4bcd-91e1-a2c7240adfa0\",\r\n    \"schedule\": {\r\n        \"start\": \"2024-05-01T15:42:50\",\r\n        \"cron\": \"0 * * * * ?\"\r\n    },\r\n    \"recipients\": [\r\n        { \"target\": \"nickname_1@email.com\", \"name\": \"person_name_1\", \"locale\": \"en\" },\r\n        { \"target\": \"nickname_2@email.com\", \"name\": \"person_name_2\", \"locale\": \"es\" }\r\n    ],\r\n    \"template\": \"simple\",\r\n    \"cc\": [],\r\n    \"attachments\": [],\r\n    \"subject\": \"Something\",\r\n    \"fields\": {\r\n        \"sender\": \"Sender Name\",\r\n        \"content\": \"Some dynamic content!\"\r\n    }\r\n}\r\n",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://localhost:8080/push/email",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"push",
-								"email"
-							]
-						}
-					},
-					"response": []
-				}
-			]
-		},
-		{
-			"name": "push slack",
-			"item": [
-				{
-					"name": "immediate",
-					"event": [
-						{
-							"listen": "prerequest",
-							"script": {
-								"exec": [
-									""
-								],
-								"type": "text/javascript",
-								"packages": {}
-							}
-						}
-					],
-					"protocolProfileBehavior": {
-						"strictSSL": false
-					},
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "",
-								"disabled": true
-							}
-						],
-						"body": {
-							"mode": "raw",
-                          "raw": "{\r\n    \"id\": \"38befbfb-20a3-4bcd-91e1-a2c7240adfa0\",\r\n    \"recipients\": [\r\n        { \"target\": \"person_1_slack_id\", \"name\": \"person_name_1\", \"locale\": \"en\" },\r\n        { \"target\": \"person_2_slack_id\", \"name\": \"person_name_2\", \"locale\": \"es\" }\r\n    ],\r\n    \"template\": \"simple\",\r\n    \"channel\": \"SLACK_CHANNEL_ID\",\r\n    \"attachments\": [],\r\n    \"fields\": {\r\n        \"sender\": \"Sender Name\",\r\n        \"content\": \"Some dynamic content!\"\r\n    }\r\n}\r\n",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://localhost:8080/push/slack",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"push",
-								"slack"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "interval",
-					"event": [
-						{
-							"listen": "prerequest",
-							"script": {
-								"exec": [
-									""
-								],
-								"type": "text/javascript",
-								"packages": {}
-							}
-						}
-					],
-					"protocolProfileBehavior": {
-						"strictSSL": false
-					},
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "",
-								"disabled": true
-							}
-						],
-						"body": {
-							"mode": "raw",
-                          "raw": "{\r\n    \"id\": \"38befbfb-20a3-4bcd-91e1-a2c7240adfa0\",\r\n    \"schedule\": {\r\n        \"start\": \"2024-05-01T15:42:50\", \r\n        \"days\": 0, \"hours\": 0, \"minutes\": 1, \"seconds\": 0\r\n    },\r\n    \"recipients\": [\r\n        { \"target\": \"person_1_slack_id\", \"name\": \"person_name_1\", \"locale\": \"en\" },\r\n        { \"target\": \"person_2_slack_id\", \"name\": \"person_name_2\", \"locale\": \"es\" }\r\n    ],\r\n    \"template\": \"simple\",\r\n    \"channel\": \"SLACK_CHANNEL_ID\",\r\n    \"attachments\": [],\r\n    \"fields\": {\r\n        \"sender\": \"Sender Name\",\r\n        \"content\": \"Some dynamic content!\"\r\n    }\r\n}\r\n\r\n",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://localhost:8080/push/slack",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"push",
-								"slack"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "cron",
-					"event": [
-						{
-							"listen": "prerequest",
-							"script": {
-								"exec": [
-									""
-								],
-								"type": "text/javascript",
-								"packages": {}
-							}
-						}
-					],
-					"protocolProfileBehavior": {
-						"strictSSL": false
-					},
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "",
-								"disabled": true
-							}
-						],
-						"body": {
-							"mode": "raw",
-                          "raw": "{\r\n    \"id\": \"38befbfb-20a3-4bcd-91e1-a2c7240adfa0\",\r\n    \"schedule\": {\r\n        \"start\": \"2024-05-01T15:42:50\",\r\n        \"cron\": \"0 * * * * ?\"\r\n    },\r\n    \"recipients\": [\r\n        { \"target\": \"person_1_slack_id\", \"name\": \"person_name_1\", \"locale\": \"en\" },\r\n        { \"target\": \"person_2_slack_id\", \"name\": \"person_name_2\", \"locale\": \"es\" }\r\n    ],\r\n    \"template\": \"simple\",\r\n    \"channel\": \"SLACK_CHANNEL_ID\",\r\n    \"attachments\": [],\r\n    \"fields\": {\r\n        \"sender\": \"Sender Name\",\r\n        \"content\": \"Some dynamic content!\"\r\n    }\r\n}\r\n",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://localhost:8080/push/slack",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"push",
-								"slack"
-							]
-						}
-					},
-					"response": []
+          "name": "push",
+          "item": [
+            {
+              "name": "email",
+              "item": [
+                {
+                  "name": "immediate",
+                  "event": [
+                    {
+                      "listen": "prerequest",
+                      "script": {
+                        "exec": [
+                          ""
+                        ],
+                        "type": "text/javascript",
+                        "packages": {}
+                      }
+                    }
+                  ],
+                  "protocolProfileBehavior": {
+                    "strictSSL": false
+                  },
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Authorization",
+                        "value": "",
+                        "disabled": true
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\r\n    \"id\": \"38befbfb-20a3-4bcd-91e1-a2c7240adfa0\",\r\n    \"recipients\": [\r\n        { \"target\": \"nickname_1@email.com\", \"name\": \"person_name_1\", \"locale\": \"en\" },\r\n        { \"target\": \"nickname_2@email.com\", \"name\": \"person_name_2\", \"locale\": \"es\" }\r\n    ],\r\n    \"template\": \"simple\",\r\n    \"cc\": [],\r\n    \"attachments\": [],\r\n    \"subject\": \"Something\",\r\n    \"fields\": {\r\n        \"sender\": \"Sender Name\",\r\n        \"content\": \"Some dynamic content!\"\r\n    }\r\n}\r\n",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "http://localhost:8080/push/email",
+                      "protocol": "http",
+                      "host": [
+                        "localhost"
+                      ],
+                      "port": "8080",
+                      "path": [
+                        "push",
+                        "email"
+                      ]
+                    }
+                  },
+                  "response": []
+                },
+                {
+                  "name": "interval",
+                  "event": [
+                    {
+                      "listen": "prerequest",
+                      "script": {
+                        "exec": [
+                          ""
+                        ],
+                        "type": "text/javascript",
+                        "packages": {}
+                      }
+                    }
+                  ],
+                  "protocolProfileBehavior": {
+                    "strictSSL": false
+                  },
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Authorization",
+                        "value": "",
+                        "disabled": true
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\r\n    \"id\": \"38befbfb-20a3-4bcd-91e1-a2c7240adfa0\",\r\n    \"schedule\": {\r\n        \"start\": \"2024-05-01T15:42:50\",\r\n        \"days\": 0, \"hours\": 0, \"minutes\": 1, \"seconds\": 0\r\n    },\r\n    \"recipients\": [\r\n        { \"target\": \"nickname_1@email.com\", \"name\": \"person_name_1\", \"locale\": \"en\" },\r\n        { \"target\": \"nickname_2@email.com\", \"name\": \"person_name_2\", \"locale\": \"es\" }\r\n    ],\r\n    \"template\": \"simple\",\r\n    \"cc\": [],\r\n    \"attachments\": [],\r\n    \"subject\": \"Something\",\r\n    \"fields\": {\r\n        \"sender\": \"Sender Name\",\r\n        \"content\": \"Some dynamic content!\"\r\n    }\r\n}\r\n",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "http://localhost:8080/push/email",
+                      "protocol": "http",
+                      "host": [
+                        "localhost"
+                      ],
+                      "port": "8080",
+                      "path": [
+                        "push",
+                        "email"
+                      ]
+                    }
+                  },
+                  "response": []
+                },
+                {
+                  "name": "cron",
+                  "event": [
+                    {
+                      "listen": "prerequest",
+                      "script": {
+                        "exec": [
+                          ""
+                        ],
+                        "type": "text/javascript",
+                        "packages": {}
+                      }
+                    }
+                  ],
+                  "protocolProfileBehavior": {
+                    "strictSSL": false
+                  },
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Authorization",
+                        "value": "",
+                        "disabled": true
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\r\n    \"id\": \"38befbfb-20a3-4bcd-91e1-a2c7240adfa0\",\r\n    \"schedule\": {\r\n        \"start\": \"2024-05-01T15:42:50\",\r\n        \"cron\": \"0 * * * * ?\"\r\n    },\r\n    \"recipients\": [\r\n        { \"target\": \"nickname_1@email.com\", \"name\": \"person_name_1\", \"locale\": \"en\" },\r\n        { \"target\": \"nickname_2@email.com\", \"name\": \"person_name_2\", \"locale\": \"es\" }\r\n    ],\r\n    \"template\": \"simple\",\r\n    \"cc\": [],\r\n    \"attachments\": [],\r\n    \"subject\": \"Something\",\r\n    \"fields\": {\r\n        \"sender\": \"Sender Name\",\r\n        \"content\": \"Some dynamic content!\"\r\n    }\r\n}\r\n",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "http://localhost:8080/push/email",
+                      "protocol": "http",
+                      "host": [
+                        "localhost"
+                      ],
+                      "port": "8080",
+                      "path": [
+                        "push",
+                        "email"
+                      ]
+                    }
+                  },
+                  "response": []
+                }
+              ]
+            },
+            {
+              "name": "slack",
+              "item": [
+                {
+                  "name": "immediate",
+                  "event": [
+                    {
+                      "listen": "prerequest",
+                      "script": {
+                        "exec": [
+                          ""
+                        ],
+                        "type": "text/javascript",
+                        "packages": {}
+                      }
+                    }
+                  ],
+                  "protocolProfileBehavior": {
+                    "strictSSL": false
+                  },
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Authorization",
+                        "value": "",
+                        "disabled": true
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\r\n    \"id\": \"38befbfb-20a3-4bcd-91e1-a2c7240adfa0\",\r\n    \"recipients\": [\r\n        { \"target\": \"person_1_slack_id\", \"name\": \"person_name_1\", \"locale\": \"en\" },\r\n        { \"target\": \"person_2_slack_id\", \"name\": \"person_name_2\", \"locale\": \"es\" }\r\n    ],\r\n    \"template\": \"simple\",\r\n    \"channel\": \"SLACK_CHANNEL_ID\",\r\n    \"attachments\": [],\r\n    \"fields\": {\r\n        \"sender\": \"Sender Name\",\r\n        \"content\": \"Some dynamic content!\"\r\n    }\r\n}\r\n",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "http://localhost:8080/push/slack",
+                      "protocol": "http",
+                      "host": [
+                        "localhost"
+                      ],
+                      "port": "8080",
+                      "path": [
+                        "push",
+                        "slack"
+                      ]
+                    }
+                  },
+                  "response": []
+                },
+                {
+                  "name": "interval",
+                  "event": [
+                    {
+                      "listen": "prerequest",
+                      "script": {
+                        "exec": [
+                          ""
+                        ],
+                        "type": "text/javascript",
+                        "packages": {}
+                      }
+                    }
+                  ],
+                  "protocolProfileBehavior": {
+                    "strictSSL": false
+                  },
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Authorization",
+                        "value": "",
+                        "disabled": true
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\r\n    \"id\": \"38befbfb-20a3-4bcd-91e1-a2c7240adfa0\",\r\n    \"schedule\": {\r\n        \"start\": \"2024-05-01T15:42:50\", \r\n        \"days\": 0, \"hours\": 0, \"minutes\": 1, \"seconds\": 0\r\n    },\r\n    \"recipients\": [\r\n        { \"target\": \"person_1_slack_id\", \"name\": \"person_name_1\", \"locale\": \"en\" },\r\n        { \"target\": \"person_2_slack_id\", \"name\": \"person_name_2\", \"locale\": \"es\" }\r\n    ],\r\n    \"template\": \"simple\",\r\n    \"channel\": \"SLACK_CHANNEL_ID\",\r\n    \"attachments\": [],\r\n    \"fields\": {\r\n        \"sender\": \"Sender Name\",\r\n        \"content\": \"Some dynamic content!\"\r\n    }\r\n}\r\n\r\n",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "http://localhost:8080/push/slack",
+                      "protocol": "http",
+                      "host": [
+                        "localhost"
+                      ],
+                      "port": "8080",
+                      "path": [
+                        "push",
+                        "slack"
+                      ]
+                    }
+                  },
+                  "response": []
+                },
+                {
+                  "name": "cron",
+                  "event": [
+                    {
+                      "listen": "prerequest",
+                      "script": {
+                        "exec": [
+                          ""
+                        ],
+                        "type": "text/javascript",
+                        "packages": {}
+                      }
+                    }
+                  ],
+                  "protocolProfileBehavior": {
+                    "strictSSL": false
+                  },
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Authorization",
+                        "value": "",
+                        "disabled": true
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\r\n    \"id\": \"38befbfb-20a3-4bcd-91e1-a2c7240adfa0\",\r\n    \"schedule\": {\r\n        \"start\": \"2024-05-01T15:42:50\",\r\n        \"cron\": \"0 * * * * ?\"\r\n    },\r\n    \"recipients\": [\r\n        { \"target\": \"person_1_slack_id\", \"name\": \"person_name_1\", \"locale\": \"en\" },\r\n        { \"target\": \"person_2_slack_id\", \"name\": \"person_name_2\", \"locale\": \"es\" }\r\n    ],\r\n    \"template\": \"simple\",\r\n    \"channel\": \"SLACK_CHANNEL_ID\",\r\n    \"attachments\": [],\r\n    \"fields\": {\r\n        \"sender\": \"Sender Name\",\r\n        \"content\": \"Some dynamic content!\"\r\n    }\r\n}\r\n",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "http://localhost:8080/push/slack",
+                      "protocol": "http",
+                      "host": [
+                        "localhost"
+                      ],
+                      "port": "8080",
+                      "path": [
+                        "push",
+                        "slack"
+                      ]
+                    }
+                  },
+                  "response": []
+                }
+              ]
+            },
+            {
+              "name": "action",
+              "item": [
+                {
+                  "name": "immediate",
+                  "event": [
+                    {
+                      "listen": "prerequest",
+                      "script": {
+                        "exec": [
+                          ""
+                        ],
+                        "type": "text/javascript",
+                        "packages": {}
+                      }
+                    }
+                  ],
+                  "protocolProfileBehavior": {
+                    "strictSSL": false
+                  },
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Authorization",
+                        "value": "",
+                        "disabled": true
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\r\n    \"id\": \"38befbfb-20a3-4bcd-91e1-a2c7240adfa0\",\r\n    \"data\": \"some data\"\r\n}\r\n",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "http://localhost:8080/push/action",
+                      "protocol": "http",
+                      "host": [
+                        "localhost"
+                      ],
+                      "port": "8080",
+                      "path": [
+                        "push",
+                        "action"
+                      ]
+                    }
+                  },
+                  "response": []
+                },
+                {
+                  "name": "interval",
+                  "event": [
+                    {
+                      "listen": "prerequest",
+                      "script": {
+                        "exec": [
+                          ""
+                        ],
+                        "type": "text/javascript",
+                        "packages": {}
+                      }
+                    }
+                  ],
+                  "protocolProfileBehavior": {
+                    "strictSSL": false
+                  },
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Authorization",
+                        "value": "",
+                        "disabled": true
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\r\n    \"id\": \"38befbfb-20a3-4bcd-91e1-a2c7240adfa0\",\r\n    \"schedule\": {\r\n        \"start\": \"2024-05-01T15:42:50\", \r\n        \"days\": 0, \"hours\": 0, \"minutes\": 1, \"seconds\": 0\r\n    },\r\n    \"data\": \"some data\"\r\n}\r\n",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "http://localhost:8080/push/action",
+                      "protocol": "http",
+                      "host": [
+                        "localhost"
+                      ],
+                      "port": "8080",
+                      "path": [
+                        "push",
+                        "action"
+                      ]
+                    }
+                  },
+                  "response": []
+                },
+                {
+                  "name": "cron",
+                  "event": [
+                    {
+                      "listen": "prerequest",
+                      "script": {
+                        "exec": [
+                          ""
+                        ],
+                        "type": "text/javascript",
+                        "packages": {}
+                      }
+                    }
+                  ],
+                  "protocolProfileBehavior": {
+                    "strictSSL": false
+                  },
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Authorization",
+                        "value": "",
+                        "disabled": true
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\r\n    \"id\": \"38befbfb-20a3-4bcd-91e1-a2c7240adfa0\",\r\n    \"schedule\": {\r\n        \"start\": \"2024-05-01T15:42:50\",\r\n        \"cron\": \"0 * * * * ?\"\r\n    },\r\n    \"data\": \"some data\"\r\n}\r\n",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "http://localhost:8080/push/action",
+                      "protocol": "http",
+                      "host": [
+                        "localhost"
+                      ],
+                      "port": "8080",
+                      "path": [
+                        "push",
+                        "action"
+                      ]
+                    }
+                  },
+                  "response": []
+                }
+              ]
 				}
 			]
 		}

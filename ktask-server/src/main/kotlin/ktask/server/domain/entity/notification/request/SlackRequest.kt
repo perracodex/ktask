@@ -2,14 +2,14 @@
  * Copyright (c) 2024-Present Perracodex. Use of this source code is governed by an MIT license.
  */
 
-package ktask.server.domain.entity.notification
+package ktask.server.domain.entity.notification.request
 
 import kotlinx.serialization.Serializable
 import ktask.base.persistence.serializers.SUUID
 import ktask.base.scheduler.service.schedule.Schedule
-import ktask.server.consumer.notification.SlackTaskConsumer
-import ktask.server.domain.entity.INotificationTaskRequest
-import ktask.server.domain.entity.Recipient
+import ktask.server.consumer.notification.task.SlackConsumer
+import ktask.server.domain.entity.notification.INotificationRequest
+import ktask.server.domain.entity.notification.Recipient
 
 /**
  * Represents a request to send a Slack notification task.
@@ -23,7 +23,7 @@ import ktask.server.domain.entity.Recipient
  * @property channel The channel to send the notification to.
  */
 @Serializable
-data class SlackTaskRequest(
+data class SlackRequest(
     override val id: SUUID,
     override val schedule: Schedule? = null,
     override val recipients: List<Recipient>,
@@ -31,14 +31,14 @@ data class SlackTaskRequest(
     override val fields: Map<String, String>? = null,
     override val attachments: List<String>? = null,
     val channel: String,
-) : INotificationTaskRequest {
+) : INotificationRequest {
     init {
         require(recipients.isNotEmpty()) { "At least one recipient must be specified." }
     }
 
     override fun toTaskParameters(recipient: Recipient): MutableMap<String, Any> {
         return super.toTaskParameters(recipient = recipient).also { parameter ->
-            parameter[SlackTaskConsumer.Property.CHANNEL.key] = channel
+            parameter[SlackConsumer.Property.CHANNEL.key] = channel
         }
     }
 }

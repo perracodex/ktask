@@ -2,11 +2,11 @@
  * Copyright (c) 2024-Present Perracodex. Use of this source code is governed by an MIT license.
  */
 
-package ktask.server.domain.entity
+package ktask.server.domain.entity.notification
 
 import ktask.base.persistence.serializers.SUUID
 import ktask.base.scheduler.service.schedule.Schedule
-import ktask.server.consumer.AbsNotificationTaskConsumer
+import ktask.server.consumer.notification.AbsNotificationConsumer
 
 /**
  * Represents a request to schedule a task.
@@ -18,7 +18,7 @@ import ktask.server.consumer.AbsNotificationTaskConsumer
  * @property fields Optional fields to be included in the template.
  * @property attachments Optional list of file paths to be attached to the notification.
  */
-interface INotificationTaskRequest {
+interface INotificationRequest {
     val id: SUUID
     val schedule: Schedule?
     val recipients: List<Recipient>
@@ -34,13 +34,13 @@ interface INotificationTaskRequest {
      */
     fun toTaskParameters(recipient: Recipient): MutableMap<String, Any> {
         return mutableMapOf(
-            AbsNotificationTaskConsumer.Property.TASK_ID.key to id,
-            AbsNotificationTaskConsumer.Property.RECIPIENT_TARGET.key to recipient.target,
-            AbsNotificationTaskConsumer.Property.RECIPIENT_NAME.key to recipient.name,
-            AbsNotificationTaskConsumer.Property.RECIPIENT_LOCALE.key to recipient.locale,
-            AbsNotificationTaskConsumer.Property.TEMPLATE.key to template,
-            AbsNotificationTaskConsumer.Property.FIELDS.key to (fields ?: emptyMap()),
-            AbsNotificationTaskConsumer.Property.ATTACHMENTS.key to (attachments ?: emptyList())
+            AbsNotificationConsumer.Property.TASK_ID.key to id,
+            AbsNotificationConsumer.Property.RECIPIENT_TARGET.key to recipient.target,
+            AbsNotificationConsumer.Property.RECIPIENT_NAME.key to recipient.name,
+            AbsNotificationConsumer.Property.RECIPIENT_LOCALE.key to recipient.locale,
+            AbsNotificationConsumer.Property.TEMPLATE.key to template,
+            AbsNotificationConsumer.Property.FIELDS.key to (fields ?: emptyMap()),
+            AbsNotificationConsumer.Property.ATTACHMENTS.key to (attachments ?: emptyList())
         )
     }
 }

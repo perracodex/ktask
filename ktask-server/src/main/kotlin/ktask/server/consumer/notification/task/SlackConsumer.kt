@@ -2,14 +2,14 @@
  * Copyright (c) 2024-Present Perracodex. Use of this source code is governed by an MIT license.
  */
 
-package ktask.server.consumer.notification
+package ktask.server.consumer.notification.task
 
 import com.slack.api.Slack
 import com.slack.api.methods.response.chat.ChatPostMessageResponse
 import ktask.base.env.Tracer
 import ktask.base.settings.AppSettings
 import ktask.base.settings.config.sections.SchedulerSettings
-import ktask.server.consumer.AbsNotificationTaskConsumer
+import ktask.server.consumer.notification.AbsNotificationConsumer
 
 
 /**
@@ -17,8 +17,8 @@ import ktask.server.consumer.AbsNotificationTaskConsumer
  *
  * See: [Slack SDK](https://github.com/slackapi/java-slack-sdk)
  */
-internal class SlackTaskConsumer : AbsNotificationTaskConsumer() {
-    private val tracer = Tracer<SlackTaskConsumer>()
+internal class SlackConsumer : AbsNotificationConsumer() {
+    private val tracer = Tracer<SlackConsumer>()
 
     /**
      * Represents the concrete properties for the Slack task.
@@ -28,7 +28,7 @@ internal class SlackTaskConsumer : AbsNotificationTaskConsumer() {
     }
 
     override fun consume(payload: TaskPayload) {
-        tracer.debug("Processing Slack task notification. ID: ${payload.taskId}")
+        tracer.debug("Processing Slack notification. ID: ${payload.taskId}")
 
         val channel: String = payload.additionalParameters[Property.CHANNEL.key] as String
 

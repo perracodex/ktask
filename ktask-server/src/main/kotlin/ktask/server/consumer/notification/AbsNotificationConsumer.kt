@@ -2,14 +2,14 @@
  * Copyright (c) 2024-Present Perracodex. Use of this source code is governed by an MIT license.
  */
 
-package ktask.server.consumer
+package ktask.server.consumer.notification
 
 import ktask.base.persistence.serializers.SUUID
 import ktask.base.scheduler.service.task.SchedulerTask
 import ktask.base.settings.AppSettings
 import ktask.base.utils.CastUtils
 import ktask.base.utils.DateTimeUtils
-import ktask.server.domain.entity.Recipient
+import ktask.server.domain.entity.notification.Recipient
 import org.thymeleaf.TemplateEngine
 import org.thymeleaf.context.Context
 import org.thymeleaf.templatemode.TemplateMode
@@ -21,7 +21,7 @@ import org.thymeleaf.templateresolver.FileTemplateResolver
  * the loading and processing of template files. Extending classes must implement the [consume]
  * method to define task-specific behavior.
  */
-internal abstract class AbsNotificationTaskConsumer : SchedulerTask() {
+internal abstract class AbsNotificationConsumer : SchedulerTask() {
 
     /**
      * Represents the properties used in the task payload.
@@ -67,6 +67,9 @@ internal abstract class AbsNotificationTaskConsumer : SchedulerTask() {
      *
      * @param taskId The unique identifier of the task.
      * @param recipient The target recipient of the task.
+     * @param template The template to be used for the notification.
+     * @param fields Optional fields to be included in the template.
+     * @param attachments Optional list of file paths to be attached to the notification.
      * @param additionalParameters A map of additional parameters required for the task.
      */
     data class TaskPayload(

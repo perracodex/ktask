@@ -2,7 +2,7 @@
  * Copyright (c) 2024-Present Perracodex. Use of this source code is governed by an MIT license.
  */
 
-package ktask.server.domain.entity.notification
+package ktask.server.domain.entity.notification.request
 
 import kotlinx.serialization.Serializable
 import ktask.base.errors.SystemError
@@ -10,9 +10,9 @@ import ktask.base.persistence.serializers.SUUID
 import ktask.base.persistence.validators.IValidator
 import ktask.base.persistence.validators.impl.EmailValidator
 import ktask.base.scheduler.service.schedule.Schedule
-import ktask.server.consumer.notification.EmailTaskConsumer
-import ktask.server.domain.entity.INotificationTaskRequest
-import ktask.server.domain.entity.Recipient
+import ktask.server.consumer.notification.task.EmailConsumer
+import ktask.server.domain.entity.notification.INotificationRequest
+import ktask.server.domain.entity.notification.Recipient
 
 /**
  * Represents a request to send an Email notification task.
@@ -27,7 +27,7 @@ import ktask.server.domain.entity.Recipient
  * @property subject The subject or title of the notification.
  */
 @Serializable
-data class EmailTaskRequest(
+data class EmailRequest(
     override val id: SUUID,
     override val schedule: Schedule? = null,
     override val recipients: List<Recipient>,
@@ -36,12 +36,12 @@ data class EmailTaskRequest(
     override val attachments: List<String>? = null,
     val cc: List<String> = emptyList(),
     val subject: String,
-) : INotificationTaskRequest {
+) : INotificationRequest {
 
     override fun toTaskParameters(recipient: Recipient): MutableMap<String, Any> {
         return super.toTaskParameters(recipient = recipient).also { parameter ->
-            parameter[EmailTaskConsumer.Property.CC.key] = cc
-            parameter[EmailTaskConsumer.Property.SUBJECT.key] = subject
+            parameter[EmailConsumer.Property.CC.key] = cc
+            parameter[EmailConsumer.Property.SUBJECT.key] = subject
         }
     }
 
@@ -49,9 +49,9 @@ data class EmailTaskRequest(
         /**
          * Verifies the recipients of the request.
          *
-         * @param request The [EmailTaskRequest] instance to be verified.
+         * @param request The [EmailRequest] instance to be verified.
          */
-        fun verifyRecipients(request: EmailTaskRequest) {
+        fun verifyRecipients(request: EmailRequest) {
             // This verification of recipients must be done within the scope of a route endpoint,
             // and not in the request dataclass init block, which is actually called before
             // the dataclass reaches the route endpoint scope.

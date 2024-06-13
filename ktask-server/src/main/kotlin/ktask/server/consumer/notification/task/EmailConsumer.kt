@@ -2,13 +2,13 @@
  * Copyright (c) 2024-Present Perracodex. Use of this source code is governed by an MIT license.
  */
 
-package ktask.server.consumer.notification
+package ktask.server.consumer.notification.task
 
 import ktask.base.env.Tracer
 import ktask.base.settings.AppSettings
 import ktask.base.settings.config.sections.SchedulerSettings
 import ktask.base.utils.CastUtils
-import ktask.server.consumer.AbsNotificationTaskConsumer
+import ktask.server.consumer.notification.AbsNotificationConsumer
 import org.apache.commons.mail.DefaultAuthenticator
 import org.apache.commons.mail.EmailAttachment
 import org.apache.commons.mail.HtmlEmail
@@ -16,8 +16,8 @@ import org.apache.commons.mail.HtmlEmail
 /**
  * Represents a scheduled task that processes emails.
  */
-internal class EmailTaskConsumer : AbsNotificationTaskConsumer() {
-    private val tracer = Tracer<EmailTaskConsumer>()
+internal class EmailConsumer : AbsNotificationConsumer() {
+    private val tracer = Tracer<EmailConsumer>()
 
     /**
      * Represents the concrete properties for the email task.
@@ -28,7 +28,7 @@ internal class EmailTaskConsumer : AbsNotificationTaskConsumer() {
     }
 
     override fun consume(payload: TaskPayload) {
-        tracer.debug("Processing email task notification. ID: ${payload.taskId}")
+        tracer.debug("Processing email notification. ID: ${payload.taskId}")
 
         val cc: List<String> = CastUtils.toStringList(list = payload.additionalParameters[Property.CC.key])
         val subject: String = payload.additionalParameters[Property.SUBJECT.key] as String

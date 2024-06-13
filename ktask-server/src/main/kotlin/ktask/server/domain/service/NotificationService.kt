@@ -11,12 +11,12 @@ import ktask.base.scheduler.service.request.SchedulerRequest
 import ktask.base.scheduler.service.schedule.TaskStartAt
 import ktask.base.utils.DateTimeUtils
 import ktask.base.utils.KLocalDateTime
-import ktask.server.consumer.AbsNotificationTaskConsumer
-import ktask.server.consumer.notification.EmailTaskConsumer
-import ktask.server.consumer.notification.SlackTaskConsumer
-import ktask.server.domain.entity.INotificationTaskRequest
-import ktask.server.domain.entity.notification.EmailTaskRequest
-import ktask.server.domain.entity.notification.SlackTaskRequest
+import ktask.server.consumer.notification.AbsNotificationConsumer
+import ktask.server.consumer.notification.task.EmailConsumer
+import ktask.server.consumer.notification.task.SlackConsumer
+import ktask.server.domain.entity.notification.INotificationRequest
+import ktask.server.domain.entity.notification.request.EmailRequest
+import ktask.server.domain.entity.notification.request.SlackRequest
 
 /**
  * Notification service for managing scheduling related operations.
@@ -33,21 +33,21 @@ internal object NotificationService {
      * For notifications with multiple recipients, this function schedules a separate task
      * for each recipient, ensuring that all recipients receive their notifications.
      *
-     * @param request The [INotificationTaskRequest] instance representing the notification to be scheduled.
+     * @param request The [INotificationRequest] instance representing the notification to be scheduled.
      * @return The ID of the scheduled notification if successful.
      * @throws IllegalArgumentException if the notification request type is unsupported.
      */
-    suspend fun schedule(request: INotificationTaskRequest): Unit = withContext(Dispatchers.IO) {
+    suspend fun schedule(request: INotificationRequest): Unit = withContext(Dispatchers.IO) {
         tracer.debug("Scheduling new notification for ID: ${request.id}")
 
         // Identify the target consumer class.
-        val taskClass: Class<out AbsNotificationTaskConsumer> = when (request) {
-            is EmailTaskRequest -> {
-                EmailTaskRequest.verifyRecipients(request = request)
-                EmailTaskConsumer::class.java
+        val taskClass: Class<out AbsNotificationConsumer> = when (request) {
+            is EmailRequest -> {
+                EmailRequest.verifyRecipients(request = request)
+                EmailConsumer::class.java
             }
 
-            is SlackTaskRequest -> SlackTaskConsumer::class.java
+            is SlackRequest -> SlackConsumer::class.java
             else -> throw IllegalArgumentException("Unsupported notification request: $request")
         }
 

@@ -8,16 +8,16 @@ import io.ktor.http.*
 import io.ktor.server.application.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
-import ktask.server.domain.entity.notification.EmailTaskRequest
+import ktask.server.domain.entity.notification.request.EmailRequest
 import ktask.server.domain.service.NotificationService
 
 /**
- * Creates a new scheduled Email notification.
+ * Creates a new scheduled Email notification task.
  */
 fun Route.emailTaskRoute() {
 
     // Create a new scheduled Email notification task.
-    post<EmailTaskRequest>("email") { request ->
+    post<EmailRequest>("email") { request ->
         NotificationService.schedule(request = request)
 
         call.respond(

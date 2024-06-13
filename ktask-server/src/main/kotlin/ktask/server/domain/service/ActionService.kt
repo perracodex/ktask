@@ -1,0 +1,66 @@
+/*
+ * Copyright (c) 2024-Present Perracodex. Use of this source code is governed by an MIT license.
+ */
+
+package ktask.server.domain.service
+
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
+import ktask.base.env.Tracer
+import ktask.base.scheduler.service.request.SchedulerRequest
+import ktask.base.scheduler.service.schedule.TaskStartAt
+import ktask.base.utils.DateTimeUtils
+import ktask.base.utils.KLocalDateTime
+import ktask.server.consumer.action.AbsActionConsumer
+import ktask.server.consumer.action.task.ActionConsumer
+import ktask.server.domain.entity.action.IActionRequest
+
+/**
+ * Custom action service for managing scheduling related operations.
+ */
+internal object ActionService {
+    private val tracer = Tracer<ActionService>()
+
+    /**
+     * Submits a new custom action request to the task scheduler.
+     *
+     * It ensures that tasks are scheduled promptly even if the specified time is in the past,
+     * leveraging the Task Scheduler Service's ability to handle such cases gracefully.
+     *
+     * @param request The [IActionRequest] instance representing the action  to be scheduled.
+     * @return The ID of the scheduled action if successful.
+     * @throws IllegalArgumentException if the action request type is unsupported.
+     */
+    suspend fun schedule(request: IActionRequest): Unit = withContext(Dispatchers.IO) {
+        tracer.debug("Scheduling new custom action for ID: ${request.id}")
+
+        // Resolve the target consumer class.
+        val taskClass: Class<out AbsActionConsumer> = ActionConsumer::class.java
+
+        // Determine the start date/time for the task.
+        // Note: If the scheduled time is in the past, the Task Scheduler Service
+        // will automatically start the task as soon as it becomes possible.
+        val taskStartAt: TaskStartAt = request.schedule?.let { schedule ->
+            val startDateTime: KLocalDateTime = schedule.start ?: DateTimeUtils.currentUTCDateTime()
+            TaskStartAt.AtDateTime(datetime = startDateTime)
+        } ?: TaskStartAt.Immediate
+
+        // Prepare the task parameters.
+        val taskParameters: MutableMap<String, Any> = request.toTaskParameters()
+
+        // Prepare the scheduling request.
+        val scheduleRequest = SchedulerRequest(
+            taskId = request.id,
+            taskClass = taskClass,
+            startAt = taskStartAt,
+            parameters = taskParameters
+        )
+
+        // Schedule the task based on the specified schedule type.
+        val taskKey = request.schedule?.let {
+            scheduleRequest.send(schedule = it)
+        } ?: scheduleRequest.send()
+
+        tracer.debug("Scheduled ${taskClass.name}. Task key: $taskKey")
+    }
+}
