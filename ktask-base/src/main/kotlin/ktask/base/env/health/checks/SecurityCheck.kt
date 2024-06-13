@@ -14,24 +14,18 @@ import ktask.base.settings.config.sections.security.sections.ConstraintsSettings
  *
  * @property errors List of errors found during the health check.
  * @property useSecureConnection Flag indicating if secure connections are used.
- * @property publicApi The rate limit specification for public API endpoints.
  * @property privateApi The rate limit specification for private API endpoints.
- * @property newToken The rate limit specification for the new authentication token generation endpoint.
  */
 @HealthCheckAPI
 @Serializable
 data class SecurityCheck(
     val errors: MutableList<String>,
     val useSecureConnection: Boolean,
-    val publicApi: ConstraintsSettings.LimitSpec,
     val privateApi: ConstraintsSettings.LimitSpec,
-    val newToken: ConstraintsSettings.LimitSpec,
 ) {
     constructor() : this(
         errors = mutableListOf(),
         useSecureConnection = AppSettings.security.useSecureConnection,
-        publicApi = AppSettings.security.constraints.publicApi,
-        privateApi = AppSettings.security.constraints.privateApi,
-        newToken = AppSettings.security.constraints.newToken
+        privateApi = AppSettings.security.constraints.privateApi
     )
 }

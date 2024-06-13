@@ -109,6 +109,22 @@ paths:
             '*/*':
               schema:
                 $ref: "#/components/schemas/TaskStateChangeEntity"
+  /scheduler/restart:
+    post:
+      description: "Restart the task scheduler."
+      parameters:
+        - name: "interrupt"
+          in: "query"
+          required: false
+          schema:
+            type: "boolean"
+      responses:
+        "200":
+          description: "OK"
+          content:
+            '*/*':
+              schema:
+                type: "string"
   /scheduler/resume:
     post:
       description: "Resume all the scheduler tasks."
@@ -494,17 +510,11 @@ components:
             type: "string"
         useSecureConnection:
           type: "boolean"
-        publicApi:
-          $ref: "#/components/schemas/LimitSpec"
         privateApi:
-          $ref: "#/components/schemas/LimitSpec"
-        newToken:
           $ref: "#/components/schemas/LimitSpec"
       required:
         - "errors"
-        - "publicApi"
         - "privateApi"
-        - "newToken"
     SnowflakeData:
       type: "object"
       properties:
@@ -715,6 +725,10 @@ components:
         totalTasks:
           type: "integer"
           format: "int32"
+        state:
+          type: "string"
+      required:
+        - "state"
     TaskScheduleEntity:
       type: "object"
       properties:

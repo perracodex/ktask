@@ -33,27 +33,10 @@ import kotlin.time.Duration.Companion.milliseconds
 fun Application.configureRateLimit() {
 
     install(plugin = RateLimit) {
-        // Register rate limits for the public API.
-        register(RateLimitName(name = RateLimitScope.PUBLIC_API.key)) {
-            rateLimiter(
-                limit = AppSettings.security.constraints.publicApi.limit,
-                refillPeriod = AppSettings.security.constraints.publicApi.refillMs.milliseconds
-            )
-        }
-
-        // Register rate limits for the private API.
         register(RateLimitName(name = RateLimitScope.PRIVATE_API.key)) {
             rateLimiter(
                 limit = AppSettings.security.constraints.privateApi.limit,
                 refillPeriod = AppSettings.security.constraints.privateApi.refillMs.milliseconds
-            )
-        }
-
-        // Register rate limits for the new authentication token generation endpoint.
-        register(RateLimitName(name = RateLimitScope.NEW_AUTH_TOKEN.key)) {
-            rateLimiter(
-                limit = AppSettings.security.constraints.newToken.limit,
-                refillPeriod = AppSettings.security.constraints.newToken.refillMs.milliseconds
             )
         }
     }
@@ -65,12 +48,6 @@ fun Application.configureRateLimit() {
  * @property key The key that identifies the rate limit scope.
  */
 enum class RateLimitScope(val key: String) {
-    /** Scope key for authorization tokens. */
-    NEW_AUTH_TOKEN(key = "new_auth_token"),
-
-    /** Scope key for the public API. */
-    PUBLIC_API(key = "public_api"),
-
     /** Scope key for the private API. */
     PRIVATE_API(key = "private_api")
 }

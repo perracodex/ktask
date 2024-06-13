@@ -10,15 +10,11 @@ import ktask.base.settings.config.parser.IConfigSection
 /**
  * Security constraints settings.
  *
- * @property publicApi Rate limit specification for the Public API endpoints.
  * @property privateApi Rate limit specification for the Private API endpoints.
- * @property newToken Rate limit specification for the New Authentication Token generation endpoint.
  */
 @Serializable
 data class ConstraintsSettings(
-    val publicApi: LimitSpec,
     val privateApi: LimitSpec,
-    val newToken: LimitSpec
 ) : IConfigSection {
 
     /**
