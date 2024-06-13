@@ -21,7 +21,7 @@ import org.thymeleaf.templateresolver.FileTemplateResolver
  * the loading and processing of template files. Extending classes must implement the [consume]
  * method to define task-specific behavior.
  */
-internal abstract class AbsTaskConsumer : SchedulerTask() {
+internal abstract class AbsNotificationTaskConsumer : SchedulerTask() {
 
     /**
      * Represents the properties used in the task payload.

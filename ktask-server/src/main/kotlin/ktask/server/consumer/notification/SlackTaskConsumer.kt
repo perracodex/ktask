@@ -9,7 +9,7 @@ import com.slack.api.methods.response.chat.ChatPostMessageResponse
 import ktask.base.env.Tracer
 import ktask.base.settings.AppSettings
 import ktask.base.settings.config.sections.SchedulerSettings
-import ktask.server.consumer.AbsTaskConsumer
+import ktask.server.consumer.AbsNotificationTaskConsumer
 
 
 /**
@@ -17,7 +17,7 @@ import ktask.server.consumer.AbsTaskConsumer
  *
  * See: [Slack SDK](https://github.com/slackapi/java-slack-sdk)
  */
-internal class SlackTaskConsumer : AbsTaskConsumer() {
+internal class SlackTaskConsumer : AbsNotificationTaskConsumer() {
     private val tracer = Tracer<SlackTaskConsumer>()
 
     /**

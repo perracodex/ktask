@@ -8,7 +8,7 @@ import ktask.base.env.Tracer
 import ktask.base.settings.AppSettings
 import ktask.base.settings.config.sections.SchedulerSettings
 import ktask.base.utils.CastUtils
-import ktask.server.consumer.AbsTaskConsumer
+import ktask.server.consumer.AbsNotificationTaskConsumer
 import org.apache.commons.mail.DefaultAuthenticator
 import org.apache.commons.mail.EmailAttachment
 import org.apache.commons.mail.HtmlEmail
@@ -16,7 +16,7 @@ import org.apache.commons.mail.HtmlEmail
 /**
  * Represents a scheduled task that processes emails.
  */
-internal class EmailTaskConsumer : AbsTaskConsumer() {
+internal class EmailTaskConsumer : AbsNotificationTaskConsumer() {
     private val tracer = Tracer<EmailTaskConsumer>()
 
     /**

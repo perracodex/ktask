@@ -6,7 +6,7 @@ package ktask.server.domain.entity
 
 import ktask.base.persistence.serializers.SUUID
 import ktask.base.scheduler.service.schedule.Schedule
-import ktask.server.consumer.AbsTaskConsumer
+import ktask.server.consumer.AbsNotificationTaskConsumer
 
 /**
  * Represents a request to schedule a task.
@@ -34,13 +34,13 @@ interface INotificationTaskRequest {
      */
     fun toTaskParameters(recipient: Recipient): MutableMap<String, Any> {
         return mutableMapOf(
-            AbsTaskConsumer.Property.TASK_ID.key to id,
-            AbsTaskConsumer.Property.RECIPIENT_TARGET.key to recipient.target,
-            AbsTaskConsumer.Property.RECIPIENT_NAME.key to recipient.name,
-            AbsTaskConsumer.Property.RECIPIENT_LOCALE.key to recipient.locale,
-            AbsTaskConsumer.Property.TEMPLATE.key to template,
-            AbsTaskConsumer.Property.FIELDS.key to (fields ?: emptyMap()),
-            AbsTaskConsumer.Property.ATTACHMENTS.key to (attachments ?: emptyList())
+            AbsNotificationTaskConsumer.Property.TASK_ID.key to id,
+            AbsNotificationTaskConsumer.Property.RECIPIENT_TARGET.key to recipient.target,
+            AbsNotificationTaskConsumer.Property.RECIPIENT_NAME.key to recipient.name,
+            AbsNotificationTaskConsumer.Property.RECIPIENT_LOCALE.key to recipient.locale,
+            AbsNotificationTaskConsumer.Property.TEMPLATE.key to template,
+            AbsNotificationTaskConsumer.Property.FIELDS.key to (fields ?: emptyMap()),
+            AbsNotificationTaskConsumer.Property.ATTACHMENTS.key to (attachments ?: emptyList())
         )
     }
 }

@@ -11,7 +11,7 @@ import ktask.base.scheduler.service.request.SchedulerRequest
 import ktask.base.scheduler.service.schedule.TaskStartAt
 import ktask.base.utils.DateTimeUtils
 import ktask.base.utils.KLocalDateTime
-import ktask.server.consumer.AbsTaskConsumer
+import ktask.server.consumer.AbsNotificationTaskConsumer
 import ktask.server.consumer.notification.EmailTaskConsumer
 import ktask.server.consumer.notification.SlackTaskConsumer
 import ktask.server.domain.entity.INotificationTaskRequest
@@ -41,7 +41,7 @@ internal object NotificationService {
         tracer.debug("Scheduling new notification for ID: ${request.id}")
 
         // Identify the target consumer class.
-        val taskClass: Class<out AbsTaskConsumer> = when (request) {
+        val taskClass: Class<out AbsNotificationTaskConsumer> = when (request) {
             is EmailTaskRequest -> {
                 EmailTaskRequest.verifyRecipients(request = request)
                 EmailTaskConsumer::class.java
