@@ -9,7 +9,7 @@ services:
       context: .
       dockerfile: docker-full-build.Dockerfile
     image: ktask-image:latest
-    container_name: v1
+    container_name: ktask-container
     ports:
       - "8080:8080"
       - "8443:8443"
