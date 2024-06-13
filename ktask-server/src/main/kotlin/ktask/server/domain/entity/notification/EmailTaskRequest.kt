@@ -11,7 +11,7 @@ import ktask.base.persistence.validators.IValidator
 import ktask.base.persistence.validators.impl.EmailValidator
 import ktask.base.scheduler.service.schedule.Schedule
 import ktask.server.consumer.notification.EmailTaskConsumer
-import ktask.server.domain.entity.ITaskRequest
+import ktask.server.domain.entity.INotificationTaskRequest
 import ktask.server.domain.entity.Recipient
 
 /**
@@ -36,7 +36,7 @@ data class EmailTaskRequest(
     override val attachments: List<String>? = null,
     val cc: List<String> = emptyList(),
     val subject: String,
-) : ITaskRequest {
+) : INotificationTaskRequest {
 
     override fun toTaskParameters(recipient: Recipient): MutableMap<String, Any> {
         return super.toTaskParameters(recipient = recipient).also { parameter ->

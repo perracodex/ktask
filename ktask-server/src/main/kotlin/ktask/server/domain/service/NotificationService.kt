@@ -14,7 +14,7 @@ import ktask.base.utils.KLocalDateTime
 import ktask.server.consumer.AbsTaskConsumer
 import ktask.server.consumer.notification.EmailTaskConsumer
 import ktask.server.consumer.notification.SlackTaskConsumer
-import ktask.server.domain.entity.ITaskRequest
+import ktask.server.domain.entity.INotificationTaskRequest
 import ktask.server.domain.entity.notification.EmailTaskRequest
 import ktask.server.domain.entity.notification.SlackTaskRequest
 
@@ -33,11 +33,11 @@ internal object NotificationService {
      * For notifications with multiple recipients, this function schedules a separate task
      * for each recipient, ensuring that all recipients receive their notifications.
      *
-     * @param request The [ITaskRequest] instance representing the notification to be scheduled.
+     * @param request The [INotificationTaskRequest] instance representing the notification to be scheduled.
      * @return The ID of the scheduled notification if successful.
      * @throws IllegalArgumentException if the notification request type is unsupported.
      */
-    suspend fun schedule(request: ITaskRequest): Unit = withContext(Dispatchers.IO) {
+    suspend fun schedule(request: INotificationTaskRequest): Unit = withContext(Dispatchers.IO) {
         tracer.debug("Scheduling new notification for ID: ${request.id}")
 
         // Identify the target consumer class.

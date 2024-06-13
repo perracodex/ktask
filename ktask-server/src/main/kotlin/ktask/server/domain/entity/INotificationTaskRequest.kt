@@ -18,7 +18,7 @@ import ktask.server.consumer.AbsTaskConsumer
  * @property fields Optional fields to be included in the template.
  * @property attachments Optional list of file paths to be attached to the notification.
  */
-interface ITaskRequest {
+interface INotificationTaskRequest {
     val id: SUUID
     val schedule: Schedule?
     val recipients: List<Recipient>

@@ -8,7 +8,7 @@ import kotlinx.serialization.Serializable
 import ktask.base.persistence.serializers.SUUID
 import ktask.base.scheduler.service.schedule.Schedule
 import ktask.server.consumer.notification.SlackTaskConsumer
-import ktask.server.domain.entity.ITaskRequest
+import ktask.server.domain.entity.INotificationTaskRequest
 import ktask.server.domain.entity.Recipient
 
 /**
@@ -31,7 +31,7 @@ data class SlackTaskRequest(
     override val fields: Map<String, String>? = null,
     override val attachments: List<String>? = null,
     val channel: String,
-) : ITaskRequest {
+) : INotificationTaskRequest {
     init {
         require(recipients.isNotEmpty()) { "At least one recipient must be specified." }
     }
