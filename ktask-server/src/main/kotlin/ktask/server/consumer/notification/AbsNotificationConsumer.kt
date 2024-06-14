@@ -9,7 +9,7 @@ import ktask.base.scheduler.service.task.SchedulerTask
 import ktask.base.settings.AppSettings
 import ktask.base.utils.CastUtils
 import ktask.base.utils.DateTimeUtils
-import ktask.server.domain.entity.notification.Recipient
+import ktask.server.entity.notification.Recipient
 import org.thymeleaf.TemplateEngine
 import org.thymeleaf.context.Context
 import org.thymeleaf.templatemode.TemplateMode

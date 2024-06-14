@@ -7,6 +7,16 @@ servers:
   - url: "http://127.0.0.1:8080"
   - url: "https://127.0.0.1:8443"
 paths:
+  /events:
+    get:
+      description: "Server-Sent Events (SSE) endpoint."
+      responses:
+        "500":
+          description: "Internal Server Error"
+          content:
+            '*/*':
+              schema:
+                type: "string"
   /health:
     get:
       description: "Healthcheck providing the current operational status."
@@ -17,6 +27,31 @@ paths:
             '*/*':
               schema:
                 $ref: "#/components/schemas/HealthCheck"
+  /push/action:
+    post:
+      description: "Create a new scheduled action task."
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ActionRequest"
+        required: true
+      responses:
+        "500":
+          description: "Internal Server Error"
+          content:
+            '*/*':
+              schema:
+                type: "string"
+        "201":
+          description: "Created"
+          content:
+            '*/*':
+              schema:
+                type: "string"
+              examples:
+                Example#1:
+                  value: ""
   /push/email:
     post:
       description: "Create a new scheduled Email notification task."
@@ -24,7 +59,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/EmailTaskRequest"
+              $ref: "#/components/schemas/EmailRequest"
         required: true
       responses:
         "400":
@@ -55,7 +90,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/SlackTaskRequest"
+              $ref: "#/components/schemas/SlackRequest"
         required: true
       responses:
         "400":
@@ -588,6 +623,19 @@ components:
     Schedule:
       type: "object"
       properties: { }
+    ActionRequest:
+      type: "object"
+      properties:
+        id:
+          type: "string"
+          format: "uuid"
+        schedule:
+          $ref: "#/components/schemas/Schedule"
+        data:
+          type: "string"
+      required:
+        - "id"
+        - "data"
     Recipient:
       type: "object"
       properties:
@@ -601,7 +649,7 @@ components:
         - "target"
         - "name"
         - "locale"
-    EmailTaskRequest:
+    EmailRequest:
       type: "object"
       properties:
         id:
@@ -633,7 +681,7 @@ components:
         - "template"
         - "cc"
         - "subject"
-    SlackTaskRequest:
+    SlackRequest:
       type: "object"
       properties:
         id:

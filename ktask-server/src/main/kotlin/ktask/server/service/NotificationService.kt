@@ -2,7 +2,7 @@
  * Copyright (c) 2024-Present Perracodex. Use of this source code is governed by an MIT license.
  */
 
-package ktask.server.domain.service
+package ktask.server.service
 
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -15,9 +15,9 @@ import ktask.base.utils.KLocalDateTime
 import ktask.server.consumer.notification.AbsNotificationConsumer
 import ktask.server.consumer.notification.task.EmailConsumer
 import ktask.server.consumer.notification.task.SlackConsumer
-import ktask.server.domain.entity.notification.INotificationRequest
-import ktask.server.domain.entity.notification.request.EmailRequest
-import ktask.server.domain.entity.notification.request.SlackRequest
+import ktask.server.entity.notification.INotificationRequest
+import ktask.server.entity.notification.request.EmailRequest
+import ktask.server.entity.notification.request.SlackRequest
 
 /**
  * Notification service for managing scheduling related operations.

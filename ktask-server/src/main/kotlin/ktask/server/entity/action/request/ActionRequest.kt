@@ -2,13 +2,13 @@
  * Copyright (c) 2024-Present Perracodex. Use of this source code is governed by an MIT license.
  */
 
-package ktask.server.domain.entity.action.request
+package ktask.server.entity.action.request
 
 import kotlinx.serialization.Serializable
 import ktask.base.persistence.serializers.SUUID
 import ktask.base.scheduler.service.schedule.Schedule
 import ktask.server.consumer.action.task.ActionConsumer
-import ktask.server.domain.entity.action.IActionRequest
+import ktask.server.entity.action.IActionRequest
 
 /**
  * Represents a custom action task request.

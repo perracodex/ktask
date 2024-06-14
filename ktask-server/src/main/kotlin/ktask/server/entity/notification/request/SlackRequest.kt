@@ -2,14 +2,14 @@
  * Copyright (c) 2024-Present Perracodex. Use of this source code is governed by an MIT license.
  */
 
-package ktask.server.domain.entity.notification.request
+package ktask.server.entity.notification.request
 
 import kotlinx.serialization.Serializable
 import ktask.base.persistence.serializers.SUUID
 import ktask.base.scheduler.service.schedule.Schedule
 import ktask.server.consumer.notification.task.SlackConsumer
-import ktask.server.domain.entity.notification.INotificationRequest
-import ktask.server.domain.entity.notification.Recipient
+import ktask.server.entity.notification.INotificationRequest
+import ktask.server.entity.notification.Recipient
 
 /**
  * Represents a request to send a Slack notification task.

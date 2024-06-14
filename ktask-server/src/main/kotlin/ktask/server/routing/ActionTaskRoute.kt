@@ -8,8 +8,8 @@ import io.ktor.http.*
 import io.ktor.server.application.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
-import ktask.server.domain.entity.action.request.ActionRequest
-import ktask.server.domain.service.ActionService
+import ktask.server.entity.action.request.ActionRequest
+import ktask.server.service.ActionService
 
 /**
  * Creates a new scheduled action task.

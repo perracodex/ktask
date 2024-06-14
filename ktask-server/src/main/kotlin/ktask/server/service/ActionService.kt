@@ -2,7 +2,7 @@
  * Copyright (c) 2024-Present Perracodex. Use of this source code is governed by an MIT license.
  */
 
-package ktask.server.domain.service
+package ktask.server.service
 
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -14,7 +14,7 @@ import ktask.base.utils.DateTimeUtils
 import ktask.base.utils.KLocalDateTime
 import ktask.server.consumer.action.AbsActionConsumer
 import ktask.server.consumer.action.task.ActionConsumer
-import ktask.server.domain.entity.action.IActionRequest
+import ktask.server.entity.action.IActionRequest
 
 /**
  * Custom action service for managing scheduling related operations.

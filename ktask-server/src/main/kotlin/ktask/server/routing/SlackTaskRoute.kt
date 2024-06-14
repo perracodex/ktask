@@ -8,8 +8,8 @@ import io.ktor.http.*
 import io.ktor.server.application.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
-import ktask.server.domain.entity.notification.request.SlackRequest
-import ktask.server.domain.service.NotificationService
+import ktask.server.entity.notification.request.SlackRequest
+import ktask.server.service.NotificationService
 
 /**
  * Creates a new scheduled Slack notification task.
