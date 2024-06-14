@@ -5,7 +5,7 @@
 package ktask.server.consumer.action
 
 import ktask.base.persistence.serializers.SUUID
-import ktask.base.scheduler.service.task.SchedulerTask
+import ktask.base.scheduler.service.task.TaskConsumer
 
 /**
  * Abstract base class for processing scheduled tasks, providing common steps for task execution,
@@ -13,7 +13,7 @@ import ktask.base.scheduler.service.task.SchedulerTask
  * the loading and processing of template files. Extending classes must implement the [consume]
  * method to define task-specific behavior.
  */
-internal abstract class AbsActionConsumer : SchedulerTask() {
+internal abstract class AbsActionConsumer : TaskConsumer() {
 
     /**
      * Represents the properties used in the task payload.

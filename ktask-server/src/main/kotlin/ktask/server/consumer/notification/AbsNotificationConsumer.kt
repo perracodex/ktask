@@ -5,7 +5,7 @@
 package ktask.server.consumer.notification
 
 import ktask.base.persistence.serializers.SUUID
-import ktask.base.scheduler.service.task.SchedulerTask
+import ktask.base.scheduler.service.task.TaskConsumer
 import ktask.base.settings.AppSettings
 import ktask.base.utils.CastUtils
 import ktask.base.utils.DateTimeUtils
@@ -21,7 +21,7 @@ import org.thymeleaf.templateresolver.FileTemplateResolver
  * the loading and processing of template files. Extending classes must implement the [consume]
  * method to define task-specific behavior.
  */
-internal abstract class AbsNotificationConsumer : SchedulerTask() {
+internal abstract class AbsNotificationConsumer : TaskConsumer() {
 
     /**
      * Represents the properties used in the task payload.

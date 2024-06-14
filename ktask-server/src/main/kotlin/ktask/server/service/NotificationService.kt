@@ -8,8 +8,8 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import ktask.base.env.Tracer
 import ktask.base.events.SEEService
-import ktask.base.scheduler.service.request.SchedulerRequest
 import ktask.base.scheduler.service.schedule.TaskStartAt
+import ktask.base.scheduler.service.task.TaskDispatch
 import ktask.base.utils.DateTimeUtils
 import ktask.base.utils.KLocalDateTime
 import ktask.server.consumer.notification.AbsNotificationConsumer
@@ -42,7 +42,7 @@ internal object NotificationService {
         tracer.debug("Scheduling new notification for ID: ${request.id}")
 
         // Identify the target consumer class.
-        val taskClass: Class<out AbsNotificationConsumer> = when (request) {
+        val taskConsumerClass: Class<out AbsNotificationConsumer> = when (request) {
             is EmailRequest -> {
                 EmailRequest.verifyRecipients(request = request)
                 EmailConsumer::class.java
@@ -65,26 +65,26 @@ internal object NotificationService {
             // Configure the task parameters specific to the current recipient.
             val taskParameters: MutableMap<String, Any> = request.toTaskParameters(recipient = recipient)
 
-            // Prepare the scheduling request.
-            val scheduleRequest = SchedulerRequest(
+            // Prepare the task dispatch object.
+            val taskDispatch = TaskDispatch(
                 taskId = request.id,
-                taskClass = taskClass,
+                taskConsumerClass = taskConsumerClass,
                 startAt = taskStartAt,
                 parameters = taskParameters
             )
 
-            // Schedule the task based on the specified schedule type.
+            // Dispatch the task based on the specified schedule type.
             val taskKey = request.schedule?.let {
-                scheduleRequest.send(schedule = it)
-            } ?: scheduleRequest.send()
+                taskDispatch.send(schedule = it)
+            } ?: taskDispatch.send()
 
-            tracer.debug("Scheduled ${taskClass.name} for recipient: $recipient. Task key: $taskKey")
+            tracer.debug("Scheduled ${taskConsumerClass.name} for recipient: $recipient. Task key: $taskKey")
         }
 
         // Send a message to the SSE endpoint.
         val schedule: String = request.schedule?.toString() ?: "--"
         SEEService.push(
-            "New notification task (${request.recipients.size})| $schedule | ${taskClass.simpleName} | ID: ${request.id}"
+            "New notification task (${request.recipients.size})| $schedule | ${taskConsumerClass.simpleName} | ID: ${request.id}"
         )
     }
 }
