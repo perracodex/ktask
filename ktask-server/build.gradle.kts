@@ -17,7 +17,6 @@ dependencies {
     implementation(libs.ktor.server.html.builder)
     implementation(libs.ktor.server.netty)
     implementation(libs.ktor.server.rateLimit)
-    implementation(libs.ktor.server.tests)
     implementation(libs.ktor.server.thymeleaf)
 
     implementation(libs.quartz.scheduler)
@@ -26,7 +25,6 @@ dependencies {
 
     implementation(libs.shared.commons.codec)
     implementation(libs.shared.commons.email)
-    implementation(libs.shared.gson)
 
     testImplementation(libs.test.kotlin.junit)
     testImplementation(libs.test.mockk)

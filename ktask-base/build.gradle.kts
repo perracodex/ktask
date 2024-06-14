@@ -49,7 +49,6 @@ dependencies {
     implementation(libs.quartz.scheduler)
 
     implementation(libs.shared.commons.codec)
-    implementation(libs.shared.gson)
 
     implementation(libs.typesafe.config)
 
