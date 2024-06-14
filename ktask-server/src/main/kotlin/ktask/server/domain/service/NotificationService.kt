@@ -7,6 +7,7 @@ package ktask.server.domain.service
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import ktask.base.env.Tracer
+import ktask.base.events.SEEService
 import ktask.base.scheduler.service.request.SchedulerRequest
 import ktask.base.scheduler.service.schedule.TaskStartAt
 import ktask.base.utils.DateTimeUtils
@@ -79,5 +80,11 @@ internal object NotificationService {
 
             tracer.debug("Scheduled ${taskClass.name} for recipient: $recipient. Task key: $taskKey")
         }
+
+        // Send a message to the SSE endpoint.
+        val schedule: String = request.schedule?.toString() ?: "--"
+        SEEService.push(
+            "New notification task (${request.recipients.size})| $schedule | ${taskClass.simpleName} | ID: ${request.id}"
+        )
     }
 }

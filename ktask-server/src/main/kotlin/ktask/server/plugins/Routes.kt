@@ -8,6 +8,7 @@ import io.ktor.server.application.*
 import io.ktor.server.plugins.ratelimit.*
 import io.ktor.server.routing.*
 import ktask.base.env.health.routing.healthCheckRoute
+import ktask.base.events.sseRoute
 import ktask.base.plugins.RateLimitScope
 import ktask.base.scheduler.routing.schedulerRoutes
 import ktask.base.snowflake.snowflakeRoute
@@ -42,6 +43,7 @@ fun Application.configureRoutes() {
             schedulerRoutes()
             snowflakeRoute()
             healthCheckRoute()
+            sseRoute()
         }
     }
 }
