@@ -10,6 +10,7 @@ import ktask.base.env.Tracer
 import ktask.base.events.SEEService
 import ktask.base.scheduler.service.schedule.TaskStartAt
 import ktask.base.scheduler.service.task.TaskDispatch
+import ktask.base.scheduler.service.task.TaskKey
 import ktask.base.utils.DateTimeUtils
 import ktask.base.utils.KLocalDateTime
 import ktask.server.consumer.action.AbsActionConsumer
@@ -58,7 +59,7 @@ internal object ActionService {
         )
 
         // Dispatch the task based on the specified schedule type.
-        val taskKey = request.schedule?.let {
+        val taskKey: TaskKey = request.schedule?.let {
             taskDispatch.send(schedule = it)
         } ?: taskDispatch.send()
 
