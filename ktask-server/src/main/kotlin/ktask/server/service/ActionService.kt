@@ -48,7 +48,7 @@ internal object ActionService {
         } ?: TaskStartAt.Immediate
 
         // Prepare the task parameters.
-        val taskParameters: MutableMap<String, Any> = request.toTaskParameters()
+        val taskParameters: MutableMap<String, Any> = request.toMap()
 
         // Prepare the task dispatch object.
         val taskDispatch = TaskDispatch(

@@ -64,7 +64,7 @@ internal object NotificationService {
         // Iterate over each recipient and schedule a task for each one.
         request.recipients.forEach { recipient ->
             // Configure the task parameters specific to the current recipient.
-            val taskParameters: MutableMap<String, Any> = request.toTaskParameters(recipient = recipient)
+            val taskParameters: MutableMap<String, Any> = request.toMap(recipient = recipient)
 
             // Prepare the task dispatch object.
             val taskDispatch = TaskDispatch(

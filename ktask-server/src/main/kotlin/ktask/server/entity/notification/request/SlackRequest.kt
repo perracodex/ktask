@@ -37,8 +37,8 @@ data class SlackRequest(
         verify()
     }
 
-    override fun toTaskParameters(recipient: Recipient): MutableMap<String, Any> {
-        return super.toTaskParameters(recipient = recipient).also { parameter ->
+    override fun toMap(recipient: Recipient): MutableMap<String, Any> {
+        return super.toMap(recipient = recipient).also { parameter ->
             parameter[SlackConsumer.Property.CHANNEL.key] = channel
         }
     }

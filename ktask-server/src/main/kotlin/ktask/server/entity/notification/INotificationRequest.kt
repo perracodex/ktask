@@ -32,12 +32,11 @@ interface INotificationRequest {
     }
 
     /**
-     * Converts the notification request into a map of parameters suitable for task processing.
-     * This base implementation converts only the common fields shared across all notification types.
-     *
-     * Subclasses should override this method to include additional type-specific parameters.
+     * Converts the notification request fields into a map of parameters suitable
+     * for task serialization and consumption. This is required as the scheduler
+     * requires a map of parameters.
      */
-    fun toTaskParameters(recipient: Recipient): MutableMap<String, Any> {
+    fun toMap(recipient: Recipient): MutableMap<String, Any> {
         return mutableMapOf(
             AbsNotificationConsumer.Property.TASK_ID.key to id,
             AbsNotificationConsumer.Property.RECIPIENT_TARGET.key to recipient.target,

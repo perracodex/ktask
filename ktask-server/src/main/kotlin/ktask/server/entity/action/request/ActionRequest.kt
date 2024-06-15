@@ -24,8 +24,8 @@ data class ActionRequest(
     val data: String,
 ) : IActionRequest {
 
-    override fun toTaskParameters(): MutableMap<String, Any> {
-        return super.toTaskParameters().also { parameter ->
+    override fun toMap(): MutableMap<String, Any> {
+        return super.toMap().also { parameter ->
             parameter[ActionConsumer.Property.DATA.key] = data
         }
     }
