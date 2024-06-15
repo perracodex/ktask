@@ -32,8 +32,9 @@ data class SlackRequest(
     override val attachments: List<String>? = null,
     val channel: String,
 ) : INotificationRequest {
+
     init {
-        require(recipients.isNotEmpty()) { "At least one recipient must be specified." }
+        verify()
     }
 
     override fun toTaskParameters(recipient: Recipient): MutableMap<String, Any> {

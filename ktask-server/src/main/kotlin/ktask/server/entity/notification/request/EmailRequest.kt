@@ -38,6 +38,10 @@ data class EmailRequest(
     val subject: String,
 ) : INotificationRequest {
 
+    init {
+        verify()
+    }
+
     override fun toTaskParameters(recipient: Recipient): MutableMap<String, Any> {
         return super.toTaskParameters(recipient = recipient).also { parameter ->
             parameter[EmailConsumer.Property.CC.key] = cc

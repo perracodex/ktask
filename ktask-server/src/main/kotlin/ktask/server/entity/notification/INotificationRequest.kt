@@ -26,6 +26,11 @@ interface INotificationRequest {
     val fields: Map<String, String>?
     val attachments: List<String>?
 
+    fun verify() {
+        require(recipients.isNotEmpty()) { "Recipients must not be empty." }
+        require(template.isNotBlank()) { "Template must not be blank." }
+    }
+
     /**
      * Converts the notification request into a map of parameters suitable for task processing.
      * This base implementation converts only the common fields shared across all notification types.
