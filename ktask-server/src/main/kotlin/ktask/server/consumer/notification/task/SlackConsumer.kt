@@ -41,11 +41,11 @@ internal class SlackConsumer : AbsNotificationConsumer() {
 
         // Append attachment links to the message.
 
-        val attachmentLinks: String = payload.attachments.joinToString("\n") { attachmentUrl ->
+        val attachmentLinks: String? = payload.attachments?.joinToString("\n") { attachmentUrl ->
             "Attachment: <${attachmentUrl}|Download>"
         }
 
-        val finalMessage: String = if (attachmentLinks.isBlank()) {
+        val finalMessage: String = if (attachmentLinks.isNullOrBlank()) {
             message
         } else {
             "$message\n$attachmentLinks"

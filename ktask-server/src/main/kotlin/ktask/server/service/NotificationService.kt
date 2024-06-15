@@ -43,7 +43,7 @@ internal object NotificationService {
         tracer.debug("Scheduling new notification for ID: ${request.id}")
 
         // Identify the target consumer class.
-        val taskConsumerClass: Class<out AbsNotificationConsumer> = when (request) {
+        val consumerClass: Class<out AbsNotificationConsumer> = when (request) {
             is EmailRequest -> {
                 EmailRequest.verifyRecipients(request = request)
                 EmailConsumer::class.java
@@ -64,12 +64,12 @@ internal object NotificationService {
         // Iterate over each recipient and schedule a task for each one.
         request.recipients.forEach { recipient ->
             // Configure the task parameters specific to the current recipient.
-            val taskParameters: MutableMap<String, Any> = request.toMap(recipient = recipient)
+            val taskParameters: MutableMap<String, Any?> = request.toMap(recipient = recipient)
 
             // Prepare the task dispatch object.
             val taskDispatch = TaskDispatch(
                 taskId = request.id,
-                taskConsumerClass = taskConsumerClass,
+                consumerClass = consumerClass,
                 startAt = taskStartAt,
                 parameters = taskParameters
             )
@@ -79,13 +79,13 @@ internal object NotificationService {
                 taskDispatch.send(schedule = it)
             } ?: taskDispatch.send()
 
-            tracer.debug("Scheduled ${taskConsumerClass.name} for recipient: $recipient. Task key: $taskKey")
+            tracer.debug("Scheduled ${consumerClass.name} for recipient: $recipient. Task key: $taskKey")
         }
 
         // Send a message to the SSE endpoint.
         val schedule: String = request.schedule?.toString() ?: "--"
         SEEService.push(
-            "New notification task (${request.recipients.size})| $schedule | ${taskConsumerClass.simpleName} | ID: ${request.id}"
+            "New notification task (${request.recipients.size})| $schedule | ${consumerClass.simpleName} | ID: ${request.id}"
         )
     }
 }

@@ -37,7 +37,7 @@ internal object ActionService {
         tracer.debug("Scheduling new custom action for ID: ${request.id}")
 
         // Resolve the target consumer class.
-        val taskConsumerClass: Class<out AbsActionConsumer> = ActionConsumer::class.java
+        val consumerClass: Class<out AbsActionConsumer> = ActionConsumer::class.java
 
         // Determine the start date/time for the task.
         // Note: If the scheduled time is in the past, the Task Scheduler Service
@@ -48,12 +48,12 @@ internal object ActionService {
         } ?: TaskStartAt.Immediate
 
         // Prepare the task parameters.
-        val taskParameters: MutableMap<String, Any> = request.toMap()
+        val taskParameters: MutableMap<String, Any?> = request.toMap()
 
         // Prepare the task dispatch object.
         val taskDispatch = TaskDispatch(
             taskId = request.id,
-            taskConsumerClass = taskConsumerClass,
+            consumerClass = consumerClass,
             startAt = taskStartAt,
             parameters = taskParameters
         )
@@ -63,7 +63,7 @@ internal object ActionService {
             taskDispatch.send(schedule = it)
         } ?: taskDispatch.send()
 
-        tracer.debug("Scheduled ${taskConsumerClass.name}. Task key: $taskKey")
+        tracer.debug("Scheduled ${consumerClass.name}. Task key: $taskKey")
 
         // Send a message to the SSE endpoint.
         val schedule: String = request.schedule?.toString() ?: "--"

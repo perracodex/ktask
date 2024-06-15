@@ -30,7 +30,7 @@ internal class EmailConsumer : AbsNotificationConsumer() {
     override fun consume(payload: TaskPayload) {
         tracer.debug("Processing email notification. ID: ${payload.taskId}")
 
-        val cc: List<String> = CastUtils.toStringList(list = payload.additionalParameters[Property.CC.key])
+        val cc: List<String>? = CastUtils.toStringList(list = payload.additionalParameters[Property.CC.key])
         val subject: String = payload.additionalParameters[Property.SUBJECT.key] as String
 
         // Build the message.
@@ -47,13 +47,13 @@ internal class EmailConsumer : AbsNotificationConsumer() {
 
         // Add recipients to be copied on the email notification.
 
-        if (cc.isNotEmpty()) {
+        if (!cc.isNullOrEmpty()) {
             email.addCc(*cc.toTypedArray())
         }
 
         // Add attachments to the email.
 
-        payload.attachments.forEach { attachmentPath ->
+        payload.attachments?.forEach { attachmentPath ->
             val attachment: EmailAttachment = EmailAttachment().apply {
                 path = attachmentPath
                 disposition = EmailAttachment.ATTACHMENT

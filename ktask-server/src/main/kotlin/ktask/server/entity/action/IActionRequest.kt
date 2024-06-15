@@ -12,10 +12,12 @@ import ktask.server.consumer.action.AbsActionConsumer
  * Represents a custom action task request.
  *
  * @property id The unique identifier of the task request.
+ * @property description Optional description of the task.
  * @property schedule Optional [Schedule] for the task.
  */
 interface IActionRequest {
     val id: SUUID
+    val description: String?
     val schedule: Schedule?
 
     /**
@@ -23,9 +25,10 @@ interface IActionRequest {
      *
      * Subclasses should override this method to include additional type-specific parameters.
      */
-    fun toMap(): MutableMap<String, Any> {
+    fun toMap(): MutableMap<String, Any?> {
         return mutableMapOf(
             AbsActionConsumer.Property.TASK_ID.key to id,
+            AbsActionConsumer.Property.DESCRIPTION.key to description,
         )
     }
 }

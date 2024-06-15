@@ -30,6 +30,7 @@ internal abstract class AbsNotificationConsumer : TaskConsumer() {
     enum class Property(val key: String) {
         ATTACHMENTS(key = "ATTACHMENTS"),
         FIELDS(key = "FIELDS"),
+        DESCRIPTION(key = "DESCRIPTION"),
         RECIPIENT_LOCALE(key = "RECIPIENT_LOCALE"),
         RECIPIENT_NAME(key = "RECIPIENT_NAME"),
         RECIPIENT_TARGET(key = "RECIPIENT_TARGET"),
@@ -66,6 +67,7 @@ internal abstract class AbsNotificationConsumer : TaskConsumer() {
      * Represents the data necessary for task processing, encapsulating task-specific parameters.
      *
      * @param taskId The unique identifier of the task.
+     * @param description Optional description of the task.
      * @param recipient The target recipient of the task.
      * @param template The template to be used for the notification.
      * @param fields Optional fields to be included in the template.
@@ -74,19 +76,21 @@ internal abstract class AbsNotificationConsumer : TaskConsumer() {
      */
     data class TaskPayload(
         val taskId: SUUID,
+        val description: String?,
         val recipient: Recipient,
         val template: String,
-        val fields: Map<String, String> = emptyMap(),
-        val attachments: List<String> = emptyList(),
+        val fields: Map<String, String>?,
+        val attachments: List<String>?,
         val additionalParameters: Map<String, Any> = emptyMap()
     ) {
         companion object {
             fun build(properties: Map<String, Any>): TaskPayload {
 
                 val taskId: SUUID = properties[Property.TASK_ID.key] as SUUID
+                val description: String? = properties[Property.DESCRIPTION.key] as? String
                 val template: String = properties[Property.TEMPLATE.key] as String
-                val fields: Map<String, String> = CastUtils.toStringMap(map = properties[Property.FIELDS.key])
-                val attachments: List<String> = CastUtils.toStringList(list = properties[Property.ATTACHMENTS.key])
+                val fields: Map<String, String>? = CastUtils.toStringMap(map = properties[Property.FIELDS.key])
+                val attachments: List<String>? = CastUtils.toStringList(list = properties[Property.ATTACHMENTS.key])
 
                 val recipient = Recipient(
                     target = properties[Property.RECIPIENT_TARGET.key] as String,
@@ -101,6 +105,7 @@ internal abstract class AbsNotificationConsumer : TaskConsumer() {
 
                 return TaskPayload(
                     taskId = taskId,
+                    description = description,
                     recipient = recipient,
                     template = template,
                     fields = fields,
@@ -149,7 +154,7 @@ internal abstract class AbsNotificationConsumer : TaskConsumer() {
             // Set the additional fields in the context.
             // These fields are not bound to the consumer's payload,
             // but that may exist in the template.
-            payload.fields.forEach { (key, value) -> setVariable(key.lowercase(), value) }
+            payload.fields?.forEach { (key, value) -> setVariable(key.lowercase(), value) }
         }
 
         // Resolve the template name based on the recipient's language.

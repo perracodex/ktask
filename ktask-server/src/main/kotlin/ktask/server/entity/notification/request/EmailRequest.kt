@@ -18,6 +18,7 @@ import ktask.server.entity.notification.Recipient
  * Represents a request to send an Email notification task.
  *
  * @property id The unique identifier of the task request.
+ * @property description Optional description of the task.
  * @property schedule Optional [Schedule] for the task.
  * @property recipients List of target recipients.
  * @property template The template to be used for the notification.
@@ -29,6 +30,7 @@ import ktask.server.entity.notification.Recipient
 @Serializable
 data class EmailRequest(
     override val id: SUUID,
+    override val description: String? = null,
     override val schedule: Schedule? = null,
     override val recipients: List<Recipient>,
     override val template: String,
@@ -42,7 +44,7 @@ data class EmailRequest(
         verify()
     }
 
-    override fun toMap(recipient: Recipient): MutableMap<String, Any> {
+    override fun toMap(recipient: Recipient): MutableMap<String, Any?> {
         return super.toMap(recipient = recipient).also { parameter ->
             parameter[EmailConsumer.Property.CC.key] = cc
             parameter[EmailConsumer.Property.SUBJECT.key] = subject

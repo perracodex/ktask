@@ -20,7 +20,8 @@ internal abstract class AbsActionConsumer : TaskConsumer() {
      * These are the common properties shared by all task consumers.
      */
     enum class Property(val key: String) {
-        TASK_ID(key = "TASK_ID")
+        TASK_ID(key = "TASK_ID"),
+        DESCRIPTION(key = "DESCRIPTION")
     }
 
     /**
