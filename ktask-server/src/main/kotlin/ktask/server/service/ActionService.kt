@@ -47,21 +47,19 @@ internal object ActionService {
             TaskStartAt.AtDateTime(datetime = startDateTime)
         } ?: TaskStartAt.Immediate
 
-        // Prepare the task parameters.
-        val taskParameters: MutableMap<String, Any?> = request.toMap()
-
-        // Prepare the task dispatch object.
-        val taskDispatch = TaskDispatch(
-            taskId = request.id,
-            consumerClass = consumerClass,
-            startAt = taskStartAt,
-            parameters = taskParameters
-        )
-
         // Dispatch the task based on the specified schedule type.
-        val taskKey: TaskKey = request.schedule?.let {
-            taskDispatch.send(schedule = it)
-        } ?: taskDispatch.send()
+        val taskKey: TaskKey = request.toMap().let { parameters ->
+            TaskDispatch(
+                taskId = request.id,
+                consumerClass = consumerClass,
+                startAt = taskStartAt,
+                parameters = parameters
+            ).let { dispatch ->
+                request.schedule?.let { schedule ->
+                    dispatch.send(schedule = schedule)
+                } ?: dispatch.send()
+            }
+        }
 
         tracer.debug("Scheduled ${consumerClass.name}. Task key: $taskKey")
 
