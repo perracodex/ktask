@@ -10,7 +10,6 @@ import ktask.base.env.Tracer
 import ktask.base.events.SEEService
 import ktask.base.scheduler.service.schedule.TaskStartAt
 import ktask.base.scheduler.service.task.TaskDispatch
-import ktask.base.scheduler.service.task.TaskKey
 import ktask.base.utils.DateTimeUtils
 import ktask.base.utils.KLocalDateTime
 import ktask.server.consumer.notification.AbsNotificationConsumer
@@ -65,7 +64,7 @@ internal object NotificationService {
         request.recipients.forEach { recipient ->
 
             // Dispatch the task based on the specified schedule type.
-            val taskKey: TaskKey = request.toMap(recipient = recipient).let { parameters ->
+            request.toMap(recipient = recipient).let { parameters ->
                 TaskDispatch(
                     taskId = request.id,
                     consumerClass = consumerClass,
@@ -75,10 +74,10 @@ internal object NotificationService {
                     request.schedule?.let { schedule ->
                         dispatch.send(schedule = schedule)
                     } ?: dispatch.send()
+                }.also { taskKey ->
+                    tracer.debug("Scheduled ${consumerClass.name} for recipient: $recipient. Task key: $taskKey")
                 }
             }
-
-            tracer.debug("Scheduled ${consumerClass.name} for recipient: $recipient. Task key: $taskKey")
         }
 
         // Send a message to the SSE endpoint.
