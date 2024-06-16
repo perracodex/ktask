@@ -30,11 +30,7 @@ internal class EmailConsumer : AbsNotificationConsumer() {
     override fun consume(payload: TaskPayload) {
         tracer.debug("Processing email notification. ID: ${payload.taskId}")
 
-        val cc: List<String>? = CastUtils.toStringList(list = payload.additionalParameters[Property.CC.key])
-        val subject: String = payload.additionalParameters[Property.SUBJECT.key] as String
-
         // Build the message.
-
         val email: HtmlEmail = HtmlEmail().apply {
             val message: String = buildMessage(
                 type = TemplateType.EMAIL,
@@ -46,13 +42,12 @@ internal class EmailConsumer : AbsNotificationConsumer() {
         }
 
         // Add recipients to be copied on the email notification.
-
+        val cc: List<String>? = CastUtils.toStringList(list = payload.additionalParameters[Property.CC.key])
         if (!cc.isNullOrEmpty()) {
             email.addCc(*cc.toTypedArray())
         }
 
         // Add attachments to the email.
-
         payload.attachments?.forEach { attachmentPath ->
             val attachment: EmailAttachment = EmailAttachment().apply {
                 path = attachmentPath
@@ -63,18 +58,20 @@ internal class EmailConsumer : AbsNotificationConsumer() {
         }
 
         // Configure email settings.
-
         val emailSpec: SchedulerSettings.EmailSpec = AppSettings.scheduler.emailSpec
-        email.hostName = emailSpec.hostName
-        email.setSmtpPort(emailSpec.smtpPort)
-        email.authenticator = DefaultAuthenticator(emailSpec.username, emailSpec.password)
-        email.isSSLOnConnect = emailSpec.isSSLOnConnect
-        email.setFrom(emailSpec.username)
-        email.addTo(payload.recipient.target)
-        email.subject = subject
+        email.apply {
+            hostName = emailSpec.hostName
+            setSmtpPort(emailSpec.smtpPort)
+            authenticator = DefaultAuthenticator(emailSpec.username, emailSpec.password)
+            isSSLOnConnect = emailSpec.isSSLOnConnect
+            setFrom(emailSpec.username)
+            addTo(payload.recipient.target)
+            subject = payload.additionalParameters[Property.SUBJECT.key] as String
+        }
 
         // Send the email.
-        val messageId: String = email.send()
-        tracer.debug("Email notification sent to ${payload.recipient.target}. Task ID: ${payload.taskId}. Message ID: $messageId")
+        email.send().also { messageId ->
+            tracer.debug("Email notification sent: ${payload.recipient.target}. Task ID: ${payload.taskId}. Message ID: $messageId")
+        }
     }
 }

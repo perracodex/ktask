@@ -45,9 +45,9 @@ data class EmailRequest(
     }
 
     override fun toMap(recipient: Recipient): MutableMap<String, Any?> {
-        return super.toMap(recipient = recipient).also { parameter ->
-            parameter[EmailConsumer.Property.CC.key] = cc
-            parameter[EmailConsumer.Property.SUBJECT.key] = subject
+        return super.toMap(recipient = recipient).apply {
+            this[EmailConsumer.Property.CC.key] = cc
+            this[EmailConsumer.Property.SUBJECT.key] = subject
         }
     }
 

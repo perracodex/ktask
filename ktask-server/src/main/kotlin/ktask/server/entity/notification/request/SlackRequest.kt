@@ -40,8 +40,8 @@ data class SlackRequest(
     }
 
     override fun toMap(recipient: Recipient): MutableMap<String, Any?> {
-        return super.toMap(recipient = recipient).also { parameter ->
-            parameter[SlackConsumer.Property.CHANNEL.key] = channel
+        return super.toMap(recipient = recipient).apply {
+            this[SlackConsumer.Property.CHANNEL.key] = channel
         }
     }
 }

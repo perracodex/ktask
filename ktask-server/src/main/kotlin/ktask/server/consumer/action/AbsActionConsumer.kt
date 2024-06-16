@@ -36,17 +36,15 @@ internal abstract class AbsActionConsumer : TaskConsumer() {
     ) {
         companion object {
             fun build(properties: Map<String, Any>): TaskPayload {
-                val taskId: SUUID = properties[Property.TASK_ID.key] as SUUID
-
-                // Get the consumer-specific properties, which are not part of the common payload.
-                val additionalParameters: Map<String, Any> = properties.filterKeys { key ->
+                return properties.filterKeys { key ->
+                    // Consumer-specific properties, which are not part of the common payload.
                     key !in Property.entries.map { it.key }
+                }.let { additionalParameters ->
+                    TaskPayload(
+                        taskId = properties[Property.TASK_ID.key] as SUUID,
+                        additionalParameters = additionalParameters
+                    )
                 }
-
-                return TaskPayload(
-                    taskId = taskId,
-                    additionalParameters = additionalParameters
-                )
             }
         }
     }

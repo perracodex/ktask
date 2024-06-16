@@ -85,33 +85,26 @@ internal abstract class AbsNotificationConsumer : TaskConsumer() {
     ) {
         companion object {
             fun build(properties: Map<String, Any>): TaskPayload {
-
-                val taskId: SUUID = properties[Property.TASK_ID.key] as SUUID
-                val description: String? = properties[Property.DESCRIPTION.key] as? String
-                val template: String = properties[Property.TEMPLATE.key] as String
-                val fields: Map<String, String>? = CastUtils.toStringMap(map = properties[Property.FIELDS.key])
-                val attachments: List<String>? = CastUtils.toStringList(list = properties[Property.ATTACHMENTS.key])
-
                 val recipient = Recipient(
                     target = properties[Property.RECIPIENT_TARGET.key] as String,
                     name = properties[Property.RECIPIENT_NAME.key] as String,
                     locale = properties[Property.RECIPIENT_LOCALE.key] as String
                 )
 
-                // Get the consumer-specific properties, which are not part of the common payload.
-                val additionalParameters: Map<String, Any> = properties.filterKeys { key ->
+                return properties.filterKeys { key ->
+                    // Consumer-specific properties, which are not part of the common payload.
                     key !in Property.entries.map { it.key }
+                }.let { additionalParameters ->
+                    TaskPayload(
+                        taskId = properties[Property.TASK_ID.key] as SUUID,
+                        description = properties[Property.DESCRIPTION.key] as? String,
+                        recipient = recipient,
+                        template = properties[Property.TEMPLATE.key] as String,
+                        fields = CastUtils.toStringMap(map = properties[Property.FIELDS.key]),
+                        attachments = CastUtils.toStringList(list = properties[Property.ATTACHMENTS.key]),
+                        additionalParameters = additionalParameters
+                    )
                 }
-
-                return TaskPayload(
-                    taskId = taskId,
-                    description = description,
-                    recipient = recipient,
-                    template = template,
-                    fields = fields,
-                    attachments = attachments,
-                    additionalParameters = additionalParameters
-                )
             }
         }
     }

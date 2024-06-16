@@ -27,8 +27,8 @@ data class ActionRequest(
 ) : IActionRequest {
 
     override fun toMap(): MutableMap<String, Any?> {
-        return super.toMap().also { parameter ->
-            parameter[ActionConsumer.Property.DATA.key] = data
+        return super.toMap().apply {
+            this[ActionConsumer.Property.DATA.key] = data
         }
     }
 }

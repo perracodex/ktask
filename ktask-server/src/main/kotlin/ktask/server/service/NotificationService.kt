@@ -70,10 +70,10 @@ internal object NotificationService {
                     consumerClass = consumerClass,
                     startAt = taskStartAt,
                     parameters = parameters
-                ).let { dispatch ->
+                ).run {
                     request.schedule?.let { schedule ->
-                        dispatch.send(schedule = schedule)
-                    } ?: dispatch.send()
+                        send(schedule = schedule)
+                    } ?: send()
                 }.also { taskKey ->
                     tracer.debug("Scheduled ${consumerClass.name} for recipient: $recipient. Task key: $taskKey")
                 }
