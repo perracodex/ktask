@@ -55,7 +55,7 @@ See: [security.conf](./ktask-base/src/main/resources/config/config_security.conf
 
 ## Dashboard
 
-A dashboard to view and manage scheduled tasks is available at the endpoint: `/scheduler/tasks/dashboard`
+A simple dashboard to view and manage scheduled tasks is available at the endpoint: `/scheduler/dashboard`
 
 <img src=".screenshots/dashboard.jpg" width="1280" alt="dashboard">
 
