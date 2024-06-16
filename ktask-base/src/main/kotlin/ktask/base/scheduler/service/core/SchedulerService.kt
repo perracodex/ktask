@@ -7,10 +7,12 @@ package ktask.base.scheduler.service.core
 import io.ktor.server.application.*
 import ktask.base.env.Tracer
 import ktask.base.scheduler.annotation.SchedulerAPI
+import ktask.base.scheduler.audit.AuditRepository
+import ktask.base.scheduler.audit.entity.AuditEntity
 import ktask.base.scheduler.entity.TaskScheduleEntity
 import ktask.base.scheduler.entity.TaskStateChangeEntity
 import ktask.base.scheduler.listener.TaskListener
-import ktask.base.scheduler.listener.TaskTriggerListener
+import ktask.base.scheduler.listener.TriggerListener
 import ktask.base.scheduler.service.task.TaskFactory
 import ktask.base.scheduler.service.task.TaskState
 import ktask.base.utils.DateTimeUtils
@@ -77,7 +79,7 @@ object SchedulerService {
 
         tracer.info("Starting task scheduler.")
         scheduler.listenerManager.addJobListener(TaskListener())
-        scheduler.listenerManager.addTriggerListener(TaskTriggerListener())
+        scheduler.listenerManager.addTriggerListener(TriggerListener())
         scheduler.start()
         tracer.info("Task scheduler started.")
     }
@@ -372,6 +374,10 @@ object SchedulerService {
                 taskDetail = taskDetail
             )
 
+            // Resolve the last execution outcome.
+            val log: AuditEntity? = AuditRepository.find(taskName = jobKey.name, taskGroup = jobKey.group)
+            val outcome: String = log?.outcome?.name ?: "--"
+
             // Resolve the interval metrics.
             val (interval, runs) = triggers.firstOrNull()?.let { trigger ->
                 if (trigger is SimpleTrigger) {
@@ -400,6 +406,8 @@ object SchedulerService {
                 consumer = taskDetail.jobClass.simpleName,
                 nextFireTime = nextFireTime?.let { DateTimeUtils.javaDateToLocalDateTime(datetime = it) },
                 state = mostRestrictiveState.name,
+                outcome = outcome,
+                log = log?.log,
                 interval = interval,
                 runs = runs,
                 dataMap = dataMap,

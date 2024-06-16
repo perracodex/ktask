@@ -74,7 +74,7 @@ internal class EmailConsumer : AbsNotificationConsumer() {
         email.subject = subject
 
         // Send the email.
-        val result: String = email.send()
-        tracer.debug("Email notification sent to ${payload.recipient.target}. Task ID: ${payload.taskId}. Result: $result")
+        val messageId: String = email.send()
+        tracer.debug("Email notification sent to ${payload.recipient.target}. Task ID: ${payload.taskId}. Message ID: $messageId")
     }
 }

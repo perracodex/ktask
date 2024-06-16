@@ -6,6 +6,7 @@ package ktask.base.settings.config.sections.security
 
 import kotlinx.serialization.Serializable
 import ktask.base.settings.config.parser.IConfigSection
+import ktask.base.settings.config.sections.security.sections.BasicAuthSettings
 import ktask.base.settings.config.sections.security.sections.ConstraintsSettings
 
 /**
@@ -13,9 +14,11 @@ import ktask.base.settings.config.sections.security.sections.ConstraintsSettings
  *
  * @property useSecureConnection Whether to use a secure connection or not.
  * @property constraints Settings related to security constraints, such endpoints rate limits.
+ * @property basicAuth Settings related to basic authentication, such as the realm and provider name.
  */
 @Serializable
 data class SecuritySettings(
     val useSecureConnection: Boolean,
     val constraints: ConstraintsSettings,
+    val basicAuth: BasicAuthSettings,
 ) : IConfigSection

@@ -17,6 +17,7 @@ dependencies {
     implementation(libs.kotlinx.datetime)
 
     implementation(libs.ktor.serialization.kotlinx.json)
+    implementation(libs.ktor.server.auth)
     implementation(libs.ktor.server.autoHeadResponse)
     implementation(libs.ktor.server.caching.headers)
     implementation(libs.ktor.server.call.id)
@@ -47,6 +48,9 @@ dependencies {
     implementation(libs.hikariCP)
 
     implementation(libs.logback.classic)
+
+    implementation(libs.micrometer.metrics)
+    implementation(libs.micrometer.metrics.prometheus)
 
     implementation(libs.quartz.scheduler)
 

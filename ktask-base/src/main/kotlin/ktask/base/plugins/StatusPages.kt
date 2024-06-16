@@ -32,17 +32,6 @@ fun Application.configureStatusPages() {
             call.respondError(cause = cause)
         }
 
-        // Handle 401 Unauthorized status.
-        status(HttpStatusCode.Unauthorized) { call: ApplicationCall, status: HttpStatusCode ->
-            // Add WWW-Authenticate header to the response, indicating Basic Authentication is required.
-            // This is specific to Basic Authentication, doesn't affect JWT.
-            call.response.header(name = HttpHeaders.WWWAuthenticate, value = "")
-
-            // Respond with 401 Unauthorized status code.
-            val message = "$status | Use either admin/admin or guest/guest."
-            call.respond(status = HttpStatusCode.Unauthorized, message = message)
-        }
-
         // Security exception handling.
         status(HttpStatusCode.MethodNotAllowed) { call: ApplicationCall, status: HttpStatusCode ->
             call.respond(status = HttpStatusCode.MethodNotAllowed, message = "$status")

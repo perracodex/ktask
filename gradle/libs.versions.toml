@@ -14,6 +14,7 @@ kotlinx-atomicfu = "0.24.0"             # https://github.com/Kotlin/kotlinx-atom
 kotlinx-datetime = "0.6.0"              # https://github.com/Kotlin/kotlinx-datetime/releases
 ktor = "2.3.11"                         # https://github.com/ktorio/ktor/releases, https://ktor.io/docs/releases.html#release-details
 logback = "1.5.6"                       # https://github.com/qos-ch/logback/tags
+micrometer-prometheus = "1.13.1"        # https://github.com/micrometer-metrics/micrometer/releases
 mockk = "1.13.11"                       # https://github.com/mockk/mockk/releases
 mockito-kotlin = "5.3.1"                # https://github.com/mockito/mockito-kotlin/releases
 quartz-scheduler = "2.4.0-rc2"          # https://github.com/quartz-scheduler/quartz/releases
@@ -85,6 +86,7 @@ kotlinx-datetime = { module = "org.jetbrains.kotlinx:kotlinx-datetime", version.
 # https://api.ktor.io
 # https://github.com/ktorio/ktor
 # https://github.com/ktorio/ktor/releases
+ktor-server-auth = { module = "io.ktor:ktor-server-auth", version.ref = "ktor" }
 ktor-server-autoHeadResponse = { module = "io.ktor:ktor-server-auto-head-response", version.ref = "ktor" }
 ktor-server-caching-headers = { module = "io.ktor:ktor-server-caching-headers", version.ref = "ktor" }
 ktor-server-compression = { module = "io.ktor:ktor-server-compression", version.ref = "ktor" }
@@ -114,6 +116,12 @@ ktor-serialization-kotlinx-json = { module = "io.ktor:ktor-serialization-kotlinx
 # Logging.
 # https://github.com/qos-ch/logback
 logback-classic = { module = "ch.qos.logback:logback-classic", version.ref = "logback" }
+
+# Micrometer Metrics.
+# https://ktor.io/docs/server-metrics-micrometer.html
+# https://github.com/micrometer-metrics/micrometer/releases
+micrometer-metrics = { module = "io.ktor:ktor-server-metrics-micrometer", version.ref = "ktor" }
+micrometer-metrics-prometheus = { module = "io.micrometer:micrometer-registry-prometheus", version.ref = "micrometer-prometheus" }
 
 # Quartz Scheduler.
 # https://github.com/quartz-scheduler/quartz

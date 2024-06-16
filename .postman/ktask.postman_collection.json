@@ -31,6 +31,21 @@
 								"disableBodyPruning": true
 							},
 							"request": {
+                              "auth": {
+                                "type": "basic",
+                                "basic": [
+                                  {
+                                    "key": "password",
+                                    "value": "admin",
+                                    "type": "string"
+                                  },
+                                  {
+                                    "key": "username",
+                                    "value": "admin",
+                                    "type": "string"
+                                  }
+                                ]
+                              },
 								"method": "GET",
 								"header": [
 									{
@@ -81,6 +96,21 @@
                             "strictSSL": false
                           },
                           "request": {
+                            "auth": {
+                              "type": "basic",
+                              "basic": [
+                                {
+                                  "key": "password",
+                                  "value": "admin",
+                                  "type": "string"
+                                },
+                                {
+                                  "key": "username",
+                                  "value": "admin",
+                                  "type": "string"
+                                }
+                              ]
+                            },
                             "method": "POST",
                             "header": [
                               {
@@ -131,6 +161,21 @@
                               "strictSSL": false
 							},
 							"request": {
+                              "auth": {
+                                "type": "basic",
+                                "basic": [
+                                  {
+                                    "key": "password",
+                                    "value": "admin",
+                                    "type": "string"
+                                  },
+                                  {
+                                    "key": "username",
+                                    "value": "admin",
+                                    "type": "string"
+                                  }
+                                ]
+                              },
                               "method": "POST",
 								"header": [
 									{
@@ -181,6 +226,21 @@
 								"strictSSL": false
 							},
 							"request": {
+                              "auth": {
+                                "type": "basic",
+                                "basic": [
+                                  {
+                                    "key": "password",
+                                    "value": "admin",
+                                    "type": "string"
+                                  },
+                                  {
+                                    "key": "username",
+                                    "value": "admin",
+                                    "type": "string"
+                                  }
+                                ]
+                              },
 								"method": "POST",
 								"header": [
 									{
@@ -240,6 +300,21 @@
                           "disableBodyPruning": true
                         },
                         "request": {
+                          "auth": {
+                            "type": "basic",
+                            "basic": [
+                              {
+                                "key": "password",
+                                "value": "admin",
+                                "type": "string"
+                              },
+                              {
+                                "key": "username",
+                                "value": "admin",
+                                "type": "string"
+                              }
+                            ]
+                          },
                           "method": "GET",
                           "header": [
                             {
@@ -291,6 +366,21 @@
                           "disableBodyPruning": true
                         },
                         "request": {
+                          "auth": {
+                            "type": "basic",
+                            "basic": [
+                              {
+                                "key": "password",
+                                "value": "admin",
+                                "type": "string"
+                              },
+                              {
+                                "key": "username",
+                                "value": "admin",
+                                "type": "string"
+                              }
+                            ]
+                          },
                           "method": "GET",
                           "header": [
                             {
@@ -347,6 +437,21 @@
                                 "strictSSL": false
                               },
                               "request": {
+                                "auth": {
+                                  "type": "basic",
+                                  "basic": [
+                                    {
+                                      "key": "password",
+                                      "value": "admin",
+                                      "type": "string"
+                                    },
+                                    {
+                                      "key": "username",
+                                      "value": "admin",
+                                      "type": "string"
+                                    }
+                                  ]
+                                },
                                 "method": "POST",
                                 "header": [
                                   {
@@ -400,6 +505,21 @@
                                 "strictSSL": false
                               },
                               "request": {
+                                "auth": {
+                                  "type": "basic",
+                                  "basic": [
+                                    {
+                                      "key": "password",
+                                      "value": "admin",
+                                      "type": "string"
+                                    },
+                                    {
+                                      "key": "username",
+                                      "value": "admin",
+                                      "type": "string"
+                                    }
+                                  ]
+                                },
                                 "method": "POST",
                                 "header": [
                                   {
@@ -458,6 +578,21 @@
                           "strictSSL": false
                         },
                         "request": {
+                          "auth": {
+                            "type": "basic",
+                            "basic": [
+                              {
+                                "key": "password",
+                                "value": "admin",
+                                "type": "string"
+                              },
+                              {
+                                "key": "username",
+                                "value": "admin",
+                                "type": "string"
+                              }
+                            ]
+                          },
                           "method": "DELETE",
                           "header": [
                             {
@@ -510,6 +645,21 @@
                           "strictSSL": false
                         },
                         "request": {
+                          "auth": {
+                            "type": "basic",
+                            "basic": [
+                              {
+                                "key": "password",
+                                "value": "admin",
+                                "type": "string"
+                              },
+                              {
+                                "key": "username",
+                                "value": "admin",
+                                "type": "string"
+                              }
+                            ]
+                          },
                           "method": "DELETE",
                           "header": [
                             {
@@ -545,6 +695,145 @@
                     ]
 						}
 					]
+              },
+              {
+                "name": "audit",
+                "item": [
+                  {
+                    "name": "all",
+                    "event": [
+                      {
+                        "listen": "prerequest",
+                        "script": {
+                          "exec": [
+                            ""
+                          ],
+                          "type": "text/javascript",
+                          "packages": {}
+                        }
+                      }
+                    ],
+                    "protocolProfileBehavior": {
+                      "strictSSL": false,
+                      "disableBodyPruning": true
+                    },
+                    "request": {
+                      "auth": {
+                        "type": "basic",
+                        "basic": [
+                          {
+                            "key": "password",
+                            "value": "admin",
+                            "type": "string"
+                          },
+                          {
+                            "key": "username",
+                            "value": "admin",
+                            "type": "string"
+                          }
+                        ]
+                      },
+                      "method": "GET",
+                      "header": [
+                        {
+                          "key": "Authorization",
+                          "value": "",
+                          "disabled": true
+                        }
+                      ],
+                      "body": {
+                        "mode": "raw",
+                        "raw": "",
+                        "options": {
+                          "raw": {
+                            "language": "json"
+                          }
+                        }
+                      },
+                      "url": {
+                        "raw": "http://localhost:8080/scheduler/audit",
+                        "protocol": "http",
+                        "host": [
+                          "localhost"
+                        ],
+                        "port": "8080",
+                        "path": [
+                          "scheduler",
+                          "audit"
+                        ]
+                      }
+                    },
+                    "response": []
+                  },
+                  {
+                    "name": "log",
+                    "event": [
+                      {
+                        "listen": "prerequest",
+                        "script": {
+                          "exec": [
+                            ""
+                          ],
+                          "type": "text/javascript",
+                          "packages": {}
+                        }
+                      }
+                    ],
+                    "protocolProfileBehavior": {
+                      "strictSSL": false,
+                      "disableBodyPruning": true
+                    },
+                    "request": {
+                      "auth": {
+                        "type": "basic",
+                        "basic": [
+                          {
+                            "key": "password",
+                            "value": "admin",
+                            "type": "string"
+                          },
+                          {
+                            "key": "username",
+                            "value": "admin",
+                            "type": "string"
+                          }
+                        ]
+                      },
+                      "method": "GET",
+                      "header": [
+                        {
+                          "key": "Authorization",
+                          "value": "",
+                          "disabled": true
+                        }
+                      ],
+                      "body": {
+                        "mode": "raw",
+                        "raw": "",
+                        "options": {
+                          "raw": {
+                            "language": "json"
+                          }
+                        }
+                      },
+                      "url": {
+                        "raw": "http://localhost:8080/scheduler/audit/task-1irf7lf34d98g-172559974750000/38befbfb-20a3-4bcd-91e1-a2c7240adfa0",
+                        "protocol": "http",
+                        "host": [
+                          "localhost"
+                        ],
+                        "port": "8080",
+                        "path": [
+                          "scheduler",
+                          "audit",
+                          "task-1irf7lf34d98g-172559974750000",
+                          "38befbfb-20a3-4bcd-91e1-a2c7240adfa0"
+                        ]
+                      }
+                    },
+                    "response": []
+                  }
+                ]
 				}
 			]
 		},
@@ -572,6 +861,21 @@
                     "strictSSL": false
                   },
                   "request": {
+                    "auth": {
+                      "type": "basic",
+                      "basic": [
+                        {
+                          "key": "password",
+                          "value": "admin",
+                          "type": "string"
+                        },
+                        {
+                          "key": "username",
+                          "value": "admin",
+                          "type": "string"
+                        }
+                      ]
+                    },
                     "method": "POST",
                     "header": [
                       {
@@ -622,6 +926,21 @@
                     "strictSSL": false
                   },
                   "request": {
+                    "auth": {
+                      "type": "basic",
+                      "basic": [
+                        {
+                          "key": "password",
+                          "value": "admin",
+                          "type": "string"
+                        },
+                        {
+                          "key": "username",
+                          "value": "admin",
+                          "type": "string"
+                        }
+                      ]
+                    },
                     "method": "POST",
                     "header": [
                       {
@@ -672,6 +991,21 @@
                     "strictSSL": false
                   },
                   "request": {
+                    "auth": {
+                      "type": "basic",
+                      "basic": [
+                        {
+                          "key": "password",
+                          "value": "admin",
+                          "type": "string"
+                        },
+                        {
+                          "key": "username",
+                          "value": "admin",
+                          "type": "string"
+                        }
+                      ]
+                    },
                     "method": "POST",
                     "header": [
                       {
@@ -727,6 +1061,21 @@
                     "strictSSL": false
                   },
                   "request": {
+                    "auth": {
+                      "type": "basic",
+                      "basic": [
+                        {
+                          "key": "password",
+                          "value": "admin",
+                          "type": "string"
+                        },
+                        {
+                          "key": "username",
+                          "value": "admin",
+                          "type": "string"
+                        }
+                      ]
+                    },
                     "method": "POST",
                     "header": [
                       {
@@ -777,6 +1126,21 @@
                     "strictSSL": false
                   },
                   "request": {
+                    "auth": {
+                      "type": "basic",
+                      "basic": [
+                        {
+                          "key": "password",
+                          "value": "admin",
+                          "type": "string"
+                        },
+                        {
+                          "key": "username",
+                          "value": "admin",
+                          "type": "string"
+                        }
+                      ]
+                    },
                     "method": "POST",
                     "header": [
                       {
@@ -827,6 +1191,21 @@
                     "strictSSL": false
                   },
                   "request": {
+                    "auth": {
+                      "type": "basic",
+                      "basic": [
+                        {
+                          "key": "password",
+                          "value": "admin",
+                          "type": "string"
+                        },
+                        {
+                          "key": "username",
+                          "value": "admin",
+                          "type": "string"
+                        }
+                      ]
+                    },
                     "method": "POST",
                     "header": [
                       {
@@ -882,6 +1261,21 @@
                     "strictSSL": false
                   },
                   "request": {
+                    "auth": {
+                      "type": "basic",
+                      "basic": [
+                        {
+                          "key": "password",
+                          "value": "admin",
+                          "type": "string"
+                        },
+                        {
+                          "key": "username",
+                          "value": "admin",
+                          "type": "string"
+                        }
+                      ]
+                    },
                     "method": "POST",
                     "header": [
                       {
@@ -932,6 +1326,21 @@
                     "strictSSL": false
                   },
                   "request": {
+                    "auth": {
+                      "type": "basic",
+                      "basic": [
+                        {
+                          "key": "password",
+                          "value": "admin",
+                          "type": "string"
+                        },
+                        {
+                          "key": "username",
+                          "value": "admin",
+                          "type": "string"
+                        }
+                      ]
+                    },
                     "method": "POST",
                     "header": [
                       {
@@ -982,6 +1391,21 @@
                     "strictSSL": false
                   },
                   "request": {
+                    "auth": {
+                      "type": "basic",
+                      "basic": [
+                        {
+                          "key": "password",
+                          "value": "admin",
+                          "type": "string"
+                        },
+                        {
+                          "key": "username",
+                          "value": "admin",
+                          "type": "string"
+                        }
+                      ]
+                    },
                     "method": "POST",
                     "header": [
                       {

@@ -5,6 +5,7 @@
 package ktask.base.database.service
 
 import com.zaxxer.hikari.HikariDataSource
+import io.micrometer.prometheusmetrics.PrometheusMeterRegistry
 import ktask.base.database.annotation.DatabaseAPI
 import ktask.base.env.Tracer
 import ktask.base.env.health.annotation.HealthCheckAPI
@@ -46,11 +47,13 @@ object DatabaseService {
      *
      * @param settings The [DatabaseSettings] to be used to configure the database.
      * @param isolationLevel The isolation level to use for the database transactions.
+     * @param micrometerRegistry Optional [PrometheusMeterRegistry] instance for micro-metrics monitoring.
      * @param schemaSetup Optional lambda to setup the database schema.
      */
     fun init(
         settings: DatabaseSettings,
         isolationLevel: IsolationLevel = IsolationLevel.TRANSACTION_REPEATABLE_READ,
+        micrometerRegistry: PrometheusMeterRegistry? = null,
         schemaSetup: (SchemaBuilder.() -> Unit) = {}
     ) {
         buildDatabase(settings = settings)
@@ -60,7 +63,8 @@ object DatabaseService {
         val databaseInstance: Database = if (settings.connectionPoolSize > 0) {
             val dataSource: HikariDataSource = DatabasePooling.createDataSource(
                 settings = settings,
-                isolationLevel = isolationLevel
+                isolationLevel = isolationLevel,
+                micrometerRegistry = micrometerRegistry
             )
 
             hikariDataSource = dataSource

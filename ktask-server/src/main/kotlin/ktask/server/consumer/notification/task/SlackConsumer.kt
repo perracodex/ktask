@@ -67,6 +67,7 @@ internal class SlackConsumer : AbsNotificationConsumer() {
             tracer.debug("Slack notification sent to ${payload.recipient.target}. ID: ${payload.taskId}. Result: $response")
         } else {
             tracer.error("Failed to send Slack notification. ID: ${payload.taskId}. Response: $response")
+            throw IllegalStateException("Failed to send Slack notification. ID: ${payload.taskId}. Response: $response")
         }
     }
 }

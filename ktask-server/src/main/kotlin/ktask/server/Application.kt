@@ -45,6 +45,8 @@ fun Application.ktaskModule() {
 
     configureSecureConnection()
 
+    configureBasicAuthentication()
+
     configureHeaders()
 
     configureHttp()
@@ -58,6 +60,8 @@ fun Application.ktaskModule() {
     configureRoutes()
 
     configuredApiSchema()
+
+    configureMicroMeterMetrics()
 
     configureStatusPages()
 

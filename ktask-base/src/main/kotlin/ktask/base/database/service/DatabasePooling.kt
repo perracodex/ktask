@@ -6,6 +6,7 @@ package ktask.base.database.service
 
 import com.zaxxer.hikari.HikariConfig
 import com.zaxxer.hikari.HikariDataSource
+import io.micrometer.prometheusmetrics.PrometheusMeterRegistry
 import ktask.base.database.annotation.DatabaseAPI
 import ktask.base.settings.config.sections.DatabaseSettings
 
@@ -17,12 +18,14 @@ internal object DatabasePooling {
      *
      * @param settings The [DatabaseSettings] settings to be used for the database connection pooling.
      * @param isolationLevel The isolation level to use for the database transactions.
+     * @param micrometerRegistry Optional [PrometheusMeterRegistry] instance for micro-metrics monitoring.
      *
      * See: [Database Pooling](https://ktor.io/docs/db-connection-pooling-caching.html#connection-pooling)
      */
     fun createDataSource(
         settings: DatabaseSettings,
         isolationLevel: IsolationLevel = IsolationLevel.TRANSACTION_REPEATABLE_READ,
+        micrometerRegistry: PrometheusMeterRegistry? = null
     ): HikariDataSource {
         require(value = settings.connectionPoolSize > 0) { "Database connection pooling must be >= 1." }
 
@@ -38,6 +41,10 @@ internal object DatabasePooling {
             if (!settings.username.isNullOrBlank()) {
                 this.username = settings.username
                 this.password = settings.password!!
+            }
+
+            micrometerRegistry?.let {
+                metricRegistry = it
             }
 
             validate()

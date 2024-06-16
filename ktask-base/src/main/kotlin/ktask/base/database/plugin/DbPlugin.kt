@@ -5,6 +5,7 @@
 package ktask.base.database.plugin
 
 import io.ktor.server.application.*
+import io.micrometer.prometheusmetrics.PrometheusMeterRegistry
 import ktask.base.database.service.DatabaseService
 import ktask.base.settings.AppSettings
 import org.jetbrains.exposed.sql.Table
@@ -13,6 +14,9 @@ import org.jetbrains.exposed.sql.Table
  * Configuration for the [DbPlugin].
  */
 class DbPluginConfig {
+    /** Optional [PrometheusMeterRegistry] instance for micro-metrics monitoring. */
+    var micrometerRegistry: PrometheusMeterRegistry? = null
+
     /** List of tables to be registered with the database. */
     val tables: MutableList<Table> = mutableListOf()
 }
@@ -26,6 +30,7 @@ val DbPlugin: ApplicationPlugin<DbPluginConfig> = createApplicationPlugin(
 ) {
     DatabaseService.init(
         settings = AppSettings.database,
+        micrometerRegistry = pluginConfig.micrometerRegistry
     ) {
         pluginConfig.tables.forEach { table ->
             addTable(table)

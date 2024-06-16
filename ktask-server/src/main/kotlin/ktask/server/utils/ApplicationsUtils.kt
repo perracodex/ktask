@@ -27,6 +27,7 @@ internal object ApplicationsUtils {
             NetworkUtils.logEndpoints(reason = "Scheduler", endpoints = listOf("scheduler/dashboard"))
             NetworkUtils.logEndpoints(reason = "Healthcheck", endpoints = listOf("health"))
             NetworkUtils.logEndpoints(reason = "Snowflake", endpoints = listOf("snowflake/${SnowflakeFactory.nextId()}"))
+            NetworkUtils.logEndpoints(reason = "Micrometer Metrics", endpoints = listOf("metrics"))
 
             if (AppSettings.apiSchema.environments.contains(AppSettings.runtime.environment)) {
                 NetworkUtils.logEndpoints(

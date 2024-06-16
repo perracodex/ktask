@@ -25,9 +25,13 @@ either for Email and/or Slack services. These credentials should be specified in
 * Multi-Language: Support for sending notifications in different languages, as long as the templates are provided.
 * Administration: View, pause, resume, and delete scheduled tasks through dedicated REST endpoints.
 * Dashboard: A dashboard sample is available to view and manage scheduled tasks.
+* MicroMetrics: Ready for integration with monitoring tools like Prometheus or Grafana.
 
 ---
 For convenience, it is included a *[Postman Collection](./.postman/ktask.postman_collection.json)* with all the available REST endpoints.
+
+For credentials `Basic Authentication` is used. Default: `admin` / `admin`.
+See: [security.conf](./ktask-base/src/main/resources/config/config_security.conf)
 
 ---
 
