@@ -4,6 +4,7 @@
 
 package ktask.base.scheduler.audit.entity
 
+import ktask.base.scheduler.annotation.SchedulerAPI
 import ktask.base.scheduler.service.task.TaskOutcome
 import ktask.base.utils.KLocalDateTime
 
@@ -18,6 +19,7 @@ import ktask.base.utils.KLocalDateTime
  * @property log The log information.
  * @property detail The detail that provides more information about the log.
  */
+@SchedulerAPI
 data class AuditRequest(
     val taskName: String,
     val taskGroup: String,

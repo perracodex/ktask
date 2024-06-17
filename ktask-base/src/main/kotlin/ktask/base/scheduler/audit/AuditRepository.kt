@@ -5,6 +5,7 @@
 package ktask.base.scheduler.audit
 
 import ktask.base.database.schema.SchedulerAuditTable
+import ktask.base.scheduler.annotation.SchedulerAPI
 import ktask.base.scheduler.audit.entity.AuditEntity
 import ktask.base.scheduler.audit.entity.AuditRequest
 import org.jetbrains.exposed.sql.SortOrder
@@ -17,6 +18,7 @@ import java.util.*
 /**
  * Repository to manage the persistence aND retrieval of the scheduler audit logs.
  */
+@OptIn(SchedulerAPI::class)
 internal object AuditRepository {
 
     /**
