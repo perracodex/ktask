@@ -97,23 +97,6 @@ object DateTimeUtils {
     }
 
     /**
-     * Converts the given [Duration] to a human-readable format.
-     */
-    fun formatDuration(duration: Duration): String {
-        val days: Long = duration.inWholeDays
-        val hours: Long = duration.inWholeHours % 24
-        val minutes: Long = duration.inWholeMinutes % 60
-        val seconds: Long = duration.inWholeSeconds % 60
-
-        return buildString {
-            if (days > 0) append("${days}d ")
-            if (hours > 0) append("${hours}h ")
-            if (minutes > 0) append("${minutes}m ")
-            if (seconds > 0) append("${seconds}s")
-        }.trim()
-    }
-
-    /**
      * Returns the current date formatted according to the specified language or locale.
      *
      * @param language The ISO language code, or locale, to format the date.
