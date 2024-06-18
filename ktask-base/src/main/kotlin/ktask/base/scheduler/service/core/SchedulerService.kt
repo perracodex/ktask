@@ -342,16 +342,22 @@ object SchedulerService {
         /**
          * Returns a snapshot list of all tasks currently scheduled in the scheduler.
          *
+         * @param groupId Optional group ID to filter the tasks by.
          * @param executing True if only actively executing tasks should be returned; false to return all tasks.
+         * @param groupId The group ID of the tasks to return. Null to return all tasks.
          * @return A list of [TaskScheduleEntity] objects representing the scheduled tasks.
          */
-        fun all(executing: Boolean = false): List<TaskScheduleEntity> {
-            val taskList: List<TaskScheduleEntity> = if (executing) {
+        fun all(groupId: UUID? = null, executing: Boolean = false): List<TaskScheduleEntity> {
+            var taskList: List<TaskScheduleEntity> = if (executing) {
                 scheduler.currentlyExecutingJobs.map { task -> createTaskScheduleEntity(taskDetail = task.jobDetail) }
             } else {
                 scheduler.getJobKeys(GroupMatcher.anyGroup()).mapNotNull { jobKey ->
                     scheduler.getJobDetail(jobKey)?.let { detail -> createTaskScheduleEntity(taskDetail = detail) }
                 }
+            }
+
+            if (groupId != null) {
+                taskList = taskList.filter { it.group == groupId.toString() }
             }
 
             // Sort the task list by nextFireTime.

@@ -30,31 +30,39 @@ function getCookie(name) {
     return null;
 }
 
+// Place this script as early as possible in your HTML document, ideally in the <head> section or right before </body>
+
 document.addEventListener('DOMContentLoaded', () => {
-    const pageIdentifier = window.location.pathname;  // Unique page identifier
-
-    document.querySelectorAll('.expandable').forEach(item => {
-        item.addEventListener('click', function (event) {
-            if (event.target.closest('span[data-log], .icon-button')) {
-                return;
-            }
-            const subRow = this.querySelector('.table-sub-row');
-            if (subRow) {
-                const isVisible = subRow.style.display === 'block';
-                subRow.style.display = isVisible ? 'none' : 'block';
-                const key = `${pageIdentifier}_${this.getAttribute('data-id')}`;
-                setCookie(key, (!isVisible).toString(), 1);  // Set cookie for 1 day
-            }
-        });
-
-        const key = `${pageIdentifier}_${item.getAttribute('data-id')}`;
-        const isExpanded = getCookie(key) === 'true';
-        if (isExpanded) {
-            item.querySelector('.table-sub-row').style.display = 'block';
-        }
-    });
-
     updateSchedulerPauseResumeButton();
+
+    const pageIdentifier = window.location.pathname;
+
+    // Restore expanded states from cookies
+    document.querySelectorAll('.table-container').forEach(container => {
+        const key = `${pageIdentifier}_${container.getAttribute('data-id')}`;
+        const isExpandedInitially = getCookie(key) === 'true';
+        const subRow = container.querySelector('.table-sub-row');
+
+        // Set initial display based on cookie value
+        subRow.style.display = isExpandedInitially ? 'block' : 'none';
+
+        // Set initial inner HTML of the expand trigger based on initial display state
+        const trigger = container.querySelector('.expand-trigger');
+        trigger.innerHTML = isExpandedInitially ? '-' : '+';
+
+        // Add click event listener to toggle expand/collapse
+        trigger.addEventListener('click', function () {
+            const subRow = container.querySelector('.table-sub-row');
+            const isExpanded = getComputedStyle(subRow).display === 'block';
+            subRow.style.display = isExpanded ? 'none' : 'block'; // Toggle display
+
+            // Update cookie with new state
+            setCookie(key, (!isExpanded).toString(), 1);
+
+            // Update inner HTML of trigger based on new state
+            trigger.innerHTML = isExpanded ? '+' : '-';
+        });
+    });
 });
 
 const eventsSource = new EventSource("/events");
