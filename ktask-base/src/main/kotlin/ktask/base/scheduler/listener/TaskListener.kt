@@ -6,6 +6,7 @@ package ktask.base.scheduler.listener
 
 import io.micrometer.core.instrument.Counter
 import io.micrometer.core.instrument.Timer
+import kotlinx.coroutines.runBlocking
 import ktask.base.env.Tracer
 import ktask.base.plugins.appMicrometerRegistry
 import ktask.base.scheduler.annotation.SchedulerAPI
@@ -94,7 +95,9 @@ class TaskListener : JobListener {
             log = jobException?.message,
             detail = context.jobDetail.jobDataMap.toMap().toString()
         ).also { request ->
-            AuditRepository.create(request = request)
+            runBlocking {
+                AuditRepository.create(request = request)
+            }
         }
     }
 }

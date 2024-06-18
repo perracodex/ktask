@@ -4,6 +4,7 @@
 
 package ktask.base.env.health.checks
 
+import kotlinx.coroutines.runBlocking
 import kotlinx.serialization.Serializable
 import ktask.base.env.health.annotation.HealthCheckAPI
 import ktask.base.scheduler.service.core.SchedulerService
@@ -33,7 +34,7 @@ data class SchedulerCheck(
         errors = mutableListOf(),
         isStarted = SchedulerService.isStarted(),
         isPaused = SchedulerService.isPaused(),
-        totalTasks = SchedulerService.totalTasks(),
+        totalTasks = runBlocking { SchedulerService.totalTasks() },
         email = EmailSpec(),
         templatesPath = AppSettings.scheduler.templatesPath
     ) {
