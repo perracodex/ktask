@@ -191,3 +191,36 @@ button {
     overflow-y: auto;
     margin-bottom: 210px;
 }
+
+
+.header {
+    margin-bottom: 20px;
+}
+
+#groupForm {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+#groupSelect {
+    background-color: #222222;
+    color: #ffffff;
+    border: 1px solid #6d747c;
+    border-radius: 8px;
+    padding: 10px;
+    font-size: 1em;
+    cursor: pointer;
+    transition: border-color 0.3s, background-color 0.3s;
+    width: 350px;
+}
+
+#groupSelect:focus {
+    border-color: #58af53;
+    outline: none;
+}
+
+#groupSelect option {
+    background-color: #222222;
+    color: #ffffff;
+}

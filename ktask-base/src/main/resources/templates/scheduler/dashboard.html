@@ -12,6 +12,11 @@
     <title>Task Scheduler</title>
 </head>
 <body>
+<div class="header">
+    <label for="groupSelect"></label><select id="groupSelect" onchange="handleGroupChange()">
+    <option value="all">All Groups</option>
+</select>
+</div>
 <div class="buttons-container">
     <div class="left-buttons">
         <button class="refresh" onclick="refreshPage()">Refresh Tasks</button>
