@@ -16,6 +16,7 @@ import ktask.base.scheduler.listener.TaskListener
 import ktask.base.scheduler.listener.TriggerListener
 import ktask.base.scheduler.service.task.TaskFactory
 import ktask.base.scheduler.service.task.TaskState
+import ktask.base.snowflake.SnowflakeFactory
 import ktask.base.utils.DateTimeUtils
 import org.quartz.*
 import org.quartz.Trigger.TriggerState
@@ -408,8 +409,12 @@ object SchedulerService {
             // Determine the next fire time of the task.
             val nextFireTime: Date? = triggers.mapNotNull { it.nextFireTime }.minOrNull()
 
+            // Resolve the snowflake data.
+            val snowflakeData: String = SnowflakeFactory.parse(id = jobKey.name).toString()
+
             return TaskScheduleEntity(
                 name = jobKey.name,
+                snowflakeData = snowflakeData,
                 group = jobKey.group,
                 consumer = taskDetail.jobClass.simpleName,
                 nextFireTime = nextFireTime?.let { DateTimeUtils.javaDateToLocalDateTime(datetime = it) },
