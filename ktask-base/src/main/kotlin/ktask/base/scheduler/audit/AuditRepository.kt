@@ -107,6 +107,8 @@ internal object AuditRepository {
      */
     suspend fun count(taskName: String, taskGroup: String): Int = withContext(Dispatchers.IO) {
         transaction {
+            // addLogger(StdOutSqlLogger)
+
             SchedulerAuditTable
                 .selectAll()
                 .where { SchedulerAuditTable.taskName eq taskName }
