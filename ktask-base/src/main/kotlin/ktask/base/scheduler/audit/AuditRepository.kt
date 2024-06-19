@@ -109,6 +109,14 @@ internal object AuditRepository {
         transaction {
             // addLogger(StdOutSqlLogger)
 
+//            explain {
+//                SchedulerAuditTable
+//                    .selectAll()
+//                    .where { SchedulerAuditTable.taskName eq taskName }
+//                    .andWhere { SchedulerAuditTable.taskGroup eq taskGroup }
+//            }.forEach(::print)
+
+
             SchedulerAuditTable
                 .selectAll()
                 .where { SchedulerAuditTable.taskName eq taskName }

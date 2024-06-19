@@ -53,7 +53,7 @@ fun Application.ktaskModule() {
 
     configureCallLogging()
 
-    configureContentNegotiation()
+    configureSerialization()
 
     configureRateLimit()
 
