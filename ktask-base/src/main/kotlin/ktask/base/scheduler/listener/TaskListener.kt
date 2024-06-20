@@ -10,7 +10,7 @@ import kotlinx.coroutines.runBlocking
 import ktask.base.env.Tracer
 import ktask.base.plugins.appMicrometerRegistry
 import ktask.base.scheduler.annotation.SchedulerAPI
-import ktask.base.scheduler.audit.AuditRepository
+import ktask.base.scheduler.audit.AuditService
 import ktask.base.scheduler.audit.entity.AuditRequest
 import ktask.base.scheduler.service.task.TaskOutcome
 import ktask.base.utils.DateTimeUtils
@@ -19,7 +19,9 @@ import org.quartz.JobExecutionException
 import org.quartz.JobListener
 
 /**
- * A listener for scheduler that logs task execution events.
+ * Listener for scheduler task events.
+ * In addition to logging task execution events, it also stores audit logs.
+ * Micro-metrics are also exposed for external monitoring.
  */
 @SchedulerAPI
 class TaskListener : JobListener {
@@ -96,7 +98,7 @@ class TaskListener : JobListener {
             detail = context.jobDetail.jobDataMap.toMap().toString()
         ).also { request ->
             runBlocking {
-                AuditRepository.create(request = request)
+                AuditService.create(request = request)
             }
         }
     }
