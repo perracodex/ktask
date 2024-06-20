@@ -13,7 +13,7 @@ The system allows for scheduling tasks to be sent either immediately or at a spe
 If a task is sent with a past date, it will be dispatched either immediately or at the next available time.
 
 For functionality, and concretely for the supplied notification samples, the necessary credentials must be configured
-either for Email and/or Slack services. These credentials should be specified in the project's `application.conf` and `env` files.
+either for Email and/or Slack services. These credentials should be specified in the project's `application.conf`.
 
 ---
 
@@ -121,7 +121,6 @@ that intended to replace placeholders in the target template.
   ],
   "template": "simple",
   "cc": [],
-  "attachments": [],
   "subject": "Something",
   "fields": {
     "sender": "Sender Name",
@@ -209,7 +208,6 @@ Immediate dispatch
   ],
   "template": "simple",
   "cc": [],
-  "attachments": [],
   "subject": "Something",
   "fields": {
     "sender": "Sender Name",
@@ -244,7 +242,6 @@ Interval dispatch
   ],
   "template": "simple",
   "cc": [],
-  "attachments": [],
   "subject": "Something",
   "fields": {
     "sender": "Sender Name",
@@ -276,7 +273,6 @@ Cron dispatch
   ],
   "template": "simple",
   "cc": [],
-  "attachments": [],
   "sender": "Sender Name",
   "fields": {
     "sender": "Sender Name",
@@ -309,7 +305,6 @@ Immediate dispatch
   ],
   "template": "simple",
   "channel": "SLACK_CHANNEL_ID",
-  "attachments": [],
   "fields": {
     "sender": "Sender Name",
     "content": "Some dynamic content!"
@@ -343,7 +338,6 @@ Interval dispatch
   ],
   "template": "simple",
   "channel": "SLACK_CHANNEL_ID",
-  "attachments": [],
   "fields": {
     "sender": "Sender Name",
     "content": "Some dynamic content!"
@@ -374,7 +368,6 @@ Cron dispatch
   ],
   "template": "simple",
   "channel": "SLACK_CHANNEL_ID",
-  "attachments": [],
   "fields": {
     "sender": "Sender Name",
     "content": "Some dynamic content!"
@@ -403,7 +396,6 @@ Cron dispatch
     "interval": "1d",
     "runs": 17,
     "dataMap": [
-      "ATTACHMENTS: [https://localhost:8080/files/document_1.pdf, https://localhost:8080/files/document_2.pdf]",
       "CC: [manager@email.com]",
       "FIELDS: {sender=Sender Name, content=Some dynamic content! Can be a text, a url, etc.}",
       "RECIPIENT_LOCALE: en",

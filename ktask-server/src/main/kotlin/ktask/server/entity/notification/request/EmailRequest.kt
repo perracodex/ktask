@@ -23,7 +23,6 @@ import ktask.server.entity.notification.Recipient
  * @property recipients List of target recipients.
  * @property template The template to be used for the notification.
  * @property fields Optional fields to be included in the template.
- * @property attachments Optional list of file paths to be attached to the notification.
  * @property cc List of recipients to be copied on the notification.
  * @property subject The subject or title of the notification.
  */
@@ -35,7 +34,6 @@ data class EmailRequest(
     override val recipients: List<Recipient>,
     override val template: String,
     override val fields: Map<String, String>? = null,
-    override val attachments: List<String>? = null,
     val cc: List<String> = emptyList(),
     val subject: String,
 ) : INotificationRequest {

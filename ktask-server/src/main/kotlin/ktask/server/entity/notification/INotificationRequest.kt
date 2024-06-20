@@ -17,7 +17,6 @@ import ktask.server.consumer.notification.AbsNotificationConsumer
  * @property recipients List of target recipients.
  * @property template The template to be used for the notification.
  * @property fields Optional fields to be included in the template.
- * @property attachments Optional list of file paths to be attached to the notification.
  */
 interface INotificationRequest {
     val id: SUUID
@@ -26,7 +25,6 @@ interface INotificationRequest {
     val recipients: List<Recipient>
     val template: String
     val fields: Map<String, String>?
-    val attachments: List<String>?
 
     fun verify() {
         require(recipients.isNotEmpty()) { "Recipients must not be empty." }
@@ -47,7 +45,6 @@ interface INotificationRequest {
             AbsNotificationConsumer.Property.RECIPIENT_LOCALE.key to recipient.locale,
             AbsNotificationConsumer.Property.TEMPLATE.key to template,
             AbsNotificationConsumer.Property.FIELDS.key to fields,
-            AbsNotificationConsumer.Property.ATTACHMENTS.key to attachments
         )
     }
 }
