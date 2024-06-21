@@ -2,7 +2,7 @@
  * Copyright (c) 2024-Present Perracodex. Use of this source code is governed by an MIT license.
  */
 
-package ktask.base.utils
+package ktask.base.persistence.utils
 
 import io.ktor.http.content.*
 import kotlinx.serialization.KSerializer

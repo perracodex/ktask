@@ -18,8 +18,8 @@ import junit.framework.TestCase.assertTrue
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
-import ktask.base.utils.FileDetails
-import ktask.base.utils.MultipartHandler
+import ktask.base.persistence.utils.FileDetails
+import ktask.base.persistence.utils.MultipartHandler
 import java.io.File
 import java.nio.ByteBuffer
 import kotlin.io.path.createTempDirectory
