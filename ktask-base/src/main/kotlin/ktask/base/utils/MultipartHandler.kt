@@ -54,7 +54,7 @@ class MultipartHandler<T : Any>(
 
     init {
         if (persist) {
-            verifyPath()
+            verifyStoragePath(target = uploadsPath)
         }
     }
 
@@ -164,21 +164,6 @@ class MultipartHandler<T : Any>(
         )
     }
 
-    /**
-     * Verifies the path where uploaded files are stored and creates it if it does not exist.
-     */
-    private fun verifyPath() {
-        if (uploadsPath.isBlank()) {
-            throw IllegalArgumentException("The uploads path cannot be empty.")
-        }
-
-        File(uploadsPath).let { path ->
-            if (!path.exists()) {
-                path.mkdirs()
-            }
-        }
-    }
-
     companion object {
         /** The path where uploaded files are stored. */
         private const val DEFAULT_UPLOADS_PATH = "uploads"
@@ -191,6 +176,22 @@ class MultipartHandler<T : Any>(
 
         /** The key for the file part in the multipart form data. */
         private const val FILE_KEY = "file"
+
+        /**
+         * Verifies the given path location exists and creates it if necessary.
+         * @param target The path to verify.
+         */
+        fun verifyStoragePath(target: String) {
+            if (target.isBlank()) {
+                throw IllegalArgumentException("The uploads path cannot be empty.")
+            }
+
+            File(target).let { path ->
+                if (!path.exists()) {
+                    path.mkdirs()
+                }
+            }
+        }
     }
 }
 
@@ -209,6 +210,8 @@ data class FileDetails(
     val bytes: ByteBuffer? = null
 ) {
     fun persistBytes(path: String): File {
+        MultipartHandler.verifyStoragePath(target = path)
+
         bytes?.let { buffer ->
             val outputFile = "$path/$filename"
             File(outputFile).outputStream().buffered().use { output ->
