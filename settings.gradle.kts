@@ -14,4 +14,5 @@ plugins {
 rootProject.name = "KTask"
 
 include("ktask-base")
+include("ktask-notification")
 include("ktask-server")
