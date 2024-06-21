@@ -11,6 +11,7 @@ import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 import ktask.base.env.Tracer
 import java.io.File
+import java.nio.ByteBuffer
 
 /**
  * A generic handler for multipart form data processing.
@@ -45,11 +46,16 @@ import java.io.File
  * @param T The type of the object expected in the request part of the form.
  * @property uploadsPath Optional path where uploaded files are stored.
  */
-class MultipartHandler<T : Any>(private val uploadsPath: String = DEFAULT_UPLOADS_PATH) {
+class MultipartHandler<T : Any>(
+    private val uploadsPath: String = DEFAULT_UPLOADS_PATH,
+    private val persist: Boolean = true
+) {
     private val tracer = Tracer<MultipartHandler<T>>()
 
     init {
-        verifyPath()
+        if (persist) {
+            verifyPath()
+        }
     }
 
     /**
@@ -70,7 +76,7 @@ class MultipartHandler<T : Any>(private val uploadsPath: String = DEFAULT_UPLOAD
      * @param serializer The serializer for the type T, used to parse the request object.
      * @return A [MultipartResponse] object containing the parsed data.
      */
-    suspend fun receive(multipart: MultiPartData, serializer: KSerializer<T>): MultipartResponse<T> {
+    suspend fun receive(multipart: MultiPartData, serializer: KSerializer<T>?): MultipartResponse<T> {
         var requestObject: T? = null
         val requestData = mutableMapOf<String, String>()
         val fileDetailsList = mutableListOf<FileDetails>()
@@ -82,7 +88,7 @@ class MultipartHandler<T : Any>(private val uploadsPath: String = DEFAULT_UPLOAD
                     when (part.name) {
                         REQUEST_KEY -> {
                             requestObject = Json.decodeFromString(
-                                deserializer = serializer,
+                                deserializer = serializer!!,
                                 string = part.value
                             )
                         }
@@ -99,16 +105,32 @@ class MultipartHandler<T : Any>(private val uploadsPath: String = DEFAULT_UPLOAD
 
                 is PartData.FileItem -> {
                     if (part.name!!.startsWith(FILE_KEY)) {
-                        val file = File("$uploadsPath/${part.originalFileName}")
+                        val filename = part.originalFileName ?: throw IllegalArgumentException("No filename provided.")
+                        if (persist) {
+                            val file = File("$uploadsPath/$filename")
 
-                        part.streamProvider().use { input ->
-                            file.outputStream().buffered().use { output ->
-                                input.copyTo(output)
+                            part.streamProvider().use { input ->
+                                file.outputStream().buffered().use { output ->
+                                    input.copyTo(output)
+                                }
                             }
+
+                            val fileDetails = FileDetails(
+                                filename = filename,
+                                description = fileDescription,
+                                file = file,
+                            )
+                            fileDetailsList.add(fileDetails)
+                        } else {
+                            val bytes: ByteBuffer = part.streamProvider().use { ByteBuffer.wrap(it.readBytes()) }
+                            val fileDetails = FileDetails(
+                                filename = filename,
+                                description = fileDescription,
+                                bytes = bytes
+                            )
+                            fileDetailsList.add(fileDetails)
                         }
 
-                        val fileDetails = FileDetails(description = fileDescription, file = file)
-                        fileDetailsList.add(fileDetails)
                         fileDescription = null // Reset for subsequent files.
                     } else {
                         tracer.warning("Unexpected file item received: ${part.name}")
@@ -128,7 +150,7 @@ class MultipartHandler<T : Any>(private val uploadsPath: String = DEFAULT_UPLOAD
             try {
                 val encodedJson: String = Json.encodeToString(requestData)
                 requestObject = Json.decodeFromString(
-                    deserializer = serializer,
+                    deserializer = serializer!!,
                     string = encodedJson
                 )
             } catch (e: SerializationException) {
@@ -175,10 +197,26 @@ class MultipartHandler<T : Any>(private val uploadsPath: String = DEFAULT_UPLOAD
 /**
  * Data class to encapsulate the details of a file uploaded via multipart form data.
  *
+ * @property filename The name of the file, without the path.
  * @property description The description of the file, if provided.
- * @property file The File object representing the uploaded file.
+ * @property file The File object representing the uploaded file. Null if the file is not persisted.
+ * @property bytes The ByteBuffer containing the file data. Null if the file is persisted.
  */
 data class FileDetails(
+    val filename: String,
     val description: String?,
-    val file: File?
-)
+    val file: File? = null,
+    val bytes: ByteBuffer? = null
+) {
+    fun persistBytes(path: String): File {
+        bytes?.let { buffer ->
+            val outputFile = "$path/$filename"
+            File(outputFile).outputStream().buffered().use { output ->
+                val byteArray = ByteArray(buffer.remaining())
+                buffer.get(byteArray)
+                output.write(byteArray)
+            }
+            return File(outputFile)
+        } ?: throw IllegalArgumentException("No byte buffer to persist.")
+    }
+}
