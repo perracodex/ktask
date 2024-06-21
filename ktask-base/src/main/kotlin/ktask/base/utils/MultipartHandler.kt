@@ -6,6 +6,8 @@ package ktask.base.utils
 
 import io.ktor.http.content.*
 import kotlinx.serialization.KSerializer
+import kotlinx.serialization.SerializationException
+import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 import ktask.base.env.Tracer
 import java.io.File
@@ -43,7 +45,7 @@ import java.io.File
  * @param T The type of the object expected in the request part of the form.
  * @property uploadsPath Optional path where uploaded files are stored.
  */
-class MultipartHandler<T>(private val uploadsPath: String = DEFAULT_UPLOADS_PATH) {
+class MultipartHandler<T : Any>(private val uploadsPath: String = DEFAULT_UPLOADS_PATH) {
     private val tracer = Tracer<MultipartHandler<T>>()
 
     init {
@@ -70,16 +72,28 @@ class MultipartHandler<T>(private val uploadsPath: String = DEFAULT_UPLOADS_PATH
      */
     suspend fun receive(multipart: MultiPartData, serializer: KSerializer<T>): MultipartResponse<T> {
         var requestObject: T? = null
+        val requestData = mutableMapOf<String, String>()
         val fileDetailsList = mutableListOf<FileDetails>()
         var fileDescription: String? = null
 
         multipart.forEachPart { part ->
             when (part) {
                 is PartData.FormItem -> {
-                    if (part.name == REQUEST_KEY) {
-                        requestObject = Json.decodeFromString(serializer, part.value)
-                    } else if (part.name == FILE_DESCRIPTION_KEY) {
-                        fileDescription = part.value
+                    when (part.name) {
+                        REQUEST_KEY -> {
+                            requestObject = Json.decodeFromString(
+                                deserializer = serializer,
+                                string = part.value
+                            )
+                        }
+
+                        FILE_DESCRIPTION_KEY -> {
+                            fileDescription = part.value
+                        }
+
+                        else -> {
+                            requestData[part.name!!] = part.value
+                        }
                     }
                 }
 
@@ -95,8 +109,7 @@ class MultipartHandler<T>(private val uploadsPath: String = DEFAULT_UPLOADS_PATH
 
                         val fileDetails = FileDetails(description = fileDescription, file = file)
                         fileDetailsList.add(fileDetails)
-                        // Reset the description to allow for subsequent files to have their own descriptions.
-                        fileDescription = null
+                        fileDescription = null // Reset for subsequent files.
                     } else {
                         tracer.warning("Unexpected file item received: ${part.name}")
                     }
@@ -108,6 +121,19 @@ class MultipartHandler<T>(private val uploadsPath: String = DEFAULT_UPLOADS_PATH
             }
 
             part.dispose()
+        }
+
+        // If requestObject is not set by 'request' key, try to decode from separate keys.
+        if (requestObject == null && requestData.isNotEmpty()) {
+            try {
+                val encodedJson: String = Json.encodeToString(requestData)
+                requestObject = Json.decodeFromString(
+                    deserializer = serializer,
+                    string = encodedJson
+                )
+            } catch (e: SerializationException) {
+                throw IllegalArgumentException("Error deserializing request data: $e")
+            }
         }
 
         return MultipartResponse(
