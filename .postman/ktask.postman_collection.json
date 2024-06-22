@@ -417,7 +417,7 @@
 							]
 						},
 						{
-							"name": "state",
+							"name": "operate",
 							"item": [
 								{
 									"name": "pause",
@@ -470,7 +470,7 @@
 											}
 										},
 										"url": {
-											"raw": "http://localhost:8080/scheduler/task/task-1iqxfuocw5yww-93360125081600/38befbfb-20a3-4bcd-91e1-a2c7240adfa0/pause",
+											"raw": "http://localhost:8080/scheduler/task/1iqxfuocw5yww/38befbfb-20a3-4bcd-91e1-a2c7240adfa0/pause",
 											"protocol": "http",
 											"host": [
 												"localhost"
@@ -479,7 +479,7 @@
 											"path": [
 												"scheduler",
 												"task",
-												"task-1iqxfuocw5yww-93360125081600",
+												"1iqxfuocw5yww",
 												"38befbfb-20a3-4bcd-91e1-a2c7240adfa0",
 												"pause"
 											]
@@ -538,7 +538,7 @@
 											}
 										},
 										"url": {
-											"raw": "http://localhost:8080/scheduler/task/task-1iqxfuocw5yww-93360125081600/38befbfb-20a3-4bcd-91e1-a2c7240adfa0/pause",
+											"raw": "http://localhost:8080/scheduler/task/1iqxfuocw5yww/38befbfb-20a3-4bcd-91e1-a2c7240adfa0/pause",
 											"protocol": "http",
 											"host": [
 												"localhost"
@@ -547,9 +547,77 @@
 											"path": [
 												"scheduler",
 												"task",
-												"task-1iqxfuocw5yww-93360125081600",
+												"1iqxfuocw5yww",
 												"38befbfb-20a3-4bcd-91e1-a2c7240adfa0",
 												"pause"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "resend",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"protocolProfileBehavior": {
+										"strictSSL": false
+									},
+									"request": {
+										"auth": {
+											"type": "basic",
+											"basic": [
+												{
+													"key": "password",
+													"value": "admin",
+													"type": "string"
+												},
+												{
+													"key": "username",
+													"value": "admin",
+													"type": "string"
+												}
+											]
+										},
+										"method": "POST",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "",
+												"disabled": true
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"id\": \"38befbfb-20a3-4bcd-91e1-a2c7240adfa0\",\r\n    \"target\": \"EMAIL\",\r\n    \"recipients\": [\"someone@gmail.com\"],\r\n    \"subject\": \"notification\",\r\n    \"content\": \"hello world\",\r\n    \"schedule\": \"2024-06-01T15:42:50\"\r\n}\r\n",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "http://localhost:8080/scheduler/task/1is2szwvv45j4/38befbfb-20a3-4bcd-91e1-a2c7240adfa0/resend",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8080",
+											"path": [
+												"scheduler",
+												"task",
+												"1is2szwvv45j4",
+												"38befbfb-20a3-4bcd-91e1-a2c7240adfa0",
+												"resend"
 											]
 										}
 									},
@@ -611,7 +679,7 @@
 											}
 										},
 										"url": {
-											"raw": "http://localhost:8080/scheduler/task/task_1iq133y9d1r0g_80432526029200/38befbfb-20a3-4bcd-91e1-a2c7240adfa0",
+											"raw": "http://localhost:8080/scheduler/task/1iq133y9d1r0g/38befbfb-20a3-4bcd-91e1-a2c7240adfa0",
 											"protocol": "http",
 											"host": [
 												"localhost"
@@ -620,7 +688,7 @@
 											"path": [
 												"scheduler",
 												"task",
-												"task_1iq133y9d1r0g_80432526029200",
+												"1iq133y9d1r0g",
 												"38befbfb-20a3-4bcd-91e1-a2c7240adfa0"
 											]
 										}
@@ -886,7 +954,7 @@
 								],
 								"body": {
 									"mode": "raw",
-                                  "raw": "{\r\n    \"id\": \"38befbfb-20a3-4bcd-91e1-a2c7240adfa0\",\r\n    \"recipients\": [\r\n        { \"target\": \"nickname_1@email.com\", \"name\": \"person_name_1\", \"locale\": \"en\" },\r\n        { \"target\": \"nickname_2@email.com\", \"name\": \"person_name_2\", \"locale\": \"es\" }\r\n    ],\r\n    \"template\": \"simple\",\r\n    \"cc\": [],\r\n    \"subject\": \"Something\",\r\n    \"fields\": {\r\n        \"sender\": \"Sender Name\",\r\n        \"content\": \"Some dynamic content!\"\r\n    }\r\n}\r\n",
+									"raw": "{\r\n    \"id\": \"38befbfb-20a3-4bcd-91e1-a2c7240adfa0\",\r\n    \"recipients\": [\r\n        { \"target\": \"nickname_1@email.com\", \"name\": \"person_name_1\", \"locale\": \"en\" },\r\n        { \"target\": \"nickname_2@email.com\", \"name\": \"person_name_2\", \"locale\": \"es\" }\r\n    ],\r\n    \"template\": \"simple\",\r\n    \"cc\": [],\r\n    \"subject\": \"Something\",\r\n    \"fields\": {\r\n        \"sender\": \"Sender Name\",\r\n        \"content\": \"Some dynamic content!\"\r\n    }\r\n}\r\n",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -951,7 +1019,7 @@
 								],
 								"body": {
 									"mode": "raw",
-                                  "raw": "{\r\n    \"id\": \"38befbfb-20a3-4bcd-91e1-a2c7240adfa0\",\r\n    \"schedule\": {\r\n        \"start\": \"2024-05-01T15:42:50\",\r\n        \"days\": 0, \"hours\": 0, \"minutes\": 1, \"seconds\": 0\r\n    },\r\n    \"recipients\": [\r\n        { \"target\": \"nickname_1@email.com\", \"name\": \"person_name_1\", \"locale\": \"en\" },\r\n        { \"target\": \"nickname_2@email.com\", \"name\": \"person_name_2\", \"locale\": \"es\" }\r\n    ],\r\n    \"template\": \"simple\",\r\n    \"cc\": [],\r\n    \"subject\": \"Something\",\r\n    \"fields\": {\r\n        \"sender\": \"Sender Name\",\r\n        \"content\": \"Some dynamic content!\"\r\n    }\r\n}\r\n",
+									"raw": "{\r\n    \"id\": \"38befbfb-20a3-4bcd-91e1-a2c7240adfa0\",\r\n    \"schedule\": {\r\n        \"start\": \"2024-05-01T15:42:50\",\r\n        \"days\": 0, \"hours\": 0, \"minutes\": 1, \"seconds\": 0\r\n    },\r\n    \"recipients\": [\r\n        { \"target\": \"nickname_1@email.com\", \"name\": \"person_name_1\", \"locale\": \"en\" },\r\n        { \"target\": \"nickname_2@email.com\", \"name\": \"person_name_2\", \"locale\": \"es\" }\r\n    ],\r\n    \"template\": \"simple\",\r\n    \"cc\": [],\r\n    \"subject\": \"Something\",\r\n    \"fields\": {\r\n        \"sender\": \"Sender Name\",\r\n        \"content\": \"Some dynamic content!\"\r\n    }\r\n}\r\n",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -1016,7 +1084,7 @@
 								],
 								"body": {
 									"mode": "raw",
-                                  "raw": "{\r\n    \"id\": \"38befbfb-20a3-4bcd-91e1-a2c7240adfa0\",\r\n    \"schedule\": {\r\n        \"start\": \"2024-05-01T15:42:50\",\r\n        \"cron\": \"0 * * * * ?\"\r\n    },\r\n    \"recipients\": [\r\n        { \"target\": \"nickname_1@email.com\", \"name\": \"person_name_1\", \"locale\": \"en\" },\r\n        { \"target\": \"nickname_2@email.com\", \"name\": \"person_name_2\", \"locale\": \"es\" }\r\n    ],\r\n    \"template\": \"simple\",\r\n    \"cc\": [],\r\n    \"subject\": \"Something\",\r\n    \"fields\": {\r\n        \"sender\": \"Sender Name\",\r\n        \"content\": \"Some dynamic content!\"\r\n    }\r\n}\r\n",
+									"raw": "{\r\n    \"id\": \"38befbfb-20a3-4bcd-91e1-a2c7240adfa0\",\r\n    \"schedule\": {\r\n        \"start\": \"2024-05-01T15:42:50\",\r\n        \"cron\": \"0 * * * * ?\"\r\n    },\r\n    \"recipients\": [\r\n        { \"target\": \"nickname_1@email.com\", \"name\": \"person_name_1\", \"locale\": \"en\" },\r\n        { \"target\": \"nickname_2@email.com\", \"name\": \"person_name_2\", \"locale\": \"es\" }\r\n    ],\r\n    \"template\": \"simple\",\r\n    \"cc\": [],\r\n    \"subject\": \"Something\",\r\n    \"fields\": {\r\n        \"sender\": \"Sender Name\",\r\n        \"content\": \"Some dynamic content!\"\r\n    }\r\n}\r\n",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -1044,52 +1112,52 @@
 					"name": "slack",
 					"item": [
 						{
-                          "name": "immediate",
-                          "event": [
-                            {
-                              "listen": "prerequest",
-                              "script": {
-                                "exec": [
-                                  ""
-                                ],
-                                "type": "text/javascript",
-                                "packages": {}
-                              }
-                            }
-                          ],
-                          "protocolProfileBehavior": {
-                            "strictSSL": false
-                          },
-                          "request": {
-                            "auth": {
-                              "type": "basic",
-                              "basic": [
-                                {
-                                  "key": "password",
-                                  "value": "admin",
-                                  "type": "string"
-                                },
-                                {
-                                  "key": "username",
-                                  "value": "admin",
-                                  "type": "string"
-                                }
-                              ]
-                            },
-                            "method": "POST",
-                            "header": [
-                              {
-                                "key": "Authorization",
-                                "value": "",
-                                "disabled": true
-                              }
-                            ],
-                            "body": {
-                              "mode": "raw",
-                              "raw": "{\r\n    \"id\": \"38befbfb-20a3-4bcd-91e1-a2c7240adfa0\",\r\n    \"recipients\": [\r\n        { \"target\": \"person_1_slack_id\", \"name\": \"person_name_1\", \"locale\": \"en\" },\r\n        { \"target\": \"person_2_slack_id\", \"name\": \"person_name_2\", \"locale\": \"es\" }\r\n    ],\r\n    \"template\": \"simple\",\r\n    \"channel\": \"SLACK_CHANNEL_ID\",\r\n    \"fields\": {\r\n        \"sender\": \"Sender Name\",\r\n        \"content\": \"Some dynamic content!\"\r\n    }\r\n}\r\n",
-                              "options": {
-                                "raw": {
-                                  "language": "json"
+							"name": "immediate",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"strictSSL": false
+							},
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "admin",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "admin",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "",
+										"disabled": true
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"id\": \"38befbfb-20a3-4bcd-91e1-a2c7240adfa0\",\r\n    \"recipients\": [\r\n        { \"target\": \"person_1_slack_id\", \"name\": \"person_name_1\", \"locale\": \"en\" },\r\n        { \"target\": \"person_2_slack_id\", \"name\": \"person_name_2\", \"locale\": \"es\" }\r\n    ],\r\n    \"template\": \"simple\",\r\n    \"channel\": \"SLACK_CHANNEL_ID\",\r\n    \"fields\": {\r\n        \"sender\": \"Sender Name\",\r\n        \"content\": \"Some dynamic content!\"\r\n    }\r\n}\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
 										}
 									}
 								},
@@ -1151,7 +1219,7 @@
 								],
 								"body": {
 									"mode": "raw",
-                                  "raw": "{\r\n    \"id\": \"38befbfb-20a3-4bcd-91e1-a2c7240adfa0\",\r\n    \"schedule\": {\r\n        \"start\": \"2024-05-01T15:42:50\", \r\n        \"days\": 0, \"hours\": 0, \"minutes\": 1, \"seconds\": 0\r\n    },\r\n    \"recipients\": [\r\n        { \"target\": \"person_1_slack_id\", \"name\": \"person_name_1\", \"locale\": \"en\" },\r\n        { \"target\": \"person_2_slack_id\", \"name\": \"person_name_2\", \"locale\": \"es\" }\r\n    ],\r\n    \"template\": \"simple\",\r\n    \"channel\": \"SLACK_CHANNEL_ID\",\r\n    \"fields\": {\r\n        \"sender\": \"Sender Name\",\r\n        \"content\": \"Some dynamic content!\"\r\n    }\r\n}\r\n\r\n",
+									"raw": "{\r\n    \"id\": \"38befbfb-20a3-4bcd-91e1-a2c7240adfa0\",\r\n    \"schedule\": {\r\n        \"start\": \"2024-05-01T15:42:50\", \r\n        \"days\": 0, \"hours\": 0, \"minutes\": 1, \"seconds\": 0\r\n    },\r\n    \"recipients\": [\r\n        { \"target\": \"person_1_slack_id\", \"name\": \"person_name_1\", \"locale\": \"en\" },\r\n        { \"target\": \"person_2_slack_id\", \"name\": \"person_name_2\", \"locale\": \"es\" }\r\n    ],\r\n    \"template\": \"simple\",\r\n    \"channel\": \"SLACK_CHANNEL_ID\",\r\n    \"fields\": {\r\n        \"sender\": \"Sender Name\",\r\n        \"content\": \"Some dynamic content!\"\r\n    }\r\n}\r\n\r\n",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -1216,7 +1284,7 @@
 								],
 								"body": {
 									"mode": "raw",
-                                  "raw": "{\r\n    \"id\": \"38befbfb-20a3-4bcd-91e1-a2c7240adfa0\",\r\n    \"schedule\": {\r\n        \"start\": \"2024-05-01T15:42:50\",\r\n        \"cron\": \"0 * * * * ?\"\r\n    },\r\n    \"recipients\": [\r\n        { \"target\": \"person_1_slack_id\", \"name\": \"person_name_1\", \"locale\": \"en\" },\r\n        { \"target\": \"person_2_slack_id\", \"name\": \"person_name_2\", \"locale\": \"es\" }\r\n    ],\r\n    \"template\": \"simple\",\r\n    \"channel\": \"SLACK_CHANNEL_ID\",\r\n    \"fields\": {\r\n        \"sender\": \"Sender Name\",\r\n        \"content\": \"Some dynamic content!\"\r\n    }\r\n}\r\n",
+									"raw": "{\r\n    \"id\": \"38befbfb-20a3-4bcd-91e1-a2c7240adfa0\",\r\n    \"schedule\": {\r\n        \"start\": \"2024-05-01T15:42:50\",\r\n        \"cron\": \"0 * * * * ?\"\r\n    },\r\n    \"recipients\": [\r\n        { \"target\": \"person_1_slack_id\", \"name\": \"person_name_1\", \"locale\": \"en\" },\r\n        { \"target\": \"person_2_slack_id\", \"name\": \"person_name_2\", \"locale\": \"es\" }\r\n    ],\r\n    \"template\": \"simple\",\r\n    \"channel\": \"SLACK_CHANNEL_ID\",\r\n    \"fields\": {\r\n        \"sender\": \"Sender Name\",\r\n        \"content\": \"Some dynamic content!\"\r\n    }\r\n}\r\n",
 									"options": {
 										"raw": {
 											"language": "json"
