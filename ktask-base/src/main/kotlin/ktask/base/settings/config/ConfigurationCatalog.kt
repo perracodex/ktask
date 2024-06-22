@@ -19,20 +19,20 @@ import ktask.base.settings.config.sections.security.SecuritySettings
  * names in the configuration file to ensure proper mapping and instantiation of the settings.
  *
  * @property apiSchema The API schema settings for the application.
+ * @property communication The settings related to communication.
  * @property cors The CORS settings for the application.
  * @property database The database settings for the application.
  * @property deployment The deployment settings for the application.
  * @property runtime The runtime settings for the application.
- * @property scheduler The scheduler settings for the application.
  * @property security The security settings for the application.
  */
 @Serializable
 data class ConfigurationCatalog(
     val apiSchema: ApiSchemaSettings,
+    val communication: CommunicationSettings,
     val cors: CorsSettings,
     val database: DatabaseSettings,
     val deployment: DeploymentSettings,
     val runtime: RuntimeSettings,
-    val scheduler: SchedulerSettings,
     val security: SecuritySettings
 )

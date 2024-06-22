@@ -30,6 +30,9 @@ object AppSettings {
     /** The API schema settings. */
     val apiSchema: ApiSchemaSettings get() = configuration.apiSchema
 
+    /** The communication settings. */
+    val communication: CommunicationSettings get() = configuration.communication
+
     /** The CORS settings. */
     val cors: CorsSettings get() = configuration.cors
 
@@ -41,9 +44,6 @@ object AppSettings {
 
     /** The runtime settings. */
     val runtime: RuntimeSettings get() = configuration.runtime
-
-    /** The scheduler settings. */
-    val scheduler: SchedulerSettings get() = configuration.scheduler
 
     /** The application security settings. */
     val security: SecuritySettings get() = configuration.security
@@ -70,11 +70,11 @@ object AppSettings {
             // that will be instantiated with the configuration values.
             val configMappings: List<ConfigClassMap<out IConfigSection>> = listOf(
                 ConfigClassMap(mappingName = "apiSchema", path = "apiSchema", kClass = ApiSchemaSettings::class),
+                ConfigClassMap(mappingName = "communication", path = "communication", kClass = CommunicationSettings::class),
                 ConfigClassMap(mappingName = "cors", path = "cors", kClass = CorsSettings::class),
                 ConfigClassMap(mappingName = "database", path = "database", kClass = DatabaseSettings::class),
                 ConfigClassMap(mappingName = "deployment", path = "ktor.deployment", kClass = DeploymentSettings::class),
                 ConfigClassMap(mappingName = "runtime", path = "runtime", kClass = RuntimeSettings::class),
-                ConfigClassMap(mappingName = "scheduler", path = "scheduler", kClass = SchedulerSettings::class),
                 ConfigClassMap(mappingName = "security", path = "security", kClass = SecuritySettings::class)
             )
 

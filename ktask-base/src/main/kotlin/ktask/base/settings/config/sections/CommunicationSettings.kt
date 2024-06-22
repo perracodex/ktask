@@ -8,7 +8,7 @@ import kotlinx.serialization.Serializable
 import ktask.base.settings.config.parser.IConfigSection
 
 /**
- * Contains settings related to the scheduler.
+ * Contains settings related to communication.
  *
  * Note that all credentials in this settings section are stored in plain text in memory.
  * For enhanced security, it is recommended to hash these credentials in memory.
@@ -18,7 +18,7 @@ import ktask.base.settings.config.parser.IConfigSection
  * @property slackSpec The Slack configuration settings.
  */
 @Serializable
-data class SchedulerSettings(
+data class CommunicationSettings(
     val templatesPath: String,
     val emailSpec: EmailSpec,
     val slackSpec: SlackSpec,

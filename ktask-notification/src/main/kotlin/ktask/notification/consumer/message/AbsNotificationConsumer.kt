@@ -158,7 +158,7 @@ internal abstract class AbsNotificationConsumer : TaskConsumer() {
         // has them configured. We need to set the resolvers manually.
         val templateEngine: TemplateEngine = TemplateEngine().apply {
             addTemplateResolver(FileTemplateResolver().apply {
-                prefix = "${AppSettings.scheduler.templatesPath}/${type.location}/"
+                prefix = "${AppSettings.communication.templatesPath}/${type.location}/"
                 suffix = type.suffix
                 characterEncoding = "utf-8"
                 templateMode = type.mode

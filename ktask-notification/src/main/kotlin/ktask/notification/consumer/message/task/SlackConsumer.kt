@@ -7,7 +7,7 @@ package ktask.notification.consumer.message.task
 import com.slack.api.Slack
 import ktask.base.env.Tracer
 import ktask.base.settings.AppSettings
-import ktask.base.settings.config.sections.SchedulerSettings
+import ktask.base.settings.config.sections.CommunicationSettings
 import ktask.notification.consumer.message.AbsNotificationConsumer
 
 
@@ -29,6 +29,9 @@ internal class SlackConsumer : AbsNotificationConsumer() {
     override fun consume(payload: TaskPayload) {
         tracer.debug("Processing Slack notification. ID: ${payload.taskId}")
 
+        val slackSpec: CommunicationSettings.SlackSpec = AppSettings.communication.slackSpec
+        verifySettings(spec = slackSpec)
+
         // Build the message.
         val message: String = buildMessage(
             type = TemplateType.SLACK,
@@ -49,7 +52,6 @@ internal class SlackConsumer : AbsNotificationConsumer() {
         // Send the Slack notification.
 
         val channel: String = payload.additionalParameters[Property.CHANNEL.key] as String
-        val slackSpec: SchedulerSettings.SlackSpec = AppSettings.scheduler.slackSpec
         val slack: Slack = Slack.getInstance()
 
         slack.methods(slackSpec.token).chatPostMessage { request ->
@@ -64,5 +66,12 @@ internal class SlackConsumer : AbsNotificationConsumer() {
                 throw IllegalStateException("Failed to send Slack notification. ID: ${payload.taskId}. Response: $response")
             }
         }
+    }
+
+    /**
+     * Verifies that the email settings values are valid.
+     */
+    private fun verifySettings(spec: CommunicationSettings.SlackSpec) {
+        require(spec.token.isNotBlank()) { "Slack token is missing." }
     }
 }

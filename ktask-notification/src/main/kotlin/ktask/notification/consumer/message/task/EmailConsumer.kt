@@ -6,7 +6,7 @@ package ktask.notification.consumer.message.task
 
 import ktask.base.env.Tracer
 import ktask.base.settings.AppSettings
-import ktask.base.settings.config.sections.SchedulerSettings
+import ktask.base.settings.config.sections.CommunicationSettings
 import ktask.base.utils.CastUtils
 import ktask.notification.consumer.message.AbsNotificationConsumer
 import org.apache.commons.mail.DefaultAuthenticator
@@ -29,6 +29,9 @@ internal class EmailConsumer : AbsNotificationConsumer() {
 
     override fun consume(payload: TaskPayload) {
         tracer.debug("Processing email notification. ID: ${payload.taskId}")
+
+        val emailSpec: CommunicationSettings.EmailSpec = AppSettings.communication.emailSpec
+        verifySettings(spec = emailSpec)
 
         // Build the message.
         val email: HtmlEmail = HtmlEmail().apply {
@@ -58,7 +61,7 @@ internal class EmailConsumer : AbsNotificationConsumer() {
         }
 
         // Configure email settings.
-        val emailSpec: SchedulerSettings.EmailSpec = AppSettings.scheduler.emailSpec
+
         email.apply {
             hostName = emailSpec.hostName
             setSmtpPort(emailSpec.smtpPort)
@@ -73,5 +76,15 @@ internal class EmailConsumer : AbsNotificationConsumer() {
         email.send().also { messageId ->
             tracer.debug("Email notification sent: ${payload.recipient.target}. Task ID: ${payload.taskId}. Message ID: $messageId")
         }
+    }
+
+    /**
+     * Verifies that the email settings values are valid.
+     */
+    private fun verifySettings(spec: CommunicationSettings.EmailSpec) {
+        require(spec.smtpPort > 0) { "Invalid email SMTP port. Got: '${spec.smtpPort}'" }
+        require(spec.hostName.isNotBlank()) { "Invalid email host name. Got: '${spec.hostName}'" }
+        require(spec.username.isNotBlank()) { "Invalid email username. Got: '${spec.username}'" }
+        require(spec.password.isNotBlank()) { "Invalid email password. Got: '${spec.password}'" }
     }
 }
