@@ -38,11 +38,11 @@ See: [security.conf](./ktask-base/src/main/resources/config/config_security.conf
 
 ### Wiki
 
-* ### [Workflow](./.wiki/01.workflow)
-* ### [Dashboard](./.wiki/02.dashboard)
-* ### [Language Support](./.wiki/03.language)
-* ### [Message Template Fields](./.wiki/04.message_template_fields)
-* ### [Cron Expressions](./.wiki/05.cron_expressions)
-* ### [Email Notification Endpoints](./.wiki/06.email_notification_endpoints)
-* ### [Slack Notification Endpoints](./.wiki/07.slack_notification_endpoints)
-* ### [Administration Endpoints](./.wiki/08.administration_endpoints)
+* ### [Workflow](./.wiki/01.workflow.md)
+* ### [Dashboard](./.wiki/02.dashboard.md)
+* ### [Language Support](./.wiki/03.language.md)
+* ### [Message Template Fields](./.wiki/04.message_template_fields.md)
+* ### [Cron Expressions](./.wiki/05.cron_expressions.md)
+* ### [Email Notification Endpoints](./.wiki/06.email_notification_endpoints.md)
+* ### [Slack Notification Endpoints](./.wiki/07.slack_notification_endpoints.md)
+* ### [Administration Endpoints](./.wiki/08.administration_endpoints.md)
