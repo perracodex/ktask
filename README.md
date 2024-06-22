@@ -17,14 +17,32 @@ either for Email and/or Slack services. These credentials should be specified in
 
 ---
 
+## Features
+
+* Scheduling: Configure notifications for immediate delivery or scheduled for future deployment.
+* Extendable: Dispatch notifications either via email or Slack. Easily extendable to other types of notifications or custom actions.
+* Templates: Send notifications using dynamic templates for both HTML emails or rich Slack messages
+* Multi-Language: Support for sending notifications in different languages, as long as the templates are provided.
+* Administration: View, pause, resume, and delete scheduled tasks through dedicated REST endpoints.
+* Dashboard: A dashboard sample is available to view and manage scheduled tasks.
+* Audit: Keep track of all tasks execution history.
+* Micrometer-Metrics: Ready for integration with monitoring tools like Prometheus or Grafana.
+
+---
+For convenience, it is included a *[Postman Collection](./.postman/ktask.postman_collection.json)* with all the available REST endpoints.
+
+For credentials `Basic Authentication` is used. Default: `admin` / `admin`.
+See: [security.conf](./ktask-base/src/main/resources/config/config_security.conf)
+
+---
+
 ### Wiki
 
-* ### [Features](./.wiki/01.features.md)
-* ### [Workflow](./.wiki/02.workflow.md)
-* ### [Dashboard](./.wiki/03.dashboard.md)
-* ### [Language Support](./.wiki/04.language.md)
-* ### [Message Template Fields](./.wiki/05.message_template_fields.md)
-* ### [Cron Expressions](./.wiki/06.cron_expressions.md)
-* ### [Email Notification Endpoints](./.wiki/07.email_notification_endpoints.md)
-* ### [Slack Notification Endpoints](./.wiki/08.slack_notification_endpoints.md)
-* ### [Administration Endpoints](./.wiki/09.administration_endpoints.md)
+* ### [Workflow](./.wiki/01.workflow)
+* ### [Dashboard](./.wiki/02.dashboard)
+* ### [Language Support](./.wiki/03.language)
+* ### [Message Template Fields](./.wiki/04.message_template_fields)
+* ### [Cron Expressions](./.wiki/05.cron_expressions)
+* ### [Email Notification Endpoints](./.wiki/06.email_notification_endpoints)
+* ### [Slack Notification Endpoints](./.wiki/07.slack_notification_endpoints)
+* ### [Administration Endpoints](./.wiki/08.administration_endpoints)
