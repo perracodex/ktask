@@ -11,8 +11,9 @@ import ktask.base.scheduler.routing.tasks.delete.deleteAllSchedulerTasksRoute
 import ktask.base.scheduler.routing.tasks.delete.deleteSchedulerTaskRoute
 import ktask.base.scheduler.routing.tasks.get.getSchedulerTaskGroupsRoute
 import ktask.base.scheduler.routing.tasks.get.getSchedulerTasksRoute
-import ktask.base.scheduler.routing.tasks.state.pauseSchedulerTaskRoute
-import ktask.base.scheduler.routing.tasks.state.resumeSchedulerTaskRoute
+import ktask.base.scheduler.routing.tasks.operate.pauseSchedulerTaskRoute
+import ktask.base.scheduler.routing.tasks.operate.resendSchedulerTaskRoute
+import ktask.base.scheduler.routing.tasks.operate.resumeSchedulerTaskRoute
 import ktask.base.scheduler.routing.view.schedulerDashboardRoute
 
 /**
@@ -40,6 +41,8 @@ fun Route.schedulerRoutes() {
 
             pauseSchedulerTaskRoute()
             resumeSchedulerTaskRoute()
+
+            resendSchedulerTaskRoute()
         }
     }
 }

@@ -4,6 +4,7 @@
 
 package ktask.base.scheduler.service.task
 
+import kotlinx.serialization.Serializable
 import ktask.base.scheduler.annotation.SchedulerAPI
 import org.quartz.JobKey
 
@@ -13,6 +14,7 @@ import org.quartz.JobKey
  * @property name The name of the task.
  * @property group The group to which the task belongs.
  */
+@Serializable
 data class TaskKey(
     val name: String,
     val group: String

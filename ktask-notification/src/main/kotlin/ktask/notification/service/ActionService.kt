@@ -10,6 +10,7 @@ import ktask.base.env.Tracer
 import ktask.base.events.SEEService
 import ktask.base.scheduler.service.schedule.TaskStartAt
 import ktask.base.scheduler.service.task.TaskDispatch
+import ktask.base.scheduler.service.task.TaskKey
 import ktask.base.utils.DateTimeUtils
 import ktask.base.utils.KLocalDateTime
 import ktask.notification.consumer.action.AbsActionConsumer
@@ -29,10 +30,10 @@ internal object ActionService {
      * leveraging the Task Scheduler Service's ability to handle such cases gracefully.
      *
      * @param request The [IActionRequest] instance representing the action  to be scheduled.
-     * @return The ID of the scheduled action if successful.
+     * @return The [TaskKey] of the scheduled task.
      * @throws IllegalArgumentException if the action request type is unsupported.
      */
-    suspend fun schedule(request: IActionRequest): Unit = withContext(Dispatchers.IO) {
+    suspend fun schedule(request: IActionRequest): TaskKey = withContext(Dispatchers.IO) {
         tracer.debug("Scheduling new custom action for ID: ${request.id}")
 
         // Resolve the target consumer class.
@@ -45,6 +46,8 @@ internal object ActionService {
             val startDateTime: KLocalDateTime = schedule.start ?: DateTimeUtils.currentUTCDateTime()
             TaskStartAt.AtDateTime(datetime = startDateTime)
         } ?: TaskStartAt.Immediate
+
+        lateinit var outputKey: TaskKey
 
         // Dispatch the task based on the specified schedule type.
         request.toMap().let { parameters ->
@@ -59,11 +62,14 @@ internal object ActionService {
                 } ?: send()
             }.also { taskKey ->
                 tracer.debug("Scheduled ${consumerClass.name}. Task key: $taskKey")
+                outputKey = taskKey
             }
         }
 
         // Send a message to the SSE endpoint.
         val schedule: String = request.schedule?.toString() ?: "--"
         SEEService.push("New action task | $schedule | ID: ${request.id}")
+
+        outputKey
     }
 }

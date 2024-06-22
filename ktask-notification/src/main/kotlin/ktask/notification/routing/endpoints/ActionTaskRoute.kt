@@ -8,6 +8,7 @@ import io.ktor.http.*
 import io.ktor.server.application.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
+import ktask.base.scheduler.service.task.TaskKey
 import ktask.notification.entity.action.request.ActionRequest
 import ktask.notification.service.ActionService
 
@@ -18,11 +19,11 @@ fun Route.actionTaskRoute() {
 
     // Create a new scheduled action task.
     post<ActionRequest>("action") { request ->
-        ActionService.schedule(request = request)
+        val key: TaskKey = ActionService.schedule(request = request)
 
         call.respond(
             status = HttpStatusCode.Created,
-            message = "New action scheduled. ID: ${request.id}"
+            message = key
         )
     }
 }

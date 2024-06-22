@@ -10,6 +10,7 @@ import ktask.base.env.Tracer
 import ktask.base.events.SEEService
 import ktask.base.scheduler.service.schedule.TaskStartAt
 import ktask.base.scheduler.service.task.TaskDispatch
+import ktask.base.scheduler.service.task.TaskKey
 import ktask.base.utils.DateTimeUtils
 import ktask.base.utils.KLocalDateTime
 import ktask.notification.consumer.message.AbsNotificationConsumer
@@ -35,10 +36,10 @@ internal object NotificationService {
      * for each recipient, ensuring that all recipients receive their notifications.
      *
      * @param request The [IMessageRequest] instance representing the notification to be scheduled.
-     * @return The ID of the scheduled notification if successful.
+     * @return A [TaskKey] list of the scheduled tasks.
      * @throws IllegalArgumentException if the notification request type is unsupported.
      */
-    suspend fun schedule(request: IMessageRequest): Unit = withContext(Dispatchers.IO) {
+    suspend fun schedule(request: IMessageRequest): List<TaskKey> = withContext(Dispatchers.IO) {
         tracer.debug("Scheduling new notification for ID: ${request.id}")
 
         // Identify the target consumer class.
@@ -60,6 +61,8 @@ internal object NotificationService {
             TaskStartAt.AtDateTime(datetime = startDateTime)
         } ?: TaskStartAt.Immediate
 
+        val outputKeys = mutableListOf<TaskKey>()
+
         // Iterate over each recipient and schedule a task for each one.
         request.recipients.forEach { recipient ->
 
@@ -76,6 +79,7 @@ internal object NotificationService {
                     } ?: send()
                 }.also { taskKey ->
                     tracer.debug("Scheduled ${consumerClass.name} for recipient: $recipient. Task key: $taskKey")
+                    outputKeys.add(taskKey)
                 }
             }
         }
@@ -85,5 +89,7 @@ internal object NotificationService {
         SEEService.push(
             "New notification task (${request.recipients.size})| $schedule | ${consumerClass.simpleName} | ID: ${request.id}"
         )
+
+        outputKeys
     }
 }
