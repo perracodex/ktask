@@ -90,6 +90,6 @@ internal object NotificationService {
             "New notification task (${request.recipients.size})| $schedule | ${consumerClass.simpleName} | ID: ${request.id}"
         )
 
-        outputKeys
+        return@withContext outputKeys
     }
 }

@@ -70,6 +70,6 @@ internal object ActionService {
         val schedule: String = request.schedule?.toString() ?: "--"
         SEEService.push("New action task | $schedule | ID: ${request.id}")
 
-        outputKey
+        return@withContext outputKey
     }
 }
