@@ -64,7 +64,7 @@ data class EmailRequest(
             request.recipients.forEach { recipient ->
                 val result: IValidator.Result = EmailValidator.validate(value = recipient.target)
                 if (result is IValidator.Result.Failure) {
-                    SystemError.InvalidEmailFormat(id = request.id, email = recipient.target).raise()
+                    throw SystemError.InvalidEmailFormat(id = request.id, email = recipient.target)
                 }
             }
         }

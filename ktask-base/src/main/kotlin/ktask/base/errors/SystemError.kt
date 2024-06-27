@@ -13,12 +13,16 @@ import java.util.*
  * @property status The [HttpStatusCode] associated with this error.
  * @property code A unique code identifying the type of error.
  * @property description A human-readable description of the error.
+ * @property reason An optional human-readable reason for the exception, providing more context.
+ * @property cause The underlying cause of the exception, if any.
  */
 sealed class SystemError(
     status: HttpStatusCode,
     code: String,
-    description: String
-) : BaseError(status = status, code = code, description = description) {
+    description: String,
+    reason: String? = null,
+    cause: Throwable? = null
+) : AppException(status = status, code = code, description = description, reason = reason, cause = cause) {
 
     /**
      * Error for when an email has an invalid format.
@@ -26,10 +30,12 @@ sealed class SystemError(
      * @property id The affected source id.
      * @property email The email that is already registered.
      */
-    data class InvalidEmailFormat(val id: UUID?, val email: String) : SystemError(
+    class InvalidEmailFormat(val id: UUID?, val email: String, reason: String? = null, cause: Throwable? = null) : SystemError(
         status = HttpStatusCode.BadRequest,
         code = "${TAG}IEF",
-        description = "Invalid email format: '$email'. Id: $id"
+        description = "Invalid email format: '$email'. Id: $id",
+        reason = reason,
+        cause = cause
     )
 
     /**
@@ -38,10 +44,12 @@ sealed class SystemError(
      * @property id The affected source id.
      * @property phone The phone value with the invalid format.
      */
-    data class InvalidPhoneFormat(val id: UUID?, val phone: String) : SystemError(
+    class InvalidPhoneFormat(val id: UUID?, val phone: String, reason: String? = null, cause: Throwable? = null) : SystemError(
         status = HttpStatusCode.BadRequest,
         code = "${TAG}IPF",
-        description = "Invalid phone format: '$phone'. Id: $id"
+        description = "Invalid phone format: '$phone'. Id: $id",
+        reason = reason,
+        cause = cause
     )
 
     companion object {
