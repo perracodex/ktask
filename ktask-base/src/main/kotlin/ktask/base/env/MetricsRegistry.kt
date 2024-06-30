@@ -34,5 +34,9 @@ object MetricsRegistry {
     fun registerTimer(name: String, description: String): Timer =
         Timer.builder(name).description(description).register(registry)
 
+    /**
+     * Returns the metrics content in Prometheus text format for the response body
+     * of an endpoint designated for Prometheus to scrape.
+     */
     fun scrape(): String = registry.scrape()
 }
