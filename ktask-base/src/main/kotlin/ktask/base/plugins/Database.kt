@@ -7,6 +7,7 @@ package ktask.base.plugins
 import io.ktor.server.application.*
 import ktask.base.database.plugin.DbPlugin
 import ktask.base.database.schema.SchedulerAuditTable
+import ktask.base.env.MetricsRegistry
 
 /**
  * Configures the custom [DbPlugin].
@@ -19,7 +20,7 @@ import ktask.base.database.schema.SchedulerAuditTable
 fun Application.configureDatabase() {
 
     install(plugin = DbPlugin) {
-        micrometerRegistry = appMicrometerRegistry
+        micrometerRegistry = MetricsRegistry.registry
 
         tables.add(SchedulerAuditTable)
     }

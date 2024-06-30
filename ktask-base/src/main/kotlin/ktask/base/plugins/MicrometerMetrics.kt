@@ -17,8 +17,7 @@ import io.micrometer.core.instrument.binder.jvm.JvmThreadMetrics
 import io.micrometer.core.instrument.binder.system.FileDescriptorMetrics
 import io.micrometer.core.instrument.binder.system.ProcessorMetrics
 import io.micrometer.core.instrument.binder.system.UptimeMetrics
-import io.micrometer.prometheusmetrics.PrometheusConfig
-import io.micrometer.prometheusmetrics.PrometheusMeterRegistry
+import ktask.base.env.MetricsRegistry
 import ktask.base.settings.AppSettings
 
 /**
@@ -35,7 +34,7 @@ import ktask.base.settings.AppSettings
 fun Application.configureMicroMeterMetrics() {
 
     install(plugin = MicrometerMetrics) {
-        registry = appMicrometerRegistry
+        registry = MetricsRegistry.registry
 
         meterBinders = listOf(
             ClassLoaderMetrics(),
@@ -51,18 +50,8 @@ fun Application.configureMicroMeterMetrics() {
     routing {
         authenticate(AppSettings.security.basicAuth.providerName) {
             get("/metrics") {
-                call.respond(status = HttpStatusCode.OK, message = appMicrometerRegistry.scrape())
+                call.respond(status = HttpStatusCode.OK, message = MetricsRegistry.scrape())
             }
         }
     }
 }
-
-/**
- * The PrometheusMeterRegistry is a Micrometer registry that allows you to monitor your application
- * using Prometheus, a popular open-source monitoring system and time series database.
- *
- * See: [Prometheus](https://prometheus.io/)
- *
- * See: [Micrometer Prometheus](https://micrometer.io/docs/registry/prometheus)
- */
-internal val appMicrometerRegistry: PrometheusMeterRegistry = PrometheusMeterRegistry(PrometheusConfig.DEFAULT)
