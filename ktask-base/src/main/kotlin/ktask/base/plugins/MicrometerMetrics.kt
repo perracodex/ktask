@@ -65,4 +65,4 @@ fun Application.configureMicroMeterMetrics() {
  *
  * See: [Micrometer Prometheus](https://micrometer.io/docs/registry/prometheus)
  */
-val appMicrometerRegistry: PrometheusMeterRegistry = PrometheusMeterRegistry(PrometheusConfig.DEFAULT)
+internal val appMicrometerRegistry: PrometheusMeterRegistry = PrometheusMeterRegistry(PrometheusConfig.DEFAULT)
