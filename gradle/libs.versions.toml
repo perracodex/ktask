@@ -2,10 +2,10 @@
 
 [versions]
 
-commons-codec = "1.17.0"                # https://github.com/apache/commons-codec/tags
+commons-codec = "1.17.1"                # https://github.com/apache/commons-codec/tags
 commons-email = "1.6.0"                 # https://github.com/apache/commons-email/tags
 cron-descriptor = "1.2.10"              # https://github.com/voidburn/cron-expression-descriptor/releases
-database-h2 = "2.2.224"                 # https://github.com/h2database/h2database/releases
+database-h2 = "2.3.230"                 # https://github.com/h2database/h2database/releases
 exposed = "0.52.0"                      # https://github.com/JetBrains/Exposed/releases
 flyway = "10.15.2"                      # https://github.com/flyway/flyway/releases
 google-phonenumber = "8.13.41"          # https://github.com/google/libphonenumber/releases
@@ -19,7 +19,7 @@ micrometer-prometheus = "1.13.2"        # https://github.com/micrometer-metrics/
 mockk = "1.13.12"                       # https://github.com/mockk/mockk/releases
 mockito-kotlin = "5.4.0"                # https://github.com/mockito/mockito-kotlin/releases
 quartz-scheduler = "2.4.0-rc2"          # https://github.com/quartz-scheduler/quartz/releases
-slack-api-client = "1.40.2"             # https://github.com/slackapi/java-slack-sdk/releases
+slack-api-client = "1.40.3"             # https://github.com/slackapi/java-slack-sdk/releases
 swagger-generators = "1.0.50"           # https://github.com/swagger-api/swagger-codegen-generators/releases
 typesafe-config = "1.4.3"               # https://github.com/lightbend/config/releases
 
