@@ -12,14 +12,14 @@ google-phonenumber = "8.13.43"          # https://github.com/google/libphonenumb
 hikariCP = "5.1.0"                      # https://github.com/brettwooldridge/HikariCP/tags
 kotlin = "2.0.10"                       # https://github.com/JetBrains/kotlin/releases
 kotlinx-atomicfu = "0.25.0"             # https://github.com/Kotlin/kotlinx-atomicfu/releases
-kotlinx-datetime = "0.6.0"              # https://github.com/Kotlin/kotlinx-datetime/releases
+kotlinx-datetime = "0.6.1"              # https://github.com/Kotlin/kotlinx-datetime/releases
 ktor = "2.3.12"                         # https://ktor.io/docs/releases.html#release-details
-logback = "1.5.6"                       # https://github.com/qos-ch/logback/tags
+logback = "1.5.7"                       # https://github.com/qos-ch/logback/tags
 micrometer-prometheus = "1.13.3"        # https://github.com/micrometer-metrics/micrometer/releases
 mockk = "1.13.12"                       # https://github.com/mockk/mockk/releases
 mockito-kotlin = "5.4.0"                # https://github.com/mockito/mockito-kotlin/releases
 quartz-scheduler = "2.4.0-rc2"          # https://github.com/quartz-scheduler/quartz/releases
-slack-api-client = "1.40.3"             # https://github.com/slackapi/java-slack-sdk/releases
+slack-api-client = "1.41.0"             # https://github.com/slackapi/java-slack-sdk/releases
 swagger-generators = "1.0.51"           # https://github.com/swagger-api/swagger-codegen-generators/releases
 typesafe-config = "1.4.3"               # https://github.com/lightbend/config/releases
 
