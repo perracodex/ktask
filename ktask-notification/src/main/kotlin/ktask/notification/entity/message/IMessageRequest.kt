@@ -26,6 +26,9 @@ interface IMessageRequest {
     val template: String
     val fields: Map<String, String>?
 
+    /**
+     * Verifies the integrity of the task request.
+     */
     fun verify() {
         require(recipients.isNotEmpty()) { "Recipients must not be empty." }
         require(template.isNotBlank()) { "Template must not be blank." }

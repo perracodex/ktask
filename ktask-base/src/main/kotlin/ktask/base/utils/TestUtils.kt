@@ -5,7 +5,6 @@
 package ktask.base.utils
 
 import io.ktor.server.config.*
-import kotlinx.coroutines.runBlocking
 import ktask.base.database.service.DatabaseService
 import ktask.base.settings.AppSettings
 import java.io.File
@@ -21,9 +20,7 @@ object TestUtils {
     fun loadSettings() {
         val testConfig = ApplicationConfig(configPath = "application.conf")
 
-        runBlocking {
-            AppSettings.load(applicationConfig = testConfig)
-        }
+        AppSettings.load(applicationConfig = testConfig)
     }
 
     /**

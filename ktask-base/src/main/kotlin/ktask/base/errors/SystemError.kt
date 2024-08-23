@@ -27,10 +27,12 @@ sealed class SystemError(
     /**
      * Error for when an email has an invalid format.
      *
-     * @property id The affected source id.
-     * @property email The email that is already registered.
+     * @param id The affected source id.
+     * @param email The email that is already registered.
+     * @param reason An optional human-readable reason for the exception, providing more context.
+     * @param cause The underlying cause of the exception, if any.
      */
-    class InvalidEmailFormat(val id: UUID?, val email: String, reason: String? = null, cause: Throwable? = null) : SystemError(
+    class InvalidEmailFormat(id: UUID?, email: String, reason: String? = null, cause: Throwable? = null) : SystemError(
         status = HttpStatusCode.BadRequest,
         code = "${TAG}IEF",
         description = "Invalid email format: '$email'. Id: $id",
@@ -41,10 +43,12 @@ sealed class SystemError(
     /**
      * Error for when a phone has an invalid format.
      *
-     * @property id The affected source id.
-     * @property phone The phone value with the invalid format.
+     * @param id The affected source id.
+     * @param phone The phone value with the invalid format.
+     * @param reason An optional human-readable reason for the exception, providing more context.
+     * @param cause The underlying cause of the exception, if any.
      */
-    class InvalidPhoneFormat(val id: UUID?, val phone: String, reason: String? = null, cause: Throwable? = null) : SystemError(
+    class InvalidPhoneFormat(id: UUID?, phone: String, reason: String? = null, cause: Throwable? = null) : SystemError(
         status = HttpStatusCode.BadRequest,
         code = "${TAG}IPF",
         description = "Invalid phone format: '$phone'. Id: $id",

@@ -34,6 +34,11 @@ object SEEService {
 
     private val eventFlow = MutableSharedFlow<String>(replay = REPLAY)
 
+    /**
+     * Pushes a new event message to the event flow.
+     *
+     * @param message The message to push to the event flow.
+     */
     suspend fun push(message: String) {
         eventFlow.emit(message)
     }
