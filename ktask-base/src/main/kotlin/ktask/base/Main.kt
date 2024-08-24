@@ -8,6 +8,6 @@ package ktask.base
  * Main function for the base module.
  * This module is not executable. Execute the application server module instead.
  */
-fun main() {
+public fun main() {
     println("Base module. Execute the application server module instead.")
 }

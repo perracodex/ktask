@@ -19,7 +19,7 @@ import ktask.base.settings.config.parser.IConfigSection
  * @property redocEndpoint The endpoint path to the Redoc UI.
  */
 @Serializable
-data class ApiSchemaSettings(
+public data class ApiSchemaSettings(
     val environments: List<EnvironmentType>,
     val schemaRoot: String,
     val schemaResourceFile: String,

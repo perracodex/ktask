@@ -27,7 +27,7 @@ import ktask.base.settings.config.sections.security.SecuritySettings
  * @property security The security settings for the application.
  */
 @Serializable
-data class ConfigurationCatalog(
+public data class ConfigurationCatalog(
     val apiSchema: ApiSchemaSettings,
     val communication: CommunicationSettings,
     val cors: CorsSettings,

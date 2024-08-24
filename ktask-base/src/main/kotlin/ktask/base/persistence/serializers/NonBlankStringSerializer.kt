@@ -16,7 +16,7 @@ import kotlinx.serialization.encoding.Encoder
 /**
  * Serializer for Non Blank String objects.
  */
-object NonBlankStringSerializer : KSerializer<String> {
+public object NonBlankStringSerializer : KSerializer<String> {
     override val descriptor: SerialDescriptor = PrimitiveSerialDescriptor(
         serialName = "NonBlankString",
         kind = PrimitiveKind.STRING
@@ -44,5 +44,5 @@ object NonBlankStringSerializer : KSerializer<String> {
  * @property NoBlankString The type representing the serializable String.
  * @see NonBlankStringSerializer
  */
-typealias NoBlankString = @Serializable(with = NonBlankStringSerializer::class) String
+public typealias NoBlankString = @Serializable(with = NonBlankStringSerializer::class) String
 

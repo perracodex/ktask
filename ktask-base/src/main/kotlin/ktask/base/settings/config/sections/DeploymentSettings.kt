@@ -15,7 +15,7 @@ import ktask.base.settings.config.parser.IConfigSection
  * @property host The network address the server is bound to.
  */
 @Serializable
-data class DeploymentSettings(
+public data class DeploymentSettings(
     val port: Int,
     val sslPort: Int,
     val host: String,

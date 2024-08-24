@@ -12,7 +12,7 @@ import io.ktor.server.routing.*
 /**
  * Defines the snowflake route, which is used to parse snowflake IDs.
  */
-fun Route.snowflakeRoute() {
+public fun Route.snowflakeRoute() {
 
     // Snowflake parser to read back the components of a snowflake ID.
     get("/snowflake/{id}") {

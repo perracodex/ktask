@@ -19,7 +19,7 @@ import ktask.notification.entity.action.IActionRequest
  * @property data Some custom data to be used in the action.
  */
 @Serializable
-data class ActionRequest(
+public data class ActionRequest(
     override val id: UuidS,
     override val description: String? = null,
     override val schedule: Schedule? = null,

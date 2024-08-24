@@ -13,7 +13,7 @@ import ktask.base.settings.config.parser.IConfigSection
  * @property privateApi Rate limit specification for the Private API endpoints.
  */
 @Serializable
-data class ConstraintsSettings(
+public data class ConstraintsSettings(
     val privateApi: LimitSpec,
 ) : IConfigSection {
 
@@ -28,7 +28,7 @@ data class ConstraintsSettings(
      * @property refillMs The time period in milliseconds after which the limit is reset. Must be > 0.
      */
     @Serializable
-    data class LimitSpec(
+    public data class LimitSpec(
         val limit: Int,
         val refillMs: Long
     ) {

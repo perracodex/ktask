@@ -23,7 +23,7 @@ import ktask.notification.entity.message.Recipient
  * @property channel The channel to send the notification to.
  */
 @Serializable
-data class SlackRequest(
+public data class SlackRequest(
     override val id: UuidS,
     override val description: String? = null,
     override val schedule: Schedule? = null,

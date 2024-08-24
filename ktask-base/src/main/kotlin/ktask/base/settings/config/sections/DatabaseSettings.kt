@@ -28,7 +28,7 @@ import ktask.base.settings.config.parser.IConfigSection
  * @property password Optional database password.
  */
 @Serializable
-data class DatabaseSettings(
+public data class DatabaseSettings(
     val name: String,
     val path: String,
     val isLocalFile: Boolean,

@@ -22,7 +22,7 @@ import ktask.base.utils.KLocalDateTime
  * @property local Same as [utc], but converted to the local time zone.
  */
 @Serializable
-data class SnowflakeData(
+public data class SnowflakeData(
     val machineId: Int,
     val sequence: Long,
     val utc: KLocalDateTime,

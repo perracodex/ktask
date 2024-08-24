@@ -7,4 +7,4 @@ package ktask.base.settings.config.parser
 /**
  * Base interface for configuration sections.
  */
-interface IConfigSection
+internal interface IConfigSection

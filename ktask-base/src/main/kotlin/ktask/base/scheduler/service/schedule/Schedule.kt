@@ -38,9 +38,9 @@ import ktask.base.utils.KLocalDateTime
  * @see [ScheduleSerializer]
  */
 @Serializable(ScheduleSerializer::class)
-sealed class Schedule {
+public sealed class Schedule {
     /** Optional datetime when the task must start. Null to start immediately. */
-    abstract val start: KLocalDateTime?
+    public abstract val start: KLocalDateTime?
 
     /**
      * Represents a schedule for a task using a fixed interval.
@@ -52,7 +52,7 @@ sealed class Schedule {
      * @property seconds The number of seconds in the interval.
      */
     @Serializable
-    data class Interval(
+    public data class Interval(
         override val start: KLocalDateTime? = null,
         val days: UInt = 0u,
         val hours: UInt = 0u,
@@ -62,7 +62,7 @@ sealed class Schedule {
         /**
          * Converts the overall interval into a total number of seconds.
          */
-        fun toTotalSeconds(): UInt {
+        internal fun toTotalSeconds(): UInt {
             return (days * 24u * 60u * 60u) + (hours * 60u * 60u) + (minutes * 60u) + seconds
         }
     }
@@ -103,7 +103,7 @@ sealed class Schedule {
      * @property cron The cron expression at which the task should be executed.
      */
     @Serializable
-    data class Cron(
+    public data class Cron(
         override val start: KLocalDateTime? = null,
         val cron: String
     ) : Schedule() {

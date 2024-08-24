@@ -14,7 +14,7 @@ import ktask.base.scheduler.audit.entity.AuditEntity
 /**
  * Returns the scheduler audit routes.
  */
-fun Route.schedulerAuditRoute() {
+internal fun Route.schedulerAuditRoute() {
     // Returns the audit logs for the scheduler.
     get("audit") {
         val audit: List<AuditEntity> = AuditService.findAll()

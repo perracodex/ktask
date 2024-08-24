@@ -10,7 +10,7 @@ import java.util.concurrent.ConcurrentHashMap
 /**
  * Helper class for working with locales.
  */
-object LocaleUtils {
+public object LocaleUtils {
     private val localeCache = ConcurrentHashMap<String, Boolean>()
     private val availableLocaleTags: Set<String> = Locale.getAvailableLocales()
         .map { it.toLanguageTag().lowercase() }
@@ -19,7 +19,7 @@ object LocaleUtils {
     /**
      * Checks if the given string is a valid locale.
      */
-    fun isValidLocale(string: String): Boolean {
+    public fun isValidLocale(string: String): Boolean {
         return localeCache.computeIfAbsent(string) {
             try {
                 val inputLocaleTag: String = Locale.Builder().setLanguageTag(it).build().toLanguageTag().lowercase()

@@ -30,7 +30,7 @@ import ktask.notification.routing.notificationRoutes
  *
  * See: [Ktor Rate Limit](https://ktor.io/docs/server-rate-limit.html)
  */
-fun Application.configureRoutes() {
+internal fun Application.configureRoutes() {
 
     routing {
         rateLimit(configuration = RateLimitName(name = RateLimitScope.PRIVATE_API.key)) {
@@ -40,8 +40,6 @@ fun Application.configureRoutes() {
                 schedulerRoutes()
 
                 snowflakeRoute()
-
-                healthCheckRoute()
 
                 healthCheckRoute()
 

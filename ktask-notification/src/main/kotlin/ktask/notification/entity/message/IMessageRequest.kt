@@ -18,18 +18,18 @@ import ktask.notification.consumer.message.AbsNotificationConsumer
  * @property template The template to be used for the notification.
  * @property fields Optional fields to be included in the template.
  */
-interface IMessageRequest {
-    val id: UuidS
-    val description: String?
-    val schedule: Schedule?
-    val recipients: List<Recipient>
-    val template: String
-    val fields: Map<String, String>?
+public interface IMessageRequest {
+    public val id: UuidS
+    public val description: String?
+    public val schedule: Schedule?
+    public val recipients: List<Recipient>
+    public val template: String
+    public val fields: Map<String, String>?
 
     /**
      * Verifies the integrity of the task request.
      */
-    fun verify() {
+    public fun verify() {
         require(recipients.isNotEmpty()) { "Recipients must not be empty." }
         require(template.isNotBlank()) { "Template must not be blank." }
     }
@@ -39,7 +39,7 @@ interface IMessageRequest {
      * for task serialization and consumption. This is required as the scheduler
      * requires a map of parameters.
      */
-    fun toMap(recipient: Recipient): MutableMap<String, Any?> {
+    public fun toMap(recipient: Recipient): MutableMap<String, Any?> {
         return mutableMapOf(
             AbsNotificationConsumer.Property.TASK_ID.key to id,
             AbsNotificationConsumer.Property.DESCRIPTION.key to description,

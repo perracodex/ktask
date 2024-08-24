@@ -16,7 +16,7 @@ import ktask.base.settings.config.parser.IConfigSection
  * @property password Password for the basic authentication.
  */
 @Serializable
-data class BasicAuthSettings(
+public data class BasicAuthSettings(
     val providerName: String,
     val realm: String,
     val username: String,

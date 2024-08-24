@@ -17,7 +17,7 @@ import ktask.base.env.health.HealthCheck
  * enhancements could include more complex health checks, like database connectivity,
  * external service availability, or other critical component checks.
  */
-fun Route.healthCheckRoute() {
+public fun Route.healthCheckRoute() {
     // Healthcheck providing the current operational status.
     get("/health") {
         val healthCheck = HealthCheck(call = call)

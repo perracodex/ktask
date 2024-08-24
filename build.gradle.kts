@@ -68,6 +68,11 @@ subprojects {
     // This ensures that all Kotlin compilations in subprojects use the specified JDK version.
     kotlin {
         jvmToolchain(jdkVersion = 17)
+
+        // Enable explicit API mode for all subprojects.
+        // https://github.com/Kotlin/KEEP/blob/master/proposals/explicit-api-mode.md
+        // https://kotlinlang.org/docs/whatsnew14.html#explicit-api-mode-for-library-authors
+        explicitApi()
     }
 
     // Defined in 'gradle.properties' file.

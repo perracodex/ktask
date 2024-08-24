@@ -16,7 +16,7 @@ import kotlin.uuid.Uuid
 /**
  * The scheduler dashboard route.
  */
-fun Route.schedulerDashboardRoute() {
+internal fun Route.schedulerDashboardRoute() {
 
     // The scheduler dashboard route.
     get("dashboard") {

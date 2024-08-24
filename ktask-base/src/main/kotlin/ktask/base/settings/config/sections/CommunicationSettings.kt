@@ -18,7 +18,7 @@ import ktask.base.settings.config.parser.IConfigSection
  * @property slackSpec The Slack configuration settings.
  */
 @Serializable
-data class CommunicationSettings(
+public data class CommunicationSettings(
     val templatesPath: String,
     val emailSpec: EmailSpec,
     val slackSpec: SlackSpec,
@@ -34,7 +34,7 @@ data class CommunicationSettings(
      * @property password The password to use when authentication is requested from the mail server.
      */
     @Serializable
-    data class EmailSpec(
+    public data class EmailSpec(
         val hostName: String,
         val smtpPort: Int,
         val isSSLOnConnect: Boolean,
@@ -48,7 +48,7 @@ data class CommunicationSettings(
      * @property token The Slack API token.
      */
     @Serializable
-    data class SlackSpec(
+    public data class SlackSpec(
         val token: String,
     ) : IConfigSection
 }

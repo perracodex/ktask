@@ -20,13 +20,13 @@ import ktask.base.scheduler.service.core.SchedulerService
  */
 @HealthCheckAPI
 @Serializable
-data class SchedulerCheck(
+public data class SchedulerCheck(
     val errors: MutableList<String>,
     val isStarted: Boolean,
     val isPaused: Boolean,
     val totalTasks: Int,
 ) {
-    constructor() : this(
+    internal constructor() : this(
         errors = mutableListOf(),
         isStarted = SchedulerService.isStarted(),
         isPaused = SchedulerService.isPaused(),

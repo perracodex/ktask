@@ -17,7 +17,7 @@ import ktask.base.settings.config.sections.security.sections.ConstraintsSettings
  * @property basicAuth Settings related to basic authentication, such as the realm and provider name.
  */
 @Serializable
-data class SecuritySettings(
+public data class SecuritySettings(
     val useSecureConnection: Boolean,
     val constraints: ConstraintsSettings,
     val basicAuth: BasicAuthSettings,

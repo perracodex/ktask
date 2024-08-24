@@ -31,7 +31,7 @@ import ktask.base.settings.AppSettings
  *
  * See: [Micrometer](https://micrometer.io/docs/concepts)
  */
-fun Application.configureMicroMeterMetrics() {
+public fun Application.configureMicroMeterMetrics() {
 
     install(plugin = MicrometerMetrics) {
         registry = MetricsRegistry.registry

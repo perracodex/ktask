@@ -17,7 +17,7 @@ import ktask.base.settings.config.sections.security.sections.BasicAuthSettings
  *
  * See: [Basic Authentication Documentation](https://ktor.io/docs/server-basic-auth.html)
  */
-fun Application.configureBasicAuthentication() {
+public fun Application.configureBasicAuthentication() {
 
     authentication {
         basic(name = AppSettings.security.basicAuth.providerName) {

@@ -16,7 +16,7 @@ import kotlin.uuid.Uuid
  * @property reason An optional human-readable reason for the exception, providing more context.
  * @property cause The underlying cause of the exception, if any.
  */
-sealed class SystemError(
+public sealed class SystemError(
     status: HttpStatusCode,
     code: String,
     description: String,
@@ -32,7 +32,7 @@ sealed class SystemError(
      * @param reason An optional human-readable reason for the exception, providing more context.
      * @param cause The underlying cause of the exception, if any.
      */
-    class InvalidEmailFormat(id: Uuid?, email: String, reason: String? = null, cause: Throwable? = null) : SystemError(
+    public class InvalidEmailFormat(id: Uuid?, email: String, reason: String? = null, cause: Throwable? = null) : SystemError(
         status = HttpStatusCode.BadRequest,
         code = "${TAG}IEF",
         description = "Invalid email format: '$email'. Id: $id",
@@ -48,7 +48,7 @@ sealed class SystemError(
      * @param reason An optional human-readable reason for the exception, providing more context.
      * @param cause The underlying cause of the exception, if any.
      */
-    class InvalidPhoneFormat(id: Uuid?, phone: String, reason: String? = null, cause: Throwable? = null) : SystemError(
+    public class InvalidPhoneFormat(id: Uuid?, phone: String, reason: String? = null, cause: Throwable? = null) : SystemError(
         status = HttpStatusCode.BadRequest,
         code = "${TAG}IPF",
         description = "Invalid phone format: '$phone'. Id: $id",
@@ -56,8 +56,8 @@ sealed class SystemError(
         cause = cause
     )
 
-    companion object {
-        private const val TAG: String = "SYS."
+    private companion object {
+        const val TAG: String = "SYS."
 
         init {
             ErrorCodeRegistry.registerTag(tag = TAG)

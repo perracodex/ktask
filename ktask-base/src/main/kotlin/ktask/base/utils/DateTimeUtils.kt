@@ -17,43 +17,43 @@ import kotlin.time.DurationUnit
 import java.time.Instant as JavaInstant
 
 /** Alias for kotlinx [LocalDate], to avoid ambiguity with Java's LocalDate. */
-typealias KLocalDate = LocalDate
+public typealias KLocalDate = LocalDate
 
 /** Alias for kotlinx [LocalTime], to avoid ambiguity with Java's LocalTime. */
-typealias KLocalTime = LocalTime
+public typealias KLocalTime = LocalTime
 
 /** Alias for kotlinx [LocalDateTime], to avoid ambiguity with Java's LocalDateTime. */
-typealias KLocalDateTime = LocalDateTime
+public typealias KLocalDateTime = LocalDateTime
 
 /** Alias for kotlinx [Instant], to avoid ambiguity with Java's Instant. */
-typealias KInstant = Instant
+public typealias KInstant = Instant
 
 /**
  * Singleton providing time-related utility functions.
  */
-object DateTimeUtils {
+public object DateTimeUtils {
 
     /**
      * Returns the current date-time in UTC.
      */
-    fun currentUTCDateTime(): KLocalDateTime = Clock.System.now().toLocalDateTime(timeZone = timezone())
+    public fun currentUTCDateTime(): KLocalDateTime = Clock.System.now().toLocalDateTime(timeZone = timezone())
 
     /**
      * Returns the current date in UTC.
      */
-    fun currentUTCDate(): KLocalDate = Clock.System.todayIn(timeZone = timezone())
+    public fun currentUTCDate(): KLocalDate = Clock.System.todayIn(timeZone = timezone())
 
     /**
      * Converts a UTC time to the local time zone.
      */
-    fun utcToLocal(utc: KLocalDateTime): KLocalDateTime {
+    public fun utcToLocal(utc: KLocalDateTime): KLocalDateTime {
         return utc.toInstant(timeZone = TimeZone.UTC).toLocalDateTime(timeZone = timezone())
     }
 
     /**
      * Converts a Kotlin [LocalDateTime] to a Java [Date].
      */
-    fun KLocalDateTime.toJavaDate(): Date {
+    public fun KLocalDateTime.toJavaDate(): Date {
         this.toInstant(timeZone = timezone()).toJavaInstant().let {
             return Date.from(it)
         }
@@ -62,7 +62,7 @@ object DateTimeUtils {
     /**
      * Converts a Kotlin [Duration] to a Java [Instant].
      */
-    fun Duration.toJavaInstant(): JavaInstant {
+    public fun Duration.toJavaInstant(): JavaInstant {
         return JavaInstant.ofEpochMilli(
             System.currentTimeMillis() + this.toLong(unit = DurationUnit.MILLISECONDS)
         )
@@ -73,7 +73,7 @@ object DateTimeUtils {
      *
      * @return Boolean true if the LocalDateTime is before the current system time, false otherwise.
      */
-    fun KLocalDateTime.isPast(): Boolean {
+    public fun KLocalDateTime.isPast(): Boolean {
         val currentDateTime: LocalDateTime = Clock.System.now().toLocalDateTime(timeZone = timezone())
         return this < currentDateTime
     }
@@ -81,14 +81,14 @@ object DateTimeUtils {
     /**
      * Returns the system's default timezone.
      */
-    fun timezone(): TimeZone {
+    public fun timezone(): TimeZone {
         return TimeZone.currentSystemDefault()
     }
 
     /**
      * Converts a Java [Date] to a Kotlin [LocalDateTime].
      */
-    fun javaDateToLocalDateTime(datetime: Date, zoneId: ZoneId = ZoneId.systemDefault()): KLocalDateTime {
+    public fun javaDateToLocalDateTime(datetime: Date, zoneId: ZoneId = ZoneId.systemDefault()): KLocalDateTime {
         val localDateTime: java.time.LocalDateTime = datetime.toInstant()
             .atZone(zoneId)
             .toLocalDateTime()
@@ -102,7 +102,7 @@ object DateTimeUtils {
      * @param language The ISO language code, or locale, to format the date.
      * @return The formatted date with the month in title case.
      */
-    fun localizedCurrentDate(language: String): String {
+    public fun localizedCurrentDate(language: String): String {
         val locale: Locale = Locale.forLanguageTag(language)
         val dateFormatter: DateTimeFormatter = DateTimeFormatter.ofPattern("MMMM d, yyyy", locale)
         val currentDate: LocalDate = Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault()).date

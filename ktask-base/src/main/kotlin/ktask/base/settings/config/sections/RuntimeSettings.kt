@@ -16,7 +16,7 @@ import ktask.base.settings.config.parser.IConfigSection
  * @property workingDir The working directory where files are stored.
  */
 @kotlinx.serialization.Serializable
-data class RuntimeSettings(
+public data class RuntimeSettings(
     val machineId: Int,
     val environment: EnvironmentType,
     val doubleReceiveEnvironments: List<EnvironmentType>,

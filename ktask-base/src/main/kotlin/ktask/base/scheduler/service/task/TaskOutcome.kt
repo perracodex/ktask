@@ -7,7 +7,7 @@ package ktask.base.scheduler.service.task
 /**
  * Represents a scheduler task outcome status.
  */
-enum class TaskOutcome {
+public enum class TaskOutcome {
     /** The task has completed successfully. */
     SUCCESS,
 

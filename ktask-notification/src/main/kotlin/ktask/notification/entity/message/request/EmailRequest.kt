@@ -27,7 +27,7 @@ import ktask.notification.entity.message.Recipient
  * @property subject The subject or title of the notification.
  */
 @Serializable
-data class EmailRequest(
+public data class EmailRequest(
     override val id: UuidS,
     override val description: String? = null,
     override val schedule: Schedule? = null,
@@ -49,7 +49,7 @@ data class EmailRequest(
         }
     }
 
-    companion object {
+    internal companion object {
         /**
          * Verifies the recipients of the request.
          *

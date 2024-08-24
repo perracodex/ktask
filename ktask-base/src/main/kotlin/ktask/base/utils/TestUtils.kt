@@ -12,12 +12,12 @@ import java.io.File
 /**
  * Common utilities for unit testing.
  */
-object TestUtils {
+public object TestUtils {
 
     /**
      * Loads the application settings for testing.
      */
-    fun loadSettings() {
+    public fun loadSettings() {
         val testConfig = ApplicationConfig(configPath = "application.conf")
 
         AppSettings.load(applicationConfig = testConfig)
@@ -26,14 +26,14 @@ object TestUtils {
     /**
      * Sets up the database for testing.
      */
-    fun setupDatabase() {
+    public fun setupDatabase() {
         DatabaseService.init(settings = AppSettings.database)
     }
 
     /**
      * Tears down the testing environment.
      */
-    fun tearDown() {
+    public fun tearDown() {
         DatabaseService.close()
 
         val tempRuntime = File(AppSettings.runtime.workingDir)

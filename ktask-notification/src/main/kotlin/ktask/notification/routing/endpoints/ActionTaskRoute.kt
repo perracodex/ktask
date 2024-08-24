@@ -15,7 +15,7 @@ import ktask.notification.service.ActionService
 /**
  * Creates a new scheduled action task.
  */
-fun Route.actionTaskRoute() {
+internal fun Route.actionTaskRoute() {
 
     // Create a new scheduled action task.
     post<ActionRequest>("action") { request ->
