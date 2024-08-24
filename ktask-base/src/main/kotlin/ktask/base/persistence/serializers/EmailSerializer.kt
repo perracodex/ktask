@@ -18,7 +18,7 @@ import ktask.base.persistence.validators.impl.EmailValidator
 /**
  * Serializer for Email strings.
  */
-public object EmailStringSerializer : KSerializer<String> {
+internal object EmailStringSerializer : KSerializer<String> {
     override val descriptor: SerialDescriptor = PrimitiveSerialDescriptor(
         serialName = "EmailString",
         kind = PrimitiveKind.STRING

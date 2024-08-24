@@ -16,7 +16,7 @@ import kotlinx.serialization.encoding.Encoder
 /**
  * Serializer for Non Blank String objects.
  */
-public object NonBlankStringSerializer : KSerializer<String> {
+internal object NonBlankStringSerializer : KSerializer<String> {
     override val descriptor: SerialDescriptor = PrimitiveSerialDescriptor(
         serialName = "NonBlankString",
         kind = PrimitiveKind.STRING
