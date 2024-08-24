@@ -6,10 +6,11 @@ package ktask.base.scheduler.audit.entity
 
 import kotlinx.serialization.Serializable
 import ktask.base.database.schema.SchedulerAuditTable
-import ktask.base.persistence.serializers.SUUID
+import ktask.base.persistence.serializers.UuidS
 import ktask.base.scheduler.service.task.TaskOutcome
 import ktask.base.utils.KLocalDateTime
 import org.jetbrains.exposed.sql.ResultRow
+import kotlin.uuid.toKotlinUuid
 
 /**
  * Represents a scheduler audit log entity.
@@ -26,7 +27,7 @@ import org.jetbrains.exposed.sql.ResultRow
  */
 @Serializable
 data class AuditEntity(
-    val id: SUUID,
+    val id: UuidS,
     val taskName: String,
     val taskGroup: String,
     val fireTime: KLocalDateTime,
@@ -45,7 +46,7 @@ data class AuditEntity(
          */
         fun from(row: ResultRow): AuditEntity {
             return AuditEntity(
-                id = row[SchedulerAuditTable.id],
+                id = row[SchedulerAuditTable.id].toKotlinUuid(),
                 taskName = row[SchedulerAuditTable.taskName],
                 taskGroup = row[SchedulerAuditTable.taskGroup],
                 fireTime = row[SchedulerAuditTable.fireTime],

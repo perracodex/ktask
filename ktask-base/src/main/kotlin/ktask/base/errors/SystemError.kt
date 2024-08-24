@@ -5,7 +5,7 @@
 package ktask.base.errors
 
 import io.ktor.http.*
-import java.util.*
+import kotlin.uuid.Uuid
 
 /**
  * Concrete system errors.
@@ -32,7 +32,7 @@ sealed class SystemError(
      * @param reason An optional human-readable reason for the exception, providing more context.
      * @param cause The underlying cause of the exception, if any.
      */
-    class InvalidEmailFormat(id: UUID?, email: String, reason: String? = null, cause: Throwable? = null) : SystemError(
+    class InvalidEmailFormat(id: Uuid?, email: String, reason: String? = null, cause: Throwable? = null) : SystemError(
         status = HttpStatusCode.BadRequest,
         code = "${TAG}IEF",
         description = "Invalid email format: '$email'. Id: $id",
@@ -48,7 +48,7 @@ sealed class SystemError(
      * @param reason An optional human-readable reason for the exception, providing more context.
      * @param cause The underlying cause of the exception, if any.
      */
-    class InvalidPhoneFormat(id: UUID?, phone: String, reason: String? = null, cause: Throwable? = null) : SystemError(
+    class InvalidPhoneFormat(id: Uuid?, phone: String, reason: String? = null, cause: Throwable? = null) : SystemError(
         status = HttpStatusCode.BadRequest,
         code = "${TAG}IPF",
         description = "Invalid phone format: '$phone'. Id: $id",

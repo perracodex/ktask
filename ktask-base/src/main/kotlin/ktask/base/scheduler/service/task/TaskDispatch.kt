@@ -4,7 +4,6 @@
 
 package ktask.base.scheduler.service.task
 
-import ktask.base.persistence.serializers.SUUID
 import ktask.base.scheduler.annotation.SchedulerAPI
 import ktask.base.scheduler.service.core.SchedulerService
 import ktask.base.scheduler.service.schedule.Schedule
@@ -14,6 +13,7 @@ import ktask.base.utils.DateTimeUtils.toJavaDate
 import ktask.base.utils.DateTimeUtils.toJavaInstant
 import org.quartz.*
 import java.util.*
+import kotlin.uuid.Uuid
 
 /**
  * Class to create and send a scheduling request for a task.
@@ -26,7 +26,7 @@ import java.util.*
  */
 @OptIn(SchedulerAPI::class)
 class TaskDispatch(
-    val taskId: SUUID,
+    val taskId: Uuid,
     val consumerClass: Class<out TaskConsumer>,
     var startAt: TaskStartAt = TaskStartAt.Immediate,
     var parameters: Map<String, Any?> = emptyMap()

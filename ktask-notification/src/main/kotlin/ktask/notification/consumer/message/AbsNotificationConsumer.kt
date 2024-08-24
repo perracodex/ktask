@@ -4,7 +4,6 @@
 
 package ktask.notification.consumer.message
 
-import ktask.base.persistence.serializers.SUUID
 import ktask.base.scheduler.service.task.TaskConsumer
 import ktask.base.settings.AppSettings
 import ktask.base.utils.CastUtils
@@ -14,6 +13,7 @@ import org.thymeleaf.TemplateEngine
 import org.thymeleaf.context.Context
 import org.thymeleaf.templatemode.TemplateMode
 import org.thymeleaf.templateresolver.FileTemplateResolver
+import kotlin.uuid.Uuid
 
 /**
  * Abstract base class for processing scheduled tasks, providing common steps for task execution,
@@ -75,7 +75,7 @@ internal abstract class AbsNotificationConsumer : TaskConsumer() {
      * @param additionalParameters A map of additional parameters required for the task.
      */
     data class TaskPayload(
-        val taskId: SUUID,
+        val taskId: Uuid,
         val description: String?,
         val recipient: Recipient,
         val template: String,
@@ -96,7 +96,7 @@ internal abstract class AbsNotificationConsumer : TaskConsumer() {
                     key !in Property.entries.map { it.key }
                 }.let { additionalParameters ->
                     TaskPayload(
-                        taskId = properties[Property.TASK_ID.key] as SUUID,
+                        taskId = properties[Property.TASK_ID.key] as Uuid,
                         description = properties[Property.DESCRIPTION.key] as? String,
                         recipient = recipient,
                         template = properties[Property.TEMPLATE.key] as String,

@@ -10,7 +10,7 @@ import ktask.base.env.Tracer
 import ktask.base.scheduler.annotation.SchedulerAPI
 import ktask.base.scheduler.audit.entity.AuditEntity
 import ktask.base.scheduler.audit.entity.AuditRequest
-import java.util.*
+import kotlin.uuid.Uuid
 
 /**
  * Service to manage the persistence and retrieval of the scheduler audit logs.
@@ -24,7 +24,7 @@ internal object AuditService {
      *
      * @param request The [AuditRequest] to create.
      */
-    suspend fun create(request: AuditRequest): UUID = withContext(Dispatchers.IO) {
+    suspend fun create(request: AuditRequest): Uuid = withContext(Dispatchers.IO) {
         tracer.debug("Creating a new audit entry for task '${request.taskName}' in group '${request.taskGroup}'.")
         return@withContext AuditRepository.create(request = request)
     }

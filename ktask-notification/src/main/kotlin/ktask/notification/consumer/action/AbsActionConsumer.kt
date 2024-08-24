@@ -4,8 +4,8 @@
 
 package ktask.notification.consumer.action
 
-import ktask.base.persistence.serializers.SUUID
 import ktask.base.scheduler.service.task.TaskConsumer
+import kotlin.uuid.Uuid
 
 /**
  * Abstract base class for processing scheduled tasks, providing common steps for task execution,
@@ -31,7 +31,7 @@ internal abstract class AbsActionConsumer : TaskConsumer() {
      * @param additionalParameters A map of additional parameters required for the task.
      */
     data class TaskPayload(
-        val taskId: SUUID,
+        val taskId: Uuid,
         val additionalParameters: Map<String, Any> = emptyMap()
     ) {
         companion object {
@@ -41,7 +41,7 @@ internal abstract class AbsActionConsumer : TaskConsumer() {
                     key !in Property.entries.map { it.key }
                 }.let { additionalParameters ->
                     TaskPayload(
-                        taskId = properties[Property.TASK_ID.key] as SUUID,
+                        taskId = properties[Property.TASK_ID.key] as Uuid,
                         additionalParameters = additionalParameters
                     )
                 }

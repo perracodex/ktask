@@ -4,7 +4,7 @@
 
 package ktask.notification.entity.action
 
-import ktask.base.persistence.serializers.SUUID
+import ktask.base.persistence.serializers.UuidS
 import ktask.base.scheduler.service.schedule.Schedule
 import ktask.notification.consumer.action.AbsActionConsumer
 
@@ -16,7 +16,7 @@ import ktask.notification.consumer.action.AbsActionConsumer
  * @property schedule Optional [Schedule] for the task.
  */
 interface IActionRequest {
-    val id: SUUID
+    val id: UuidS
     val description: String?
     val schedule: Schedule?
 
