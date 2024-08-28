@@ -4,13 +4,13 @@
 
 package ktask.base.database.schema
 
-import ktask.base.persistence.utils.autoGenerate
-import ktask.base.persistence.utils.kotlinUuid
+import ktask.base.database.custom_columns.autoGenerate
+import ktask.base.database.custom_columns.kotlinUuid
+import ktask.base.database.schema.base.TimestampedTable
 import ktask.base.scheduler.service.task.TaskOutcome
 import ktask.base.utils.KLocalDateTime
 import org.jetbrains.exposed.sql.Column
 import org.jetbrains.exposed.sql.Table
-import org.jetbrains.exposed.sql.kotlin.datetime.CurrentDateTime
 import org.jetbrains.exposed.sql.kotlin.datetime.datetime
 import kotlin.uuid.Uuid
 
