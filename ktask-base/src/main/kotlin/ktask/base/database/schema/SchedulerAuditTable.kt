@@ -17,7 +17,7 @@ import kotlin.uuid.Uuid
 /**
  * Database table definition for scheduler audit logs.
  */
-internal object SchedulerAuditTable : Table(name = "scheduler_audit") {
+internal object SchedulerAuditTable : TimestampedTable(name = "scheduler_audit") {
     /**
      * The unique identifier of the audit log.
      */
@@ -77,13 +77,6 @@ internal object SchedulerAuditTable : Table(name = "scheduler_audit") {
     val detail: Column<String?> = text(
         name = "detail",
     ).nullable()
-
-    /**
-     * The creation timestamp of the audit record.
-     */
-    val createdAt: Column<KLocalDateTime> = datetime(
-        name = "created_at"
-    ).defaultExpression(defaultValue = CurrentDateTime)
 
     override val primaryKey: Table.PrimaryKey = PrimaryKey(
         firstColumn = id,
