@@ -115,10 +115,9 @@ public object SnowflakeFactory {
         var currentTimestampMs: Long = newTimestamp()
 
         // Check for invalid system clock settings.
-        if (currentTimestampMs < lastTimestampMs) {
-            throw IllegalStateException(
-                "Invalid System Clock. Current timestamp: $currentTimestampMs, last timestamp: $lastTimestampMs"
-            )
+        // Check for invalid system clock settings.
+        check(currentTimestampMs >= lastTimestampMs) {
+            "Invalid System Clock. Current timestamp: $currentTimestampMs, last timestamp: $lastTimestampMs"
         }
 
         // If it's a new millisecond, reset the sequence number.

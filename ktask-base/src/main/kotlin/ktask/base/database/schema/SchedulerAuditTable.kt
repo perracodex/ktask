@@ -4,8 +4,8 @@
 
 package ktask.base.database.schema
 
-import ktask.base.database.custom_columns.autoGenerate
-import ktask.base.database.custom_columns.kotlinUuid
+import ktask.base.database.columns.autoGenerate
+import ktask.base.database.columns.kotlinUuid
 import ktask.base.database.schema.base.TimestampedTable
 import ktask.base.scheduler.service.task.TaskOutcome
 import ktask.base.utils.KLocalDateTime

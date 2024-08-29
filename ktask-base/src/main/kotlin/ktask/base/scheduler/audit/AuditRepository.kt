@@ -105,8 +105,8 @@ internal object AuditRepository {
      */
     fun count(taskName: String, taskGroup: String): Int {
         return transaction {
-            // addLogger(StdOutSqlLogger)
-
+//            addLogger(StdOutSqlLogger)
+//
 //            explain {
 //                SchedulerAuditTable
 //                    .selectAll()
