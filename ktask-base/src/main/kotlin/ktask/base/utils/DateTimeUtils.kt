@@ -7,6 +7,8 @@ package ktask.base.utils
 import kotlinx.datetime.*
 import kotlinx.datetime.Instant
 import kotlinx.datetime.TimeZone
+import ktask.base.persistence.serializers.ZonedTimestamp
+import java.time.OffsetDateTime
 import java.time.ZoneId
 import java.time.format.DateTimeFormatter
 import java.util.*
@@ -40,6 +42,16 @@ public object DateTimeUtils {
      * Returns the current date in UTC.
      */
     public fun currentUTCDate(): KLocalDate = Clock.System.todayIn(timeZone = timezone())
+
+    /**
+     * Returns the current date-time with the specified or default time zone.
+     *
+     * @param zoneId The time zone ID, defaulting to the system's default time zone.
+     * @return An OffsetDateTime representing the current moment in the specified time zone.
+     */
+    public fun currentZonedTimestamp(zoneId: ZoneId = ZoneId.systemDefault()): ZonedTimestamp {
+        return OffsetDateTime.now(zoneId)
+    }
 
     /**
      * Converts a UTC time to the local time zone.
@@ -84,7 +96,11 @@ public object DateTimeUtils {
     }
 
     /**
-     * Converts a Java [Date] to a Kotlin [LocalDateTime].
+     * Converts a Java [Date] to a Kotlin [LocalDateTime] in the specified time zone.
+     *
+     * @param datetime The [Date] to be converted.
+     * @param zoneId The time zone to apply during the conversion. Defaults to the system's default time zone.
+     * @return A [KLocalDateTime] representing the same moment in time as the input [Date], adjusted to the specified time zone.
      */
     public fun javaDateToLocalDateTime(datetime: Date, zoneId: ZoneId = ZoneId.systemDefault()): KLocalDateTime {
         val localDateTime: java.time.LocalDateTime = datetime.toInstant()

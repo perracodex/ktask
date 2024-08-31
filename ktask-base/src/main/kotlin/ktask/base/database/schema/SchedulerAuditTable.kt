@@ -78,6 +78,9 @@ internal object SchedulerAuditTable : TimestampedTable(name = "scheduler_audit")
         name = "detail",
     ).nullable()
 
+    /**
+     * The primary key of the table.
+     */
     override val primaryKey: Table.PrimaryKey = PrimaryKey(
         firstColumn = id,
         name = "pk_audit_id"
