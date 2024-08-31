@@ -41,4 +41,4 @@ internal object OffsetDateTimeSerializer : KSerializer<OffsetDateTime> {
  * @see OffsetDateTime
  * @see OffsetDateTimeSerializer
  */
-public typealias ZonedTimestamp = @Serializable(with = OffsetDateTimeSerializer::class) OffsetDateTime
+public typealias OffsetTimestamp = @Serializable(with = OffsetDateTimeSerializer::class) OffsetDateTime

@@ -7,7 +7,7 @@ package ktask.base.utils
 import kotlinx.datetime.*
 import kotlinx.datetime.Instant
 import kotlinx.datetime.TimeZone
-import ktask.base.persistence.serializers.ZonedTimestamp
+import ktask.base.persistence.serializers.OffsetTimestamp
 import java.time.OffsetDateTime
 import java.time.ZoneId
 import java.time.format.DateTimeFormatter
@@ -47,9 +47,9 @@ public object DateTimeUtils {
      * Returns the current date-time with the specified or default time zone.
      *
      * @param zoneId The time zone ID, defaulting to the system's default time zone.
-     * @return An OffsetDateTime representing the current moment in the specified time zone.
+     * @return An [OffsetTimestamp] representing the current moment in the specified time zone.
      */
-    public fun currentZonedTimestamp(zoneId: ZoneId = ZoneId.systemDefault()): ZonedTimestamp {
+    public fun currentZonedTimestamp(zoneId: ZoneId = ZoneId.systemDefault()): OffsetTimestamp {
         return OffsetDateTime.now(zoneId)
     }
 

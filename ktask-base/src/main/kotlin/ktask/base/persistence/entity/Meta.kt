@@ -5,7 +5,7 @@
 package ktask.base.persistence.entity
 
 import kotlinx.serialization.Serializable
-import ktask.base.persistence.serializers.ZonedTimestamp
+import ktask.base.persistence.serializers.OffsetTimestamp
 import org.jetbrains.exposed.sql.Column
 import org.jetbrains.exposed.sql.ResultRow
 import org.jetbrains.exposed.sql.Table
@@ -18,8 +18,8 @@ import org.jetbrains.exposed.sql.Table
  */
 @Serializable
 public data class Meta(
-    val createdAt: ZonedTimestamp,
-    val updatedAt: ZonedTimestamp
+    val createdAt: OffsetTimestamp,
+    val updatedAt: OffsetTimestamp
 ) {
     public companion object {
         /**
@@ -34,8 +34,8 @@ public data class Meta(
             val updatedAt: Column<*> = table.columns.single { it.name == "updated_at" }
 
             return Meta(
-                createdAt = row[createdAt] as ZonedTimestamp,
-                updatedAt = row[updatedAt] as ZonedTimestamp
+                createdAt = row[createdAt] as OffsetTimestamp,
+                updatedAt = row[updatedAt] as OffsetTimestamp
             )
         }
     }
