@@ -184,19 +184,21 @@ internal class SchedulerTasks private constructor(private val scheduler: Schedul
 
         // Resolve the schedule metrics.
         val (schedule: String?, scheduleInfo: String?) = triggers.firstOrNull()?.let { trigger ->
-            if (trigger is SimpleTrigger) {
-                val repeatInterval: Duration = trigger.repeatInterval.toDuration(unit = DurationUnit.MILLISECONDS)
-                if (repeatInterval.inWholeSeconds != 0L) {
-                    "Every $repeatInterval" to null
-                } else {
-                    null
+            when (trigger) {
+                is SimpleTrigger -> {
+                    val repeatInterval: Duration = trigger.repeatInterval.toDuration(unit = DurationUnit.MILLISECONDS)
+                    if (repeatInterval.inWholeSeconds != 0L) "Every $repeatInterval" to null
+                    else null to null
                 }
-            } else if (trigger is CronTrigger) {
-                CronExpressionDescriptor.getDescription(trigger.cronExpression) to trigger.cronExpression
-            } else {
-                null
+
+                is CronTrigger -> {
+                    CronExpressionDescriptor.getDescription(trigger.cronExpression) to trigger.cronExpression
+                }
+
+                else -> null to null
             }
         } ?: (null to null)
+
 
         // Resolve the concrete parameters of the task.
         val dataMap: List<String> = taskDetail.jobDataMap
