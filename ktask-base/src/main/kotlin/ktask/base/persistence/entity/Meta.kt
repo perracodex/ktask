@@ -5,10 +5,9 @@
 package ktask.base.persistence.entity
 
 import kotlinx.serialization.Serializable
+import ktask.base.database.schema.base.TimestampedTable
 import ktask.base.persistence.serializers.OffsetTimestamp
-import org.jetbrains.exposed.sql.Column
 import org.jetbrains.exposed.sql.ResultRow
-import org.jetbrains.exposed.sql.Table
 
 /**
  * Represents the metadata of a record.
@@ -26,16 +25,13 @@ public data class Meta(
          * Maps a [ResultRow] to a [Meta] instance.
          *
          * @param row The [ResultRow] to map.
-         * @param table The [Table] from which the [ResultRow] was obtained.
+         * @param table The [TimestampedTable] from which the [ResultRow] was obtained.
          * @return The mapped [Meta] instance.
          */
-        public fun from(row: ResultRow, table: Table): Meta {
-            val createdAt: Column<*> = table.columns.single { it.name == "created_at" }
-            val updatedAt: Column<*> = table.columns.single { it.name == "updated_at" }
-
+        public fun from(row: ResultRow, table: TimestampedTable): Meta {
             return Meta(
-                createdAt = row[createdAt] as OffsetTimestamp,
-                updatedAt = row[updatedAt] as OffsetTimestamp
+                createdAt = row[table.createdAt],
+                updatedAt = row[table.updatedAt]
             )
         }
     }
