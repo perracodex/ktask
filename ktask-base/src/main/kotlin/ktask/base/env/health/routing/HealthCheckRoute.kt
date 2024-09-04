@@ -20,7 +20,7 @@ import ktask.base.env.health.HealthCheck
 public fun Route.healthCheckRoute() {
     // Healthcheck providing the current operational status.
     get("/health") {
-        val healthCheck = HealthCheck(call = call)
+        val healthCheck: HealthCheck = HealthCheck.create(call = call)
         call.respond(status = HttpStatusCode.OK, message = healthCheck)
     }
 }

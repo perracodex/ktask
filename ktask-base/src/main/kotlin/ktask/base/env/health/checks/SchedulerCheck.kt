@@ -4,7 +4,6 @@
 
 package ktask.base.env.health.checks
 
-import kotlinx.coroutines.runBlocking
 import kotlinx.serialization.Serializable
 import ktask.base.env.health.annotation.HealthCheckAPI
 import ktask.base.scheduler.service.core.SchedulerService
@@ -16,24 +15,33 @@ import ktask.base.scheduler.service.core.SchedulerService
  * @property isStarted Whether the scheduler is started.
  * @property isPaused Whether the scheduler is paused.
  * @property totalTasks The total number of tasks in the scheduler.
- *
  */
 @HealthCheckAPI
 @Serializable
-public data class SchedulerCheck(
+public data class SchedulerCheck internal constructor(
     val errors: MutableList<String>,
     val isStarted: Boolean,
     val isPaused: Boolean,
-    val totalTasks: Int,
+    val totalTasks: Int
 ) {
-    internal constructor() : this(
-        errors = mutableListOf(),
-        isStarted = SchedulerService.isStarted(),
-        isPaused = SchedulerService.isPaused(),
-        totalTasks = runBlocking { SchedulerService.totalTasks() },
-    ) {
+    init {
         if (!isStarted) {
-            errors.add("${this::class.simpleName}. Scheduler is not started.")
+            errors.add("SchedulerCheck. Scheduler is not started.")
+        }
+    }
+
+    internal companion object {
+        /**
+         * Creates a new [SchedulerCheck] instance.
+         * We need to use a suspendable factory method as totalTasks is a suspend function.
+         */
+        suspend fun create(): SchedulerCheck {
+            return SchedulerCheck(
+                errors = mutableListOf(),
+                isStarted = SchedulerService.isStarted(),
+                isPaused = SchedulerService.isPaused(),
+                totalTasks = SchedulerService.totalTasks()
+            )
         }
     }
 }
