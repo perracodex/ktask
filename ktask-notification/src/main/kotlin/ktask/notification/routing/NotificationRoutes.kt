@@ -13,10 +13,7 @@ import ktask.notification.routing.endpoints.slackTaskRoute
  * Initializes and sets up routing for the notification module.
  */
 public fun Route.notificationRoutes() {
-
-    route("push") {
-        actionTaskRoute()
-        emailTaskRoute()
-        slackTaskRoute()
-    }
+    actionTaskRoute()
+    emailTaskRoute()
+    slackTaskRoute()
 }

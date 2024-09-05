@@ -18,7 +18,7 @@ import ktask.notification.service.ActionService
 internal fun Route.actionTaskRoute() {
 
     // Create a new scheduled action task.
-    post<ActionRequest>("action") { request ->
+    post<ActionRequest>("push/action") { request ->
         val key: TaskKey = ActionService.schedule(request = request)
 
         call.respond(

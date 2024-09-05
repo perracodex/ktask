@@ -18,7 +18,7 @@ import ktask.notification.service.NotificationService
 internal fun Route.emailTaskRoute() {
 
     // Create a new scheduled Email notification task.
-    post<EmailRequest>("email") { request ->
+    post<EmailRequest>("push/email") { request ->
         val keys: List<TaskKey> = NotificationService.schedule(request = request)
 
         call.respond(
