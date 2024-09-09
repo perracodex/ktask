@@ -21,12 +21,10 @@ public object LocaleUtils {
      */
     public fun isValidLocale(string: String): Boolean {
         return localeCache.computeIfAbsent(string) {
-            try {
+            runCatching {
                 val inputLocaleTag: String = Locale.Builder().setLanguageTag(it).build().toLanguageTag().lowercase()
-                availableLocaleTags.contains(inputLocaleTag)
-            } catch (e: IllformedLocaleException) {
-                false
-            }
+                return@runCatching availableLocaleTags.contains(inputLocaleTag)
+            }.getOrDefault(defaultValue = false)
         }
     }
 }
