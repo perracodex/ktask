@@ -30,14 +30,11 @@ public sealed class SystemError(
     reason = reason,
     cause = cause
 ) {
-
     /**
      * Error for when an email has an invalid format.
      *
      * @param id The affected source id.
      * @param email The email that is already registered.
-     * @param reason An optional human-readable reason for the exception, providing more context.
-     * @param cause The underlying cause of the exception, if any.
      */
     public class InvalidEmailFormat(id: Uuid?, email: String, reason: String? = null, cause: Throwable? = null) : SystemError(
         status = HttpStatusCode.BadRequest,
@@ -52,8 +49,6 @@ public sealed class SystemError(
      *
      * @param id The affected source id.
      * @param phone The phone value with the invalid format.
-     * @param reason An optional human-readable reason for the exception, providing more context.
-     * @param cause The underlying cause of the exception, if any.
      */
     public class InvalidPhoneFormat(id: Uuid?, phone: String, reason: String? = null, cause: Throwable? = null) : SystemError(
         status = HttpStatusCode.BadRequest,
