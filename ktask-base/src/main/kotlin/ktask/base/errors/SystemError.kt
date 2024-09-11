@@ -22,7 +22,14 @@ public sealed class SystemError(
     description: String,
     reason: String? = null,
     cause: Throwable? = null
-) : AppException(status = status, code = code, description = description, reason = reason, cause = cause) {
+) : AppException(
+    status = status,
+    context = "SYSTEM",
+    code = code,
+    description = description,
+    reason = reason,
+    cause = cause
+) {
 
     /**
      * Error for when an email has an invalid format.
@@ -34,7 +41,7 @@ public sealed class SystemError(
      */
     public class InvalidEmailFormat(id: Uuid?, email: String, reason: String? = null, cause: Throwable? = null) : SystemError(
         status = HttpStatusCode.BadRequest,
-        code = "${TAG}IEF",
+        code = "INVALID_EMAIL_FORMAT",
         description = "Invalid email format: '$email'. Id: $id",
         reason = reason,
         cause = cause
@@ -50,17 +57,9 @@ public sealed class SystemError(
      */
     public class InvalidPhoneFormat(id: Uuid?, phone: String, reason: String? = null, cause: Throwable? = null) : SystemError(
         status = HttpStatusCode.BadRequest,
-        code = "${TAG}IPF",
+        code = "INVALID_PHONE_FORMAT",
         description = "Invalid phone format: '$phone'. Id: $id",
         reason = reason,
         cause = cause
     )
-
-    private companion object {
-        const val TAG: String = "SYS."
-
-        init {
-            ErrorCodeRegistry.registerTag(tag = TAG)
-        }
-    }
 }
