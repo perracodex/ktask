@@ -6,7 +6,7 @@ package ktask.notification.model.message.request
 
 import kotlinx.serialization.Serializable
 import ktask.base.errors.SystemError
-import ktask.base.persistence.serializers.UuidS
+import ktask.base.persistence.serializers.SUuid
 import ktask.base.persistence.validators.IValidator
 import ktask.base.persistence.validators.impl.EmailValidator
 import ktask.base.scheduler.service.schedule.Schedule
@@ -28,7 +28,7 @@ import ktask.notification.model.message.Recipient
  */
 @Serializable
 public data class EmailRequest(
-    override val id: UuidS,
+    override val id: SUuid,
     override val description: String? = null,
     override val schedule: Schedule? = null,
     override val recipients: List<Recipient>,

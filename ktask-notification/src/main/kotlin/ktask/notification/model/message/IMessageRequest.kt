@@ -4,7 +4,7 @@
 
 package ktask.notification.model.message
 
-import ktask.base.persistence.serializers.UuidS
+import ktask.base.persistence.serializers.SUuid
 import ktask.base.scheduler.service.schedule.Schedule
 import ktask.notification.consumer.message.AbsNotificationConsumer
 
@@ -19,7 +19,7 @@ import ktask.notification.consumer.message.AbsNotificationConsumer
  * @property fields Optional fields to be included in the template.
  */
 public interface IMessageRequest {
-    public val id: UuidS
+    public val id: SUuid
     public val description: String?
     public val schedule: Schedule?
     public val recipients: List<Recipient>

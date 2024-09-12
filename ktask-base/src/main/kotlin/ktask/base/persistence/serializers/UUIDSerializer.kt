@@ -38,4 +38,4 @@ internal object UuidSerializer : KSerializer<Uuid> {
  * @see Uuid
  * @see UuidSerializer
  */
-public typealias UuidS = @Serializable(with = UuidSerializer::class) Uuid
+public typealias SUuid = @Serializable(with = UuidSerializer::class) Uuid
