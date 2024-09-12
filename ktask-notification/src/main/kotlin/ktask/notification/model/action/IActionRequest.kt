@@ -2,7 +2,7 @@
  * Copyright (c) 2024-Present Perracodex. Use of this source code is governed by an MIT license.
  */
 
-package ktask.notification.entity.action
+package ktask.notification.model.action
 
 import ktask.base.persistence.serializers.UuidS
 import ktask.base.scheduler.service.schedule.Schedule

@@ -6,8 +6,8 @@ package ktask.base.scheduler.audit
 
 import ktask.base.database.schema.SchedulerAuditTable
 import ktask.base.scheduler.annotation.SchedulerAPI
-import ktask.base.scheduler.audit.entity.AuditDto
-import ktask.base.scheduler.audit.entity.AuditRequest
+import ktask.base.scheduler.audit.model.AuditDto
+import ktask.base.scheduler.audit.model.AuditRequest
 import org.jetbrains.exposed.sql.SortOrder
 import org.jetbrains.exposed.sql.andWhere
 import org.jetbrains.exposed.sql.insert

@@ -2,7 +2,7 @@
  * Copyright (c) 2024-Present Perracodex. Use of this source code is governed by an MIT license.
  */
 
-package ktask.base.persistence.entity
+package ktask.base.persistence.model
 
 import kotlinx.serialization.Serializable
 import ktask.base.database.schema.base.TimestampedTable

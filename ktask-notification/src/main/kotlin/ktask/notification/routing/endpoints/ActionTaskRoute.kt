@@ -9,7 +9,7 @@ import io.ktor.server.application.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
 import ktask.base.scheduler.service.task.TaskKey
-import ktask.notification.entity.action.request.ActionRequest
+import ktask.notification.model.action.request.ActionRequest
 import ktask.notification.service.ActionService
 
 /**

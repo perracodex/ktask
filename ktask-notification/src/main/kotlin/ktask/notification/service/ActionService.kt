@@ -15,7 +15,7 @@ import ktask.base.utils.DateTimeUtils
 import ktask.base.utils.KLocalDateTime
 import ktask.notification.consumer.action.AbsActionConsumer
 import ktask.notification.consumer.action.task.ActionConsumer
-import ktask.notification.entity.action.IActionRequest
+import ktask.notification.model.action.IActionRequest
 
 /**
  * Custom action service for managing scheduling related operations.

@@ -7,7 +7,7 @@ package ktask.base.scheduler.service.core
 import io.ktor.server.application.*
 import ktask.base.env.Tracer
 import ktask.base.scheduler.annotation.SchedulerAPI
-import ktask.base.scheduler.entity.TaskStateChangeDto
+import ktask.base.scheduler.model.TaskStateChangeDto
 import ktask.base.scheduler.listener.TaskListener
 import ktask.base.scheduler.listener.TriggerListener
 import ktask.base.scheduler.service.task.TaskFactory

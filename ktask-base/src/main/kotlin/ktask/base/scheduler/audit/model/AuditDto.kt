@@ -2,11 +2,11 @@
  * Copyright (c) 2024-Present Perracodex. Use of this source code is governed by an MIT license.
  */
 
-package ktask.base.scheduler.audit.entity
+package ktask.base.scheduler.audit.model
 
 import kotlinx.serialization.Serializable
 import ktask.base.database.schema.SchedulerAuditTable
-import ktask.base.persistence.entity.Meta
+import ktask.base.persistence.model.Meta
 import ktask.base.persistence.serializers.UuidS
 import ktask.base.scheduler.service.task.TaskOutcome
 import ktask.base.utils.KLocalDateTime

@@ -2,14 +2,14 @@
  * Copyright (c) 2024-Present Perracodex. Use of this source code is governed by an MIT license.
  */
 
-package ktask.notification.entity.message.request
+package ktask.notification.model.message.request
 
 import kotlinx.serialization.Serializable
 import ktask.base.persistence.serializers.UuidS
 import ktask.base.scheduler.service.schedule.Schedule
 import ktask.notification.consumer.message.task.SlackConsumer
-import ktask.notification.entity.message.IMessageRequest
-import ktask.notification.entity.message.Recipient
+import ktask.notification.model.message.IMessageRequest
+import ktask.notification.model.message.Recipient
 
 /**
  * Represents a request to send a Slack notification task.

@@ -11,7 +11,7 @@ import ktask.base.env.MetricsRegistry
 import ktask.base.env.Tracer
 import ktask.base.scheduler.annotation.SchedulerAPI
 import ktask.base.scheduler.audit.AuditService
-import ktask.base.scheduler.audit.entity.AuditRequest
+import ktask.base.scheduler.audit.model.AuditRequest
 import ktask.base.scheduler.service.task.TaskOutcome
 import ktask.base.utils.DateTimeUtils
 import org.quartz.JobExecutionContext

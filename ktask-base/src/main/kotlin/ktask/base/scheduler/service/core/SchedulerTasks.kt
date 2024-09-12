@@ -9,9 +9,9 @@ import ktask.base.env.Tracer
 import ktask.base.events.SEEService
 import ktask.base.scheduler.annotation.SchedulerAPI
 import ktask.base.scheduler.audit.AuditService
-import ktask.base.scheduler.audit.entity.AuditDto
-import ktask.base.scheduler.entity.TaskScheduleDto
-import ktask.base.scheduler.entity.TaskStateChangeDto
+import ktask.base.scheduler.audit.model.AuditDto
+import ktask.base.scheduler.model.TaskScheduleDto
+import ktask.base.scheduler.model.TaskStateChangeDto
 import ktask.base.scheduler.service.core.SchedulerTasks.Companion.create
 import ktask.base.scheduler.service.task.TaskState
 import ktask.base.snowflake.SnowflakeFactory

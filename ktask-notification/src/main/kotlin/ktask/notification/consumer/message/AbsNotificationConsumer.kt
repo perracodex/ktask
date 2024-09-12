@@ -8,7 +8,7 @@ import ktask.base.scheduler.service.task.TaskConsumer
 import ktask.base.settings.AppSettings
 import ktask.base.utils.CastUtils
 import ktask.base.utils.DateTimeUtils
-import ktask.notification.entity.message.Recipient
+import ktask.notification.model.message.Recipient
 import org.thymeleaf.TemplateEngine
 import org.thymeleaf.context.Context
 import org.thymeleaf.templatemode.TemplateMode

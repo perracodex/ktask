@@ -16,9 +16,9 @@ import ktask.base.utils.KLocalDateTime
 import ktask.notification.consumer.message.AbsNotificationConsumer
 import ktask.notification.consumer.message.task.EmailConsumer
 import ktask.notification.consumer.message.task.SlackConsumer
-import ktask.notification.entity.message.IMessageRequest
-import ktask.notification.entity.message.request.EmailRequest
-import ktask.notification.entity.message.request.SlackRequest
+import ktask.notification.model.message.IMessageRequest
+import ktask.notification.model.message.request.EmailRequest
+import ktask.notification.model.message.request.SlackRequest
 
 /**
  * Notification service for managing scheduling related operations.

@@ -2,7 +2,7 @@
  * Copyright (c) 2024-Present Perracodex. Use of this source code is governed by an MIT license.
  */
 
-package ktask.base.scheduler.audit.entity
+package ktask.base.scheduler.audit.model
 
 import ktask.base.scheduler.annotation.SchedulerAPI
 import ktask.base.scheduler.service.task.TaskOutcome

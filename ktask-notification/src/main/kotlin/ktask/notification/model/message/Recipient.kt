@@ -2,7 +2,7 @@
  * Copyright (c) 2024-Present Perracodex. Use of this source code is governed by an MIT license.
  */
 
-package ktask.notification.entity.message
+package ktask.notification.model.message
 
 import kotlinx.serialization.Serializable
 import ktask.base.utils.LocaleUtils

@@ -2,13 +2,13 @@
  * Copyright (c) 2024-Present Perracodex. Use of this source code is governed by an MIT license.
  */
 
-package ktask.notification.entity.action.request
+package ktask.notification.model.action.request
 
 import kotlinx.serialization.Serializable
 import ktask.base.persistence.serializers.UuidS
 import ktask.base.scheduler.service.schedule.Schedule
 import ktask.notification.consumer.action.task.ActionConsumer
-import ktask.notification.entity.action.IActionRequest
+import ktask.notification.model.action.IActionRequest
 
 /**
  * Represents a custom action task request.
