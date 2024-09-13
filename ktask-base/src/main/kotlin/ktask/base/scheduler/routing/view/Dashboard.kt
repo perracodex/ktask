@@ -9,7 +9,7 @@ import io.ktor.server.response.*
 import io.ktor.server.routing.*
 import io.ktor.server.thymeleaf.*
 import ktask.base.persistence.utils.toUuidOrNull
-import ktask.base.scheduler.model.TaskScheduleDto
+import ktask.base.scheduler.model.TaskSchedule
 import ktask.base.scheduler.service.core.SchedulerService
 import kotlin.uuid.Uuid
 
@@ -21,7 +21,7 @@ internal fun Route.schedulerDashboardRoute() {
     // The scheduler dashboard route.
     get("scheduler/dashboard") {
         val groupId: Uuid? = call.parameters["group"]?.toUuidOrNull()
-        val tasks: List<TaskScheduleDto> = SchedulerService.tasks.all(groupId = groupId)
+        val tasks: List<TaskSchedule> = SchedulerService.tasks.all(groupId = groupId)
         val content = ThymeleafContent(template = "scheduler/dashboard", model = mapOf("data" to tasks))
         call.respond(message = content)
     }

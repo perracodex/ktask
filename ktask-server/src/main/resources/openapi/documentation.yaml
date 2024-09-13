@@ -59,7 +59,7 @@ paths:
               schema:
                 type: "array"
                 items:
-                  $ref: "#/components/schemas/AuditDto"
+                  $ref: "#/components/schemas/AuditLog"
   /scheduler/audit/{name}/{group}:
     get:
       description: "Returns the audit log for a specific task."
@@ -97,7 +97,7 @@ paths:
               schema:
                 type: "array"
                 items:
-                  $ref: "#/components/schemas/AuditDto"
+                  $ref: "#/components/schemas/AuditLog"
   /scheduler/dashboard:
     get:
       description: "The scheduler dashboard route."
@@ -133,7 +133,7 @@ paths:
           content:
             '*/*':
               schema:
-                $ref: "#/components/schemas/TaskStateChangeDto"
+                $ref: "#/components/schemas/TaskStateChange"
   /scheduler/restart:
     post:
       description: "Restart the task scheduler."
@@ -159,7 +159,7 @@ paths:
           content:
             '*/*':
               schema:
-                $ref: "#/components/schemas/TaskStateChangeDto"
+                $ref: "#/components/schemas/TaskStateChange"
   /scheduler/state:
     get:
       description: "Returns the state of the task scheduler."
@@ -197,7 +197,7 @@ paths:
               schema:
                 type: "array"
                 items:
-                  $ref: "#/components/schemas/TaskScheduleDto"
+                  $ref: "#/components/schemas/TaskSchedule"
   /scheduler/task/{name}/{group}:
     delete:
       description: "Deletes a concrete scheduler task."
@@ -240,7 +240,7 @@ paths:
           content:
             '*/*':
               schema:
-                $ref: "#/components/schemas/TaskStateChangeDto"
+                $ref: "#/components/schemas/TaskStateChange"
   /scheduler/task/{name}/{group}/resend:
     post:
       description: "Resends a concrete scheduler task."
@@ -282,7 +282,7 @@ paths:
           content:
             '*/*':
               schema:
-                $ref: "#/components/schemas/TaskStateChangeDto"
+                $ref: "#/components/schemas/TaskStateChange"
   /scheduler/task/group:
     get:
       description: "Gets all scheduler task groups."
@@ -652,7 +652,7 @@ components:
       required:
         - "createdAt"
         - "updatedAt"
-    AuditDto:
+    AuditLog:
       type: "object"
       properties:
         id:
@@ -737,7 +737,7 @@ components:
         - "contentType"
         - "locale"
         - "fragments"
-    TaskStateChangeDto:
+    TaskStateChange:
       type: "object"
       properties:
         totalAffected:
@@ -753,7 +753,7 @@ components:
           type: "string"
       required:
         - "state"
-    TaskScheduleDto:
+    TaskSchedule:
       type: "object"
       properties:
         name:

@@ -14,7 +14,7 @@ import ktask.notification.consumer.message.AbsNotificationConsumer
  * @property id The unique identifier of the task request.
  * @property description Optional description of the task.
  * @property schedule Optional [Schedule] for the task.
- * @property recipients List of target recipients.
+ * @property recipients List [Recipient] targets.
  * @property template The template to be used for the notification.
  * @property fields Optional fields to be included in the template.
  */

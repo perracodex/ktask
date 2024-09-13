@@ -8,7 +8,7 @@ import io.ktor.http.*
 import io.ktor.server.application.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
-import ktask.base.scheduler.model.TaskStateChangeDto
+import ktask.base.scheduler.model.TaskStateChange
 import ktask.base.scheduler.service.core.SchedulerService
 
 /**
@@ -17,7 +17,7 @@ import ktask.base.scheduler.service.core.SchedulerService
 internal fun Route.resumeSchedulerRoute() {
     // Resume all the scheduler tasks.
     post("scheduler/resume") {
-        val state: TaskStateChangeDto = SchedulerService.resume()
+        val state: TaskStateChange = SchedulerService.resume()
         call.respond(status = HttpStatusCode.OK, message = state)
     }
 }

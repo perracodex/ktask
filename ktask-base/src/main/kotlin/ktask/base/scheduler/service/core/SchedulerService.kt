@@ -7,9 +7,9 @@ package ktask.base.scheduler.service.core
 import io.ktor.server.application.*
 import ktask.base.env.Tracer
 import ktask.base.scheduler.annotation.SchedulerAPI
-import ktask.base.scheduler.model.TaskStateChangeDto
 import ktask.base.scheduler.listener.TaskListener
 import ktask.base.scheduler.listener.TriggerListener
+import ktask.base.scheduler.model.TaskStateChange
 import ktask.base.scheduler.service.task.TaskFactory
 import ktask.base.scheduler.service.task.TaskState
 import org.quartz.Scheduler
@@ -169,9 +169,9 @@ internal object SchedulerService {
      * of the overall scheduler state. Thus, individual tasks can be
      * actively executing even when the scheduler is paused.
      *
-     * @return [TaskStateChangeDto] containing details of the operation.
+     * @return [TaskStateChange] containing details of the operation.
      */
-    fun pause(): TaskStateChangeDto {
+    fun pause(): TaskStateChange {
         return TaskState.change(scheduler = scheduler, targetState = TriggerState.PAUSED) {
             // Attempt to pause all triggers
             tracer.info("Attempting to pause all triggers...")
@@ -221,9 +221,9 @@ internal object SchedulerService {
     /**
      * Resumes all tasks currently paused in the scheduler.
      *
-     * @return [TaskStateChangeDto] containing details of the operation.
+     * @return [TaskStateChange] containing details of the operation.
      */
-    fun resume(): TaskStateChangeDto {
+    fun resume(): TaskStateChange {
         return TaskState.change(scheduler = scheduler, targetState = TriggerState.NORMAL) {
             // Attempt to resume all triggers.
             tracer.info("Attempting to resume all triggers.")
