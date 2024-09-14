@@ -13,10 +13,7 @@ import kotlinx.coroutines.withContext
 import ktask.base.env.Tracer
 import ktask.base.settings.annotation.ConfigurationAPI
 import ktask.base.settings.config.ConfigurationCatalog
-import kotlin.reflect.KClass
-import kotlin.reflect.KFunction
-import kotlin.reflect.KParameter
-import kotlin.reflect.KProperty1
+import kotlin.reflect.*
 import kotlin.reflect.full.memberProperties
 import kotlin.reflect.full.primaryConstructor
 import kotlin.reflect.jvm.jvmErasure
@@ -194,11 +191,21 @@ internal object ConfigurationParser {
 
         // Handle lists.
         if (type == List::class) {
-            val listType: KClass<*> = (property.returnType.arguments.first().type!!.classifier as? KClass<*>)
+            // Extract the KType of the list's elements by accessing its single type argument.
+            // Example: For a property of type List<String>, extract the KType of the elements (String).
+            val elementType: KType = property.returnType.arguments.singleOrNull()?.type
                 ?: throw IllegalArgumentException(
-                    "Cannot determine list element type for property '${property.name}' in '${property.returnType}'."
+                    "Cannot determine the list elements type for property '${property.name}' in '${property.returnType}'."
                 )
 
+            // Retrieve the KClass of the list element type.
+            // Example: If elementType is String::class, listElementClass will be String::class.
+            val listType: KClass<*> = (elementType.classifier as? KClass<*>)
+                ?: throw IllegalArgumentException(
+                    "Cannot determine list elements type class for property '${property.name}' in '${property.returnType}'."
+                )
+
+            // Parse the list values using the extracted list element class
             return parseListValues(config = config, keyPath = keyPath, listType = listType)
         }
 
