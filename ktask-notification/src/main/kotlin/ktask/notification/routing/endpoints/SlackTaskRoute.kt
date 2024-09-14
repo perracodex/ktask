@@ -16,14 +16,9 @@ import ktask.notification.service.NotificationService
  * Creates a new scheduled Slack notification task.
  */
 internal fun Route.slackTaskRoute() {
-
     // Create a new scheduled Slack notification task.
     post<SlackRequest>("push/slack") { request ->
         val keys: List<TaskKey> = NotificationService.schedule(request = request)
-
-        call.respond(
-            status = HttpStatusCode.Created,
-            message = keys
-        )
+        call.respond(status = HttpStatusCode.Created, message = keys)
     }
 }
