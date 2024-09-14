@@ -5,7 +5,7 @@
 package ktask.base.scheduler.service.task
 
 import ktask.base.scheduler.annotation.SchedulerAPI
-import ktask.base.scheduler.model.TaskStateChange
+import ktask.base.scheduler.model.task.TaskStateChange
 import org.quartz.JobDetail
 import org.quartz.JobKey
 import org.quartz.Scheduler

@@ -8,8 +8,8 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import ktask.base.env.Tracer
 import ktask.base.scheduler.annotation.SchedulerAPI
-import ktask.base.scheduler.model.AuditLog
-import ktask.base.scheduler.model.AuditLogRequest
+import ktask.base.scheduler.model.audit.AuditLog
+import ktask.base.scheduler.model.audit.AuditLogRequest
 import kotlin.uuid.Uuid
 
 /**

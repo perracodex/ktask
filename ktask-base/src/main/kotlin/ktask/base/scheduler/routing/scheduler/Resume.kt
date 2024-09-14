@@ -8,7 +8,7 @@ import io.ktor.http.*
 import io.ktor.server.application.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
-import ktask.base.scheduler.model.TaskStateChange
+import ktask.base.scheduler.model.task.TaskStateChange
 import ktask.base.scheduler.service.core.SchedulerService
 
 /**

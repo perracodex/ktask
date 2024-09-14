@@ -9,7 +9,7 @@ import ktask.base.env.Tracer
 import ktask.base.scheduler.annotation.SchedulerAPI
 import ktask.base.scheduler.listener.TaskListener
 import ktask.base.scheduler.listener.TriggerListener
-import ktask.base.scheduler.model.TaskStateChange
+import ktask.base.scheduler.model.task.TaskStateChange
 import ktask.base.scheduler.service.task.TaskFactory
 import ktask.base.scheduler.service.task.TaskState
 import org.quartz.Scheduler

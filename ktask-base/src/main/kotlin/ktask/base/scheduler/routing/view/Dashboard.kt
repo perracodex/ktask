@@ -9,7 +9,7 @@ import io.ktor.server.response.*
 import io.ktor.server.routing.*
 import io.ktor.server.thymeleaf.*
 import ktask.base.persistence.utils.toUuidOrNull
-import ktask.base.scheduler.model.TaskSchedule
+import ktask.base.scheduler.model.task.TaskSchedule
 import ktask.base.scheduler.service.core.SchedulerService
 import kotlin.uuid.Uuid
 
