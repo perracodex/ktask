@@ -9,7 +9,7 @@ import ktask.base.env.Tracer
 import ktask.base.events.SEEService
 import ktask.base.scheduler.annotation.SchedulerAPI
 import ktask.base.scheduler.audit.AuditService
-import ktask.base.scheduler.audit.model.AuditLog
+import ktask.base.scheduler.model.AuditLog
 import ktask.base.scheduler.model.TaskSchedule
 import ktask.base.scheduler.model.TaskStateChange
 import ktask.base.scheduler.service.core.SchedulerTasks.Companion.create
