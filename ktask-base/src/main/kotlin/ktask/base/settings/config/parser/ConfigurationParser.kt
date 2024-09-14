@@ -124,7 +124,8 @@ internal object ConfigurationParser {
         tracer.debug("Parsing '${kClass.simpleName}' from '$keyPath'")
 
         // Fetch the primary constructor of the class.
-        val constructor: KFunction<T> = kClass.primaryConstructor!!
+        val constructor: KFunction<T> = kClass.primaryConstructor
+            ?: throw IllegalArgumentException("No primary constructor found for ${kClass.simpleName}")
 
         // Map each constructor parameter to its corresponding value from the configuration.
         // This includes direct value assignment for simple types and recursive instantiation
@@ -144,7 +145,7 @@ internal object ConfigurationParser {
                 // Find the target property attribute corresponding to the parameter in the class.
                 val property: KProperty1<T, *> = kClass.memberProperties.find { property ->
                     property.name == parameter.name
-                }!!
+                } ?: throw IllegalArgumentException("Property '${parameter.name}' not found in '${kClass.simpleName}'.")
 
                 // Convert and return the configuration value for the parameter.
                 return@associateWith convertToType(
@@ -193,7 +194,11 @@ internal object ConfigurationParser {
 
         // Handle lists.
         if (type == List::class) {
-            val listType: KClass<*> = (property.returnType.arguments.first().type!!.classifier as? KClass<*>)!!
+            val listType: KClass<*> = (property.returnType.arguments.first().type!!.classifier as? KClass<*>)
+                ?: throw IllegalArgumentException(
+                    "Cannot determine list element type for property '${property.name}' in '${property.returnType}'."
+                )
+
             return parseListValues(config = config, keyPath = keyPath, listType = listType)
         }
 
