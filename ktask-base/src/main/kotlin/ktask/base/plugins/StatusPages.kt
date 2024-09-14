@@ -67,7 +67,7 @@ public fun Application.configureStatusPages() {
  */
 private suspend fun ApplicationCall.respondError(cause: AppException) {
     // Set the ETag header with the error code.
-    this.response.header(name = HttpHeaders.ETag, value = cause.code)
+    this.response.header(name = HttpHeaders.ETag, value = cause.errorCode)
 
     // Serialize the error response.
     val json: String = Json.encodeToString<AppException.ErrorResponse>(value = cause.toErrorResponse())
@@ -76,7 +76,7 @@ private suspend fun ApplicationCall.respondError(cause: AppException) {
     this.respondText(
         text = json,
         contentType = ContentType.Application.Json,
-        status = cause.status
+        status = cause.statusCode
     )
 }
 

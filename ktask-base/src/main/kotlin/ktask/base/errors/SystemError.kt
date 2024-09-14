@@ -10,22 +10,22 @@ import kotlin.uuid.Uuid
 /**
  * Concrete system errors.
  *
- * @property status The [HttpStatusCode] associated with this error.
- * @property code A unique code identifying the type of error.
+ * @property statusCode The [HttpStatusCode] associated with this error.
+ * @property errorCode A unique code identifying the type of error.
  * @property description A human-readable description of the error.
  * @property reason An optional human-readable reason for the exception, providing more context.
  * @property cause The underlying cause of the exception, if any.
  */
 public sealed class SystemError(
-    status: HttpStatusCode,
-    code: String,
+    statusCode: HttpStatusCode,
+    errorCode: String,
     description: String,
     reason: String? = null,
     cause: Throwable? = null
 ) : AppException(
-    status = status,
+    statusCode = statusCode,
+    errorCode = errorCode,
     context = "SYSTEM",
-    code = code,
     description = description,
     reason = reason,
     cause = cause
@@ -37,12 +37,20 @@ public sealed class SystemError(
      * @param email The email that is already registered.
      */
     public class InvalidEmailFormat(id: Uuid?, email: String, reason: String? = null, cause: Throwable? = null) : SystemError(
-        status = HttpStatusCode.BadRequest,
-        code = "INVALID_EMAIL_FORMAT",
+        statusCode = STATUS_CODE,
+        errorCode = ERROR_CODE,
         description = "Invalid email format: '$email'. Id: $id",
         reason = reason,
         cause = cause
-    )
+    ) {
+        public companion object {
+            /** The [HttpStatusCode] associated with this error. */
+            public val STATUS_CODE: HttpStatusCode = HttpStatusCode.BadRequest
+
+            /** A unique code identifying the type of error. */
+            public const val ERROR_CODE: String = "INVALID_EMAIL_FORMAT"
+        }
+    }
 
     /**
      * Error for when a phone has an invalid format.
@@ -51,10 +59,18 @@ public sealed class SystemError(
      * @param phone The phone value with the invalid format.
      */
     public class InvalidPhoneFormat(id: Uuid?, phone: String, reason: String? = null, cause: Throwable? = null) : SystemError(
-        status = HttpStatusCode.BadRequest,
-        code = "INVALID_PHONE_FORMAT",
+        statusCode = STATUS_CODE,
+        errorCode = ERROR_CODE,
         description = "Invalid phone format: '$phone'. Id: $id",
         reason = reason,
         cause = cause
-    )
+    ) {
+        public companion object {
+            /** The [HttpStatusCode] associated with this error. */
+            public val STATUS_CODE: HttpStatusCode = HttpStatusCode.BadRequest
+
+            /** A unique code identifying the type of error. */
+            public const val ERROR_CODE: String = "INVALID_PHONE_FORMAT"
+        }
+    }
 }
