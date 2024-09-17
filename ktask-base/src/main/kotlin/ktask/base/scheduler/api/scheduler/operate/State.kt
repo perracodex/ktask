@@ -8,11 +8,13 @@ import io.ktor.http.*
 import io.ktor.server.application.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
+import ktask.base.scheduler.api.SchedulerRouteAPI
 import ktask.base.scheduler.service.core.SchedulerService
 
 /**
  * Returns the state of the task scheduler.
  */
+@SchedulerRouteAPI
 internal fun Route.schedulerStateRoute() {
     /**
      * Returns the state of the task scheduler.

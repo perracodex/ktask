@@ -9,12 +9,14 @@ import io.ktor.server.application.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
 import io.ktor.server.util.*
+import ktask.base.scheduler.api.SchedulerRouteAPI
 import ktask.base.scheduler.audit.AuditService
 import ktask.base.scheduler.model.audit.AuditLog
 
 /**
  * Returns the audit log for a specific task.
  */
+@SchedulerRouteAPI
 internal fun Route.schedulerAuditByTaskRoute() {
     /**
      * Returns the audit log for a specific task.

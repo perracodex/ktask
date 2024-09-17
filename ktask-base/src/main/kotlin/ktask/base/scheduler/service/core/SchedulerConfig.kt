@@ -4,7 +4,7 @@
 
 package ktask.base.scheduler.service.core
 
-import ktask.base.scheduler.annotation.SchedulerAPI
+import ktask.base.scheduler.service.annotation.SchedulerAPI
 import ktask.base.settings.AppSettings
 import java.io.InputStream
 import java.util.*

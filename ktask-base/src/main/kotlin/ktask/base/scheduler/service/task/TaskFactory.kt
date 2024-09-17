@@ -4,7 +4,7 @@
 
 package ktask.base.scheduler.service.task
 
-import ktask.base.scheduler.annotation.SchedulerAPI
+import ktask.base.scheduler.service.annotation.SchedulerAPI
 import ktask.base.scheduler.service.core.SchedulerService
 import ktask.base.settings.AppSettings
 import org.quartz.Job

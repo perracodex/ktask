@@ -2,7 +2,7 @@
  * Copyright (c) 2024-Present Perracodex. Use of this source code is governed by an MIT license.
  */
 
-package ktask.base.scheduler.annotation
+package ktask.base.scheduler.service.annotation
 
 /**
  * Annotation for controlled access to the Scheduler API.

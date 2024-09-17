@@ -9,11 +9,13 @@ import io.ktor.server.application.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
 import io.ktor.server.util.*
+import ktask.base.scheduler.api.SchedulerRouteAPI
 import ktask.base.scheduler.service.core.SchedulerService
 
 /**
  * Deletes a concrete scheduler task.
  */
+@SchedulerRouteAPI
 internal fun Route.deleteSchedulerTaskRoute() {
     /**
      * Deletes a concrete scheduler task.

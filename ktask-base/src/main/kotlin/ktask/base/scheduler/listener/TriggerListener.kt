@@ -5,7 +5,7 @@
 package ktask.base.scheduler.listener
 
 import ktask.base.env.Tracer
-import ktask.base.scheduler.annotation.SchedulerAPI
+import ktask.base.scheduler.service.annotation.SchedulerAPI
 import org.quartz.JobExecutionContext
 import org.quartz.Trigger
 import org.quartz.Trigger.CompletedExecutionInstruction

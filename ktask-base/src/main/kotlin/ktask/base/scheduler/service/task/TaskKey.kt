@@ -5,7 +5,7 @@
 package ktask.base.scheduler.service.task
 
 import kotlinx.serialization.Serializable
-import ktask.base.scheduler.annotation.SchedulerAPI
+import ktask.base.scheduler.service.annotation.SchedulerAPI
 import org.quartz.JobKey
 
 /**

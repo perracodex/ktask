@@ -4,7 +4,7 @@
 
 package ktask.base.scheduler.model.audit
 
-import ktask.base.scheduler.annotation.SchedulerAPI
+import ktask.base.scheduler.service.annotation.SchedulerAPI
 import ktask.base.scheduler.service.task.TaskOutcome
 import ktask.base.utils.KLocalDateTime
 
