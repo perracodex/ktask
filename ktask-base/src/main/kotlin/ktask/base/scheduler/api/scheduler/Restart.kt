@@ -2,7 +2,7 @@
  * Copyright (c) 2024-Present Perracodex. Use of this source code is governed by an MIT license.
  */
 
-package ktask.base.scheduler.routing.scheduler
+package ktask.base.scheduler.api.scheduler
 
 import io.ktor.http.*
 import io.ktor.server.application.*
@@ -14,7 +14,10 @@ import ktask.base.scheduler.service.core.SchedulerService
  * Restart the task scheduler.
  */
 internal fun Route.restartSchedulerRoute() {
-    // Restart the task scheduler.
+    /**
+     * Restart the task scheduler.
+     * @OpenAPITag Scheduler - Maintenance
+     */
     post("scheduler/restart") {
         val interrupt: Boolean = call.parameters["interrupt"]?.toBoolean() ?: false
         val state: SchedulerService.TaskSchedulerState = SchedulerService.restart(interrupt = interrupt)

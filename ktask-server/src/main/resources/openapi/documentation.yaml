@@ -6,6 +6,13 @@ info:
 servers:
   - url: "http://127.0.0.1:8080"
   - url: "https://127.0.0.1:8443"
+tags:
+  - name: "System"
+    description: " <br> "
+  - name: "Scheduler - Maintenance"
+    description: " <br> "
+  - name: "Scheduler"
+    description: " <br> "
 paths:
   /:
     post:
@@ -15,9 +22,6 @@ paths:
           description: "Bad Request"
           content:
             '*/*':
-              schema:
-                type: "string"
-            application/json:
               schema:
                 type: "string"
         "201":
@@ -30,6 +34,8 @@ paths:
                   $ref: "#/components/schemas/TaskKey"
   /events:
     get:
+      tags:
+        - "System"
       description: "Server-Sent Events (SSE) endpoint."
       responses:
         "500":
@@ -40,6 +46,8 @@ paths:
                 type: "string"
   /health:
     get:
+      tags:
+        - "System"
       description: "Healthcheck providing the current operational status."
       responses:
         "200":
@@ -50,7 +58,9 @@ paths:
                 $ref: "#/components/schemas/HealthCheck"
   /scheduler/audit:
     get:
-      description: "Returns the audit logs for the scheduler."
+      tags:
+        - "Scheduler - Maintenance"
+      description: "Returns all existing audit logs for the scheduler."
       responses:
         "200":
           description: "OK"
@@ -62,6 +72,8 @@ paths:
                   $ref: "#/components/schemas/AuditLog"
   /scheduler/audit/{name}/{group}:
     get:
+      tags:
+        - "Scheduler - Maintenance"
       description: "Returns the audit log for a specific task."
       parameters:
         - name: "name"
@@ -94,6 +106,8 @@ paths:
                   $ref: "#/components/schemas/AuditLog"
   /scheduler/dashboard:
     get:
+      tags:
+        - "Scheduler - Maintenance"
       description: "The scheduler dashboard route."
       parameters:
         - name: "group"
@@ -120,6 +134,8 @@ paths:
                     fragments: "null"
   /scheduler/pause:
     post:
+      tags:
+        - "Scheduler - Maintenance"
       description: "Pauses all the scheduler tasks."
       responses:
         "200":
@@ -130,6 +146,8 @@ paths:
                 $ref: "#/components/schemas/TaskStateChange"
   /scheduler/restart:
     post:
+      tags:
+        - "Scheduler - Maintenance"
       description: "Restart the task scheduler."
       parameters:
         - name: "interrupt"
@@ -146,6 +164,8 @@ paths:
                 type: "string"
   /scheduler/resume:
     post:
+      tags:
+        - "Scheduler - Maintenance"
       description: "Resume all the scheduler tasks."
       responses:
         "200":
@@ -156,6 +176,8 @@ paths:
                 $ref: "#/components/schemas/TaskStateChange"
   /scheduler/state:
     get:
+      tags:
+        - "Scheduler - Maintenance"
       description: "Returns the state of the task scheduler."
       responses:
         "200":
@@ -166,6 +188,8 @@ paths:
                 type: "string"
   /scheduler/task:
     delete:
+      tags:
+        - "Scheduler"
       description: "Deletes all scheduler tasks."
       responses:
         "200":
@@ -176,6 +200,8 @@ paths:
                 type: "integer"
                 format: "int32"
     get:
+      tags:
+        - "Scheduler"
       description: "Gets all scheduler tasks."
       parameters:
         - name: "group"
@@ -194,6 +220,8 @@ paths:
                   $ref: "#/components/schemas/TaskSchedule"
   /scheduler/task/{name}/{group}:
     delete:
+      tags:
+        - "Scheduler"
       description: "Deletes a concrete scheduler task."
       parameters:
         - name: "name"
@@ -216,6 +244,8 @@ paths:
                 format: "int32"
   /scheduler/task/{name}/{group}/pause:
     post:
+      tags:
+        - "Scheduler"
       description: "Pause a concrete scheduler task."
       parameters:
         - name: "name"
@@ -237,6 +267,8 @@ paths:
                 $ref: "#/components/schemas/TaskStateChange"
   /scheduler/task/{name}/{group}/resend:
     post:
+      tags:
+        - "Scheduler"
       description: "Resends a concrete scheduler task."
       parameters:
         - name: "name"
@@ -258,6 +290,8 @@ paths:
                 type: "object"
   /scheduler/task/{name}/{group}/resume:
     post:
+      tags:
+        - "Scheduler"
       description: "Resume a concrete scheduled task."
       parameters:
         - name: "name"
@@ -279,6 +313,8 @@ paths:
                 $ref: "#/components/schemas/TaskStateChange"
   /scheduler/task/group:
     get:
+      tags:
+        - "Scheduler"
       description: "Gets all scheduler task groups."
       responses:
         "200":
@@ -626,14 +662,8 @@ components:
         - "database"
         - "endpoints"
     Uuid:
-      type: "object"
-      properties:
-        mostSignificantBits:
-          type: "integer"
-          format: "int64"
-        leastSignificantBits:
-          type: "integer"
-          format: "int64"
+      type: "string"
+      format: "uuid"
     Meta:
       type: "object"
       properties:

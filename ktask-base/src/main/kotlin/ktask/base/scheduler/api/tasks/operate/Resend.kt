@@ -2,7 +2,7 @@
  * Copyright (c) 2024-Present Perracodex. Use of this source code is governed by an MIT license.
  */
 
-package ktask.base.scheduler.routing.tasks.operate
+package ktask.base.scheduler.api.tasks.operate
 
 import io.ktor.http.*
 import io.ktor.server.application.*
@@ -15,7 +15,10 @@ import ktask.base.scheduler.service.core.SchedulerService
  * Resends a concrete scheduler task.
  */
 internal fun Route.resendSchedulerTaskRoute() {
-    // Resends a concrete scheduler task.
+    /**
+     * Resends a concrete scheduler task.
+     * @OpenAPITag Scheduler
+     */
     post("scheduler/task/{name}/{group}/resend") {
         val name: String = call.parameters.getOrFail(name = "name")
         val group: String = call.parameters.getOrFail(name = "group")

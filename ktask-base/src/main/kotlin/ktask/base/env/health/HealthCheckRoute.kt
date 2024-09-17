@@ -2,13 +2,12 @@
  * Copyright (c) 2024-Present Perracodex. Use of this source code is governed by an MIT license.
  */
 
-package ktask.base.env.health.routing
+package ktask.base.env.health
 
 import io.ktor.http.*
 import io.ktor.server.application.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
-import ktask.base.env.health.HealthCheck
 
 /**
  * Defines the health check endpoints.
@@ -18,7 +17,10 @@ import ktask.base.env.health.HealthCheck
  * external service availability, or other critical component checks.
  */
 public fun Route.healthCheckRoute() {
-    // Healthcheck providing the current operational status.
+    /**
+     * Healthcheck providing the current operational status.
+     * @OpenAPITag System
+     */
     get("/health") {
         val healthCheck: HealthCheck = HealthCheck.create(call = call)
         call.respond(status = HttpStatusCode.OK, message = healthCheck)

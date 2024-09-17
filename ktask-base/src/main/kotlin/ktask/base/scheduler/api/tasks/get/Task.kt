@@ -2,26 +2,28 @@
  * Copyright (c) 2024-Present Perracodex. Use of this source code is governed by an MIT license.
  */
 
-package ktask.base.scheduler.routing.view
+package ktask.base.scheduler.api.tasks.get
 
+import io.ktor.http.*
 import io.ktor.server.application.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
-import io.ktor.server.thymeleaf.*
 import ktask.base.persistence.utils.toUuidOrNull
 import ktask.base.scheduler.model.task.TaskSchedule
 import ktask.base.scheduler.service.core.SchedulerService
 import kotlin.uuid.Uuid
 
 /**
- * The scheduler dashboard route.
+ * Gets all scheduler tasks.
  */
-internal fun Route.schedulerDashboardRoute() {
-    // The scheduler dashboard route.
-    get("scheduler/dashboard") {
+internal fun Route.getSchedulerTasksRoute() {
+    /**
+     * Gets all scheduler tasks.
+     * @OpenAPITag Scheduler
+     */
+    get("scheduler/task") {
         val groupId: Uuid? = call.parameters["group"]?.toUuidOrNull()
         val tasks: List<TaskSchedule> = SchedulerService.tasks.all(groupId = groupId)
-        val content = ThymeleafContent(template = "scheduler/dashboard", model = mapOf("data" to tasks))
-        call.respond(message = content)
+        call.respond(status = HttpStatusCode.OK, message = tasks)
     }
 }

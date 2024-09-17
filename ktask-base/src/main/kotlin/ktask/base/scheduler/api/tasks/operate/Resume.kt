@@ -2,7 +2,7 @@
  * Copyright (c) 2024-Present Perracodex. Use of this source code is governed by an MIT license.
  */
 
-package ktask.base.scheduler.routing.tasks.operate
+package ktask.base.scheduler.api.tasks.operate
 
 import io.ktor.http.*
 import io.ktor.server.application.*
@@ -13,14 +13,17 @@ import ktask.base.scheduler.model.task.TaskStateChange
 import ktask.base.scheduler.service.core.SchedulerService
 
 /**
- * Pause a concrete scheduler task.
+ * Resume a concrete scheduler task.
  */
-internal fun Route.pauseSchedulerTaskRoute() {
-    // Pause a concrete scheduler task.
-    post("scheduler/task/{name}/{group}/pause") {
+internal fun Route.resumeSchedulerTaskRoute() {
+    /**
+     * Resume a concrete scheduled task.
+     * @OpenAPITag Scheduler
+     */
+    post("scheduler/task/{name}/{group}/resume") {
         val name: String = call.parameters.getOrFail(name = "name")
         val group: String = call.parameters.getOrFail(name = "group")
-        val state: TaskStateChange = SchedulerService.tasks.pause(name = name, group = group)
+        val state: TaskStateChange = SchedulerService.tasks.resume(name = name, group = group)
         call.respond(status = HttpStatusCode.OK, message = state)
     }
 }

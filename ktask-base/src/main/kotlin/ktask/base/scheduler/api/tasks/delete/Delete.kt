@@ -2,7 +2,7 @@
  * Copyright (c) 2024-Present Perracodex. Use of this source code is governed by an MIT license.
  */
 
-package ktask.base.scheduler.routing.tasks.delete
+package ktask.base.scheduler.api.tasks.delete
 
 import io.ktor.http.*
 import io.ktor.server.application.*
@@ -15,7 +15,10 @@ import ktask.base.scheduler.service.core.SchedulerService
  * Deletes a concrete scheduler task.
  */
 internal fun Route.deleteSchedulerTaskRoute() {
-    // Deletes a concrete scheduler task.
+    /**
+     * Deletes a concrete scheduler task.
+     * @OpenAPITag Scheduler
+     */
     delete("scheduler/task/{name}/{group}") {
         val name: String = call.parameters.getOrFail(name = "name")
         val group: String = call.parameters.getOrFail(name = "group")
