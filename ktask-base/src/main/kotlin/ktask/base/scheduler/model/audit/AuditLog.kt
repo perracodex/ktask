@@ -7,7 +7,7 @@ package ktask.base.scheduler.model.audit
 import kotlinx.serialization.Serializable
 import ktask.base.database.schema.SchedulerAuditTable
 import ktask.base.persistence.model.Meta
-import ktask.base.persistence.serializers.SUuid
+import ktask.base.persistence.serializers.Uuid
 import ktask.base.scheduler.service.task.TaskOutcome
 import ktask.base.utils.KLocalDateTime
 import org.jetbrains.exposed.sql.ResultRow
@@ -27,7 +27,7 @@ import org.jetbrains.exposed.sql.ResultRow
  */
 @Serializable
 public data class AuditLog(
-    val id: SUuid,
+    val id: Uuid,
     val taskName: String,
     val taskGroup: String,
     val fireTime: KLocalDateTime,

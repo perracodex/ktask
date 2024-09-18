@@ -5,7 +5,7 @@
 package ktask.notification.model.action.request
 
 import kotlinx.serialization.Serializable
-import ktask.base.persistence.serializers.SUuid
+import ktask.base.persistence.serializers.Uuid
 import ktask.base.scheduler.service.schedule.Schedule
 import ktask.notification.consumer.action.task.ActionConsumer
 import ktask.notification.model.action.IActionRequest
@@ -20,7 +20,7 @@ import ktask.notification.model.action.IActionRequest
  */
 @Serializable
 public data class ActionRequest(
-    override val id: SUuid,
+    override val id: Uuid,
     override val description: String? = null,
     override val schedule: Schedule? = null,
     val data: String,
