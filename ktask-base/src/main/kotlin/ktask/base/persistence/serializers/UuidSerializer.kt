@@ -18,7 +18,7 @@ import kotlin.uuid.Uuid
  */
 internal object UuidSerializer : KSerializer<Uuid> {
     override val descriptor: SerialDescriptor = PrimitiveSerialDescriptor(
-        serialName = "Uuid",
+        serialName = "kotlin_uuid",
         kind = PrimitiveKind.STRING
     )
 
