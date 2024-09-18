@@ -63,7 +63,7 @@ public object EmailValidator {
 
         // Check for the maximum length of the entire email address (254 characters).
         if (value.length > MAX_EMAIL_LENGTH) {
-            return Result.failure(RuntimeException("Email exceeds the maximum length of 254 characters: $value"))
+            return Result.failure(IllegalArgumentException("Email exceeds the maximum length of 254 characters: $value"))
         }
 
         // Splitting local and domain parts to apply specific checks.
