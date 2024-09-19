@@ -28,7 +28,7 @@ public sealed class SystemError(
     context = "SYSTEM",
     description = description,
     reason = reason,
-    cause = cause
+    error = cause
 ) {
     /**
      * Error for when an email has an invalid format.
