@@ -27,8 +27,8 @@ internal abstract class AbsActionConsumer : TaskConsumer() {
     /**
      * Represents the data necessary for task processing, encapsulating task-specific parameters.
      *
-     * @param taskId The unique identifier of the task.
-     * @param additionalParameters A map of additional parameters required for the task.
+     * @property taskId The unique identifier of the task.
+     * @property additionalParameters A map of additional parameters required for the task.
      */
     data class TaskPayload(
         val taskId: Uuid,
