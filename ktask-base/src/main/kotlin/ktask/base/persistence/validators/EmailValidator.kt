@@ -48,8 +48,12 @@ package ktask.base.persistence.validators
  * @see ValidationException
  */
 public object EmailValidator : IValidator<String> {
+    /** The maximum length of an email address (as per RFC 5321). */
     private const val MAX_EMAIL_LENGTH: Int = 254
+
+    /** The maximum length of the local part of an email address (as per RFC 5321). */
     private const val MAX_LOCAL_PART_LENGTH: Int = 64
+
     private const val DOMAIN_SEPARATOR: String = "@"
     private val EMAIL_REGEX: Regex = "^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}$".toRegex()
 
@@ -60,7 +64,11 @@ public object EmailValidator : IValidator<String> {
 
         // Check for the maximum length of the entire email address (254 characters).
         if (value.length > MAX_EMAIL_LENGTH) {
-            return Result.failure(ValidationException("Email exceeds the maximum length of 254 characters: $value"))
+            return Result.failure(
+                ValidationException(
+                    "Email exceeds the maximum length of $MAX_EMAIL_LENGTH characters: $value"
+                )
+            )
         }
 
         // Splitting local and domain parts to apply specific checks.
@@ -70,7 +78,11 @@ public object EmailValidator : IValidator<String> {
 
         // Check for the maximum length of the local part (64 characters).
         if (localPart.length > MAX_LOCAL_PART_LENGTH) {
-            return Result.failure(ValidationException("Email local part exceeds the maximum length of 64 characters: $value"))
+            return Result.failure(
+                ValidationException(
+                    "Email local part exceeds the maximum length of $MAX_LOCAL_PART_LENGTH characters: $value"
+                )
+            )
         }
 
         // Ensure domain part does not have consecutive dots.
