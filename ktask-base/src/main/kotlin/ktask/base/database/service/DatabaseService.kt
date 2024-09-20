@@ -7,6 +7,7 @@ package ktask.base.database.service
 import com.zaxxer.hikari.HikariDataSource
 import io.micrometer.prometheusmetrics.PrometheusMeterRegistry
 import ktask.base.database.annotation.DatabaseAPI
+import ktask.base.database.utils.IsolationLevel
 import ktask.base.env.Tracer
 import ktask.base.env.health.annotation.HealthCheckAPI
 import ktask.base.env.health.checks.DatabaseCheck

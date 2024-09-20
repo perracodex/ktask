@@ -8,6 +8,7 @@ import com.zaxxer.hikari.HikariConfig
 import com.zaxxer.hikari.HikariDataSource
 import io.micrometer.prometheusmetrics.PrometheusMeterRegistry
 import ktask.base.database.annotation.DatabaseAPI
+import ktask.base.database.utils.IsolationLevel
 import ktask.base.settings.config.sections.DatabaseSettings
 
 @DatabaseAPI
