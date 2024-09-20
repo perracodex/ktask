@@ -5,11 +5,11 @@
 package ktask.notification.model.message.request
 
 import kotlinx.serialization.Serializable
-import ktask.base.errors.SystemError
+import ktask.base.errors.validators.EmailValidator
 import ktask.base.persistence.serializers.Uuid
-import ktask.base.persistence.validators.EmailValidator
 import ktask.base.scheduler.service.schedule.Schedule
 import ktask.notification.consumer.message.task.EmailConsumer
+import ktask.notification.errors.NotificationError
 import ktask.notification.model.message.IMessageRequest
 import ktask.notification.model.message.Recipient
 
@@ -62,7 +62,7 @@ public data class EmailRequest(
             // 400 Bad Request, which would be raised if the validation was done in the init block.
             request.recipients.forEach { recipient ->
                 EmailValidator.check(value = recipient.target).onFailure { error ->
-                    throw SystemError.InvalidEmailFormat(id = request.id, email = recipient.target, cause = error)
+                    throw NotificationError.InvalidEmail(id = request.id, email = recipient.target, cause = error)
                 }
             }
         }
