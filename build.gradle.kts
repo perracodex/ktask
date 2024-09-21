@@ -5,20 +5,22 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-    application
-    alias(libs.plugins.dokka)
-    alias(libs.plugins.kotlin.jvm)
-    alias(libs.plugins.ktor)
-    alias(libs.plugins.kotlin.serialization) apply false
+    application // Required to enable packaging and running the Ktor server as an executable JAR.
+    alias(libs.plugins.dokka) // Required for generating documentation.
+    alias(libs.plugins.kotlin.jvm) // Required for Kotlin JVM development.
+    alias(libs.plugins.ktor) // Required for Ktor server development.
+    alias(libs.plugins.kotlin.serialization) apply false // Required for Kotlin Serialization support.
 }
 
 group = "ktask"
 version = "1.0.0"
 
-/** Ktor plugin configuration block. */
+// Ktor plugin configuration for creating a fat JAR.
+// A fat JAR packages all dependencies, including the server and external libraries, into a single JAR file.
+// This simplifies the process of deploying and running the application, which is why the application plugin is utilized.
 ktor {
     fatJar {
-        // Set the name of the generated fat JAR file.
+        // Name of the output JAR file, reflecting the project group and version.
         archiveFileName.set("$group-$version-all.jar")
     }
 }
