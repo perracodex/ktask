@@ -106,7 +106,7 @@ val copyKeystoreTask: TaskProvider<Copy> by tasks.registering(Copy::class) {
     from("keystore.p12")
     into("build/libs")
     doFirst {
-        println("Copying keystore from ${project.projectDir}/keystore.p12 to ${project.buildDir}/libs.")
+        println("Copying keystore from ${project.layout.projectDirectory}/keystore.p12 to ${project.layout.buildDirectory}/libs.")
     }
 }
 
