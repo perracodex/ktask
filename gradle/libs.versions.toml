@@ -9,7 +9,7 @@ database-h2 = "2.3.232"                 # https://github.com/h2database/h2databa
 dokka = "1.9.20"                        # https://github.com/Kotlin/dokka/releases
 exposed = "0.54.0"                      # https://github.com/JetBrains/Exposed/releases
 flyway = "10.18.0"                      # https://github.com/flyway/flyway/releases
-google-phonenumber = "8.13.45"          # https://github.com/google/libphonenumber/releases
+google-phonenumber = "8.13.46"          # https://github.com/google/libphonenumber/releases
 hikariCP = "5.1.0"                      # https://github.com/brettwooldridge/HikariCP/tags
 kotlin = "2.0.20"                       # https://github.com/JetBrains/kotlin/releases
 kotlinx-atomicfu = "0.25.0"             # https://github.com/Kotlin/kotlinx-atomicfu/releases
@@ -20,7 +20,7 @@ micrometer-prometheus = "1.13.4"        # https://github.com/micrometer-metrics/
 mockk = "1.13.12"                       # https://github.com/mockk/mockk/releases
 mockito-kotlin = "5.4.0"                # https://github.com/mockito/mockito-kotlin/releases
 quartz-scheduler = "2.4.0-rc2"          # https://github.com/quartz-scheduler/quartz/releases
-slack-api-client = "1.42.0"             # https://github.com/slackapi/java-slack-sdk/releases
+slack-api-client = "1.43.1"             # https://github.com/slackapi/java-slack-sdk/releases
 swagger-generators = "1.0.52"           # https://github.com/swagger-api/swagger-codegen-generators/releases
 typesafe-config = "1.4.3"               # https://github.com/lightbend/config/releases
 
