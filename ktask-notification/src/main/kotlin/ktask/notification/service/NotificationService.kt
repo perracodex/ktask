@@ -57,7 +57,7 @@ internal object NotificationService {
         // Note: If the scheduled time is in the past, the Task Scheduler Service
         // will automatically start the task as soon as it becomes possible.
         val taskStartAt: TaskStartAt = request.schedule?.let { schedule ->
-            val startDateTime: KLocalDateTime = schedule.start ?: DateTimeUtils.currentUTCDateTime()
+            val startDateTime: KLocalDateTime = schedule.start ?: DateTimeUtils.currentDateTime()
             TaskStartAt.AtDateTime(datetime = startDateTime)
         } ?: TaskStartAt.Immediate
 

@@ -15,7 +15,7 @@ import ktask.base.scheduler.service.annotation.SchedulerAPI
 import ktask.base.scheduler.service.core.SchedulerTasks.Companion.create
 import ktask.base.scheduler.service.task.TaskState
 import ktask.base.snowflake.SnowflakeFactory
-import ktask.base.utils.DateTimeUtils
+import ktask.base.utils.DateTimeUtils.toKotlinLocalDateTime
 import org.quartz.*
 import org.quartz.impl.matchers.GroupMatcher
 import java.util.*
@@ -221,7 +221,7 @@ internal class SchedulerTasks private constructor(private val scheduler: Schedul
             snowflakeData = snowflakeData,
             group = jobKey.group,
             consumer = taskDetail.jobClass.simpleName,
-            nextFireTime = nextFireTime?.let { DateTimeUtils.javaDateToLocalDateTime(datetime = it) },
+            nextFireTime = nextFireTime?.toKotlinLocalDateTime(),
             state = mostRestrictiveState.name,
             outcome = outcome,
             log = mostRecentAudit?.log,
