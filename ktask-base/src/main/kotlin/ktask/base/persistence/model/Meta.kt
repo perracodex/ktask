@@ -4,34 +4,37 @@
 
 package ktask.base.persistence.model
 
+import kotlinx.datetime.Instant
+import kotlinx.datetime.toKotlinInstant
 import kotlinx.serialization.Serializable
 import ktask.base.database.schema.base.TimestampedTable
-import ktask.base.persistence.serializers.OffsetTimestamp
 import org.jetbrains.exposed.sql.ResultRow
 
 /**
  * Represents the metadata of a record.
  *
- * @property createdAt The timestamp when the record was created.
- * @property updatedAt The timestamp when the record was last updated.
+ * @property createdAt The timestamp when the record was created, in UTC.
+ * @property updatedAt The timestamp when the record was last updated, in UTC.
  */
 @Serializable
 public data class Meta(
-    val createdAt: OffsetTimestamp,
-    val updatedAt: OffsetTimestamp
+    val createdAt: Instant,
+    val updatedAt: Instant
 ) {
     public companion object {
         /**
-         * Maps a [ResultRow] to a [Meta] instance.
+         * Maps a [ResultRow] to a [Meta] instance, converting timestamps to UTC.
+         * This conversion ensures that the timestamps are timezone-agnostic
+         * and can be consistently interpreted in any geographical location.
          *
          * @param row The [ResultRow] to map.
          * @param table The [TimestampedTable] from which the [ResultRow] was obtained.
-         * @return The mapped [Meta] instance.
+         * @return The mapped [Meta] instance with timestamps in UTC.
          */
         public fun from(row: ResultRow, table: TimestampedTable): Meta {
             return Meta(
-                createdAt = row[table.createdAt],
-                updatedAt = row[table.updatedAt]
+                createdAt = row[table.createdAt].toInstant().toKotlinInstant(),
+                updatedAt = row[table.updatedAt].toInstant().toKotlinInstant()
             )
         }
     }
