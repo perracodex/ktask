@@ -39,6 +39,11 @@ public object DateTimeUtils {
     }
 
     /**
+     * Returns the current date in the system's default time zone.
+     */
+    public fun currentDate(): KLocalDate = Clock.System.todayIn(timeZone = timezone())
+
+    /**
      * Returns the current date-time in UTC.
      */
     public fun utcDateTime(): Instant = Clock.System.now()
