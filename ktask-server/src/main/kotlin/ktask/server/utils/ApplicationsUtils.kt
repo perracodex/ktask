@@ -5,10 +5,10 @@
 package ktask.server.utils
 
 import io.ktor.server.application.*
-import ktask.base.env.Tracer
-import ktask.base.settings.AppSettings
-import ktask.base.snowflake.SnowflakeFactory
-import ktask.base.utils.NetworkUtils
+import ktask.core.env.Tracer
+import ktask.core.settings.AppSettings
+import ktask.core.snowflake.SnowflakeFactory
+import ktask.core.utils.NetworkUtils
 
 /**
  * Utility functions for the application server.

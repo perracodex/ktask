@@ -8,12 +8,12 @@ import io.ktor.server.application.*
 import io.ktor.server.auth.*
 import io.ktor.server.plugins.ratelimit.*
 import io.ktor.server.routing.*
-import ktask.base.env.health.healthCheckRoute
-import ktask.base.events.sseRoute
-import ktask.base.plugins.RateLimitScope
-import ktask.base.scheduler.api.schedulerRoutes
-import ktask.base.settings.AppSettings
-import ktask.base.snowflake.snowflakeRoute
+import ktask.core.env.health.healthCheckRoute
+import ktask.core.events.sseRoute
+import ktask.core.plugins.RateLimitScope
+import ktask.core.scheduler.api.schedulerRoutes
+import ktask.core.settings.AppSettings
+import ktask.core.snowflake.snowflakeRoute
 import ktask.notification.api.notificationRoutes
 
 /**

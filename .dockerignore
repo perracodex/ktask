@@ -7,6 +7,6 @@
 !gradlew
 !gradlew.bat
 !keystore.p12
-!ktask-base/**
+!ktask-core/**
 !ktask-server/**
 !build/libs/**

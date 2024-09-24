@@ -4,10 +4,10 @@
 
 package ktask.notification.consumer.message
 
-import ktask.base.scheduler.service.task.TaskConsumer
-import ktask.base.settings.AppSettings
-import ktask.base.utils.CastUtils
-import ktask.base.utils.DateTimeUtils
+import ktask.core.scheduler.service.task.TaskConsumer
+import ktask.core.settings.AppSettings
+import ktask.core.utils.CastUtils
+import ktask.core.utils.DateTimeUtils
 import ktask.notification.model.message.Recipient
 import org.thymeleaf.TemplateEngine
 import org.thymeleaf.context.Context

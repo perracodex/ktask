@@ -5,8 +5,8 @@
 package ktask.notification.model.message.request
 
 import kotlinx.serialization.Serializable
-import ktask.base.persistence.serializers.Uuid
-import ktask.base.scheduler.service.schedule.Schedule
+import ktask.core.persistence.serializers.Uuid
+import ktask.core.scheduler.service.schedule.Schedule
 import ktask.notification.consumer.message.task.SlackConsumer
 import ktask.notification.model.message.IMessageRequest
 import ktask.notification.model.message.Recipient

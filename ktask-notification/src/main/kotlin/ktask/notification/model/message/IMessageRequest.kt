@@ -4,8 +4,8 @@
 
 package ktask.notification.model.message
 
-import ktask.base.persistence.serializers.Uuid
-import ktask.base.scheduler.service.schedule.Schedule
+import ktask.core.persistence.serializers.Uuid
+import ktask.core.scheduler.service.schedule.Schedule
 import ktask.notification.consumer.message.AbsNotificationConsumer
 
 /**

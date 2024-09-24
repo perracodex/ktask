@@ -7,7 +7,7 @@ version = "1.0.0"
 
 dependencies {
 
-    implementation(project(":ktask-base"))
+    implementation(project(":ktask-core"))
 
     implementation(libs.kotlinx.datetime)
     implementation(libs.kotlinx.serialization)

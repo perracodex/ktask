@@ -5,8 +5,8 @@
 package ktask.notification.model.action.request
 
 import kotlinx.serialization.Serializable
-import ktask.base.persistence.serializers.Uuid
-import ktask.base.scheduler.service.schedule.Schedule
+import ktask.core.persistence.serializers.Uuid
+import ktask.core.scheduler.service.schedule.Schedule
 import ktask.notification.consumer.action.task.ActionConsumer
 import ktask.notification.model.action.IActionRequest
 

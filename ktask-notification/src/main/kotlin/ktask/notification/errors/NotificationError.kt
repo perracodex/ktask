@@ -5,7 +5,7 @@
 package ktask.notification.errors
 
 import io.ktor.http.*
-import ktask.base.errors.AppException
+import ktask.core.errors.AppException
 import kotlin.uuid.Uuid
 
 /**

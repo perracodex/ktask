@@ -97,7 +97,7 @@ subprojects {
 }
 
 dependencies {
-    implementation(project(":ktask-base"))
+    implementation(project(":ktask-core"))
     implementation(project(":ktask-server"))
 }
 

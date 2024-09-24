@@ -5,7 +5,7 @@
 package ktask.notification
 
 /**
- * Main function for the notification module.
+ * Main function for the Notification module.
  * This module is not executable. Execute the application server module instead.
  */
 public fun main() {
