@@ -35,7 +35,8 @@ internal object UuidSerializer : KSerializer<Uuid> {
  * Represents a serializable [Uuid].
  *
  * @property Uuid The type representing the serializable [Uuid].
- * @see Uuid
- * @see UuidSerializer
+ *
+ * @see [Uuid]
+ * @see [UuidSerializer]
  */
 public typealias Uuid = @Serializable(with = UuidSerializer::class) Uuid

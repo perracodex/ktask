@@ -23,12 +23,11 @@ import ktask.notification.api.notificationRoutes
  * When the client makes a request to a specific URL (for example, /hello), the routing
  * mechanism allows us to define how we want this request to be served.
  *
- * See: [Ktor Routing Documentation](https://ktor.io/docs/server-routing.html)
- *
- * See [Application Structure](https://ktor.io/docs/server-application-structure.html) for examples
+ * #### References
+ * - [Ktor Routing Documentation](https://ktor.io/docs/server-routing.html)
+ * - [Application Structure](https://ktor.io/docs/server-application-structure.html) for examples
  * of how to organize routes in diverse ways.
- *
- * See: [Ktor Rate Limit](https://ktor.io/docs/server-rate-limit.html)
+ * - [Ktor Rate Limit](https://ktor.io/docs/server-rate-limit.html)
  */
 internal fun Application.configureRoutes() {
 

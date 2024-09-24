@@ -15,7 +15,7 @@ import ktask.core.env.MetricsRegistry
  * This will set up and configure database, including the connection pool, and register
  * the database schema tables so that the ORM can interact with them.
  *
- * @see DbPlugin
+ * @see [DbPlugin]
  */
 public fun Application.configureDatabase() {
 

@@ -42,7 +42,8 @@ internal object NonBlankStringSerializer : KSerializer<String> {
  * Represents a serializable Non Blank String.
  *
  * @property NoBlankString The type representing the serializable String.
- * @see NonBlankStringSerializer
+ *
+ * @see [NonBlankStringSerializer]
  */
 public typealias NoBlankString = @Serializable(with = NonBlankStringSerializer::class) String
 

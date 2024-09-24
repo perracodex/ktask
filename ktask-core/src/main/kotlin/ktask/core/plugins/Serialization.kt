@@ -18,9 +18,9 @@ import kotlinx.serialization.json.Json
  * 2. Serializing/deserializing the content in a specific format.
  * Ktor supports the following formats out-of-the-box: JSON, XML, CBOR, and ProtoBuf.
  *
- * See: [Content negotiation and serialization](https://ktor.io/docs/serialization.html#0)
- *
- * See: [Kotlin Serialization Guide](https://github.com/Kotlin/kotlinx.serialization/blob/master/docs/serialization-guide.md)
+ * ### References
+ * - [Content negotiation and serialization](https://ktor.io/docs/serialization.html#0)
+ * - [Kotlin Serialization Guide](https://github.com/Kotlin/kotlinx.serialization/blob/master/docs/serialization-guide.md)
  */
 public fun Application.configureSerialization() {
 

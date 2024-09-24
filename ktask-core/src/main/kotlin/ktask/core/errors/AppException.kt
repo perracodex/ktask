@@ -24,8 +24,8 @@ import ktask.core.errors.validators.base.ValidationException
  * @property reason Optional human-readable reason for the exception, providing more context.
  * @property cause Optional underlying cause of the exception, if any.
  *
- * @see ApplicationCall.respondError
- * @see ValidationException
+ * @see [ApplicationCall.respondError]
+ * @see [ValidationException]
  */
 public abstract class AppException(
     public val statusCode: HttpStatusCode,

@@ -27,9 +27,9 @@ import ktask.core.settings.AppSettings
  * By default, Ktor exposes metrics for monitoring HTTP requests and a set of low-level metrics for
  * monitoring the JVM. You can customize these metrics or create new ones.
  *
- * See: [MicrometerMetrics](https://ktor.io/docs/server-metrics-micrometer.html)
- *
- * See: [Micrometer](https://micrometer.io/docs/concepts)
+ * #### References
+ * - [MicrometerMetrics](https://ktor.io/docs/server-metrics-micrometer.html)
+ * - [Micrometer](https://micrometer.io/docs/concepts)
  */
 public fun Application.configureMicroMeterMetrics() {
 
