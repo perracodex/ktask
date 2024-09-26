@@ -14,6 +14,7 @@ import ktask.core.errors.AppException
 import ktask.core.errors.CompositeAppException
 import ktask.core.errors.ErrorUtils
 import ktask.core.errors.respondError
+import org.jetbrains.exposed.exceptions.ExposedSQLException
 
 /**
  * Install the [StatusPages] feature for handling HTTP status codes.
@@ -41,6 +42,15 @@ public fun Application.configureStatusPages() {
         // Security exception handling.
         status(HttpStatusCode.MethodNotAllowed) { call: ApplicationCall, status: HttpStatusCode ->
             call.respond(status = HttpStatusCode.MethodNotAllowed, message = "$status")
+        }
+
+        // Handle database exceptions.
+        exception<ExposedSQLException> { call: ApplicationCall, cause: ExposedSQLException ->
+            tracer.error(message = cause.message, cause = cause)
+            call.respond(
+                status = HttpStatusCode.InternalServerError,
+                message = "Unexpected database error. Code: ${cause.errorCode}"
+            )
         }
 
         // Bad request exception handling.
