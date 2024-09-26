@@ -17,7 +17,7 @@ import io.micrometer.core.instrument.binder.jvm.JvmThreadMetrics
 import io.micrometer.core.instrument.binder.system.FileDescriptorMetrics
 import io.micrometer.core.instrument.binder.system.ProcessorMetrics
 import io.micrometer.core.instrument.binder.system.UptimeMetrics
-import ktask.core.env.MetricsRegistry
+import ktask.core.env.Telemetry
 import ktask.core.settings.AppSettings
 
 /**
@@ -34,7 +34,7 @@ import ktask.core.settings.AppSettings
 public fun Application.configureMicroMeterMetrics() {
 
     install(plugin = MicrometerMetrics) {
-        registry = MetricsRegistry.registry
+        registry = Telemetry.registry
 
         meterBinders = listOf(
             ClassLoaderMetrics(),
@@ -50,7 +50,7 @@ public fun Application.configureMicroMeterMetrics() {
     routing {
         authenticate(AppSettings.security.basicAuth.providerName) {
             get("/metrics") {
-                call.respond(status = HttpStatusCode.OK, message = MetricsRegistry.scrape())
+                call.respond(status = HttpStatusCode.OK, message = Telemetry.scrape())
             }
         }
     }

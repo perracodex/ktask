@@ -20,7 +20,7 @@ import io.micrometer.prometheusmetrics.PrometheusMeterRegistry
  * - [Prometheus](https://prometheus.io/)
  * - [Micrometer Prometheus](https://micrometer.io/docs/registry/prometheus)
  */
-public object MetricsRegistry {
+public object Telemetry {
     /**
      * The [PrometheusMeterRegistry] instance used to manage metrics.
      */

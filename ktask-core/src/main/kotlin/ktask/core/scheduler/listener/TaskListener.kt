@@ -7,7 +7,7 @@ package ktask.core.scheduler.listener
 import io.micrometer.core.instrument.Counter
 import io.micrometer.core.instrument.Timer
 import kotlinx.coroutines.runBlocking
-import ktask.core.env.MetricsRegistry
+import ktask.core.env.Telemetry
 import ktask.core.env.Tracer
 import ktask.core.scheduler.audit.AuditService
 import ktask.core.scheduler.model.audit.AuditLogRequest
@@ -27,17 +27,17 @@ import org.quartz.JobListener
 internal class TaskListener : JobListener {
     private val tracer = Tracer<TaskListener>()
 
-    private val taskExecutedMetric: Counter = MetricsRegistry.registerCounter(
+    private val taskExecutedMetric: Counter = Telemetry.registerCounter(
         name = "scheduler_task_total",
         description = "Total number of tasks executed"
     )
 
-    private val taskFailureMetric: Counter = MetricsRegistry.registerCounter(
+    private val taskFailureMetric: Counter = Telemetry.registerCounter(
         name = "scheduler_task_failures",
         description = "Total number of tasks failures"
     )
 
-    private val taskRunTimeMetric: Timer = MetricsRegistry.registerTimer(
+    private val taskRunTimeMetric: Timer = Telemetry.registerTimer(
         name = "scheduler_task_duration",
         description = "Duration of tasks run-time execution"
     )
