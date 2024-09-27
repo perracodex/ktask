@@ -4,10 +4,11 @@
 
 package ktask.notification.consumer.message
 
+import kotlinx.datetime.LocalDate
 import ktask.core.scheduler.service.task.TaskConsumer
 import ktask.core.settings.AppSettings
 import ktask.core.utils.CastUtils
-import ktask.core.utils.DateTimeUtils
+import ktask.core.utils.DateTimeUtils.current
 import ktask.notification.model.message.Recipient
 import org.thymeleaf.TemplateEngine
 import org.thymeleaf.context.Context
@@ -141,7 +142,7 @@ internal abstract class AbsNotificationConsumer : TaskConsumer() {
             setVariable(Placeholder.NAME.key, payload.recipient.name)
 
             // Add the formatted/localized date to the context.
-            val formattedDate: String = DateTimeUtils.localizedCurrentDate(language = locale)
+            val formattedDate: String = LocalDate.current(language = locale)
             setVariable(Placeholder.DATE.key, formattedDate)
 
             // Set the additional fields in the context.

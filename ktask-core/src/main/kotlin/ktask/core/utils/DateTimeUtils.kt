@@ -23,7 +23,7 @@ public object DateTimeUtils {
      * Returns the current date-time in the system's default time zone.
      */
     public fun LocalDateTime.Companion.current(): LocalDateTime {
-        return Clock.System.now().toLocalDateTime(timeZone = timezone())
+        return Clock.System.now().toLocalDateTime(timeZone = TimeZone.current())
     }
 
     /**
@@ -35,7 +35,7 @@ public object DateTimeUtils {
      * Converts a Kotlin [LocalDateTime] to a Java [Date].
      */
     public fun LocalDateTime.toJavaDate(): Date {
-        this.toInstant(timeZone = timezone()).toJavaInstant().let { instant ->
+        this.toInstant(timeZone = TimeZone.current()).toJavaInstant().let { instant ->
             return Date.from(instant)
         }
     }
@@ -67,15 +67,17 @@ public object DateTimeUtils {
      * @return Boolean true if the LocalDateTime is before the current system time, false otherwise.
      */
     public fun LocalDateTime.isPast(): Boolean {
-        val currentDateTime: LocalDateTime = Clock.System.now().toLocalDateTime(timeZone = timezone())
+        val currentDateTime: LocalDateTime = Clock.System.now().toLocalDateTime(timeZone = TimeZone.current())
         return this < currentDateTime
     }
 
     /**
      * Returns the system's default timezone.
+     *
+     * Equivalent to [TimeZone.currentSystemDefault].
      */
-    public fun timezone(): TimeZone {
-        return TimeZone.currentSystemDefault()
+    public fun TimeZone.Companion.current(): TimeZone {
+        return currentSystemDefault()
     }
 
     /**
@@ -84,7 +86,7 @@ public object DateTimeUtils {
      * @param language The ISO language code, or locale, to format the date.
      * @return The formatted date with the month in title case.
      */
-    public fun localizedCurrentDate(language: String): String {
+    public fun LocalDate.Companion.current(language: String): String {
         val locale: Locale = Locale.forLanguageTag(language)
         val dateFormatter: DateTimeFormatter = DateTimeFormatter.ofPattern("MMMM d, yyyy", locale)
         val currentDate: LocalDate = Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault()).date

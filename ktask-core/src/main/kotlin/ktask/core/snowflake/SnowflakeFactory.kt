@@ -9,7 +9,7 @@ import kotlinx.datetime.LocalDateTime
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toLocalDateTime
 import ktask.core.env.Tracer
-import ktask.core.utils.DateTimeUtils
+import ktask.core.utils.DateTimeUtils.current
 import kotlin.time.Duration.Companion.nanoseconds
 
 /**
@@ -174,7 +174,7 @@ public object SnowflakeFactory {
         val utcTimestampSegment: LocalDateTime = instant.toLocalDateTime(timeZone = TimeZone.UTC)
 
         // Convert the timestamp to LocalDateTime using the system's default timezone.
-        val localTimestampSegment: LocalDateTime = instant.toLocalDateTime(timeZone = DateTimeUtils.timezone())
+        val localTimestampSegment: LocalDateTime = instant.toLocalDateTime(timeZone = TimeZone.current())
 
         // Extract the sequence number segment.
         val sequenceSegment: Long = normalizedId and MAX_SEQUENCE
