@@ -14,18 +14,6 @@ import kotlin.time.Duration
 import kotlin.time.DurationUnit
 import java.time.Instant as JavaInstant
 
-/** Alias for kotlinx [LocalDate], to avoid ambiguity with Java's LocalDate. */
-public typealias KLocalDate = LocalDate
-
-/** Alias for kotlinx [LocalTime], to avoid ambiguity with Java's LocalTime. */
-public typealias KLocalTime = LocalTime
-
-/** Alias for kotlinx [LocalDateTime], to avoid ambiguity with Java's LocalDateTime. */
-public typealias KLocalDateTime = LocalDateTime
-
-/** Alias for kotlinx [Instant], to avoid ambiguity with Java's Instant. */
-public typealias KInstant = Instant
-
 /**
  * Singleton providing time-related utility functions.
  */
@@ -34,24 +22,19 @@ public object DateTimeUtils {
     /**
      * Returns the current date-time in the system's default time zone.
      */
-    public fun currentDateTime(): KLocalDateTime {
+    public fun LocalDateTime.Companion.current(): LocalDateTime {
         return Clock.System.now().toLocalDateTime(timeZone = timezone())
     }
 
     /**
-     * Returns the current date in the system's default time zone.
-     */
-    public fun currentDate(): KLocalDate = Clock.System.todayIn(timeZone = timezone())
-
-    /**
      * Returns the current date-time in UTC.
      */
-    public fun utcDateTime(): Instant = Clock.System.now()
+    public fun Instant.Companion.current(): Instant = Clock.System.now()
 
     /**
      * Converts a Kotlin [LocalDateTime] to a Java [Date].
      */
-    public fun KLocalDateTime.toJavaDate(): Date {
+    public fun LocalDateTime.toJavaDate(): Date {
         this.toInstant(timeZone = timezone()).toJavaInstant().let { instant ->
             return Date.from(instant)
         }
@@ -83,7 +66,7 @@ public object DateTimeUtils {
      *
      * @return Boolean true if the LocalDateTime is before the current system time, false otherwise.
      */
-    public fun KLocalDateTime.isPast(): Boolean {
+    public fun LocalDateTime.isPast(): Boolean {
         val currentDateTime: LocalDateTime = Clock.System.now().toLocalDateTime(timeZone = timezone())
         return this < currentDateTime
     }

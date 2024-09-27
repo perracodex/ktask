@@ -4,8 +4,8 @@
 
 package ktask.core.snowflake
 
+import kotlinx.datetime.LocalDateTime
 import kotlinx.serialization.Serializable
-import ktask.core.utils.KLocalDateTime
 
 /**
  * Data class representing the components extracted from a Snowflake ID.
@@ -25,6 +25,6 @@ import ktask.core.utils.KLocalDateTime
 public data class SnowflakeData(
     val machineId: Int,
     val sequence: Long,
-    val utc: KLocalDateTime,
-    val local: KLocalDateTime
+    val utc: LocalDateTime,
+    val local: LocalDateTime
 )

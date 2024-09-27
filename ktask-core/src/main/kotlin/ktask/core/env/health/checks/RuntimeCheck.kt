@@ -6,12 +6,12 @@ package ktask.core.env.health.checks
 
 import io.ktor.server.application.*
 import kotlinx.datetime.Instant
+import kotlinx.datetime.LocalDateTime
 import kotlinx.serialization.Serializable
 import ktask.core.env.EnvironmentType
 import ktask.core.env.health.annotation.HealthCheckAPI
 import ktask.core.settings.AppSettings
-import ktask.core.utils.DateTimeUtils
-import ktask.core.utils.KLocalDateTime
+import ktask.core.utils.DateTimeUtils.current
 
 /**
  * Used to check the runtime configuration of the application.
@@ -31,15 +31,15 @@ public data class RuntimeCheck(
     val environment: EnvironmentType,
     val developmentModeEnabled: Boolean,
     val utc: Instant,
-    val local: KLocalDateTime,
+    val local: LocalDateTime,
 ) {
     internal constructor(call: ApplicationCall) : this(
         errors = mutableListOf(),
         machineId = AppSettings.runtime.machineId,
         environment = AppSettings.runtime.environment,
         developmentModeEnabled = call.application.developmentMode,
-        utc = DateTimeUtils.utcDateTime(),
-        local = DateTimeUtils.currentDateTime()
+        utc = Instant.current(),
+        local = LocalDateTime.current()
     )
 
     init {

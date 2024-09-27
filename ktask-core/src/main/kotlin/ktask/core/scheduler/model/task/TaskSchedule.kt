@@ -4,8 +4,8 @@
 
 package ktask.core.scheduler.model.task
 
+import kotlinx.datetime.LocalDateTime
 import kotlinx.serialization.Serializable
-import ktask.core.utils.KLocalDateTime
 
 /**
  * Represents the details of a scheduled task.
@@ -29,7 +29,7 @@ public data class TaskSchedule(
     val snowflakeData: String,
     val group: String,
     val consumer: String,
-    val nextFireTime: KLocalDateTime?,
+    val nextFireTime: LocalDateTime?,
     val state: String,
     val outcome: String?,
     val log: String?,

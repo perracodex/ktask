@@ -6,13 +6,13 @@ package ktask.notification.service
 
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import kotlinx.datetime.LocalDateTime
 import ktask.core.env.Tracer
 import ktask.core.events.SEEService
 import ktask.core.scheduler.service.schedule.TaskStartAt
 import ktask.core.scheduler.service.task.TaskDispatch
 import ktask.core.scheduler.service.task.TaskKey
-import ktask.core.utils.DateTimeUtils
-import ktask.core.utils.KLocalDateTime
+import ktask.core.utils.DateTimeUtils.current
 import ktask.notification.consumer.action.AbsActionConsumer
 import ktask.notification.consumer.action.task.ActionConsumer
 import ktask.notification.model.action.IActionRequest
@@ -43,7 +43,7 @@ internal object ActionService {
         // Note: If the scheduled time is in the past, the Task Scheduler Service
         // will automatically start the task as soon as it becomes possible.
         val taskStartAt: TaskStartAt = request.schedule?.let { schedule ->
-            val startDateTime: KLocalDateTime = schedule.start ?: DateTimeUtils.currentDateTime()
+            val startDateTime: LocalDateTime = schedule.start ?: LocalDateTime.current()
             TaskStartAt.AtDateTime(datetime = startDateTime)
         } ?: TaskStartAt.Immediate
 

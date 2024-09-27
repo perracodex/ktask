@@ -4,9 +4,9 @@
 
 package ktask.core.scheduler.model.audit
 
+import kotlinx.datetime.LocalDateTime
 import ktask.core.scheduler.service.annotation.SchedulerAPI
 import ktask.core.scheduler.service.task.TaskOutcome
-import ktask.core.utils.KLocalDateTime
 
 /**
  * Represents a log request to be stored in the database.
@@ -23,7 +23,7 @@ import ktask.core.utils.KLocalDateTime
 public data class AuditLogRequest(
     val taskName: String,
     val taskGroup: String,
-    val fireTime: KLocalDateTime,
+    val fireTime: LocalDateTime,
     val runTime: Long,
     val outcome: TaskOutcome,
     val log: String?,

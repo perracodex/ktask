@@ -4,11 +4,11 @@
 
 package ktask.core.database.schema
 
+import kotlinx.datetime.LocalDateTime
 import ktask.core.database.columns.autoGenerate
 import ktask.core.database.columns.kotlinUuid
 import ktask.core.database.schema.base.TimestampedTable
 import ktask.core.scheduler.service.task.TaskOutcome
-import ktask.core.utils.KLocalDateTime
 import org.jetbrains.exposed.sql.Column
 import org.jetbrains.exposed.sql.Table
 import org.jetbrains.exposed.sql.kotlin.datetime.datetime
@@ -44,7 +44,7 @@ internal object SchedulerAuditTable : TimestampedTable(name = "scheduler_audit")
     /**
      * The time the task was scheduled to run.
      */
-    val fireTime: Column<KLocalDateTime> = datetime(
+    val fireTime: Column<LocalDateTime> = datetime(
         name = "fire_time"
     )
 
