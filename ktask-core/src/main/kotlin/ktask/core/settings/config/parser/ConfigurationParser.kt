@@ -12,7 +12,7 @@ import kotlinx.coroutines.async
 import kotlinx.coroutines.withContext
 import ktask.core.env.Tracer
 import ktask.core.settings.annotation.ConfigurationAPI
-import ktask.core.settings.config.ConfigurationCatalog
+import ktask.core.settings.config.IConfigurationCatalog
 import kotlin.reflect.*
 import kotlin.reflect.full.memberProperties
 import kotlin.reflect.full.primaryConstructor
@@ -63,19 +63,25 @@ internal object ConfigurationParser {
      * Top-level configurations are parsed concurrently.
      *
      * @param configuration The application configuration object to be parsed.
+     * @param catalogClass The class holding all the configuration groups. Must implement [IConfigurationCatalog].
      * @param configMappings Map of top-level configuration paths to their corresponding classes.
-     * @return A new [ConfigurationCatalog] object populated with the parsed configuration data.
+     * @return A new [catalogClass] instance populated with the parsed configuration data.
+     * @throws IllegalArgumentException if the primary constructor is missing in the [catalogClass],
+     * or any error occurs during the parsing process.
+     *
+     * @see IConfigurationCatalog
+     * @see IConfigSection
      */
-    suspend fun parse(
+    suspend fun <T : IConfigurationCatalog> parse(
         configuration: ApplicationConfig,
+        catalogClass: KClass<T>,
         configMappings: List<ConfigClassMap<out IConfigSection>>
-    ): ConfigurationCatalog {
-
+    ): T {
         // Retrieve the primary constructor of the ConfigurationCatalog class,
         // which will be used to instantiate the output object.
-        val configConstructor: KFunction<ConfigurationCatalog> = ConfigurationCatalog::class.primaryConstructor
+        val configConstructor: KFunction<T> = catalogClass.primaryConstructor
             ?: throw IllegalArgumentException(
-                "Primary constructor is required for ${ConfigurationCatalog::class.simpleName}."
+                "Primary constructor is required for ${catalogClass.simpleName}."
             )
 
         // Map each configuration path to its corresponding class,
