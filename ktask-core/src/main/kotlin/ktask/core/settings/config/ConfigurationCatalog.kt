@@ -5,7 +5,7 @@
 package ktask.core.settings.config
 
 import kotlinx.serialization.Serializable
-import ktask.core.settings.config.parser.IConfigurationCatalog
+import ktask.core.settings.config.parser.IConfigCatalog
 import ktask.core.settings.config.sections.*
 import ktask.core.settings.config.sections.security.SecuritySettings
 
@@ -36,4 +36,4 @@ internal data class ConfigurationCatalog(
     val deployment: DeploymentSettings,
     val runtime: RuntimeSettings,
     val security: SecuritySettings
-) : IConfigurationCatalog
+) : IConfigCatalog
