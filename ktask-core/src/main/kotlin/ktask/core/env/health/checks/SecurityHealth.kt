@@ -18,7 +18,7 @@ import ktask.core.settings.catalog.sections.security.nodes.ConstraintsSettings
  */
 @HealthCheckAPI
 @Serializable
-public data class SecurityCheck(
+public data class SecurityHealth(
     val errors: MutableList<String>,
     val useSecureConnection: Boolean,
     val privateApi: ConstraintsSettings.LimitSpec,

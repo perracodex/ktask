@@ -10,7 +10,7 @@ import ktask.core.database.annotation.DatabaseAPI
 import ktask.core.database.utils.IsolationLevel
 import ktask.core.env.Tracer
 import ktask.core.env.health.annotation.HealthCheckAPI
-import ktask.core.env.health.checks.DatabaseCheck
+import ktask.core.env.health.checks.DatabaseHealth
 import ktask.core.settings.AppSettings
 import ktask.core.settings.catalog.sections.DatabaseSettings
 import org.flywaydb.core.Flyway
@@ -242,15 +242,15 @@ internal object DatabaseService {
      * Retrieves HikariCP health metrics.
      */
     @OptIn(HealthCheckAPI::class)
-    fun getHealthCheck(): DatabaseCheck {
-        val databaseTest: Result<DatabaseCheck.ConnectionTest> = DatabaseCheck.ConnectionTest.build(database = database)
+    fun getHealthCheck(): DatabaseHealth {
+        val databaseTest: Result<DatabaseHealth.ConnectionTest> = DatabaseHealth.ConnectionTest.build(database = database)
 
         val isAlive: Boolean = ping()
-        val connectionTest: DatabaseCheck.ConnectionTest? = databaseTest.getOrNull()
-        val datasource: DatabaseCheck.Datasource? = DatabaseCheck.Datasource.build(datasource = hikariDataSource)
+        val connectionTest: DatabaseHealth.ConnectionTest? = databaseTest.getOrNull()
+        val datasource: DatabaseHealth.Datasource? = DatabaseHealth.Datasource.build(datasource = hikariDataSource)
         val tables: List<String> = dumpTables()
 
-        val databaseCheck = DatabaseCheck(
+        val databaseHealth = DatabaseHealth(
             isAlive = isAlive,
             connectionTest = connectionTest,
             datasource = datasource,
@@ -258,10 +258,10 @@ internal object DatabaseService {
         )
 
         if (databaseTest.isFailure) {
-            databaseCheck.errors.add(databaseTest.exceptionOrNull()?.message ?: "Database connection test failed.")
+            databaseHealth.errors.add(databaseTest.exceptionOrNull()?.message ?: "Database connection test failed.")
         }
 
-        return databaseCheck
+        return databaseHealth
     }
 
     /**

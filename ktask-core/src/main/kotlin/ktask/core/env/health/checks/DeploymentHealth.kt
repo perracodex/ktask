@@ -9,8 +9,8 @@ import io.ktor.server.request.*
 import kotlinx.serialization.Serializable
 import ktask.core.env.EnvironmentType
 import ktask.core.env.health.annotation.HealthCheckAPI
-import ktask.core.env.health.checks.DeploymentCheck.Configured
-import ktask.core.env.health.checks.DeploymentCheck.ServerSpec
+import ktask.core.env.health.checks.DeploymentHealth.Configured
+import ktask.core.env.health.checks.DeploymentHealth.ServerSpec
 import ktask.core.settings.AppSettings
 import ktask.core.utils.NetworkUtils
 
@@ -24,7 +24,7 @@ import ktask.core.utils.NetworkUtils
  */
 @HealthCheckAPI
 @Serializable
-public data class DeploymentCheck(
+public data class DeploymentHealth(
     val errors: MutableList<String>,
     val configured: Configured,
     val serverSpec: ServerSpec,

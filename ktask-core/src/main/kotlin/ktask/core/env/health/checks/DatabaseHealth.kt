@@ -7,7 +7,7 @@ package ktask.core.env.health.checks
 import com.zaxxer.hikari.HikariDataSource
 import kotlinx.serialization.Serializable
 import ktask.core.env.health.annotation.HealthCheckAPI
-import ktask.core.env.health.checks.DatabaseCheck.*
+import ktask.core.env.health.checks.DatabaseHealth.*
 import ktask.core.settings.AppSettings
 import org.jetbrains.exposed.sql.Database
 import org.jetbrains.exposed.sql.name
@@ -27,7 +27,7 @@ import org.jetbrains.exposed.sql.vendors.currentDialect
  */
 @HealthCheckAPI
 @Serializable
-public data class DatabaseCheck(
+public data class DatabaseHealth(
     val errors: MutableList<String>,
     val isAlive: Boolean,
     val datasource: Datasource?,
