@@ -5,8 +5,8 @@
 package ktask.core.settings.catalog.sections.security
 
 import kotlinx.serialization.Serializable
-import ktask.core.settings.catalog.sections.security.sections.BasicAuthSettings
-import ktask.core.settings.catalog.sections.security.sections.ConstraintsSettings
+import ktask.core.settings.catalog.sections.security.nodes.BasicAuthSettings
+import ktask.core.settings.catalog.sections.security.nodes.ConstraintsSettings
 import ktask.core.settings.parser.IConfigCatalogSection
 
 /**
