@@ -69,12 +69,12 @@ internal object ConfigurationParser {
      * or any error occurs during the parsing process.
      *
      * @see IConfigCatalog
-     * @see IConfigSection
+     * @see IConfigCatalogSection
      */
     suspend fun <T : IConfigCatalog> parse(
         configuration: ApplicationConfig,
         catalogClass: KClass<T>,
-        configMappings: List<ConfigClassMap<out IConfigSection>>
+        configMappings: List<ConfigClassMap<out IConfigCatalogSection>>
     ): T {
         // Retrieve the primary constructor of the configuration catalog class,
         // which will be used to instantiate the parsing output result.

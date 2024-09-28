@@ -9,4 +9,4 @@ package ktask.core.settings.parser
  *
  * @see IConfigCatalog
  */
-internal interface IConfigSection
+internal interface IConfigCatalogSection

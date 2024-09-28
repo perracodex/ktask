@@ -7,7 +7,7 @@ package ktask.core.settings.catalog.sections.security
 import kotlinx.serialization.Serializable
 import ktask.core.settings.catalog.sections.security.sections.BasicAuthSettings
 import ktask.core.settings.catalog.sections.security.sections.ConstraintsSettings
-import ktask.core.settings.parser.IConfigSection
+import ktask.core.settings.parser.IConfigCatalogSection
 
 /**
  * Top level section for the Security related settings.
@@ -21,4 +21,4 @@ public data class SecuritySettings(
     val useSecureConnection: Boolean,
     val constraints: ConstraintsSettings,
     val basicAuth: BasicAuthSettings,
-) : IConfigSection
+) : IConfigCatalogSection

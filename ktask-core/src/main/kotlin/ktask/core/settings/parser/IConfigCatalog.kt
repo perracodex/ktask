@@ -5,9 +5,9 @@
 package ktask.core.settings.parser
 
 /**
- * Interface for the configuration catalog that holds all [IConfigSection] settings.
+ * Interface for the configuration catalog that holds all [IConfigCatalogSection] settings.
  *
- * @see IConfigSection
+ * @see IConfigCatalogSection
  */
 internal interface IConfigCatalog
 

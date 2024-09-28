@@ -6,7 +6,7 @@ package ktask.core.settings.catalog.sections
 
 import kotlinx.serialization.Serializable
 import ktask.core.env.EnvironmentType
-import ktask.core.settings.parser.IConfigSection
+import ktask.core.settings.parser.IConfigCatalogSection
 
 /**
  * Contains settings related to Swagger and OpenAPI.
@@ -26,4 +26,4 @@ public data class ApiSchemaSettings(
     val openApiEndpoint: String,
     val swaggerEndpoint: String,
     val redocEndpoint: String
-) : IConfigSection
+) : IConfigCatalogSection

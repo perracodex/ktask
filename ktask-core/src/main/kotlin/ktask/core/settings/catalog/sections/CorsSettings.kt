@@ -5,7 +5,7 @@
 package ktask.core.settings.catalog.sections
 
 import kotlinx.serialization.Serializable
-import ktask.core.settings.parser.IConfigSection
+import ktask.core.settings.parser.IConfigCatalogSection
 
 /**
  * Contains settings related to CORS.
@@ -28,7 +28,7 @@ import ktask.core.settings.parser.IConfigSection
 @Serializable
 public data class CorsSettings(
     val allowedHosts: List<String>
-) : IConfigSection {
+) : IConfigCatalogSection {
     /**
      * Represents a single host configuration.
      *

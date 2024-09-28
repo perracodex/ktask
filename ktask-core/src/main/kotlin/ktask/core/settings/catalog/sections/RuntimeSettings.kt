@@ -5,7 +5,7 @@
 package ktask.core.settings.catalog.sections
 
 import ktask.core.env.EnvironmentType
-import ktask.core.settings.parser.IConfigSection
+import ktask.core.settings.parser.IConfigCatalogSection
 
 /**
  * Contains settings related to server runtime.
@@ -21,4 +21,4 @@ public data class RuntimeSettings(
     val environment: EnvironmentType,
     val doubleReceiveEnvironments: List<EnvironmentType>,
     val workingDir: String
-) : IConfigSection
+) : IConfigCatalogSection

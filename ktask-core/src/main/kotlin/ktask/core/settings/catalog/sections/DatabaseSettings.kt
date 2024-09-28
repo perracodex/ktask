@@ -6,7 +6,7 @@ package ktask.core.settings.catalog.sections
 
 import kotlinx.serialization.Serializable
 import ktask.core.env.EnvironmentType
-import ktask.core.settings.parser.IConfigSection
+import ktask.core.settings.parser.IConfigCatalogSection
 
 /**
  * Database related settings.
@@ -44,4 +44,4 @@ public data class DatabaseSettings(
     val useMigrations: Boolean,
     val username: String? = null,
     val password: String? = null,
-) : IConfigSection
+) : IConfigCatalogSection

@@ -5,7 +5,7 @@
 package ktask.core.settings.catalog.sections.security.sections
 
 import kotlinx.serialization.Serializable
-import ktask.core.settings.parser.IConfigSection
+import ktask.core.settings.parser.IConfigCatalogSection
 
 /**
  * Security constraints settings.
@@ -15,7 +15,7 @@ import ktask.core.settings.parser.IConfigSection
 @Serializable
 public data class ConstraintsSettings(
     val privateApi: LimitSpec,
-) : IConfigSection {
+) : IConfigCatalogSection {
 
     /**
      * Rate limit specification.

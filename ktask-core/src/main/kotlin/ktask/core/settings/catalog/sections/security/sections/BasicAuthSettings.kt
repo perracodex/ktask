@@ -5,7 +5,7 @@
 package ktask.core.settings.catalog.sections.security.sections
 
 import kotlinx.serialization.Serializable
-import ktask.core.settings.parser.IConfigSection
+import ktask.core.settings.parser.IConfigCatalogSection
 
 /**
  * Configuration parameters for HTTP authentication mechanisms.
@@ -21,4 +21,4 @@ public data class BasicAuthSettings(
     val realm: String,
     val username: String,
     val password: String
-) : IConfigSection
+) : IConfigCatalogSection

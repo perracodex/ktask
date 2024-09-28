@@ -5,7 +5,7 @@
 package ktask.core.settings.catalog.sections
 
 import kotlinx.serialization.Serializable
-import ktask.core.settings.parser.IConfigSection
+import ktask.core.settings.parser.IConfigCatalogSection
 
 /**
  * Contains settings related to how the application is deployed.
@@ -19,4 +19,4 @@ public data class DeploymentSettings(
     val port: Int,
     val sslPort: Int,
     val host: String,
-) : IConfigSection
+) : IConfigCatalogSection
