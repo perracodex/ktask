@@ -11,3 +11,9 @@ package ktask.core.settings.parser
  */
 internal interface IConfigCatalog
 
+/**
+ * Interface for configuration sections within the [IConfigCatalog].
+ *
+ * @see IConfigCatalog
+ */
+internal interface IConfigCatalogSection
