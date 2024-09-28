@@ -11,12 +11,12 @@ import kotlinx.serialization.json.Json
 import ktask.core.env.Tracer
 import ktask.core.settings.AppSettings.load
 import ktask.core.settings.annotation.ConfigurationAPI
-import ktask.core.settings.config.ConfigurationCatalog
-import ktask.core.settings.config.parser.ConfigClassMap
-import ktask.core.settings.config.parser.ConfigurationParser
-import ktask.core.settings.config.parser.IConfigSection
-import ktask.core.settings.config.sections.*
-import ktask.core.settings.config.sections.security.SecuritySettings
+import ktask.core.settings.catalog.ConfigurationCatalog
+import ktask.core.settings.catalog.sections.*
+import ktask.core.settings.catalog.sections.security.SecuritySettings
+import ktask.core.settings.parser.ConfigClassMap
+import ktask.core.settings.parser.ConfigurationParser
+import ktask.core.settings.parser.IConfigSection
 import kotlin.system.measureTimeMillis
 
 /**

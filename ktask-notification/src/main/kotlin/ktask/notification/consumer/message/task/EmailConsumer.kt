@@ -6,7 +6,7 @@ package ktask.notification.consumer.message.task
 
 import ktask.core.env.Tracer
 import ktask.core.settings.AppSettings
-import ktask.core.settings.config.sections.CommunicationSettings
+import ktask.core.settings.catalog.sections.CommunicationSettings
 import ktask.core.utils.CastUtils
 import ktask.notification.consumer.message.AbsNotificationConsumer
 import org.apache.commons.mail.DefaultAuthenticator

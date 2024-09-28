@@ -2,7 +2,7 @@
  * Copyright (c) 2024-Present Perracodex. Use of this source code is governed by an MIT license.
  */
 
-package ktask.core.settings.config.parser
+package ktask.core.settings.parser
 
 /**
  * Interface for the configuration catalog that holds all [IConfigSection] settings.

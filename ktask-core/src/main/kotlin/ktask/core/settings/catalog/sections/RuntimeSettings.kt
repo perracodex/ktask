@@ -2,10 +2,10 @@
  * Copyright (c) 2024-Present Perracodex. Use of this source code is governed by an MIT license.
  */
 
-package ktask.core.settings.config.sections
+package ktask.core.settings.catalog.sections
 
 import ktask.core.env.EnvironmentType
-import ktask.core.settings.config.parser.IConfigSection
+import ktask.core.settings.parser.IConfigSection
 
 /**
  * Contains settings related to server runtime.

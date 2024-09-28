@@ -2,12 +2,12 @@
  * Copyright (c) 2024-Present Perracodex. Use of this source code is governed by an MIT license.
  */
 
-package ktask.core.settings.config
+package ktask.core.settings.catalog
 
 import kotlinx.serialization.Serializable
-import ktask.core.settings.config.parser.IConfigCatalog
-import ktask.core.settings.config.sections.*
-import ktask.core.settings.config.sections.security.SecuritySettings
+import ktask.core.settings.catalog.sections.*
+import ktask.core.settings.catalog.sections.security.SecuritySettings
+import ktask.core.settings.parser.IConfigCatalog
 
 /**
  * Represents the top-level configuration settings for the application.

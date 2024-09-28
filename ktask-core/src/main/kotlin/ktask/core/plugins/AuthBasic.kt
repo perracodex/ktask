@@ -7,7 +7,7 @@ package ktask.core.plugins
 import io.ktor.server.application.*
 import io.ktor.server.auth.*
 import ktask.core.settings.AppSettings
-import ktask.core.settings.config.sections.security.sections.BasicAuthSettings
+import ktask.core.settings.catalog.sections.security.sections.BasicAuthSettings
 
 /**
  * Configures the Basic authentication.

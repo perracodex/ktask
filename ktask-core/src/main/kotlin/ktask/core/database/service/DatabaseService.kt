@@ -12,7 +12,7 @@ import ktask.core.env.Tracer
 import ktask.core.env.health.annotation.HealthCheckAPI
 import ktask.core.env.health.checks.DatabaseCheck
 import ktask.core.settings.AppSettings
-import ktask.core.settings.config.sections.DatabaseSettings
+import ktask.core.settings.catalog.sections.DatabaseSettings
 import org.flywaydb.core.Flyway
 import org.jetbrains.exposed.sql.Database
 import org.jetbrains.exposed.sql.DatabaseConfig

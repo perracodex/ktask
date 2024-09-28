@@ -9,7 +9,7 @@ import io.ktor.server.application.*
 import io.ktor.server.plugins.cors.routing.*
 import ktask.core.env.Tracer
 import ktask.core.settings.AppSettings
-import ktask.core.settings.config.sections.CorsSettings
+import ktask.core.settings.catalog.sections.CorsSettings
 
 /**
  * Configures [CORS] plugin by setting allowed HTTP methods and headers, permitting credentials,
