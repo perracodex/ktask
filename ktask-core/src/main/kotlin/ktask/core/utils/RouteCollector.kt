@@ -2,7 +2,7 @@
  * Copyright (c) 2024-Present Perracodex. Use of this source code is governed by an MIT license.
  */
 
-package ktask.core.env.health.utils
+package ktask.core.utils
 
 import io.ktor.server.application.*
 import io.ktor.server.routing.*

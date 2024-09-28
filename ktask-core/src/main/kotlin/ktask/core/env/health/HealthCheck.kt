@@ -9,7 +9,7 @@ import kotlinx.serialization.Serializable
 import ktask.core.database.service.DatabaseService
 import ktask.core.env.health.annotation.HealthCheckAPI
 import ktask.core.env.health.checks.*
-import ktask.core.env.health.utils.collectRoutes
+import ktask.core.utils.collectRoutes
 
 /**
  * Data class representing the overall health check for the system.
