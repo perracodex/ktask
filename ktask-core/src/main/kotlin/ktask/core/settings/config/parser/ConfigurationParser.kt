@@ -12,7 +12,6 @@ import kotlinx.coroutines.async
 import kotlinx.coroutines.withContext
 import ktask.core.env.Tracer
 import ktask.core.settings.annotation.ConfigurationAPI
-import ktask.core.settings.config.IConfigurationCatalog
 import kotlin.reflect.*
 import kotlin.reflect.full.memberProperties
 import kotlin.reflect.full.primaryConstructor
