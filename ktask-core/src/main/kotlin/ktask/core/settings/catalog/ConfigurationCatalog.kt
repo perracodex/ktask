@@ -4,10 +4,10 @@
 
 package ktask.core.settings.catalog
 
+import io.github.perracodex.ktor.config.IConfigCatalog
 import kotlinx.serialization.Serializable
 import ktask.core.settings.catalog.sections.*
 import ktask.core.settings.catalog.sections.security.SecuritySettings
-import ktask.core.settings.parser.IConfigCatalog
 
 /**
  * Represents the top-level configuration settings for the application.

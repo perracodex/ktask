@@ -4,8 +4,8 @@
 
 package ktask.core.settings.catalog.sections
 
+import io.github.perracodex.ktor.config.IConfigCatalogSection
 import ktask.core.env.EnvironmentType
-import ktask.core.settings.parser.IConfigCatalogSection
 
 /**
  * Contains settings related to server runtime.

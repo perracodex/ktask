@@ -4,19 +4,18 @@
 
 package ktask.core.settings
 
+import io.github.perracodex.ktor.config.ConfigCatalogMap
+import io.github.perracodex.ktor.config.ConfigurationParser
+import io.github.perracodex.ktor.config.IConfigCatalogSection
 import io.ktor.server.config.*
 import kotlinx.coroutines.runBlocking
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 import ktask.core.env.Tracer
 import ktask.core.settings.AppSettings.load
-import ktask.core.settings.annotation.ConfigurationAPI
 import ktask.core.settings.catalog.ConfigurationCatalog
 import ktask.core.settings.catalog.sections.*
 import ktask.core.settings.catalog.sections.security.SecuritySettings
-import ktask.core.settings.parser.ConfigCatalogMap
-import ktask.core.settings.parser.ConfigurationParser
-import ktask.core.settings.parser.IConfigCatalogSection
 import kotlin.system.measureTimeMillis
 
 /**
@@ -114,7 +113,6 @@ public object AppSettings {
      *
      * @param applicationConfig The [ApplicationConfig] instance from which the settings are loaded.
      */
-    @OptIn(ConfigurationAPI::class)
     public fun load(applicationConfig: ApplicationConfig) {
         if (AppSettings::configuration.isInitialized) {
             return

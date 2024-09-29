@@ -4,8 +4,8 @@
 
 package ktask.core.settings.catalog.sections.security.nodes
 
+import io.github.perracodex.ktor.config.IConfigCatalogSection
 import kotlinx.serialization.Serializable
-import ktask.core.settings.parser.IConfigCatalogSection
 
 /**
  * Configuration parameters for HTTP authentication mechanisms.

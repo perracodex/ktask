@@ -4,8 +4,8 @@
 
 package ktask.core.settings.catalog.sections
 
+import io.github.perracodex.ktor.config.IConfigCatalogSection
 import kotlinx.serialization.Serializable
-import ktask.core.settings.parser.IConfigCatalogSection
 
 /**
  * Contains settings related to communication.

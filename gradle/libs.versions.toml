@@ -16,6 +16,7 @@ kotlinx-atomicfu = "0.25.0"             # https://github.com/Kotlin/kotlinx-atom
 kotlinx-datetime = "0.6.1"              # https://github.com/Kotlin/kotlinx-datetime/releases
 kotlinx-serialization = "1.7.3"         # https://github.com/Kotlin/kotlinx.serialization/releases
 ktor = "2.3.12"                         # https://ktor.io/docs/releases.html#release-details
+ktor-config = "1.0.0"                   # https://github.com/perracodex/ktor-config/releases
 logback = "1.5.8"                       # https://github.com/qos-ch/logback/tags
 micrometer-prometheus = "1.13.4"        # https://github.com/micrometer-metrics/micrometer/releases
 mockk = "1.13.12"                       # https://github.com/mockk/mockk/releases
@@ -100,6 +101,11 @@ kotlinx-serialization = { module = "org.jetbrains.kotlinx:kotlinx-serialization-
 # https://github.com/Kotlin/kotlinx.serialization
 # https://github.com/Kotlin/kotlinx.serialization/blob/master/docs/serialization-guide.md
 ktor-serialization-kotlinx-json = { module = "io.ktor:ktor-serialization-kotlinx-json", version.ref = "ktor" }
+
+# Ktor Configurations Mapping.
+# https://github.com/perracodex/ktor-config
+# https://github.com/perracodex/ktor-config/releases
+ktor-config = { module = "io.github.perracodex:ktor-config", version.ref = "ktor-config" }
 
 # Ktor.
 # https://api.ktor.io
