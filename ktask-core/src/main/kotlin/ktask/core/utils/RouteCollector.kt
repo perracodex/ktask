@@ -75,12 +75,10 @@ internal fun Route.extractEndpointPath(): String {
 
     // Traverse the parent chain of the current route and collect path segments.
     while (currentRoute != null) {
-        val selector: RouteSelector = if (currentRoute is RoutingRoot) {
-            currentRoute.selector
-        } else if (currentRoute is RoutingNode) {
-            currentRoute.selector
-        } else {
-            break
+        val selector: RouteSelector = when (this) {
+            is RoutingRoot -> this.selector
+            is RoutingNode -> this.selector
+            else -> break
         }
 
         val segment: String = when (selector) {
