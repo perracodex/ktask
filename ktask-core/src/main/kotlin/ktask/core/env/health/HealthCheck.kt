@@ -9,6 +9,7 @@ import kotlinx.serialization.Serializable
 import ktask.core.database.service.DatabaseService
 import ktask.core.env.health.annotation.HealthCheckAPI
 import ktask.core.env.health.checks.*
+import ktask.core.utils.RouteInfo
 import ktask.core.utils.collectRoutes
 
 /**
@@ -26,7 +27,6 @@ import ktask.core.utils.collectRoutes
  */
 @OptIn(HealthCheckAPI::class)
 @Serializable
-@ConsistentCopyVisibility
 public data class HealthCheck internal constructor(
     val health: MutableList<String>,
     val application: ApplicationHealth,
@@ -36,7 +36,7 @@ public data class HealthCheck internal constructor(
     val security: SecurityHealth,
     val snowflake: SnowflakeHealth,
     val database: DatabaseHealth,
-    val endpoints: List<String>
+    val endpoints: List<RouteInfo>
 ) {
     init {
         health.addAll(application.errors)
@@ -64,7 +64,7 @@ public data class HealthCheck internal constructor(
             return HealthCheck(
                 health = mutableListOf(),
                 application = ApplicationHealth(),
-                deployment = DeploymentHealth(call = call),
+                deployment = DeploymentHealth.create(call = call),
                 runtime = RuntimeHealth(call = call),
                 scheduler = SchedulerHealth.create(),
                 security = SecurityHealth(),

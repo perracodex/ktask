@@ -73,5 +73,5 @@ internal fun Application.ktaskModule() {
 
     configureThymeleaf()
 
-    ApplicationsUtils.watchServer(environment = this.environment)
+    ApplicationsUtils.watchServer(application = this)
 }

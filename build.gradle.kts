@@ -90,7 +90,7 @@ subprojects {
                 freeCompilerArgs.add("-Xdebug")
             }
 
-            // Enable the experimental Uuid API in the standard library.
+            freeCompilerArgs.add("-Xconsistent-data-class-copy-visibility")
             freeCompilerArgs.add("-opt-in=kotlin.uuid.ExperimentalUuidApi")
         }
     }
