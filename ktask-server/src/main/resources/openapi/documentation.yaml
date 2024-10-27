@@ -50,6 +50,12 @@ paths:
         - "System"
       description: "Healthcheck providing the current operational status."
       responses:
+        "500":
+          description: "Internal Server Error"
+          content:
+            '*/*':
+              schema:
+                type: "string"
         "200":
           description: "OK"
           content:
@@ -353,7 +359,7 @@ components:
       required:
         - "name"
         - "group"
-    ApplicationCheck:
+    ApplicationHealth:
       type: "object"
       properties:
         errors:
@@ -409,7 +415,7 @@ components:
           type: "string"
         scheme:
           type: "string"
-    DeploymentCheck:
+    DeploymentHealth:
       type: "object"
       properties:
         errors:
@@ -427,10 +433,13 @@ components:
         - "configured"
         - "serverSpec"
         - "connectors"
+    Instant:
+      type: "object"
+      properties: { }
     LocalDateTime:
       type: "object"
       properties: { }
-    RuntimeCheck:
+    RuntimeHealth:
       type: "object"
       properties:
         errors:
@@ -450,7 +459,7 @@ components:
         developmentModeEnabled:
           type: "boolean"
         utc:
-          $ref: "#/components/schemas/LocalDateTime"
+          $ref: "#/components/schemas/Instant"
         local:
           $ref: "#/components/schemas/LocalDateTime"
       required:
@@ -458,7 +467,7 @@ components:
         - "environment"
         - "utc"
         - "local"
-    SchedulerCheck:
+    SchedulerHealth:
       type: "object"
       properties:
         errors:
@@ -479,7 +488,7 @@ components:
         refillMs:
           type: "integer"
           format: "int64"
-    SecurityCheck:
+    SecurityHealth:
       type: "object"
       properties:
         errors:
@@ -509,7 +518,7 @@ components:
       required:
         - "utc"
         - "local"
-    SnowflakeCheck:
+    SnowflakeHealth:
       type: "object"
       properties:
         errors:
@@ -603,15 +612,13 @@ components:
       required:
         - "jdbcDriver"
         - "jdbcUrl"
-    DatabaseCheck:
+    DatabaseHealth:
       type: "object"
       properties:
         errors:
           type: "array"
           items:
             type: "string"
-        alive:
-          type: "boolean"
         datasource:
           $ref: "#/components/schemas/Datasource"
         connectionTest:
@@ -626,6 +633,16 @@ components:
         - "errors"
         - "configuration"
         - "tables"
+    RouteInfo:
+      type: "object"
+      properties:
+        path:
+          type: "string"
+        method:
+          type: "string"
+      required:
+        - "path"
+        - "method"
     HealthCheck:
       type: "object"
       properties:
@@ -634,23 +651,23 @@ components:
           items:
             type: "string"
         application:
-          $ref: "#/components/schemas/ApplicationCheck"
+          $ref: "#/components/schemas/ApplicationHealth"
         deployment:
-          $ref: "#/components/schemas/DeploymentCheck"
+          $ref: "#/components/schemas/DeploymentHealth"
         runtime:
-          $ref: "#/components/schemas/RuntimeCheck"
+          $ref: "#/components/schemas/RuntimeHealth"
         scheduler:
-          $ref: "#/components/schemas/SchedulerCheck"
+          $ref: "#/components/schemas/SchedulerHealth"
         security:
-          $ref: "#/components/schemas/SecurityCheck"
+          $ref: "#/components/schemas/SecurityHealth"
         snowflake:
-          $ref: "#/components/schemas/SnowflakeCheck"
+          $ref: "#/components/schemas/SnowflakeHealth"
         database:
-          $ref: "#/components/schemas/DatabaseCheck"
+          $ref: "#/components/schemas/DatabaseHealth"
         endpoints:
           type: "array"
           items:
-            type: "string"
+            $ref: "#/components/schemas/RouteInfo"
       required:
         - "health"
         - "application"
@@ -662,17 +679,21 @@ components:
         - "database"
         - "endpoints"
     Uuid:
-      type: "string"
-      format: "uuid"
+      type: "object"
+      properties:
+        mostSignificantBits:
+          type: "integer"
+          format: "int64"
+        leastSignificantBits:
+          type: "integer"
+          format: "int64"
     Meta:
       type: "object"
       properties:
         createdAt:
-          type: "string"
-          format: "date-time"
+          $ref: "#/components/schemas/Instant"
         updatedAt:
-          type: "string"
-          format: "date-time"
+          $ref: "#/components/schemas/Instant"
       required:
         - "createdAt"
         - "updatedAt"
