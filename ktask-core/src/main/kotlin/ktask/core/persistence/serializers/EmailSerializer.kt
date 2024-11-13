@@ -12,7 +12,7 @@ import kotlinx.serialization.descriptors.PrimitiveSerialDescriptor
 import kotlinx.serialization.descriptors.SerialDescriptor
 import kotlinx.serialization.encoding.Decoder
 import kotlinx.serialization.encoding.Encoder
-import ktask.core.errors.validators.EmailValidator
+import ktask.core.error.validators.EmailValidator
 
 /**
  * Serializer for Email strings.

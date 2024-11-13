@@ -7,7 +7,7 @@ package ktask.core.scheduler.audit
 import ktask.core.database.schema.SchedulerAuditTable
 import ktask.core.scheduler.model.audit.AuditLog
 import ktask.core.scheduler.model.audit.AuditLogRequest
-import ktask.core.scheduler.service.annotation.SchedulerAPI
+import ktask.core.scheduler.service.annotation.SchedulerApi
 import org.jetbrains.exposed.sql.SortOrder
 import org.jetbrains.exposed.sql.andWhere
 import org.jetbrains.exposed.sql.insert
@@ -18,7 +18,7 @@ import kotlin.uuid.Uuid
 /**
  * Repository to manage the persistence aND retrieval of the scheduler audit logs.
  */
-@SchedulerAPI
+@SchedulerApi
 internal object AuditRepository {
 
     /**

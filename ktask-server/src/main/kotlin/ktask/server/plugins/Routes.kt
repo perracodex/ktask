@@ -9,12 +9,14 @@ import io.ktor.server.auth.*
 import io.ktor.server.plugins.ratelimit.*
 import io.ktor.server.routing.*
 import ktask.core.env.health.healthCheckRoute
-import ktask.core.events.sseRoute
+import ktask.core.event.sseRoute
 import ktask.core.plugins.RateLimitScope
 import ktask.core.scheduler.api.schedulerRoutes
 import ktask.core.settings.AppSettings
 import ktask.core.snowflake.snowflakeRoute
-import ktask.notification.api.notificationRoutes
+import ktask.notification.api.actionTaskRoute
+import ktask.notification.api.emailTaskRoute
+import ktask.notification.api.slackTaskRoute
 
 /**
  * Initializes and sets up routing for the application.
@@ -34,15 +36,18 @@ internal fun Application.configureRoutes() {
     routing {
         rateLimit(configuration = RateLimitName(name = RateLimitScope.PRIVATE_API.key)) {
             authenticate(AppSettings.security.basicAuth.providerName) {
-                notificationRoutes()
+                // Notification routes.
+                actionTaskRoute()
+                emailTaskRoute()
+                slackTaskRoute()
 
+                // Scheduled notification routes.
+                sseRoute()
                 schedulerRoutes()
 
+                // Infrastructure routes.
                 snowflakeRoute()
-
                 healthCheckRoute()
-
-                sseRoute()
             }
         }
     }

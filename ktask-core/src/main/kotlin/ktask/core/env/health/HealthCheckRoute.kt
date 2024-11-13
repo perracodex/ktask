@@ -4,6 +4,7 @@
 
 package ktask.core.env.health
 
+import io.github.perracodex.kopapi.dsl.operation.api
 import io.ktor.http.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
@@ -16,12 +17,19 @@ import io.ktor.server.routing.*
  * external service availability, or other critical component checks.
  */
 public fun Route.healthCheckRoute() {
-    /**
-     * Healthcheck providing the current operational status.
-     * @OpenAPITag System
-     */
-    get("/health") {
+    get("/admin/health") {
         val healthCheck: HealthCheck = HealthCheck.create(call = call)
         call.respond(status = HttpStatusCode.OK, message = healthCheck)
+    } api {
+        tags = setOf("System")
+        summary = "Health check."
+        description = "Provides the current operational status."
+        operationId = "healthCheck"
+        response<HealthCheck>(status = HttpStatusCode.OK) {
+            description = "The health check status."
+        }
+        basicSecurity(name = "System") {
+            description = "Access to health check."
+        }
     }
 }

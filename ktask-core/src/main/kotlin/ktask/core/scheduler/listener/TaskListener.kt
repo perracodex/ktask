@@ -6,14 +6,14 @@ package ktask.core.scheduler.listener
 
 import io.micrometer.core.instrument.Counter
 import io.micrometer.core.instrument.Timer
-import kotlinx.coroutines.runBlocking
 import ktask.core.env.Telemetry
 import ktask.core.env.Tracer
 import ktask.core.scheduler.audit.AuditService
 import ktask.core.scheduler.model.audit.AuditLogRequest
-import ktask.core.scheduler.service.annotation.SchedulerAPI
+import ktask.core.scheduler.service.SchedulerAsyncScope
+import ktask.core.scheduler.service.annotation.SchedulerApi
 import ktask.core.scheduler.service.task.TaskOutcome
-import ktask.core.utils.DateTimeUtils.toKotlinLocalDateTime
+import ktask.core.util.DateTimeUtils.toKotlinLocalDateTime
 import org.quartz.JobExecutionContext
 import org.quartz.JobExecutionException
 import org.quartz.JobListener
@@ -23,7 +23,7 @@ import org.quartz.JobListener
  * In addition to logging task execution events, it also stores audit logs.
  * Micro-metrics are also exposed for external monitoring.
  */
-@SchedulerAPI
+@SchedulerApi
 internal class TaskListener : JobListener {
     private val tracer = Tracer<TaskListener>()
 
@@ -100,12 +100,7 @@ internal class TaskListener : JobListener {
             log = jobException?.message,
             detail = context.jobDetail.jobDataMap.toMap().toString()
         ).also { request ->
-            // Use `runBlocking` here to ensure that the coroutine for creating
-            // the audit log completes synchronously within this Quartz callback method,
-            // which is necessary because Quartz, being a Java-based library,
-            // does not support suspending functions and requires that the execution
-            // context completes before exiting the job.
-            runBlocking {
+            SchedulerAsyncScope.enqueue {
                 AuditService.create(request = request)
             }
         }

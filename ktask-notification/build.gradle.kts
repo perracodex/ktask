@@ -9,6 +9,8 @@ dependencies {
 
     implementation(project(":ktask-core"))
 
+    implementation(libs.kopapi)
+
     implementation(libs.kotlinx.datetime)
     implementation(libs.kotlinx.serialization)
 

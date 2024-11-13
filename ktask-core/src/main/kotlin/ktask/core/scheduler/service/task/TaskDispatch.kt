@@ -5,12 +5,12 @@
 package ktask.core.scheduler.service.task
 
 import ktask.core.scheduler.service.SchedulerService
-import ktask.core.scheduler.service.annotation.SchedulerAPI
+import ktask.core.scheduler.service.annotation.SchedulerApi
 import ktask.core.scheduler.service.schedule.Schedule
 import ktask.core.scheduler.service.schedule.TaskStartAt
 import ktask.core.snowflake.SnowflakeFactory
-import ktask.core.utils.DateTimeUtils.toJavaDate
-import ktask.core.utils.DateTimeUtils.toJavaInstant
+import ktask.core.util.DateTimeUtils.toJavaDate
+import ktask.core.util.DateTimeUtils.toJavaInstant
 import org.quartz.*
 import java.util.*
 import kotlin.uuid.Uuid
@@ -24,7 +24,7 @@ import kotlin.uuid.Uuid
  * @property startAt Specifies when the task should start. Defaults to immediate execution.
  * @property parameters Optional parameters to be passed to the task class.
  */
-@OptIn(SchedulerAPI::class)
+@OptIn(SchedulerApi::class)
 public class TaskDispatch(
     private val taskId: Uuid,
     private val consumerClass: Class<out TaskConsumer>,

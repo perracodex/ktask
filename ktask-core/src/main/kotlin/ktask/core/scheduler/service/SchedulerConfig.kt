@@ -4,7 +4,7 @@
 
 package ktask.core.scheduler.service
 
-import ktask.core.scheduler.service.annotation.SchedulerAPI
+import ktask.core.scheduler.service.annotation.SchedulerApi
 import ktask.core.settings.AppSettings
 import java.io.InputStream
 import java.util.*
@@ -12,7 +12,7 @@ import java.util.*
 /**
  * Loads the configuration properties for the task scheduler.
  */
-@SchedulerAPI
+@SchedulerApi
 internal object SchedulerConfig {
 
     /** The configuration properties file, located in the 'resources' directory. */

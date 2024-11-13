@@ -4,11 +4,14 @@
 
 package ktask.core.scheduler.api.view
 
+import io.github.perracodex.kopapi.dsl.operation.api
+import io.github.perracodex.kopapi.dsl.parameter.queryParameter
+import io.ktor.http.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
 import io.ktor.server.thymeleaf.*
 import ktask.core.persistence.utils.toUuidOrNull
-import ktask.core.scheduler.api.SchedulerRouteAPI
+import ktask.core.scheduler.api.SchedulerRouteApi
 import ktask.core.scheduler.model.task.TaskSchedule
 import ktask.core.scheduler.service.SchedulerService
 import kotlin.uuid.Uuid
@@ -16,16 +19,24 @@ import kotlin.uuid.Uuid
 /**
  * The scheduler dashboard route.
  */
-@SchedulerRouteAPI
+@SchedulerRouteApi
 internal fun Route.schedulerDashboardRoute() {
-    /**
-     * The scheduler dashboard route.
-     * @OpenAPITag Scheduler - Maintenance
-     */
-    get("scheduler/dashboard") {
+    get("/admin/scheduler/dashboard") {
         val groupId: Uuid? = call.parameters["group"]?.toUuidOrNull()
         val tasks: List<TaskSchedule> = SchedulerService.tasks.all(groupId = groupId)
         val content = ThymeleafContent(template = "scheduler/dashboard", model = mapOf("data" to tasks))
         call.respond(message = content)
+    } api {
+        tags = setOf("Scheduler Admin")
+        summary = "Get the scheduler dashboard."
+        description = "Get the scheduler dashboard, listing all scheduled tasks."
+        operationId = "getSchedulerDashboard"
+        queryParameter<Uuid>(name = "group") {
+            description = "The group ID to filter tasks by."
+            required = false
+        }
+        response<String>(status = HttpStatusCode.OK) {
+            description = "The scheduler dashboard."
+        }
     }
 }

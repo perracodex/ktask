@@ -5,7 +5,7 @@
 package ktask.core.scheduler.model.audit
 
 import kotlinx.datetime.LocalDateTime
-import ktask.core.scheduler.service.annotation.SchedulerAPI
+import ktask.core.scheduler.service.annotation.SchedulerApi
 import ktask.core.scheduler.service.task.TaskOutcome
 
 /**
@@ -19,7 +19,7 @@ import ktask.core.scheduler.service.task.TaskOutcome
  * @property log The log information.
  * @property detail The detail that provides more information about the log.
  */
-@SchedulerAPI
+@SchedulerApi
 public data class AuditLogRequest(
     val taskName: String,
     val taskGroup: String,

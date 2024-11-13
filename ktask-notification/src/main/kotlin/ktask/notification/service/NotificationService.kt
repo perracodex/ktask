@@ -8,11 +8,11 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import kotlinx.datetime.LocalDateTime
 import ktask.core.env.Tracer
-import ktask.core.events.SEEService
+import ktask.core.event.SseService
 import ktask.core.scheduler.service.schedule.TaskStartAt
 import ktask.core.scheduler.service.task.TaskDispatch
 import ktask.core.scheduler.service.task.TaskKey
-import ktask.core.utils.DateTimeUtils.current
+import ktask.core.util.DateTimeUtils.current
 import ktask.notification.consumer.message.AbsNotificationConsumer
 import ktask.notification.consumer.message.task.EmailConsumer
 import ktask.notification.consumer.message.task.SlackConsumer
@@ -61,7 +61,7 @@ internal object NotificationService {
             TaskStartAt.AtDateTime(datetime = startDateTime)
         } ?: TaskStartAt.Immediate
 
-        val outputKeys = mutableListOf<TaskKey>()
+        val outputKeys: MutableList<TaskKey> = mutableListOf()
 
         // Iterate over each recipient and schedule a task for each one.
         request.recipients.forEach { recipient ->
@@ -86,7 +86,7 @@ internal object NotificationService {
 
         // Send a message to the SSE endpoint.
         val schedule: String = request.schedule?.toString() ?: "--"
-        SEEService.push(
+        SseService.push(
             "New notification task (${request.recipients.size})| $schedule | ${consumerClass.simpleName} | ID: ${request.id}"
         )
 

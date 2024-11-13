@@ -9,13 +9,13 @@ import kotlinx.coroutines.withContext
 import ktask.core.env.Tracer
 import ktask.core.scheduler.model.audit.AuditLog
 import ktask.core.scheduler.model.audit.AuditLogRequest
-import ktask.core.scheduler.service.annotation.SchedulerAPI
+import ktask.core.scheduler.service.annotation.SchedulerApi
 import kotlin.uuid.Uuid
 
 /**
  * Service to manage the persistence and retrieval of the scheduler audit logs.
  */
-@OptIn(SchedulerAPI::class)
+@OptIn(SchedulerApi::class)
 internal object AuditService {
     private val tracer = Tracer<AuditService>()
 

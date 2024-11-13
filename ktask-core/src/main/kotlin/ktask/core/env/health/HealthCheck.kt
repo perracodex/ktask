@@ -7,10 +7,10 @@ package ktask.core.env.health
 import io.ktor.server.application.*
 import kotlinx.serialization.Serializable
 import ktask.core.database.service.DatabaseService
-import ktask.core.env.health.annotation.HealthCheckAPI
-import ktask.core.env.health.checks.*
-import ktask.core.utils.RouteInfo
-import ktask.core.utils.collectRoutes
+import ktask.core.env.health.annotation.HealthCheckApi
+import ktask.core.env.health.check.*
+import ktask.core.util.RouteInfo
+import ktask.core.util.collectRoutes
 
 /**
  * Data class representing the overall health check for the system.
@@ -25,7 +25,7 @@ import ktask.core.utils.collectRoutes
  * @property database The [DatabaseHealth] check.
  * @property endpoints The list of endpoints registered by the application.
  */
-@OptIn(HealthCheckAPI::class)
+@OptIn(HealthCheckApi::class)
 @Serializable
 public data class HealthCheck internal constructor(
     val health: MutableList<String>,

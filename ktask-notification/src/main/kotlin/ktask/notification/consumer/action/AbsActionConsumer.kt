@@ -4,7 +4,12 @@
 
 package ktask.notification.consumer.action
 
+import kotlinx.datetime.LocalDateTime
+import ktask.core.event.SseService
+import ktask.core.scheduler.service.SchedulerAsyncScope
 import ktask.core.scheduler.service.task.TaskConsumer
+import ktask.core.util.DateTimeUtils.current
+import ktask.core.util.DateTimeUtils.formatted
 import kotlin.uuid.Uuid
 
 /**
@@ -51,7 +56,19 @@ internal abstract class AbsActionConsumer : TaskConsumer() {
 
     override fun start(properties: Map<String, Any>) {
         val payload: TaskPayload = properties.let { TaskPayload.build(properties = it) }
-        consume(payload = payload)
+
+        runCatching {
+            consume(payload = payload)
+        }.onFailure {
+            SchedulerAsyncScope.enqueue {
+                SseService.push("${LocalDateTime.current().formatted()} | Failed to consume `action` task: `${payload.taskId}`")
+            }
+
+            // Rethrow the exception to allow it to propagate.
+            throw it
+        }.onSuccess {
+            SseService.push("${LocalDateTime.current().formatted()} | Consumed `action` task: `${payload.taskId}`")
+        }
     }
 
     /**

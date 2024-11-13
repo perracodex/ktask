@@ -9,7 +9,8 @@ import ktask.core.env.Tracer
 import ktask.core.scheduler.listener.TaskListener
 import ktask.core.scheduler.listener.TriggerListener
 import ktask.core.scheduler.model.task.TaskStateChange
-import ktask.core.scheduler.service.annotation.SchedulerAPI
+import ktask.core.scheduler.service.SchedulerService.pause
+import ktask.core.scheduler.service.annotation.SchedulerApi
 import ktask.core.scheduler.service.task.TaskFactory
 import ktask.core.scheduler.service.task.TaskState
 import org.quartz.Scheduler
@@ -26,7 +27,7 @@ import java.util.*
  * - [Quartz Scheduler Documentation](https://github.com/quartz-scheduler/quartz/blob/main/docs/index.adoc)
  * - [Quartz Scheduler Configuration](https://www.quartz-scheduler.org/documentation/2.4.0-SNAPSHOT/configuration.html)
  */
-@OptIn(SchedulerAPI::class)
+@OptIn(SchedulerApi::class)
 internal object SchedulerService {
     private val tracer = Tracer<SchedulerService>()
 
@@ -41,9 +42,6 @@ internal object SchedulerService {
         /** The scheduler is stopped. */
         STOPPED
     }
-
-    /** The key used to store the application settings in the task data map. */
-    const val APP_SETTINGS_KEY: String = "APP_SETTINGS"
 
     /** Scheduler instance used to manage tasks. */
     private lateinit var scheduler: Scheduler
@@ -78,6 +76,7 @@ internal object SchedulerService {
         }
 
         tracer.info("Starting task scheduler.")
+        Thread.currentThread().contextClassLoader = this::class.java.classLoader
         scheduler.listenerManager.addJobListener(TaskListener())
         scheduler.listenerManager.addTriggerListener(TriggerListener())
         scheduler.start()
@@ -157,6 +156,7 @@ internal object SchedulerService {
         // Add a shutdown hook to stop the scheduler when the application is stopped.
         application.monitor.subscribe(ApplicationStopping) {
             stop(interrupt = false)
+            SchedulerAsyncScope.close()
         }
     }
 

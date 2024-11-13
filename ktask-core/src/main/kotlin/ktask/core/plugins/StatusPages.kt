@@ -10,10 +10,10 @@ import io.ktor.server.plugins.*
 import io.ktor.server.plugins.statuspages.*
 import io.ktor.server.response.*
 import ktask.core.env.Tracer
-import ktask.core.errors.AppException
-import ktask.core.errors.CompositeAppException
-import ktask.core.errors.ErrorUtils
-import ktask.core.errors.respondError
+import ktask.core.error.AppException
+import ktask.core.error.CompositeAppException
+import ktask.core.error.ErrorUtils
+import ktask.core.error.respondError
 import org.jetbrains.exposed.exceptions.ExposedSQLException
 
 /**

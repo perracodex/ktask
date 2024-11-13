@@ -4,24 +4,29 @@
 
 package ktask.core.scheduler.api.scheduler.audit
 
+import io.github.perracodex.kopapi.dsl.operation.api
 import io.ktor.http.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
-import ktask.core.scheduler.api.SchedulerRouteAPI
+import ktask.core.scheduler.api.SchedulerRouteApi
 import ktask.core.scheduler.audit.AuditService
 import ktask.core.scheduler.model.audit.AuditLog
 
 /**
  * Returns all existing audit logs for the scheduler.
  */
-@SchedulerRouteAPI
+@SchedulerRouteApi
 internal fun Route.schedulerAllAuditRoute() {
-    /**
-     * Returns all existing audit logs for the scheduler.
-     * @OpenAPITag Scheduler - Maintenance
-     */
-    get("scheduler/audit") {
+    get("/admin/scheduler/audit") {
         val audit: List<AuditLog> = AuditService.findAll()
         call.respond(status = HttpStatusCode.OK, message = audit)
+    } api {
+        tags = setOf("Scheduler Admin")
+        summary = "Get all scheduler audit logs."
+        description = "Get all existing audit logs for the scheduler."
+        operationId = "getAllSchedulerAuditLogs"
+        response<List<AuditLog>>(status = HttpStatusCode.OK) {
+            description = "All scheduler audit logs."
+        }
     }
 }

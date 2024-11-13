@@ -5,11 +5,11 @@
 package ktask.notification.model.message.request
 
 import kotlinx.serialization.Serializable
-import ktask.core.errors.validators.EmailValidator
+import ktask.core.error.validators.EmailValidator
 import ktask.core.persistence.serializers.Uuid
 import ktask.core.scheduler.service.schedule.Schedule
 import ktask.notification.consumer.message.task.EmailConsumer
-import ktask.notification.errors.NotificationError
+import ktask.notification.error.NotificationError
 import ktask.notification.model.message.IMessageRequest
 import ktask.notification.model.message.Recipient
 

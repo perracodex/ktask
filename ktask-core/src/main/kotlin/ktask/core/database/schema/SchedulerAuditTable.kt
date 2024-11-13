@@ -10,7 +10,6 @@ import ktask.core.database.columns.kotlinUuid
 import ktask.core.database.schema.base.TimestampedTable
 import ktask.core.scheduler.service.task.TaskOutcome
 import org.jetbrains.exposed.sql.Column
-import org.jetbrains.exposed.sql.Table
 import org.jetbrains.exposed.sql.kotlin.datetime.datetime
 import kotlin.uuid.Uuid
 
@@ -81,7 +80,7 @@ internal object SchedulerAuditTable : TimestampedTable(name = "scheduler_audit")
     /**
      * The primary key of the table.
      */
-    override val primaryKey: Table.PrimaryKey = PrimaryKey(
+    override val primaryKey: PrimaryKey = PrimaryKey(
         firstColumn = id,
         name = "pk_audit_id"
     )

@@ -5,7 +5,7 @@
 package ktask.core.scheduler.listener
 
 import ktask.core.env.Tracer
-import ktask.core.scheduler.service.annotation.SchedulerAPI
+import ktask.core.scheduler.service.annotation.SchedulerApi
 import org.quartz.JobExecutionContext
 import org.quartz.Trigger
 import org.quartz.Trigger.CompletedExecutionInstruction
@@ -15,7 +15,7 @@ import org.quartz.TriggerListener
  * The interface to be implemented by classes that want to be informed
  * when a task schedule trigger fires.
  */
-@SchedulerAPI
+@SchedulerApi
 internal class TriggerListener : TriggerListener {
     private val tracer = Tracer<ktask.core.scheduler.listener.TriggerListener>()
 

@@ -9,11 +9,15 @@ import io.ktor.server.netty.*
 import ktask.core.plugins.*
 import ktask.core.settings.AppSettings
 import ktask.server.plugins.configureRoutes
-import ktask.server.utils.ApplicationsUtils
+import ktask.server.util.ApplicationsUtils
 
 /**
  * Application main entry point.
  * Launches the Ktor server using Netty as the application engine.
+ *
+ * ### Hot Reload
+ * - Command: `./gradlew -t build -x test -i`
+ * - [Auto-Reload](https://ktor.io/docs/server-auto-reload.html)
  *
  * #### References
  * - [Choosing an engine](https://ktor.io/docs/server-engines.html)
@@ -53,6 +57,8 @@ internal fun Application.ktaskModule() {
 
     configureHttp()
 
+    configureSse()
+
     configureCallLogging()
 
     configureSerialization()
@@ -61,7 +67,7 @@ internal fun Application.ktaskModule() {
 
     configureRoutes()
 
-    configuredApiSchema()
+    configureApiSchema()
 
     configureMicroMeterMetrics()
 

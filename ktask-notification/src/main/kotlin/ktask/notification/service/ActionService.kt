@@ -8,11 +8,11 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import kotlinx.datetime.LocalDateTime
 import ktask.core.env.Tracer
-import ktask.core.events.SEEService
+import ktask.core.event.SseService
 import ktask.core.scheduler.service.schedule.TaskStartAt
 import ktask.core.scheduler.service.task.TaskDispatch
 import ktask.core.scheduler.service.task.TaskKey
-import ktask.core.utils.DateTimeUtils.current
+import ktask.core.util.DateTimeUtils.current
 import ktask.notification.consumer.action.AbsActionConsumer
 import ktask.notification.consumer.action.task.ActionConsumer
 import ktask.notification.model.action.IActionRequest
@@ -68,7 +68,7 @@ internal object ActionService {
 
         // Send a message to the SSE endpoint.
         val schedule: String = request.schedule?.toString() ?: "--"
-        SEEService.push("New action task | $schedule | ID: ${request.id}")
+        SseService.push("New action task | $schedule | ID: ${request.id}")
 
         return@withContext outputKey
     }

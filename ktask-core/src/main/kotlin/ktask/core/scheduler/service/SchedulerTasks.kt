@@ -6,16 +6,16 @@ package ktask.core.scheduler.service
 
 import it.burning.cron.CronExpressionDescriptor
 import ktask.core.env.Tracer
-import ktask.core.events.SEEService
+import ktask.core.event.SseService
 import ktask.core.scheduler.audit.AuditService
 import ktask.core.scheduler.model.audit.AuditLog
 import ktask.core.scheduler.model.task.TaskSchedule
 import ktask.core.scheduler.model.task.TaskStateChange
 import ktask.core.scheduler.service.SchedulerTasks.Companion.create
-import ktask.core.scheduler.service.annotation.SchedulerAPI
+import ktask.core.scheduler.service.annotation.SchedulerApi
 import ktask.core.scheduler.service.task.TaskState
 import ktask.core.snowflake.SnowflakeFactory
-import ktask.core.utils.DateTimeUtils.toKotlinLocalDateTime
+import ktask.core.util.DateTimeUtils.toKotlinLocalDateTime
 import org.quartz.*
 import org.quartz.impl.matchers.GroupMatcher
 import java.util.*
@@ -29,9 +29,9 @@ import kotlin.uuid.Uuid
  *
  * Instances should be created using the [create] method in the companion object.
  * The constructor is private to prevent instantiation from outside modules and ensure
- * that only components annotated with [SchedulerAPI] can create instances.
+ * that only components annotated with [SchedulerApi] can create instances.
  */
-@OptIn(SchedulerAPI::class)
+@OptIn(SchedulerApi::class)
 internal class SchedulerTasks private constructor(private val scheduler: Scheduler) {
     private val tracer = Tracer<SchedulerService>()
 
@@ -111,7 +111,7 @@ internal class SchedulerTasks private constructor(private val scheduler: Schedul
      * @param group The group of the task to re-trigger.
      * @throws IllegalArgumentException If the task is not found.
      */
-    suspend fun resend(name: String, group: String) {
+    fun resend(name: String, group: String) {
         val jobKey: JobKey = JobKey.jobKey(name, group)
 
         // Triggers require a unique identity.
@@ -131,9 +131,7 @@ internal class SchedulerTasks private constructor(private val scheduler: Schedul
         // Schedule the new trigger with the existing job.
         scheduler.scheduleJob(newTrigger)
 
-        SEEService.push(
-            "Task resent. Name: $name | Group: $group"
-        )
+        SseService.push("Task resent. Name: $name | Group: $group")
 
         tracer.debug("Trigger for task ${jobKey.name} has been scheduled.")
     }
@@ -239,7 +237,7 @@ internal class SchedulerTasks private constructor(private val scheduler: Schedul
          * @param scheduler The [Scheduler] instance to be used.
          * @return A new instance of [SchedulerTasks].
          */
-        @SchedulerAPI
+        @SchedulerApi
         internal fun create(scheduler: Scheduler): SchedulerTasks {
             return SchedulerTasks(scheduler = scheduler)
         }

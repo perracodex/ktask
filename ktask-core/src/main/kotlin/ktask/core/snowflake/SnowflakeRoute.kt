@@ -4,6 +4,8 @@
 
 package ktask.core.snowflake
 
+import io.github.perracodex.kopapi.dsl.operation.api
+import io.github.perracodex.kopapi.dsl.parameter.pathParameter
 import io.ktor.http.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
@@ -15,9 +17,23 @@ import io.ktor.server.util.*
 public fun Route.snowflakeRoute() {
 
     // Snowflake parser to read back the components of a snowflake ID.
-    get("/snowflake/{id}") {
+    get("/admin/snowflake/{id}") {
         val snowflakeId: String = call.parameters.getOrFail(name = "id")
         val data: SnowflakeData = SnowflakeFactory.parse(id = snowflakeId)
         call.respond(status = HttpStatusCode.OK, message = data)
+    } api {
+        tags = setOf("System")
+        summary = "Snowflake parser."
+        description = "Reads back the components of a snowflake ID."
+        operationId = "snowflakeParser"
+        pathParameter<String>(name = "id") {
+            description = "The snowflake ID to parse."
+        }
+        response<SnowflakeData>(status = HttpStatusCode.OK) {
+            description = "The parsed snowflake data."
+        }
+        basicSecurity(name = "System") {
+            description = "Access to health check."
+        }
     }
 }

@@ -10,7 +10,7 @@ import ktask.core.scheduler.service.schedule.TaskStartAt
 import ktask.core.scheduler.service.task.TaskConsumer
 import ktask.core.scheduler.service.task.TaskDispatch
 import ktask.core.scheduler.service.task.TaskKey
-import ktask.core.utils.TestUtils
+import ktask.core.util.TestUtils
 import org.quartz.*
 import kotlin.test.AfterTest
 import kotlin.test.BeforeTest

@@ -64,13 +64,14 @@
 									}
 								},
 								"url": {
-									"raw": "http://localhost:8080/scheduler/state",
+                                  "raw": "http://localhost:8080/admin/scheduler/state",
 									"protocol": "http",
 									"host": [
 										"localhost"
 									],
 									"port": "8080",
 									"path": [
+                                      "admin",
 										"scheduler",
 										"state"
 									]
@@ -129,13 +130,14 @@
 									}
 								},
 								"url": {
-									"raw": "http://localhost:8080/scheduler/pause",
+                                  "raw": "http://localhost:8080/admin/scheduler/pause",
 									"protocol": "http",
 									"host": [
 										"localhost"
 									],
 									"port": "8080",
 									"path": [
+                                      "admin",
 										"scheduler",
 										"pause"
 									]
@@ -194,13 +196,14 @@
 									}
 								},
 								"url": {
-									"raw": "http://localhost:8080/scheduler/resume",
+                                  "raw": "http://localhost:8080/admin/scheduler/resume",
 									"protocol": "http",
 									"host": [
 										"localhost"
 									],
 									"port": "8080",
 									"path": [
+                                      "admin",
 										"scheduler",
 										"resume"
 									]
@@ -259,13 +262,14 @@
 									}
 								},
 								"url": {
-									"raw": "http://localhost:8080/scheduler/restart",
+                                  "raw": "http://localhost:8080/admin/scheduler/restart",
 									"protocol": "http",
 									"host": [
 										"localhost"
 									],
 									"port": "8080",
 									"path": [
+                                      "admin",
 										"scheduler",
 										"restart"
 									]
@@ -333,13 +337,14 @@
 											}
 										},
 										"url": {
-											"raw": "http://localhost:8080/scheduler/task",
+                                          "raw": "http://localhost:8080/admin/scheduler/task",
 											"protocol": "http",
 											"host": [
 												"localhost"
 											],
 											"port": "8080",
 											"path": [
+                                              "admin",
 												"scheduler",
 												"task"
 											]
@@ -399,13 +404,14 @@
 											}
 										},
 										"url": {
-											"raw": "http://localhost:8080/scheduler/task/group",
+                                          "raw": "http://localhost:8080/admin/scheduler/task/group",
 											"protocol": "http",
 											"host": [
 												"localhost"
 											],
 											"port": "8080",
 											"path": [
+                                              "admin",
 												"scheduler",
 												"task",
 												"group"
@@ -470,13 +476,14 @@
 											}
 										},
 										"url": {
-											"raw": "http://localhost:8080/scheduler/task/1iqxfuocw5yww/38befbfb-20a3-4bcd-91e1-a2c7240adfa0/pause",
+                                          "raw": "http://localhost:8080/admin/scheduler/task/1iqxfuocw5yww/38befbfb-20a3-4bcd-91e1-a2c7240adfa0/pause",
 											"protocol": "http",
 											"host": [
 												"localhost"
 											],
 											"port": "8080",
 											"path": [
+                                              "admin",
 												"scheduler",
 												"task",
 												"1iqxfuocw5yww",
@@ -538,13 +545,14 @@
 											}
 										},
 										"url": {
-											"raw": "http://localhost:8080/scheduler/task/1iqxfuocw5yww/38befbfb-20a3-4bcd-91e1-a2c7240adfa0/pause",
+                                          "raw": "http://localhost:8080/admin/scheduler/task/1iqxfuocw5yww/38befbfb-20a3-4bcd-91e1-a2c7240adfa0/pause",
 											"protocol": "http",
 											"host": [
 												"localhost"
 											],
 											"port": "8080",
 											"path": [
+                                              "admin",
 												"scheduler",
 												"task",
 												"1iqxfuocw5yww",
@@ -606,13 +614,14 @@
 											}
 										},
 										"url": {
-											"raw": "http://localhost:8080/scheduler/task/1is2szwvv45j4/38befbfb-20a3-4bcd-91e1-a2c7240adfa0/resend",
+                                          "raw": "http://localhost:8080/admin/scheduler/task/1is2szwvv45j4/38befbfb-20a3-4bcd-91e1-a2c7240adfa0/resend",
 											"protocol": "http",
 											"host": [
 												"localhost"
 											],
 											"port": "8080",
 											"path": [
+                                              "admin",
 												"scheduler",
 												"task",
 												"1is2szwvv45j4",
@@ -679,13 +688,14 @@
 											}
 										},
 										"url": {
-											"raw": "http://localhost:8080/scheduler/task/1iq133y9d1r0g/38befbfb-20a3-4bcd-91e1-a2c7240adfa0",
+                                          "raw": "http://localhost:8080/admin/scheduler/task/1iq133y9d1r0g/38befbfb-20a3-4bcd-91e1-a2c7240adfa0",
 											"protocol": "http",
 											"host": [
 												"localhost"
 											],
 											"port": "8080",
 											"path": [
+                                              "admin",
 												"scheduler",
 												"task",
 												"1iq133y9d1r0g",
@@ -746,13 +756,14 @@
 											}
 										},
 										"url": {
-											"raw": "http://localhost:8080/scheduler/task",
+                                          "raw": "http://localhost:8080/admin/scheduler/task",
 											"protocol": "http",
 											"host": [
 												"localhost"
 											],
 											"port": "8080",
 											"path": [
+                                              "admin",
 												"scheduler",
 												"task"
 											]
@@ -819,13 +830,14 @@
 									}
 								},
 								"url": {
-									"raw": "http://localhost:8080/scheduler/audit",
+                                  "raw": "http://localhost:8080/admin/scheduler/audit",
 									"protocol": "http",
 									"host": [
 										"localhost"
 									],
 									"port": "8080",
 									"path": [
+                                      "admin",
 										"scheduler",
 										"audit"
 									]
@@ -885,13 +897,14 @@
 									}
 								},
 								"url": {
-									"raw": "http://localhost:8080/scheduler/audit/1irpwav67ad4w/2eb37132-556f-4c9f-a419-8de93906589f",
+                                  "raw": "http://localhost:8080/admin/scheduler/audit/1irpwav67ad4w/2eb37132-556f-4c9f-a419-8de93906589f",
 									"protocol": "http",
 									"host": [
 										"localhost"
 									],
 									"port": "8080",
 									"path": [
+                                      "admin",
 										"scheduler",
 										"audit",
 										"1irpwav67ad4w",
@@ -1019,7 +1032,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"id\": \"38befbfb-20a3-4bcd-91e1-a2c7240adfa0\",\r\n    \"schedule\": {\r\n        \"start\": \"2024-05-01T15:42:50\",\r\n        \"days\": 0, \"hours\": 0, \"minutes\": 1, \"seconds\": 0\r\n    },\r\n    \"recipients\": [\r\n        { \"target\": \"nickname_1@email.com\", \"name\": \"person_name_1\", \"locale\": \"en\" },\r\n        { \"target\": \"nickname_2@email.com\", \"name\": \"person_name_2\", \"locale\": \"es\" }\r\n    ],\r\n    \"template\": \"simple\",\r\n    \"cc\": [],\r\n    \"subject\": \"Something\",\r\n    \"fields\": {\r\n        \"sender\": \"Sender Name\",\r\n        \"content\": \"Some dynamic content!\"\r\n    }\r\n}\r\n",
+                                  "raw": "{\r\n    \"id\": \"38befbfb-20a3-4bcd-91e1-a2c7240adfa0\",\r\n    \"schedule\": {\r\n        \"start\": \"2024-05-01T15:42:50\",\r\n        \"days\": 0, \"hours\": 0, \"minutes\": 1, \"seconds\": 5\r\n    },\r\n    \"recipients\": [\r\n        { \"target\": \"nickname_1@email.com\", \"name\": \"person_name_1\", \"locale\": \"en\" },\r\n        { \"target\": \"nickname_2@email.com\", \"name\": \"person_name_2\", \"locale\": \"es\" }\r\n    ],\r\n    \"template\": \"simple\",\r\n    \"cc\": [],\r\n    \"subject\": \"Something\",\r\n    \"fields\": {\r\n        \"sender\": \"Sender Name\",\r\n        \"content\": \"Some dynamic content!\"\r\n    }\r\n}\r\n",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -1419,7 +1432,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"id\": \"38befbfb-20a3-4bcd-91e1-a2c7240adfa0\",\r\n    \"schedule\": {\r\n        \"start\": \"2024-05-01T15:42:50\", \r\n        \"days\": 0, \"hours\": 0, \"minutes\": 1, \"seconds\": 0\r\n    },\r\n    \"data\": \"some data\"\r\n}\r\n",
+                                  "raw": "{\r\n    \"id\": \"38befbfb-20a3-4bcd-91e1-a2c7240adfa0\",\r\n    \"schedule\": {\r\n        \"start\": \"2024-11-13T11:42:50\", \r\n        \"days\": 0, \"hours\": 0, \"minutes\": 0, \"seconds\": 2\r\n    },\r\n    \"data\": \"some data\"\r\n}\r\n",
 									"options": {
 										"raw": {
 											"language": "json"
