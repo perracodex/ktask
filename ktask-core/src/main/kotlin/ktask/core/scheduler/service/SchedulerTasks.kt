@@ -131,8 +131,7 @@ internal class SchedulerTasks private constructor(private val scheduler: Schedul
         // Schedule the new trigger with the existing job.
         scheduler.scheduleJob(newTrigger)
 
-        SseService.push("Task resent. Name: $name | Group: $group")
-
+        SseService.push(message = "Task resent. Name: $name | Group: $group")
         tracer.debug("Trigger for task ${jobKey.name} has been scheduled.")
     }
 

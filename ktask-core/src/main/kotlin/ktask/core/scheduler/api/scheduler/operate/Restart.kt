@@ -19,7 +19,7 @@ import ktask.core.scheduler.service.SchedulerService
 @SchedulerRouteApi
 internal fun Route.restartSchedulerRoute() {
     post("/admin/scheduler/restart") {
-        val interrupt: Boolean = call.parameters["interrupt"].toBoolean()
+        val interrupt: Boolean = call.queryParameters["interrupt"].toBoolean()
         val state: SchedulerService.TaskSchedulerState = SchedulerService.restart(interrupt = interrupt)
         call.respond(status = HttpStatusCode.OK, message = state.name)
     } api {

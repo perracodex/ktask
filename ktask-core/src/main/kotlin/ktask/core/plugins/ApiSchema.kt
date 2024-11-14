@@ -72,6 +72,8 @@ public fun Application.configureApiSchema() {
         }
 
         tags {
+            add(name = "Events", description = "System Events")
+            add(name = "Notification", description = "Notification related endpoints")
             add(name = "System", description = "System Management")
             add(name = "Scheduler", description = "Scheduler Management")
             add(name = "Scheduler Admin", description = "Scheduler Maintenance")

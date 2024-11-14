@@ -9,7 +9,7 @@ import ktask.core.scheduler.service.schedule.Schedule
 import ktask.notification.consumer.message.AbsNotificationConsumer
 
 /**
- * Represents a request to schedule a task.
+ * Base interface for all message based requests
  *
  * @property id The unique identifier of the task request.
  * @property description Optional description of the task.

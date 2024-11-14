@@ -68,7 +68,7 @@ internal object ActionService {
 
         // Send a message to the SSE endpoint.
         val schedule: String = request.schedule?.toString() ?: "--"
-        SseService.push("New action task | $schedule | ID: ${request.id}")
+        SseService.push(message = "New action task | $schedule | ID: ${request.id}")
 
         return@withContext outputKey
     }

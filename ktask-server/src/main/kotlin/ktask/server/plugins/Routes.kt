@@ -9,7 +9,7 @@ import io.ktor.server.auth.*
 import io.ktor.server.plugins.ratelimit.*
 import io.ktor.server.routing.*
 import ktask.core.env.health.healthCheckRoute
-import ktask.core.event.sseRoute
+import ktask.core.event.sseRoutes
 import ktask.core.plugins.RateLimitScope
 import ktask.core.scheduler.api.schedulerRoutes
 import ktask.core.settings.AppSettings
@@ -41,8 +41,10 @@ internal fun Application.configureRoutes() {
                 emailTaskRoute()
                 slackTaskRoute()
 
+                // System events related routes.
+                sseRoutes()
+
                 // Scheduled notification routes.
-                sseRoute()
                 schedulerRoutes()
 
                 // Infrastructure routes.

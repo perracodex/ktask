@@ -8,28 +8,44 @@ import kotlinx.datetime.LocalDateTime
 import kotlinx.serialization.Serializable
 
 /**
- * Represents a schedule for a task.
+ * Represents the scheduling configuration for a task, defining **when** and **how often** it should execute.
  *
- * Serialization is done using the custom [ScheduleSerializer], which employs polymorphic serialization.
- * Alternatively, could use `@JsonClassDiscriminator` to specify the `type` field discriminator, but
- * this would require the `type` key to always be present in the JSON payload.
+ * `Schedule` is a sealed class providing flexible scheduling strategies:
  *
+ * - **Interval Scheduling** (`Schedule.Interval`): Runs a task at fixed intervals specified in days, hours, minutes, and seconds.
+ * - **Cron Scheduling** (`Schedule.Cron`): Uses a cron expression to schedule tasks based on complex time and date patterns.
+ *
+ * Each schedule type can optionally have a `start` datetime, indicating when the schedule becomes active.
+ *
+ * ### [ScheduleSerializer] custom serializer
+ *
+ * By default, when serializing polymorphic classes with Kotlin serialization,
+ * must include a type discriminator field (like `"type": "interval"` or `"type": "cron"`)
+ * in the JSON payload to identify which subclass to deserialize into.
+ * This can clutter your JSON and isn't always desirable.
+ *
+ * By using the custom [ScheduleSerializer], we can serialize and deserialize `Schedule`
+ * objects without requiring a type field in the JSON.
+ *
+ * **Alternative Approach Without a Custom Serializer:**
+ *
+ * If we didn't use a custom serializer, we would need to include a type discriminator
+ * in our JSON and annotate the `Schedule` class with `@JsonClassDiscriminator`:
  * ```
  * @OptIn(ExperimentalSerializationApi::class)
  * @JsonClassDiscriminator("type")
  * @Serializable
  * sealed class Schedule {
- *    @Serializable
- *    @SerialName("interval")
- *    data class Interval(
- *    ...
- *    }
- *    @Serializable
- *    @SerialName("cron")
- *    data class Cron(
- *    ...
- *    }
+ *     @Serializable
+ *     @SerialName("interval")
+ *     data class Interval(/*...*/) : Schedule()
+ *
+ *     @Serializable
+ *     @SerialName("cron")
+ *     data class Cron(/*...*/) : Schedule()
+ * }
  * ```
+ * This approach would require every JSON payload to include a `"type"` key, which we wanted to avoid.
  *
  * #### References
  * - [Serialization with Polymorphism](https://medium.com/livefront/intro-to-polymorphism-with-kotlinx-serialization-b8f5f1cedc99)

@@ -9,7 +9,7 @@ import ktask.core.scheduler.service.schedule.Schedule
 import ktask.notification.consumer.action.AbsActionConsumer
 
 /**
- * Represents a custom action task request.
+ * Base interface for all action based requests.
  *
  * @property id The unique identifier of the task request.
  * @property description Optional description of the task.

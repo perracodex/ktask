@@ -283,7 +283,7 @@
 					"name": "task",
 					"item": [
 						{
-							"name": "list",
+                          "name": "fetch",
 							"item": [
 								{
 									"name": "tasks",
@@ -912,6 +912,143 @@
 									]
 								}
 							},
+                          "response": []
+                        }
+                    ]
+                },
+              {
+                "name": "events",
+                "item": [
+                  {
+                    "name": "clear",
+                    "event": [
+                      {
+                        "listen": "prerequest",
+                        "script": {
+                          "exec": [
+                            ""
+                          ],
+                          "type": "text/javascript",
+                          "packages": {}
+                        }
+                      }
+                    ],
+                    "protocolProfileBehavior": {
+                      "strictSSL": false
+                    },
+                    "request": {
+                      "auth": {
+                        "type": "basic",
+                        "basic": [
+                          {
+                            "key": "password",
+                            "value": "admin",
+                            "type": "string"
+                          },
+                          {
+                            "key": "username",
+                            "value": "admin",
+                            "type": "string"
+                          }
+                        ]
+                      },
+                      "method": "POST",
+                      "header": [
+                        {
+                          "key": "Authorization",
+                          "value": "",
+                          "disabled": true
+                        }
+                      ],
+                      "body": {
+                        "mode": "raw",
+                        "raw": "",
+                        "options": {
+                          "raw": {
+                            "language": "json"
+                          }
+                        }
+                      },
+                      "url": {
+                        "raw": "http://localhost:8080/admin/events/clear",
+                        "protocol": "http",
+                        "host": [
+                          "localhost"
+                        ],
+                        "port": "8080",
+                        "path": [
+                          "admin",
+                          "events",
+                          "clear"
+                        ]
+                      }
+                    },
+                    "response": []
+                  },
+                  {
+                    "name": "get all",
+                    "event": [
+                      {
+                        "listen": "prerequest",
+                        "script": {
+                          "exec": [
+                            ""
+                          ],
+                          "type": "text/javascript",
+                          "packages": {}
+                        }
+                      }
+                    ],
+                    "protocolProfileBehavior": {
+                      "strictSSL": false,
+                      "disableBodyPruning": true
+                    },
+                    "request": {
+                      "auth": {
+                        "type": "basic",
+                        "basic": [
+                          {
+                            "key": "password",
+                            "value": "admin",
+                            "type": "string"
+                          },
+                          {
+                            "key": "username",
+                            "value": "admin",
+                            "type": "string"
+                          }
+                        ]
+                      },
+                      "method": "GET",
+                      "header": [
+                        {
+                          "key": "Authorization",
+                          "value": "",
+                          "disabled": true
+                        }
+                      ],
+                      "body": {
+                        "mode": "raw",
+                        "raw": "",
+                        "options": {
+                          "raw": {
+                            "language": "json"
+                          }
+                        }
+                      },
+                      "url": {
+                        "raw": "http://localhost:8080/admin/events",
+                        "protocol": "http",
+                        "host": [
+                          "localhost"
+                        ],
+                        "port": "8080",
+                        "path": [
+                          "admin",
+                          "events"
+                        ]
+                      }
+                    },
 							"response": []
 						}
 					]
@@ -1432,7 +1569,7 @@
 								],
 								"body": {
 									"mode": "raw",
-                                  "raw": "{\r\n    \"id\": \"38befbfb-20a3-4bcd-91e1-a2c7240adfa0\",\r\n    \"schedule\": {\r\n        \"start\": \"2024-11-13T11:42:50\", \r\n        \"days\": 0, \"hours\": 0, \"minutes\": 0, \"seconds\": 2\r\n    },\r\n    \"data\": \"some data\"\r\n}\r\n",
+                                  "raw": "{\r\n    \"id\": \"38befbfb-20a3-4bcd-91e1-a2c7240adfa0\",\r\n    \"schedule\": {\r\n        \"start\": \"2024-11-13T11:42:50\", \r\n        \"days\": 0, \"hours\": 0, \"minutes\": 0, \"seconds\": 1\r\n    },\r\n    \"data\": \"some data\"\r\n}\r\n",
 									"options": {
 										"raw": {
 											"language": "json"

@@ -87,7 +87,7 @@ internal object NotificationService {
         // Send a message to the SSE endpoint.
         val schedule: String = request.schedule?.toString() ?: "--"
         SseService.push(
-            "New notification task (${request.recipients.size})| $schedule | ${consumerClass.simpleName} | ID: ${request.id}"
+            message = "New notification task (${request.recipients.size})| $schedule | ${consumerClass.simpleName} | ID: ${request.id}"
         )
 
         return@withContext outputKeys
