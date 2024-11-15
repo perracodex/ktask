@@ -20,10 +20,12 @@ internal class ActionConsumer : AbsActionConsumer() {
         DATA(key = "DATA"),
     }
 
-    override fun consume(payload: TaskPayload) {
-        tracer.debug("Processing action. ID: ${payload.taskId}")
+    override fun consume(payload: ConsumerPayload) {
+        tracer.debug("Processing action. Group Id: ${payload.taskGroupId} | Name: ${payload.taskName}")
 
-        val data: String = payload.additionalParameters[Property.DATA.key] as String
+        val data: String = payload.additionalParameters[Property.DATA.key] as? String
+            ?: throw IllegalArgumentException("DATA is missing or invalid.")
+
         tracer.debug("Action data: $data")
     }
 }

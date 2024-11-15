@@ -8,7 +8,6 @@ import ktask.core.scheduler.service.SchedulerService
 import ktask.core.scheduler.service.annotation.SchedulerApi
 import ktask.core.scheduler.service.schedule.Schedule
 import ktask.core.scheduler.service.schedule.TaskStartAt
-import ktask.core.snowflake.SnowflakeFactory
 import ktask.core.util.DateTimeUtils.toJavaDate
 import ktask.core.util.DateTimeUtils.toJavaInstant
 import org.quartz.*
@@ -19,15 +18,17 @@ import kotlin.uuid.Uuid
  * Class to create and send a scheduling request for a task.
  * It supports both simple intervals and cron-based scheduling.
  *
- * @property taskId The ID of the task to be scheduled.
+ * @property taskGroupId The Group Id of the task to be scheduled.
+ * @property taskName The unique name of the task to be scheduled.
  * @property consumerClass The class of the task consumer to be scheduled.
  * @property startAt Specifies when the task should start. Defaults to immediate execution.
  * @property parameters Optional parameters to be passed to the task class.
  */
 @OptIn(SchedulerApi::class)
 public class TaskDispatch(
-    private val taskId: Uuid,
-    private val consumerClass: Class<out TaskConsumer>,
+    private val taskGroupId: Uuid,
+    private val taskName: String,
+    private val consumerClass: Class<out TaskConsumer<*>>,
     private var startAt: TaskStartAt = TaskStartAt.Immediate,
     private var parameters: Map<String, Any?> = emptyMap()
 ) {
@@ -119,9 +120,7 @@ public class TaskDispatch(
      * Build the job details and trigger builder for the task.
      */
     private fun buildJob(): BasicJob {
-        val taskName: String = SnowflakeFactory.nextId()
-        val groupName: String = taskId.toString()
-
+        val groupName: String = taskGroupId.toString()
         val jobKey: JobKey = JobKey.jobKey(taskName, groupName)
         val jobDataMap = JobDataMap(parameters)
 

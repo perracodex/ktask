@@ -25,9 +25,10 @@ public interface IActionRequest {
      *
      * Subclasses should override this method to include additional type-specific parameters.
      */
-    public fun toMap(): MutableMap<String, Any?> {
+    public fun toMap(taskName: String): MutableMap<String, Any?> {
         return mutableMapOf(
-            AbsActionConsumer.Property.TASK_ID.key to id,
+            AbsActionConsumer.Property.TASK_GROUP_ID.key to id,
+            AbsActionConsumer.Property.TASK_NAME.key to taskName,
             AbsActionConsumer.Property.DESCRIPTION.key to description,
         )
     }

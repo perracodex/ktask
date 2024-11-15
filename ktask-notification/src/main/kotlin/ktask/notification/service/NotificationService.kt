@@ -12,6 +12,7 @@ import ktask.core.event.SseService
 import ktask.core.scheduler.service.schedule.TaskStartAt
 import ktask.core.scheduler.service.task.TaskDispatch
 import ktask.core.scheduler.service.task.TaskKey
+import ktask.core.snowflake.SnowflakeFactory
 import ktask.core.util.DateTimeUtils.current
 import ktask.notification.consumer.message.AbsNotificationConsumer
 import ktask.notification.consumer.message.task.EmailConsumer
@@ -66,10 +67,13 @@ internal object NotificationService {
         // Iterate over each recipient and schedule a task for each one.
         request.recipients.forEach { recipient ->
 
+            val taskName: String = SnowflakeFactory.nextId()
+
             // Dispatch the task based on the specified schedule type.
-            request.toMap(recipient = recipient).let { parameters ->
+            request.toMap(taskName = taskName, recipient = recipient).let { parameters ->
                 TaskDispatch(
-                    taskId = request.id,
+                    taskGroupId = request.id,
+                    taskName = taskName,
                     consumerClass = consumerClass,
                     startAt = taskStartAt,
                     parameters = parameters
@@ -82,13 +86,14 @@ internal object NotificationService {
                     outputKeys.add(taskKey)
                 }
             }
-        }
 
-        // Send a message to the SSE endpoint.
-        val schedule: String = request.schedule?.toString() ?: "--"
-        SseService.push(
-            message = "New notification task (${request.recipients.size})| $schedule | ${consumerClass.simpleName} | ID: ${request.id}"
-        )
+            // Send a message to the SSE endpoint.
+            val schedule: String = request.schedule?.toString() ?: "Immediate"
+            SseService.push(
+                message = "New 'notification' task | $schedule | " +
+                        "${consumerClass.simpleName} | Group Id: ${request.id} | Name: $taskName | Recipient: $recipient"
+            )
+        }
 
         return@withContext outputKeys
     }

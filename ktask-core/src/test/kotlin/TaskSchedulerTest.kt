@@ -10,6 +10,7 @@ import ktask.core.scheduler.service.schedule.TaskStartAt
 import ktask.core.scheduler.service.task.TaskConsumer
 import ktask.core.scheduler.service.task.TaskDispatch
 import ktask.core.scheduler.service.task.TaskKey
+import ktask.core.snowflake.SnowflakeFactory
 import ktask.core.util.TestUtils
 import org.quartz.*
 import kotlin.test.AfterTest
@@ -41,9 +42,12 @@ class SchedulerServiceTest {
     fun testImmediate(): Unit = testSuspend {
         val uniqueTestKey = "uniqueTestTask_${System.nanoTime()}"
 
-        val taskId: Uuid = Uuid.random()
+        val taskGroupId: Uuid = Uuid.random()
+        val taskName: String = SnowflakeFactory.nextId()
+
         val taskKey: TaskKey = TaskDispatch(
-            taskId = taskId,
+            taskGroupId = taskGroupId,
+            taskName = taskName,
             consumerClass = SimpleTestConsumer::class.java,
             startAt = TaskStartAt.Immediate,
             parameters = mapOf("uniqueKey" to uniqueTestKey)
@@ -63,9 +67,12 @@ class SchedulerServiceTest {
         val uniqueTestKey = "uniqueTestTask_${System.nanoTime()}"
 
         val interval: Schedule.Interval = Schedule.Interval(days = 0u, hours = 0u, minutes = 0u, seconds = 1u)
-        val taskId: Uuid = Uuid.random()
+        val taskGroupId: Uuid = Uuid.random()
+        val taskName: String = SnowflakeFactory.nextId()
+
         val taskKey: TaskKey = TaskDispatch(
-            taskId = taskId,
+            taskGroupId = taskGroupId,
+            taskName = taskName,
             consumerClass = SimpleTestConsumer::class.java,
             startAt = TaskStartAt.Immediate,
             parameters = mapOf("uniqueKey" to uniqueTestKey)
@@ -85,9 +92,12 @@ class SchedulerServiceTest {
         val uniqueTestKey = "uniqueTestTask_${System.nanoTime()}"
 
         val cron: Schedule.Cron = Schedule.Cron(cron = "0/1 * * * * ?")
-        val taskId: Uuid = Uuid.random()
+        val taskGroupId: Uuid = Uuid.random()
+        val taskName: String = SnowflakeFactory.nextId()
+
         val taskKey: TaskKey = TaskDispatch(
-            taskId = taskId,
+            taskGroupId = taskGroupId,
+            taskName = taskName,
             consumerClass = SimpleTestConsumer::class.java,
             startAt = TaskStartAt.Immediate,
             parameters = mapOf("uniqueKey" to uniqueTestKey)
@@ -151,11 +161,56 @@ class SchedulerServiceTest {
         }
     }
 
-    class SimpleTestConsumer : TaskConsumer() {
-        override fun start(properties: Map<String, Any>) {
-            val uniqueKey: String = (properties["uniqueKey"] ?: "defaultKey") as String
-            testResults.add(uniqueKey)
-            println("Test task executed with unique key: $uniqueKey")
+    /**
+     * A simple test consumer for verifying task execution.
+     */
+    class SimpleTestConsumer : TaskConsumer<TestPayload>() {
+
+        /**
+         * Builds the [TestPayload] from the provided properties.
+         *
+         * @param properties The property map containing task parameters.
+         * @return The constructed [TestPayload].
+         * @throws IllegalArgumentException If required properties are missing or invalid.
+         */
+        override fun buildPayload(properties: Map<String, Any>): TestPayload {
+            val taskGroupId: Uuid = properties["TASK_GROUP_ID"] as? Uuid
+                ?: throw IllegalArgumentException("TASK_GROUP_ID is missing or invalid.")
+            val taskName: String = properties["TASK_NAME"] as? String
+                ?: throw IllegalArgumentException("TASK_NAME is missing or invalid.")
+            val uniqueKey: String = properties["uniqueKey"] as? String
+                ?: throw IllegalArgumentException("uniqueKey is missing or invalid.")
+
+            return TestPayload(
+                taskGroupId = taskGroupId,
+                taskName = taskName,
+                uniqueKey = uniqueKey
+            )
+        }
+
+        /**
+         * Consumes the [TestPayload] by adding the unique key to the test results.
+         *
+         * @param payload The [TestPayload] containing task data.
+         */
+        override fun consume(payload: TestPayload) {
+            testResults.add(payload.uniqueKey)
+            println("Test task executed with unique key: ${payload.uniqueKey}")
         }
     }
+
+    /**
+     * Concrete implementation of [TaskConsumer.Payload] for testing purposes.
+     *
+     * @property taskGroupId The group ID of the task.
+     * @property taskName The unique name of the task.
+     * @property taskType The type of the task.
+     * @property uniqueKey A unique key to verify task execution.
+     */
+    data class TestPayload(
+        override val taskGroupId: Uuid,
+        override val taskName: String,
+        override val taskType: String = "test",
+        val uniqueKey: String
+    ) : TaskConsumer.Payload
 }

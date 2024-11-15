@@ -5,13 +5,10 @@
 package ktask.notification.consumer.message
 
 import kotlinx.datetime.LocalDate
-import kotlinx.datetime.LocalDateTime
-import ktask.core.event.SseService
 import ktask.core.scheduler.service.task.TaskConsumer
 import ktask.core.settings.AppSettings
 import ktask.core.util.CastUtils
 import ktask.core.util.DateTimeUtils.current
-import ktask.core.util.DateTimeUtils.formatted
 import ktask.notification.model.message.Recipient
 import org.thymeleaf.TemplateEngine
 import org.thymeleaf.context.Context
@@ -25,20 +22,21 @@ import kotlin.uuid.Uuid
  * the loading and processing of template files. Extending classes must implement the [consume]
  * method to define task-specific behavior.
  */
-internal abstract class AbsNotificationConsumer : TaskConsumer() {
+internal abstract class AbsNotificationConsumer : TaskConsumer<AbsNotificationConsumer.ConsumerPayload>() {
 
     /**
      * Represents the properties used in the task payload.
      * These are the common properties shared by all task consumers.
      */
     enum class Property(val key: String) {
+        TASK_GROUP_ID(key = "TASK_GROUP_ID"),
+        TASK_NAME(key = "TASK_NAME"),
         ATTACHMENTS(key = "ATTACHMENTS"),
         FIELDS(key = "FIELDS"),
         DESCRIPTION(key = "DESCRIPTION"),
         RECIPIENT_LOCALE(key = "RECIPIENT_LOCALE"),
         RECIPIENT_NAME(key = "RECIPIENT_NAME"),
         RECIPIENT_TARGET(key = "RECIPIENT_TARGET"),
-        TASK_ID(key = "TASK_ID"),
         TEMPLATE(key = "TEMPLATE")
     }
 
@@ -67,89 +65,18 @@ internal abstract class AbsNotificationConsumer : TaskConsumer() {
         SLACK(mode = TemplateMode.TEXT, suffix = ".txt", location = "slack")
     }
 
-    /**
-     * Represents the data necessary for task processing, encapsulating task-specific parameters.
-     *
-     * @param taskId The unique identifier of the task.
-     * @param description Optional description of the task.
-     * @param recipient The target recipient of the task.
-     * @param template The template to be used for the notification.
-     * @param fields Optional fields to be included in the template.
-     * @param attachments Optional list of file paths to be attached to the notification.
-     * @param additionalParameters A map of additional parameters required for the task.
-     */
-    data class TaskPayload(
-        val taskId: Uuid,
-        val description: String?,
-        val recipient: Recipient,
-        val template: String,
-        val fields: Map<String, String>?,
-        val attachments: List<String>?,
-        val additionalParameters: Map<String, Any> = emptyMap()
-    ) {
-        companion object {
-            fun build(properties: Map<String, Any>): TaskPayload {
-                val recipient = Recipient(
-                    target = properties[Property.RECIPIENT_TARGET.key] as String,
-                    name = properties[Property.RECIPIENT_NAME.key] as String,
-                    locale = properties[Property.RECIPIENT_LOCALE.key] as String
-                )
-
-                return properties.filterKeys { key ->
-                    // Consumer-specific properties, which are not part of the common payload.
-                    key !in Property.entries.map { it.key }
-                }.let { additionalParameters ->
-                    TaskPayload(
-                        taskId = properties[Property.TASK_ID.key] as Uuid,
-                        description = properties[Property.DESCRIPTION.key] as? String,
-                        recipient = recipient,
-                        template = properties[Property.TEMPLATE.key] as String,
-                        fields = CastUtils.toStringMap(map = properties[Property.FIELDS.key]),
-                        attachments = CastUtils.toStringList(list = properties[Property.ATTACHMENTS.key]),
-                        additionalParameters = additionalParameters
-                    )
-                }
-            }
-        }
+    override fun buildPayload(properties: Map<String, Any>): ConsumerPayload {
+        return ConsumerPayload.build(properties = properties)
     }
-
-    override fun start(properties: Map<String, Any>) {
-        val payload: TaskPayload = properties.let { TaskPayload.build(properties = it) }
-
-        runCatching {
-            consume(payload = payload)
-        }.onFailure { error ->
-            SseService.push(
-                message = "${LocalDateTime.current().formatted()} | Failed to consume `notification` task: `${payload.taskId}`" +
-                        " | Error: ${error.message.orEmpty()}"
-            )
-
-            // Rethrow the exception to allow it to propagate.
-            throw error
-        }.onSuccess {
-            SseService.push(
-                message = "${LocalDateTime.current().formatted()} | Consumed `notification` task: `${payload.taskId}`"
-            )
-        }
-    }
-
-    /**
-     * Processes the task with the provided payload.
-     * Extending classes must implement this method to define
-     * the task-specific consumption behavior.
-     *
-     * @param payload The [TaskPayload] containing the data required to process the task.
-     */
-    protected abstract fun consume(payload: TaskPayload)
 
     /**
      * Loads a template file and processes it with the provided context.
      *
      * @param type The type of template to load.
-     * @param payload The [TaskPayload] containing the data to be used in the template.
+     * @param payload The [ConsumerPayload] containing the data to be used in the template.
      * @return The processed template as a string.
      */
-    protected fun buildMessage(type: TemplateType, payload: TaskPayload): String {
+    protected fun buildMessage(type: TemplateType, payload: ConsumerPayload): String {
 
         val locale: String = payload.recipient.locale.lowercase()
 
@@ -179,7 +106,7 @@ internal abstract class AbsNotificationConsumer : TaskConsumer() {
             addTemplateResolver(FileTemplateResolver().apply {
                 prefix = "${AppSettings.communication.templatesPath}/${type.location}/"
                 suffix = type.suffix
-                characterEncoding = "utf-8"
+                characterEncoding = ENCODING
                 templateMode = type.mode
             })
         }
@@ -187,5 +114,63 @@ internal abstract class AbsNotificationConsumer : TaskConsumer() {
         // Process the template with the context variables.
         // Note that if the template is not found, the task will fail.
         return templateEngine.process(targetTemplate, context)
+    }
+
+    /**
+     * Represents the data necessary for task processing, encapsulating task-specific parameters.
+     *
+     * @param description Optional description of the task.
+     * @param recipient The target recipient of the task.
+     * @param template The template to be used for the notification.
+     * @param fields Optional fields to be included in the template.
+     * @param attachments Optional list of file paths to be attached to the notification.
+     * @param additionalParameters A map of additional parameters required for the task.
+     */
+    data class ConsumerPayload(
+        override val taskGroupId: Uuid,
+        override val taskName: String,
+        override val taskType: String = TASK_TYPE,
+        val description: String?,
+        val recipient: Recipient,
+        val template: String,
+        val fields: Map<String, String>?,
+        val attachments: List<String>?,
+        val additionalParameters: Map<String, Any> = emptyMap()
+    ) : Payload {
+        companion object {
+            fun build(properties: Map<String, Any>): ConsumerPayload {
+                val recipient = Recipient(
+                    target = properties[Property.RECIPIENT_TARGET.key] as String,
+                    name = properties[Property.RECIPIENT_NAME.key] as String,
+                    locale = properties[Property.RECIPIENT_LOCALE.key] as String
+                )
+
+                val taskGroupId: Uuid = properties[Property.TASK_GROUP_ID.key] as? Uuid
+                    ?: throw IllegalArgumentException("TASK_GROUP_ID is missing or invalid.")
+                val taskName: String = properties[Property.TASK_NAME.key] as? String
+                    ?: throw IllegalArgumentException("TASK_NAME is missing or invalid.")
+
+                return properties.filterKeys { key ->
+                    // Consumer-specific properties, which are not part of the common payload.
+                    key !in Property.entries.map { it.key }
+                }.let { additionalParameters ->
+                    ConsumerPayload(
+                        taskGroupId = taskGroupId,
+                        taskName = taskName,
+                        description = properties[Property.DESCRIPTION.key] as? String,
+                        recipient = recipient,
+                        template = properties[Property.TEMPLATE.key] as String,
+                        fields = CastUtils.toStringMap(map = properties[Property.FIELDS.key]),
+                        attachments = CastUtils.toStringList(list = properties[Property.ATTACHMENTS.key]),
+                        additionalParameters = additionalParameters
+                    )
+                }
+            }
+        }
+    }
+
+    private companion object {
+        const val TASK_TYPE: String = "notification"
+        const val ENCODING: String = "utf-8"
     }
 }

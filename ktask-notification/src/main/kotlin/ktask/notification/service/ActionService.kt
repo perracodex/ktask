@@ -12,6 +12,7 @@ import ktask.core.event.SseService
 import ktask.core.scheduler.service.schedule.TaskStartAt
 import ktask.core.scheduler.service.task.TaskDispatch
 import ktask.core.scheduler.service.task.TaskKey
+import ktask.core.snowflake.SnowflakeFactory
 import ktask.core.util.DateTimeUtils.current
 import ktask.notification.consumer.action.AbsActionConsumer
 import ktask.notification.consumer.action.task.ActionConsumer
@@ -49,10 +50,13 @@ internal object ActionService {
 
         lateinit var outputKey: TaskKey
 
+        val taskName: String = SnowflakeFactory.nextId()
+
         // Dispatch the task based on the specified schedule type.
-        request.toMap().let { parameters ->
+        request.toMap(taskName = taskName).let { parameters ->
             TaskDispatch(
-                taskId = request.id,
+                taskGroupId = request.id,
+                taskName = taskName,
                 consumerClass = consumerClass,
                 startAt = taskStartAt,
                 parameters = parameters
@@ -67,8 +71,8 @@ internal object ActionService {
         }
 
         // Send a message to the SSE endpoint.
-        val schedule: String = request.schedule?.toString() ?: "--"
-        SseService.push(message = "New action task | $schedule | ID: ${request.id}")
+        val schedule: String = request.schedule?.toString() ?: "Immediate"
+        SseService.push(message = "New 'action' task | $schedule | Group Id: ${request.id} | Name: $taskName")
 
         return@withContext outputKey
     }

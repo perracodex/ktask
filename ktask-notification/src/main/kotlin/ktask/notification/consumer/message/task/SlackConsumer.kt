@@ -27,8 +27,8 @@ internal class SlackConsumer : AbsNotificationConsumer() {
         CHANNEL(key = "CHANNEL")
     }
 
-    override fun consume(payload: TaskPayload) {
-        tracer.debug("Processing Slack notification. ID: ${payload.taskId}")
+    override fun consume(payload: ConsumerPayload) {
+        tracer.debug("Processing Slack notification. Group Id: ${payload.taskGroupId} | Name: ${payload.taskName}")
 
         val slackSpec: CommunicationSettings.SlackSpec = AppSettings.communication.slackSpec
         verifySettings(spec = slackSpec)
@@ -52,19 +52,28 @@ internal class SlackConsumer : AbsNotificationConsumer() {
 
         // Send the Slack notification.
 
-        val channel: String = payload.additionalParameters[Property.CHANNEL.key] as String
-        val slack: Slack = Slack.getInstance()
+        val channel: String = payload.additionalParameters[Property.CHANNEL.key] as? String
+            ?: throw IllegalArgumentException("CHANNEL is missing or invalid.")
 
-        slack.methods(slackSpec.token).chatPostMessage { request ->
+        Slack.getInstance().methods(slackSpec.token).chatPostMessage { request ->
             request.channel(channel)
             request.username(payload.recipient.name)
             request.text(finalMessage)
         }.also { response ->
             if (response.isOk) {
-                tracer.debug("Slack notification sent to ${payload.recipient.target}. ID: ${payload.taskId}. Result: $response")
+                tracer.debug(
+                    "Slack notification sent to ${payload.recipient.target}. " +
+                            "| Group Id: ${payload.taskGroupId} " +
+                            "| Name: ${payload.taskName} " +
+                            "| Response: $response"
+                )
             } else {
-                tracer.error("Failed to send Slack notification. ID: ${payload.taskId}. Response: $response")
-                throw IllegalStateException("Failed to send Slack notification. ID: ${payload.taskId}. Response: $response")
+                throw IllegalStateException(
+                    "Failed to send Slack notification. " +
+                            "| Group Id: ${payload.taskGroupId} " +
+                            "| Name: ${payload.taskName} " +
+                            "| Response: $response"
+                )
             }
         }
     }

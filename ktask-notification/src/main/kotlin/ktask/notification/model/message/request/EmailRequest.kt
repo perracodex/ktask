@@ -41,8 +41,8 @@ public data class EmailRequest(
         verify()
     }
 
-    override fun toMap(recipient: Recipient): MutableMap<String, Any?> {
-        return super.toMap(recipient = recipient).apply {
+    override fun toMap(taskName: String, recipient: Recipient): MutableMap<String, Any?> {
+        return super.toMap(taskName = taskName, recipient = recipient).apply {
             this[EmailConsumer.Property.CC.key] = cc
             this[EmailConsumer.Property.SUBJECT.key] = subject
         }
