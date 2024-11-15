@@ -10,6 +10,8 @@ import io.ktor.http.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
 import io.ktor.server.util.*
+import io.perracodex.exposed.pagination.Page
+import io.perracodex.exposed.pagination.getPageable
 import ktask.core.scheduler.api.SchedulerRouteApi
 import ktask.core.scheduler.audit.AuditService
 import ktask.core.scheduler.model.audit.AuditLog
@@ -22,13 +24,12 @@ internal fun Route.schedulerAuditByTaskRoute() {
     get("/admin/scheduler/audit/{name}/{group}") {
         val taskName: String = call.parameters.getOrFail(name = "name")
         val taskGroup: String = call.parameters.getOrFail(name = "group")
-        val audit: List<AuditLog> = AuditService.find(taskName = taskName, taskGroup = taskGroup)
-
-        if (audit.isEmpty()) {
-            call.respond(status = HttpStatusCode.NotFound, message = "No audit logs found for the task.")
-        } else {
-            call.respond(status = HttpStatusCode.OK, message = audit)
-        }
+        val audit: Page<AuditLog> = AuditService.find(
+            pageable = call.getPageable(),
+            taskName = taskName,
+            taskGroup = taskGroup
+        )
+        call.respond(status = HttpStatusCode.OK, message = audit)
     } api {
         tags = setOf("Scheduler Admin")
         summary = "Get audit logs for a specific task."
@@ -40,11 +41,8 @@ internal fun Route.schedulerAuditByTaskRoute() {
         pathParameter<String>(name = "group") {
             description = "The group of the task."
         }
-        response<List<AuditLog>>(status = HttpStatusCode.OK) {
-            description = "All audit logs for the task."
-        }
-        response<String>(status = HttpStatusCode.NotFound) {
-            description = "No audit logs found for the task."
+        response<Page<AuditLog>>(status = HttpStatusCode.OK) {
+            description = "Existing scheduler audit logs for the task."
         }
     }
 }

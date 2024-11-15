@@ -4,6 +4,7 @@
 
 package ktask.core.scheduler.model.audit
 
+import io.perracodex.exposed.pagination.IModelTransform
 import kotlinx.datetime.LocalDateTime
 import kotlinx.serialization.Serializable
 import ktask.core.database.schema.SchedulerAuditTable
@@ -37,14 +38,14 @@ public data class AuditLog(
     val detail: String?,
     val meta: Meta
 ) {
-    internal companion object {
+    internal companion object : IModelTransform<AuditLog> {
         /**
          * Maps a [ResultRow] to a [AuditLog] instance.
          *
          * @param row The [ResultRow] to map.
          * @return The mapped [AuditLog] instance.
          */
-        fun from(row: ResultRow): AuditLog {
+        override fun from(row: ResultRow): AuditLog {
             return AuditLog(
                 id = row[SchedulerAuditTable.id],
                 taskName = row[SchedulerAuditTable.taskName],

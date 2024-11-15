@@ -4,6 +4,9 @@
 
 package ktask.core.scheduler.audit
 
+import io.perracodex.exposed.pagination.Page
+import io.perracodex.exposed.pagination.Pageable
+import io.perracodex.exposed.pagination.paginate
 import ktask.core.database.schema.SchedulerAuditTable
 import ktask.core.scheduler.model.audit.AuditLog
 import ktask.core.scheduler.model.audit.AuditLogRequest
@@ -43,30 +46,32 @@ internal object AuditRepository {
     /**
      * Finds all the audit entries, ordered bby the most recent first.
      *
+     * @param pageable Optional pagination information.
      * @return The list of [AuditLog] instances.
      */
-    fun findAll(): List<AuditLog> {
+    fun findAll(pageable: Pageable?): Page<AuditLog> {
         return transaction {
             SchedulerAuditTable.selectAll()
                 .orderBy(SchedulerAuditTable.createdAt to SortOrder.DESC)
-                .map { AuditLog.from(row = it) }
+                .paginate(pageable = pageable, transform = AuditLog)
         }
     }
 
     /**
      * Finds all the audit logs for a concrete task by name and group, ordered by the most recent first.
      *
+     * @param pageable Optional pagination information.
      * @param taskName The name of the task.
      * @param taskGroup The group of the task.
      * @return The list of [AuditLog] instances, or an empty list if none found.
      */
-    fun find(taskName: String, taskGroup: String): List<AuditLog> {
+    fun find(pageable: Pageable?, taskName: String, taskGroup: String): Page<AuditLog> {
         return transaction {
             SchedulerAuditTable.selectAll()
                 .where { SchedulerAuditTable.taskName eq taskName }
                 .andWhere { SchedulerAuditTable.taskGroup eq taskGroup }
                 .orderBy(SchedulerAuditTable.createdAt to SortOrder.DESC)
-                .map { AuditLog.from(row = it) }
+                .paginate(pageable = pageable, transform = AuditLog)
         }
     }
 

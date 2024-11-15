@@ -4,6 +4,8 @@
 
 package ktask.core.scheduler.audit
 
+import io.perracodex.exposed.pagination.Page
+import io.perracodex.exposed.pagination.Pageable
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import ktask.core.env.Tracer
@@ -32,23 +34,25 @@ internal object AuditService {
     /**
      * Finds all the audit entries, ordered bby the most recent first.
      *
+     * @param pageable Optional pagination information.
      * @return The list of [AuditLog] instances.
      */
-    suspend fun findAll(): List<AuditLog> = withContext(Dispatchers.IO) {
+    suspend fun findAll(pageable: Pageable?): Page<AuditLog> = withContext(Dispatchers.IO) {
         tracer.debug("Finding all audit entries.")
-        return@withContext AuditRepository.findAll()
+        return@withContext AuditRepository.findAll(pageable = pageable)
     }
 
     /**
      * Finds all the audit logs for a concrete task by name and group, ordered by the most recent first.
      *
+     * @param pageable Optional pagination information.
      * @param taskName The name of the task.
      * @param taskGroup The group of the task.
      * @return The list of [AuditLog] instances, or an empty list if none found.
      */
-    suspend fun find(taskName: String, taskGroup: String): List<AuditLog> = withContext(Dispatchers.IO) {
+    suspend fun find(pageable: Pageable?, taskName: String, taskGroup: String): Page<AuditLog> = withContext(Dispatchers.IO) {
         tracer.debug("Finding audit entries for task '$taskName' in group '$taskGroup'.")
-        return@withContext AuditRepository.find(taskName = taskName, taskGroup = taskGroup)
+        return@withContext AuditRepository.find(pageable = pageable, taskName = taskName, taskGroup = taskGroup)
     }
 
     /**
