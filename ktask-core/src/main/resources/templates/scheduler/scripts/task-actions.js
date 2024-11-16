@@ -43,13 +43,23 @@ function deleteTask(button) {
                 // Check if we are filtering by a specific group (not "all").
                 if (currentGroup !== 'all') {
                     const remainingTasks = document.querySelectorAll(
-                        `.table-container[data-group-id="${groupId}"]`
+                        `.table-container[data-group-id="${decodeURIComponent(groupId)}"]`
                     );
 
                     if (remainingTasks.length === 0) {
-                        // No tasks left for this group, so reset the group select to "All Groups".
-                        document.getElementById('groupSelect').value = 'all';  // Reset to 'all' group
-                        fetchTasks('all');  // Fetch tasks for "All Groups".
+                        // No tasks left for this group, so remove the group from the select box.
+                        const groupSelect = document.getElementById('groupSelect');
+                        const optionToRemove = groupSelect.querySelector(
+                            `option[value="${decodeURIComponent(groupId)}"]`
+                        );
+                        if (optionToRemove) {
+                            optionToRemove.remove();
+                        }
+
+                        // Reset to 'all' group and update the URL accordingly.
+                        groupSelect.value = 'all';
+                        window.history.pushState({groupId: 'all'}, '', '?groupId=all'); // Update URL.
+                        fetchTasks('all');
                     } else {
                         // If tasks are still remaining for the selected group, refresh tasks for the current group.
                         fetchTasks(currentGroup);
