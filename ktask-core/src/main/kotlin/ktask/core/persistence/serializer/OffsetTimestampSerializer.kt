@@ -2,7 +2,7 @@
  * Copyright (c) 2024-Present Perracodex. Use of this source code is governed by an MIT license.
  */
 
-package ktask.core.persistence.serializers
+package ktask.core.persistence.serializer
 
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.Serializable

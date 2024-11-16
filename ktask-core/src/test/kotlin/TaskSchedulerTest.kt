@@ -42,18 +42,18 @@ class SchedulerServiceTest {
     fun testImmediate(): Unit = testSuspend {
         val taskValue = "uniqueTestTask_${System.nanoTime()}"
 
-        val taskGroupId: Uuid = Uuid.random()
-        val taskName: String = SnowflakeFactory.nextId()
+        val groupId: Uuid = Uuid.random()
+        val taskId: String = SnowflakeFactory.nextId()
 
         val properties: Map<String, Any> = buildProperties(
-            taskGroupId = taskGroupId,
-            taskName = taskName,
+            groupId = groupId,
+            taskId = taskId,
             taskValue = taskValue
         )
 
         val taskKey: TaskKey = TaskDispatch(
-            taskGroupId = taskGroupId,
-            taskName = taskName,
+            groupId = groupId,
+            taskId = taskId,
             consumerClass = SimpleTestConsumer::class.java,
             startAt = TaskStartAt.Immediate,
             parameters = properties
@@ -65,7 +65,7 @@ class SchedulerServiceTest {
         assertTrue(actual = testResults.contains(taskValue))
 
         // Clean up by un-scheduling the task.
-        SchedulerService.tasks.delete(name = taskKey.name, group = taskKey.group)
+        SchedulerService.tasks.delete(groupId = taskKey.group, taskId = taskKey.name)
     }
 
     @Test
@@ -73,18 +73,18 @@ class SchedulerServiceTest {
         val taskValue = "uniqueTestTask_${System.nanoTime()}"
 
         val interval: Schedule.Interval = Schedule.Interval(days = 0u, hours = 0u, minutes = 0u, seconds = 1u)
-        val taskGroupId: Uuid = Uuid.random()
-        val taskName: String = SnowflakeFactory.nextId()
+        val groupId: Uuid = Uuid.random()
+        val taskId: String = SnowflakeFactory.nextId()
 
         val properties: Map<String, Any> = buildProperties(
-            taskGroupId = taskGroupId,
-            taskName = taskName,
+            groupId = groupId,
+            taskId = taskId,
             taskValue = taskValue
         )
 
         val taskKey: TaskKey = TaskDispatch(
-            taskGroupId = taskGroupId,
-            taskName = taskName,
+            groupId = groupId,
+            taskId = taskId,
             consumerClass = SimpleTestConsumer::class.java,
             startAt = TaskStartAt.Immediate,
             parameters = properties
@@ -96,7 +96,7 @@ class SchedulerServiceTest {
         assertTrue(actual = testResults.contains(taskValue))
 
         // Clean up by un-scheduling the task.
-        SchedulerService.tasks.delete(name = taskKey.name, group = taskKey.group)
+        SchedulerService.tasks.delete(groupId = taskKey.group, taskId = taskKey.name)
     }
 
     @Test
@@ -104,18 +104,18 @@ class SchedulerServiceTest {
         val taskValue = "uniqueTestTask_${System.nanoTime()}"
 
         val cron: Schedule.Cron = Schedule.Cron(cron = "0/1 * * * * ?")
-        val taskGroupId: Uuid = Uuid.random()
-        val taskName: String = SnowflakeFactory.nextId()
+        val groupId: Uuid = Uuid.random()
+        val taskId: String = SnowflakeFactory.nextId()
 
         val properties: Map<String, Any> = buildProperties(
-            taskGroupId = taskGroupId,
-            taskName = taskName,
+            groupId = groupId,
+            taskId = taskId,
             taskValue = taskValue
         )
 
         val taskKey: TaskKey = TaskDispatch(
-            taskGroupId = taskGroupId,
-            taskName = taskName,
+            groupId = groupId,
+            taskId = taskId,
             consumerClass = SimpleTestConsumer::class.java,
             startAt = TaskStartAt.Immediate,
             parameters = properties
@@ -127,7 +127,7 @@ class SchedulerServiceTest {
         assertTrue(actual = testResults.contains(taskValue))
 
         // Clean up by un-scheduling the task.
-        SchedulerService.tasks.delete(name = taskKey.name, group = taskKey.group)
+        SchedulerService.tasks.delete(groupId = taskKey.group, taskId = taskKey.name)
     }
 
     @Test
@@ -156,7 +156,7 @@ class SchedulerServiceTest {
         assertTrue(actual = testResults.contains(MisfireTestTask.MISFIRE_MESSAGE))
 
         // Clean up
-        SchedulerService.tasks.delete(name = jobKey.name, group = jobKey.group)
+        SchedulerService.tasks.delete(groupId = jobKey.group, taskId = jobKey.name)
     }
 
     class MisfireTestTask : Job {
@@ -192,16 +192,16 @@ class SchedulerServiceTest {
          * @throws IllegalArgumentException If required properties are missing or invalid.
          */
         override fun buildPayload(properties: Map<String, Any>): TestPayload {
-            val taskGroupId: Uuid = properties["TASK_GROUP_ID"] as? Uuid
-                ?: throw IllegalArgumentException("TASK_GROUP_ID is missing or invalid.")
-            val taskName: String = properties["TASK_NAME"] as? String
-                ?: throw IllegalArgumentException("TASK_NAME is missing or invalid.")
+            val groupId: Uuid = properties["GROUP_ID"] as? Uuid
+                ?: throw IllegalArgumentException("GROUP_ID is missing or invalid.")
+            val taskId: String = properties["TASK_ID"] as? String
+                ?: throw IllegalArgumentException("TASK_ID is missing or invalid.")
             val taskValue: String = properties["TASK_VALUE"] as? String
                 ?: throw IllegalArgumentException("TASK_VALUE is missing or invalid.")
 
             return TestPayload(
-                taskGroupId = taskGroupId,
-                taskName = taskName,
+                groupId = groupId,
+                taskId = taskId,
                 taskValue = taskValue
             )
         }
@@ -220,22 +220,22 @@ class SchedulerServiceTest {
     /**
      * Concrete implementation of [TaskConsumer.Payload] for testing purposes.
      *
-     * @property taskGroupId The group ID of the task.
-     * @property taskName The unique name of the task.
+     * @property groupId The group ID of the task.
+     * @property taskId The unique ID of the task.
      * @property taskType The type of the task.
      * @property taskValue A value to verify task execution.
      */
     data class TestPayload(
-        override val taskGroupId: Uuid,
-        override val taskName: String,
+        override val groupId: Uuid,
+        override val taskId: String,
         override val taskType: String = "test",
         val taskValue: String
     ) : TaskConsumer.Payload
 
-    private fun buildProperties(taskGroupId: Uuid, taskName: String, taskValue: String): Map<String, Any> {
+    private fun buildProperties(groupId: Uuid, taskId: String, taskValue: String): Map<String, Any> {
         return mapOf(
-            "TASK_GROUP_ID" to taskGroupId,
-            "TASK_NAME" to taskName,
+            "GROUP_ID" to groupId,
+            "TASK_ID" to taskId,
             "TASK_VALUE" to taskValue
         )
     }

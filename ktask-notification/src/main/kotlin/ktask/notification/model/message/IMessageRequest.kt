@@ -4,7 +4,7 @@
 
 package ktask.notification.model.message
 
-import ktask.core.persistence.serializers.Uuid
+import ktask.core.persistence.serializer.Uuid
 import ktask.core.scheduler.service.schedule.Schedule
 import ktask.notification.consumer.message.AbsNotificationConsumer
 
@@ -39,10 +39,10 @@ public interface IMessageRequest {
      * for task serialization and consumption. This is required as the scheduler
      * requires a map of parameters.
      */
-    public fun toMap(taskName: String, recipient: Recipient): MutableMap<String, Any?> {
+    public fun toMap(taskId: String, recipient: Recipient): MutableMap<String, Any?> {
         return mutableMapOf(
-            AbsNotificationConsumer.Property.TASK_GROUP_ID.key to id,
-            AbsNotificationConsumer.Property.TASK_NAME.key to taskName,
+            AbsNotificationConsumer.Property.GROUP_ID.key to id,
+            AbsNotificationConsumer.Property.TASK_ID.key to taskId,
             AbsNotificationConsumer.Property.DESCRIPTION.key to description,
             AbsNotificationConsumer.Property.RECIPIENT_TARGET.key to recipient.target,
             AbsNotificationConsumer.Property.RECIPIENT_NAME.key to recipient.name,

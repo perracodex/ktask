@@ -50,13 +50,13 @@ internal object ActionService {
 
         lateinit var outputKey: TaskKey
 
-        val taskName: String = SnowflakeFactory.nextId()
+        val taskId: String = SnowflakeFactory.nextId()
 
         // Dispatch the task based on the specified schedule type.
-        request.toMap(taskName = taskName).let { parameters ->
+        request.toMap(taskId = taskId).let { parameters ->
             TaskDispatch(
-                taskGroupId = request.id,
-                taskName = taskName,
+                groupId = request.id,
+                taskId = taskId,
                 consumerClass = consumerClass,
                 startAt = taskStartAt,
                 parameters = parameters
@@ -72,7 +72,7 @@ internal object ActionService {
 
         // Send a message to the SSE endpoint.
         val schedule: String = request.schedule?.toString() ?: "Immediate"
-        SseService.push(message = "New 'action' task | $schedule | Group Id: ${request.id} | Name: $taskName")
+        SseService.push(message = "New 'action' task | $schedule | Group Id: ${request.id} | Task Id: $taskId")
 
         return@withContext outputKey
     }

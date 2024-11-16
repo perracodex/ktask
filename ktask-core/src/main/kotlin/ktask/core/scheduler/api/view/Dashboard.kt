@@ -10,7 +10,7 @@ import io.ktor.http.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
 import io.ktor.server.thymeleaf.*
-import ktask.core.persistence.utils.toUuidOrNull
+import ktask.core.persistence.util.toUuidOrNull
 import ktask.core.scheduler.api.SchedulerRouteApi
 import ktask.core.scheduler.model.task.TaskSchedule
 import ktask.core.scheduler.service.SchedulerService

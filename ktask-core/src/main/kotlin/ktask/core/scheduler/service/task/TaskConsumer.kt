@@ -6,7 +6,7 @@ package ktask.core.scheduler.service.task
 
 import kotlinx.datetime.LocalDateTime
 import ktask.core.event.SseService
-import ktask.core.persistence.serializers.Uuid
+import ktask.core.persistence.serializer.Uuid
 import ktask.core.scheduler.service.task.TaskConsumer.Payload
 import ktask.core.util.DateTimeUtils.current
 import ktask.core.util.DateTimeUtils.formatted
@@ -53,8 +53,8 @@ public abstract class TaskConsumer<P : Payload> : Job {
             SseService.push(
                 message = "${LocalDateTime.current().formatted(timeDelimiter = " | ", precision = 6)} " +
                         "| Failed to consume task type '${payload.taskType}' " +
-                        "| Group Id: ${payload.taskGroupId} " +
-                        "| name: ${payload.taskName} " +
+                        "| Group Id: ${payload.groupId} " +
+                        "| Task Id: ${payload.taskId} " +
                         "| Error: ${error.message.orEmpty()}"
             )
             // Rethrow the exception to allow it to propagate.
@@ -63,8 +63,8 @@ public abstract class TaskConsumer<P : Payload> : Job {
             SseService.push(
                 message = "${LocalDateTime.current().formatted(timeDelimiter = " | ", precision = 6)} " +
                         "| Consumed task type '${payload.taskType}' " +
-                        "| Group Id: ${payload.taskGroupId} " +
-                        "| name: ${payload.taskName}` "
+                        "| Group Id: ${payload.groupId} " +
+                        "| Task Id: ${payload.taskId}` "
             )
         }
     }
@@ -89,13 +89,13 @@ public abstract class TaskConsumer<P : Payload> : Job {
     /**
      * Common interface for task payloads.
      *
-     * @property taskGroupId The unique identifier of the task.
-     * @property taskName The unique name of the task.
+     * @property groupId The unique identifier of the task group.
+     * @property taskId The unique identifier of the task.
      * @property taskType A string representing the type of task.
      */
     public interface Payload {
-        public val taskGroupId: Uuid
-        public val taskName: String
+        public val groupId: Uuid
+        public val taskId: String
         public val taskType: String
     }
 }

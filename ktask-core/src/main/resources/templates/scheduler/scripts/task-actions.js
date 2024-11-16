@@ -7,9 +7,9 @@ function openFullAudit() {
 }
 
 function openTaskAudit(button) {
-    const itemName = encodeURIComponent(button.getAttribute('data-name'));
-    const itemGroup = encodeURIComponent(button.getAttribute('data-group'));
-    window.open(`/admin/scheduler/audit/${itemName}/${itemGroup}`, '_blank');
+    const groupId = encodeURIComponent(button.getAttribute('data-group-id'));
+    const taskId = encodeURIComponent(button.getAttribute('data-task-id'));
+    window.open(`/admin/scheduler/audit?groupId=${groupId}&taskId=${taskId}`, '_blank');
 }
 
 function refreshPage() {
@@ -17,7 +17,7 @@ function refreshPage() {
 }
 
 function deleteAll() {
-    fetch(`/admin/scheduler/task`, {method: 'DELETE'})
+    fetch(`/admin/scheduler`, {method: 'DELETE'})
         .then(response => {
             if (response.ok) {
                 console.log('All tasks deleted successfully');
@@ -31,10 +31,10 @@ function deleteAll() {
 }
 
 function deleteTask(button) {
-    const itemName = encodeURIComponent(button.getAttribute('data-name'));
-    const itemGroup = encodeURIComponent(button.getAttribute('data-group'));
+    const groupId = encodeURIComponent(button.getAttribute('data-group-id'));
+    const taskId = encodeURIComponent(button.getAttribute('data-task-id'));
 
-    fetch(`/admin/scheduler/task/${itemName}/${itemGroup}`, {method: 'DELETE'})
+    fetch(`/admin/scheduler/task?groupId=${groupId}&taskId=${taskId}`, {method: 'DELETE'})
         .then(response => {
             if (response.ok) {
                 console.log('Task deleted successfully');
@@ -68,12 +68,12 @@ function openLog(element) {
 }
 
 function toggleTaskPauseResume(button) {
-    const itemName = encodeURIComponent(button.getAttribute('data-name'));
-    const itemGroup = encodeURIComponent(button.getAttribute('data-group'));
+    const groupId = encodeURIComponent(button.getAttribute('data-group-id'));
+    const taskId = encodeURIComponent(button.getAttribute('data-task-id'));
     const state = button.getAttribute('data-state');
     const action = state === 'PAUSED' ? 'resume' : 'pause';
 
-    fetch(`/admin/scheduler/task/${itemName}/${itemGroup}/${action}`, {method: 'POST'})
+    fetch(`/admin/scheduler/task/${action}?groupId=${groupId}&taskId=${taskId}`, {method: 'POST'})
         .then(response => {
             if (response.ok) {
                 console.log('Task paused/resumed successfully');
@@ -87,10 +87,10 @@ function toggleTaskPauseResume(button) {
 }
 
 function resendTask(button) {
-    const itemName = encodeURIComponent(button.getAttribute('data-name'));
-    const itemGroup = encodeURIComponent(button.getAttribute('data-group'));
+    const groupId = encodeURIComponent(button.getAttribute('data-group-id'));
+    const taskId = encodeURIComponent(button.getAttribute('data-task-id'));
 
-    fetch(`/admin/scheduler/task/${itemName}/${itemGroup}/resend`, {method: 'POST'})
+    fetch(`/admin/scheduler/task/resend?groupId=${groupId}&taskId=${taskId}`, {method: 'POST'})
         .then(response => {
             if (response.ok) {
                 console.log('Task resent successfully');

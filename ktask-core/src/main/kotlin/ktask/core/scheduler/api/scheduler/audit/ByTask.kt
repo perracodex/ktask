@@ -5,11 +5,10 @@
 package ktask.core.scheduler.api.scheduler.audit
 
 import io.github.perracodex.kopapi.dsl.operation.api
-import io.github.perracodex.kopapi.dsl.parameter.pathParameter
+import io.github.perracodex.kopapi.dsl.parameter.queryParameter
 import io.ktor.http.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
-import io.ktor.server.util.*
 import io.perracodex.exposed.pagination.Page
 import io.perracodex.exposed.pagination.getPageable
 import ktask.core.scheduler.api.SchedulerRouteApi
@@ -21,13 +20,22 @@ import ktask.core.scheduler.model.audit.AuditLog
  */
 @SchedulerRouteApi
 internal fun Route.schedulerAuditByTaskRoute() {
-    get("/admin/scheduler/audit/{name}/{group}") {
-        val taskName: String = call.parameters.getOrFail(name = "name")
-        val taskGroup: String = call.parameters.getOrFail(name = "group")
+    get("/admin/scheduler/audit/task") {
+        val groupId: String? = call.queryParameters["groupId"]
+        val taskId: String? = call.queryParameters["taskId"]
+
+        if (groupId.isNullOrBlank() && taskId.isNullOrBlank()) {
+            call.respond(
+                status = HttpStatusCode.BadRequest,
+                message = "Missing required parameters. At least one of 'groupId' and 'taskId' is required."
+            )
+            return@get
+        }
+
         val audit: Page<AuditLog> = AuditService.find(
             pageable = call.getPageable(),
-            taskName = taskName,
-            taskGroup = taskGroup
+            groupId = groupId,
+            taskId = taskId
         )
         call.respond(status = HttpStatusCode.OK, message = audit)
     } api {
@@ -35,14 +43,17 @@ internal fun Route.schedulerAuditByTaskRoute() {
         summary = "Get audit logs for a specific task."
         description = "Get all existing audit logs for a specific task."
         operationId = "getAuditLogsByTask"
-        pathParameter<String>(name = "name") {
-            description = "The name of the task."
-        }
-        pathParameter<String>(name = "group") {
+        queryParameter<String>(name = "groupId") {
             description = "The group of the task."
+        }
+        queryParameter<String>(name = "taskId") {
+            description = "The unique identifier of the task."
         }
         response<Page<AuditLog>>(status = HttpStatusCode.OK) {
             description = "Existing scheduler audit logs for the task."
+        }
+        response(status = HttpStatusCode.BadRequest) {
+            description = "Missing required parameters. At least one of 'groupId' and 'taskId' is required."
         }
     }
 }

@@ -2,8 +2,8 @@
  * Copyright (c) 2024-Present Perracodex. Use of this source code is governed by an MIT license.
  */
 
-import ktask.core.persistence.utils.toUuid
-import ktask.core.persistence.utils.toUuidOrNull
+import ktask.core.persistence.util.toUuid
+import ktask.core.persistence.util.toUuidOrNull
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertFailsWith

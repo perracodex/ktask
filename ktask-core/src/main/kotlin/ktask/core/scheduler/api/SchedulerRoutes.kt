@@ -13,6 +13,7 @@ import ktask.core.scheduler.api.scheduler.operate.restartSchedulerRoute
 import ktask.core.scheduler.api.scheduler.operate.resumeSchedulerRoute
 import ktask.core.scheduler.api.scheduler.operate.schedulerStateRoute
 import ktask.core.scheduler.api.task.delete.deleteAllSchedulerTasksRoute
+import ktask.core.scheduler.api.task.delete.deleteSchedulerGroupRoute
 import ktask.core.scheduler.api.task.delete.deleteSchedulerTaskRoute
 import ktask.core.scheduler.api.task.fetch.getSchedulerTaskGroupsRoute
 import ktask.core.scheduler.api.task.fetch.getSchedulerTasksRoute
@@ -50,6 +51,7 @@ public fun Route.schedulerRoutes() {
     getSchedulerTasksRoute()
     getSchedulerTaskGroupsRoute()
     deleteSchedulerTaskRoute()
+    deleteSchedulerGroupRoute()
     deleteAllSchedulerTasksRoute()
     pauseSchedulerTaskRoute()
     resumeSchedulerTaskRoute()

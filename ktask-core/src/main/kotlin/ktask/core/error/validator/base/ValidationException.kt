@@ -2,10 +2,10 @@
  * Copyright (c) 2024-Present Perracodex. Use of this source code is governed by an MIT license.
  */
 
-package ktask.core.error.validators.base
+package ktask.core.error.validator.base
 
-import ktask.core.error.validators.EmailValidator
-import ktask.core.error.validators.PhoneValidator
+import ktask.core.error.validator.EmailValidator
+import ktask.core.error.validator.PhoneValidator
 
 /**
  * Custom exception class to represent validation errors.

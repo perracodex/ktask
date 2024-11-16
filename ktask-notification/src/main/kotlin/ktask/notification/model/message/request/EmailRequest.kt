@@ -5,8 +5,8 @@
 package ktask.notification.model.message.request
 
 import kotlinx.serialization.Serializable
-import ktask.core.error.validators.EmailValidator
-import ktask.core.persistence.serializers.Uuid
+import ktask.core.error.validator.EmailValidator
+import ktask.core.persistence.serializer.Uuid
 import ktask.core.scheduler.service.schedule.Schedule
 import ktask.notification.consumer.message.task.EmailConsumer
 import ktask.notification.error.NotificationError
@@ -41,8 +41,8 @@ public data class EmailRequest(
         verify()
     }
 
-    override fun toMap(taskName: String, recipient: Recipient): MutableMap<String, Any?> {
-        return super.toMap(taskName = taskName, recipient = recipient).apply {
+    override fun toMap(taskId: String, recipient: Recipient): MutableMap<String, Any?> {
+        return super.toMap(taskId = taskId, recipient = recipient).apply {
             this[EmailConsumer.Property.CC.key] = cc
             this[EmailConsumer.Property.SUBJECT.key] = subject
         }

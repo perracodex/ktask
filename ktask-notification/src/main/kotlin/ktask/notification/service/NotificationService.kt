@@ -67,13 +67,13 @@ internal object NotificationService {
         // Iterate over each recipient and schedule a task for each one.
         request.recipients.forEach { recipient ->
 
-            val taskName: String = SnowflakeFactory.nextId()
+            val taskId: String = SnowflakeFactory.nextId()
 
             // Dispatch the task based on the specified schedule type.
-            request.toMap(taskName = taskName, recipient = recipient).let { parameters ->
+            request.toMap(taskId = taskId, recipient = recipient).let { parameters ->
                 TaskDispatch(
-                    taskGroupId = request.id,
-                    taskName = taskName,
+                    groupId = request.id,
+                    taskId = taskId,
                     consumerClass = consumerClass,
                     startAt = taskStartAt,
                     parameters = parameters
@@ -91,7 +91,7 @@ internal object NotificationService {
             val schedule: String = request.schedule?.toString() ?: "Immediate"
             SseService.push(
                 message = "New 'notification' task | $schedule | " +
-                        "${consumerClass.simpleName} | Group Id: ${request.id} | Name: $taskName | Recipient: $recipient"
+                        "${consumerClass.simpleName} | Group Id: ${request.id} | Task Id: $taskId | Recipient: $recipient"
             )
         }
 

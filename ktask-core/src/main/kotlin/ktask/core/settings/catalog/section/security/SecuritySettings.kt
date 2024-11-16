@@ -6,8 +6,8 @@ package ktask.core.settings.catalog.section.security
 
 import io.github.perracodex.ktor.config.IConfigCatalogSection
 import kotlinx.serialization.Serializable
-import ktask.core.settings.catalog.section.security.nodes.BasicAuthSettings
-import ktask.core.settings.catalog.section.security.nodes.ConstraintsSettings
+import ktask.core.settings.catalog.section.security.node.BasicAuthSettings
+import ktask.core.settings.catalog.section.security.node.ConstraintsSettings
 
 /**
  * Top level section for the Security related settings.

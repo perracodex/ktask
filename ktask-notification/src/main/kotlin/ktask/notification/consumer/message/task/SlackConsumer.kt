@@ -28,7 +28,7 @@ internal class SlackConsumer : AbsNotificationConsumer() {
     }
 
     override fun consume(payload: ConsumerPayload) {
-        tracer.debug("Processing Slack notification. Group Id: ${payload.taskGroupId} | Name: ${payload.taskName}")
+        tracer.debug("Processing Slack notification. Group Id: ${payload.groupId} | Task Id: ${payload.taskId}")
 
         val slackSpec: CommunicationSettings.SlackSpec = AppSettings.communication.slackSpec
         verifySettings(spec = slackSpec)
@@ -63,15 +63,15 @@ internal class SlackConsumer : AbsNotificationConsumer() {
             if (response.isOk) {
                 tracer.debug(
                     "Slack notification sent to ${payload.recipient.target}. " +
-                            "| Group Id: ${payload.taskGroupId} " +
-                            "| Name: ${payload.taskName} " +
+                            "| Group Id: ${payload.groupId} " +
+                            "| Task Id: ${payload.taskId} " +
                             "| Response: $response"
                 )
             } else {
                 throw IllegalStateException(
                     "Failed to send Slack notification. " +
-                            "| Group Id: ${payload.taskGroupId} " +
-                            "| Name: ${payload.taskName} " +
+                            "| Group Id: ${payload.groupId} " +
+                            "| Task Id: ${payload.taskId} " +
                             "| Response: $response"
                 )
             }

@@ -7,7 +7,7 @@ package ktask.core.error
 import io.ktor.http.*
 import io.ktor.server.application.*
 import kotlinx.serialization.Serializable
-import ktask.core.error.validators.base.ValidationException
+import ktask.core.error.validator.base.ValidationException
 
 /**
  * Base class for all application-specific exceptions. It provides a structured error response

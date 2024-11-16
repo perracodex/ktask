@@ -28,7 +28,7 @@ internal class EmailConsumer : AbsNotificationConsumer() {
     }
 
     override fun consume(payload: ConsumerPayload) {
-        tracer.debug("Processing email notification. Group Id: ${payload.taskGroupId} | Name: ${payload.taskName}")
+        tracer.debug("Processing email notification. Group Id: ${payload.groupId} | Task Id: ${payload.taskId}")
 
         val emailSpec: CommunicationSettings.EmailSpec = AppSettings.communication.emailSpec
         verifySettings(spec = emailSpec)
@@ -76,8 +76,8 @@ internal class EmailConsumer : AbsNotificationConsumer() {
         email.send().also { messageId ->
             tracer.debug(
                 "Email notification sent: ${payload.recipient.target}. " +
-                        "Group Id: ${payload.taskGroupId} " +
-                        "| Name: ${payload.taskName} " +
+                        "Group Id: ${payload.groupId} " +
+                        "| Task Id: ${payload.taskId} " +
                         "| Message Id: $messageId"
             )
         }

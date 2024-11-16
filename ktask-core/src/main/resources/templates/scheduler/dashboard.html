@@ -32,8 +32,8 @@
 </div>
 <div class="table-header">
     <span></span>
-    <span>Name</span>
     <span>Group</span>
+    <span>ID</span>
     <span>Consumer</span>
     <span>Next Fire Time</span>
     <span>State</span>
@@ -43,14 +43,14 @@
     <span>Action</span>
 </div>
 <div class="table-content">
-    <div th:each="item : ${data}" class="table-container expandable" th:attr="data-id=${item.name}">
+    <div th:each="item : ${data}" class="table-container expandable" th:attr="data-id=${item.taskId}">
         <div class="table-row"
              th:classappend="${item.state == 'PAUSED' ? 'row-paused' :
                      (item.outcome == 'ERROR' ? 'row-error' :
                      (!item.nextFireTime ? 'row-no-fire-time' : ''))}">
             <span class="expand-trigger">+</span>
-            <span th:text="${item.name}" th:title="${item.snowflakeData}">Task Name</span>
-            <span th:text="${item.group}">Task Group</span>
+            <span th:text="${item.groupId}">Group</span>
+            <span th:text="${item.taskId}" th:title="${item.snowflakeData}">ID</span>
             <span th:text="${item.consumer}">Consumer</span>
             <span th:text="${item.nextFireTime}">Next Fire Time</span>
             <span th:text="${item.state}">State</span>
@@ -66,20 +66,20 @@
             <span th:text="${item.runs}">runs</span>
             <div>
                 <button class="icon-button"
-                        th:attr="data-name=${item.name}, data-group=${item.group}"
+                        th:attr="data-task-id=${item.taskId}, data-group-id=${item.groupId}"
                         onclick="deleteTask(this)"
                         title="Delete">
                     <span class="delete-icon">&#x1F5D9;</span>
                 </button>
                 <button class="icon-button"
-                        th:attr="data-name=${item.name}, data-group=${item.group}"
+                        th:attr="data-task-id=${item.taskId}, data-group-id=${item.groupId}"
                         onclick="openTaskAudit(this)"
                         title="Audit">
                     <span>&#x1F5D2;&#xFE0F;</span>
                 </button>
                 <div th:if="${item.state} != 'COMPLETE' and ${item.state} != 'NONE'">
                     <button class="icon-button"
-                            th:attr="data-name=${item.name}, data-group=${item.group}, data-state=${item.state}"
+                            th:attr="data-task-id=${item.taskId}, data-group-id=${item.groupId}, data-state=${item.state}"
                             onclick="toggleTaskPauseResume(this)"
                             th:title="${item.state} == 'PAUSED' ? 'Resume' : 'Pause'">
                         <span style="font-size: 1.1em" th:if="${item.state} == 'PAUSED'">&#x23F5;</span>
@@ -88,7 +88,7 @@
                 </div>
                 <button class="icon-button resend-button"
                         th:if="${!item.nextFireTime}"
-                        th:attr="data-name=${item.name}, data-group=${item.group}"
+                        th:attr="data-task-id=${item.taskId}, data-group-id=${item.groupId}"
                         onclick="resendTask(this)"
                         title="Resend">
                     <span>&#x21BA;</span>

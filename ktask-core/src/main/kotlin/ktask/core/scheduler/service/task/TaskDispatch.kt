@@ -18,16 +18,16 @@ import kotlin.uuid.Uuid
  * Class to create and send a scheduling request for a task.
  * It supports both simple intervals and cron-based scheduling.
  *
- * @property taskGroupId The Group Id of the task to be scheduled.
- * @property taskName The unique name of the task to be scheduled.
+ * @property groupId The Group ID of the task to be scheduled.
+ * @property taskId The unique ID of the task to be scheduled.
  * @property consumerClass The class of the task consumer to be scheduled.
  * @property startAt Specifies when the task should start. Defaults to immediate execution.
  * @property parameters Optional parameters to be passed to the task class.
  */
 @OptIn(SchedulerApi::class)
 public class TaskDispatch(
-    private val taskGroupId: Uuid,
-    private val taskName: String,
+    private val groupId: Uuid,
+    private val taskId: String,
     private val consumerClass: Class<out TaskConsumer<*>>,
     private var startAt: TaskStartAt = TaskStartAt.Immediate,
     private var parameters: Map<String, Any?> = emptyMap()
@@ -120,8 +120,8 @@ public class TaskDispatch(
      * Build the job details and trigger builder for the task.
      */
     private fun buildJob(): BasicJob {
-        val groupName: String = taskGroupId.toString()
-        val jobKey: JobKey = JobKey.jobKey(taskName, groupName)
+        val groupName: String = groupId.toString()
+        val jobKey: JobKey = JobKey.jobKey(taskId, groupName)
         val jobDataMap = JobDataMap(parameters)
 
         val jobDetail: JobDetail = JobBuilder
@@ -133,7 +133,7 @@ public class TaskDispatch(
 
         // Set the trigger name and start time based on task start configuration.
         val triggerBuilder: TriggerBuilder<Trigger> = TriggerBuilder.newTrigger()
-            .withIdentity("${taskName}-trigger", groupName)
+            .withIdentity("${taskId}-trigger", groupName)
             .apply {
                 when (val startDateTime: TaskStartAt = startAt) {
                     is TaskStartAt.Immediate -> startNow()

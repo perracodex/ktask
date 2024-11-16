@@ -5,7 +5,7 @@
 package ktask.notification.model.action.request
 
 import kotlinx.serialization.Serializable
-import ktask.core.persistence.serializers.Uuid
+import ktask.core.persistence.serializer.Uuid
 import ktask.core.scheduler.service.schedule.Schedule
 import ktask.notification.consumer.action.task.ActionConsumer
 import ktask.notification.model.action.IActionRequest
@@ -26,8 +26,8 @@ public data class ActionRequest(
     val data: String,
 ) : IActionRequest {
 
-    override fun toMap(taskName: String): MutableMap<String, Any?> {
-        return super.toMap(taskName = taskName).apply {
+    override fun toMap(taskId: String): MutableMap<String, Any?> {
+        return super.toMap(taskId = taskId).apply {
             this[ActionConsumer.Property.DATA.key] = data
         }
     }

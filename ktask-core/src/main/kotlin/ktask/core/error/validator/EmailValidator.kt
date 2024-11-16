@@ -2,10 +2,10 @@
  * Copyright (c) 2024-Present Perracodex. Use of this source code is governed by an MIT license.
  */
 
-package ktask.core.error.validators
+package ktask.core.error.validator
 
-import ktask.core.error.validators.base.IValidator
-import ktask.core.error.validators.base.ValidationException
+import ktask.core.error.validator.base.IValidator
+import ktask.core.error.validator.base.ValidationException
 
 /**
  * Verifies if an email address is in the correct format.

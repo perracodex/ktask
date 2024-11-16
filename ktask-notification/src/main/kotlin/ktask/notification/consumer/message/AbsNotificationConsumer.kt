@@ -29,8 +29,8 @@ internal abstract class AbsNotificationConsumer : TaskConsumer<AbsNotificationCo
      * These are the common properties shared by all task consumers.
      */
     enum class Property(val key: String) {
-        TASK_GROUP_ID(key = "TASK_GROUP_ID"),
-        TASK_NAME(key = "TASK_NAME"),
+        GROUP_ID(key = "GROUP_ID"),
+        TASK_ID(key = "TASK_ID"),
         ATTACHMENTS(key = "ATTACHMENTS"),
         FIELDS(key = "FIELDS"),
         DESCRIPTION(key = "DESCRIPTION"),
@@ -127,8 +127,8 @@ internal abstract class AbsNotificationConsumer : TaskConsumer<AbsNotificationCo
      * @param additionalParameters A map of additional parameters required for the task.
      */
     data class ConsumerPayload(
-        override val taskGroupId: Uuid,
-        override val taskName: String,
+        override val groupId: Uuid,
+        override val taskId: String,
         override val taskType: String = TASK_TYPE,
         val description: String?,
         val recipient: Recipient,
@@ -145,18 +145,18 @@ internal abstract class AbsNotificationConsumer : TaskConsumer<AbsNotificationCo
                     locale = properties[Property.RECIPIENT_LOCALE.key] as String
                 )
 
-                val taskGroupId: Uuid = properties[Property.TASK_GROUP_ID.key] as? Uuid
-                    ?: throw IllegalArgumentException("TASK_GROUP_ID is missing or invalid.")
-                val taskName: String = properties[Property.TASK_NAME.key] as? String
-                    ?: throw IllegalArgumentException("TASK_NAME is missing or invalid.")
+                val groupId: Uuid = properties[Property.GROUP_ID.key] as? Uuid
+                    ?: throw IllegalArgumentException("GROUP_ID is missing or invalid.")
+                val taskId: String = properties[Property.TASK_ID.key] as? String
+                    ?: throw IllegalArgumentException("TASK_ID is missing or invalid.")
 
                 return properties.filterKeys { key ->
                     // Consumer-specific properties, which are not part of the common payload.
                     key !in Property.entries.map { it.key }
                 }.let { additionalParameters ->
                     ConsumerPayload(
-                        taskGroupId = taskGroupId,
-                        taskName = taskName,
+                        groupId = groupId,
+                        taskId = taskId,
                         description = properties[Property.DESCRIPTION.key] as? String,
                         recipient = recipient,
                         template = properties[Property.TEMPLATE.key] as String,

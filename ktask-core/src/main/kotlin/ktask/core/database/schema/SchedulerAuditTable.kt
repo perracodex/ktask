@@ -5,8 +5,8 @@
 package ktask.core.database.schema
 
 import kotlinx.datetime.LocalDateTime
-import ktask.core.database.columns.autoGenerate
-import ktask.core.database.columns.kotlinUuid
+import ktask.core.database.column.autoGenerate
+import ktask.core.database.column.kotlinUuid
 import ktask.core.database.schema.base.TimestampedTable
 import ktask.core.scheduler.service.task.TaskOutcome
 import org.jetbrains.exposed.sql.Column
@@ -25,18 +25,18 @@ internal object SchedulerAuditTable : TimestampedTable(name = "scheduler_audit")
     ).autoGenerate()
 
     /**
-     * The name of the task that was executed.
+     * The group to which the task belongs.
      */
-    val taskName: Column<String> = varchar(
-        name = "task_name",
+    val groupId: Column<String> = varchar(
+        name = "group_id",
         length = 200
     )
 
     /**
-     * The group to which the task belongs.
+     * The unique ID of the task that was executed.
      */
-    val taskGroup: Column<String> = varchar(
-        name = "task_group",
+    val taskId: Column<String> = varchar(
+        name = "task_id",
         length = 200
     )
 

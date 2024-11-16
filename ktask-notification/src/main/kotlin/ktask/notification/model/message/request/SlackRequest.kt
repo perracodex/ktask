@@ -5,7 +5,7 @@
 package ktask.notification.model.message.request
 
 import kotlinx.serialization.Serializable
-import ktask.core.persistence.serializers.Uuid
+import ktask.core.persistence.serializer.Uuid
 import ktask.core.scheduler.service.schedule.Schedule
 import ktask.notification.consumer.message.task.SlackConsumer
 import ktask.notification.model.message.IMessageRequest
@@ -37,8 +37,8 @@ public data class SlackRequest(
         verify()
     }
 
-    override fun toMap(taskName: String, recipient: Recipient): MutableMap<String, Any?> {
-        return super.toMap(taskName = taskName, recipient = recipient).apply {
+    override fun toMap(taskId: String, recipient: Recipient): MutableMap<String, Any?> {
+        return super.toMap(taskId = taskId, recipient = recipient).apply {
             this[SlackConsumer.Property.CHANNEL.key] = channel
         }
     }

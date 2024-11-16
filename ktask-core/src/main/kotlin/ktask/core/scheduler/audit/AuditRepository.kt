@@ -32,8 +32,8 @@ internal object AuditRepository {
     fun create(request: AuditLogRequest): Uuid {
         return transaction {
             SchedulerAuditTable.insert { statement ->
-                statement[taskName] = request.taskName
-                statement[taskGroup] = request.taskGroup
+                statement[groupId] = request.groupId
+                statement[taskId] = request.taskId
                 statement[fireTime] = request.fireTime
                 statement[runTime] = request.runTime
                 statement[outcome] = request.outcome
@@ -61,15 +61,26 @@ internal object AuditRepository {
      * Finds all the audit logs for a concrete task by name and group, ordered by the most recent first.
      *
      * @param pageable Optional pagination information.
-     * @param taskName The name of the task.
-     * @param taskGroup The group of the task.
+     * @param groupId The group of the task.
+     * @param taskId Optional unique identifier of the task. If omitted, all tasks in the group are returned.
      * @return The list of [AuditLog] instances, or an empty list if none found.
      */
-    fun find(pageable: Pageable?, taskName: String, taskGroup: String): Page<AuditLog> {
+    fun find(pageable: Pageable?, groupId: String?, taskId: String?): Page<AuditLog> {
         return transaction {
-            SchedulerAuditTable.selectAll()
-                .where { SchedulerAuditTable.taskName eq taskName }
-                .andWhere { SchedulerAuditTable.taskGroup eq taskGroup }
+            SchedulerAuditTable
+                .selectAll()
+                .apply {
+                    groupId?.let {
+                        andWhere {
+                            SchedulerAuditTable.groupId eq groupId
+                        }
+                    }
+                    taskId?.let {
+                        andWhere {
+                            SchedulerAuditTable.taskId eq taskId
+                        }
+                    }
+                }
                 .orderBy(SchedulerAuditTable.createdAt to SortOrder.DESC)
                 .paginate(pageable = pageable, transform = AuditLog)
         }
@@ -78,15 +89,15 @@ internal object AuditRepository {
     /**
      * Finds the most recent audit log for a specific task.
      *
-     * @param taskName The name of the task.
-     * @param taskGroup The group of the task.
+     * @param groupId The group of the task.
+     * @param taskId The unique identifier of the task.
      * @return The most recent [AuditLog] instance, or `null` if none found.
      */
-    fun mostRecent(taskName: String, taskGroup: String): AuditLog? {
+    fun mostRecent(groupId: String, taskId: String): AuditLog? {
         return transaction {
             SchedulerAuditTable.selectAll()
-                .where { SchedulerAuditTable.taskName eq taskName }
-                .andWhere { SchedulerAuditTable.taskGroup eq taskGroup }
+                .where { SchedulerAuditTable.groupId eq groupId }
+                .andWhere { SchedulerAuditTable.taskId eq taskId }
                 .orderBy(SchedulerAuditTable.createdAt to SortOrder.DESC)
                 .limit(count = 1)
                 .map { AuditLog.from(row = it) }
@@ -97,11 +108,11 @@ internal object AuditRepository {
     /**
      * Returns the total count of audit entries for a specific task.
      *
-     * @param taskName The name of the task.
-     * @param taskGroup The group of the task.
+     * @param groupId The group of the task.
+     * @param taskId The unique identifier of the task.
      * @return The total count of audit entries for the task.
      */
-    fun count(taskName: String, taskGroup: String): Int {
+    fun count(groupId: String, taskId: String): Int {
         return transaction {
             // Enabled to print the SQL query for debugging purposes.
             // addLogger(StdOutSqlLogger)
@@ -110,14 +121,14 @@ internal object AuditRepository {
             // explain {
             //    SchedulerAuditTable
             //        .selectAll()
-            //        .where { SchedulerAuditTable.taskName eq taskName }
+            //        .where { SchedulerAuditTable.taskId eq taskId }
             //        .andWhere { SchedulerAuditTable.taskGroup eq taskGroup }
             //}.forEach(::print)
 
             SchedulerAuditTable
                 .selectAll()
-                .where { SchedulerAuditTable.taskName eq taskName }
-                .andWhere { SchedulerAuditTable.taskGroup eq taskGroup }
+                .where { SchedulerAuditTable.groupId eq groupId }
+                .andWhere { SchedulerAuditTable.taskId eq taskId }
                 .count()
                 .toInt()
         }

@@ -2,7 +2,7 @@
  * Copyright (c) 2024-Present Perracodex. Use of this source code is governed by an MIT license.
  */
 
-package ktask.core.persistence.serializers
+package ktask.core.persistence.serializer
 
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.Serializable
@@ -12,38 +12,38 @@ import kotlinx.serialization.descriptors.PrimitiveSerialDescriptor
 import kotlinx.serialization.descriptors.SerialDescriptor
 import kotlinx.serialization.encoding.Decoder
 import kotlinx.serialization.encoding.Encoder
-import ktask.core.error.validators.EmailValidator
 
 /**
- * Serializer for Email strings.
+ * Serializer for Non Blank String objects.
  */
-internal object EmailSerializer : KSerializer<String> {
+internal object NonBlankStringSerializer : KSerializer<String> {
     override val descriptor: SerialDescriptor = PrimitiveSerialDescriptor(
-        serialName = "EmailString",
+        serialName = "NonBlankString",
         kind = PrimitiveKind.STRING
     )
 
     override fun serialize(encoder: Encoder, value: String) {
-        EmailValidator.check(value = value).fold(
-            onSuccess = { encoder.encodeString(value = value) },
-            onFailure = { error -> throw SerializationException(error.message) }
-        )
+        if (value.isBlank()) {
+            throw SerializationException("String cannot be blank.")
+        }
+        encoder.encodeString(value = value)
     }
 
     override fun deserialize(decoder: Decoder): String {
         val string: String = decoder.decodeString()
-        EmailValidator.check(value = string).fold(
-            onSuccess = { return string },
-            onFailure = { error -> throw SerializationException(error.message) }
-        )
+        if (string.isBlank()) {
+            throw SerializationException("String cannot be blank.")
+        }
+        return string
     }
 }
 
 /**
- * Represents a serializable Email String.
+ * Represents a serializable Non Blank String.
  *
- * @property EmailString The type representing the serializable Email.
+ * @property NoBlankString The type representing the serializable String.
  *
- * @see [EmailSerializer]
+ * @see [NonBlankStringSerializer]
  */
-public typealias EmailString = @Serializable(with = EmailSerializer::class) String
+public typealias NoBlankString = @Serializable(with = NonBlankStringSerializer::class) String
+

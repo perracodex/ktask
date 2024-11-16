@@ -476,7 +476,7 @@
 											}
 										},
 										"url": {
-                                          "raw": "http://localhost:8080/admin/scheduler/task/1iqxfuocw5yww/38befbfb-20a3-4bcd-91e1-a2c7240adfa0/pause",
+											"raw": "http://localhost:8080/admin/scheduler/task/pause?groupId=38befbfb-20a3-4bcd-91e1-a2c7240adfa1&taskId=1j6lk3ebgfwu8",
 											"protocol": "http",
 											"host": [
 												"localhost"
@@ -486,9 +486,17 @@
                                               "admin",
 												"scheduler",
 												"task",
-												"1iqxfuocw5yww",
-												"38befbfb-20a3-4bcd-91e1-a2c7240adfa0",
 												"pause"
+											],
+											"query": [
+												{
+													"key": "groupId",
+													"value": "38befbfb-20a3-4bcd-91e1-a2c7240adfa1"
+												},
+												{
+													"key": "taskId",
+													"value": "1j6lk3ebgfwu8"
+												}
 											]
 										}
 									},
@@ -545,7 +553,7 @@
 											}
 										},
 										"url": {
-                                          "raw": "http://localhost:8080/admin/scheduler/task/1iqxfuocw5yww/38befbfb-20a3-4bcd-91e1-a2c7240adfa0/pause",
+											"raw": "http://localhost:8080/admin/scheduler/task/resume?groupId=38befbfb-20a3-4bcd-91e1-a2c7240adfa1&taskId=1iqxfuocw5yww",
 											"protocol": "http",
 											"host": [
 												"localhost"
@@ -555,9 +563,17 @@
                                               "admin",
 												"scheduler",
 												"task",
-												"1iqxfuocw5yww",
-												"38befbfb-20a3-4bcd-91e1-a2c7240adfa0",
-												"pause"
+												"resume"
+											],
+											"query": [
+												{
+													"key": "groupId",
+													"value": "38befbfb-20a3-4bcd-91e1-a2c7240adfa1"
+												},
+												{
+													"key": "taskId",
+													"value": "1iqxfuocw5yww"
+												}
 											]
 										}
 									},
@@ -614,7 +630,7 @@
 											}
 										},
 										"url": {
-                                          "raw": "http://localhost:8080/admin/scheduler/task/1is2szwvv45j4/38befbfb-20a3-4bcd-91e1-a2c7240adfa0/resend",
+											"raw": "http://localhost:8080/admin/scheduler/task/resend?groupId=38befbfb-20a3-4bcd-91e1-a2c7240adfa0&taskId=1j6lk3ebgfwu8",
 											"protocol": "http",
 											"host": [
 												"localhost"
@@ -624,9 +640,17 @@
                                               "admin",
 												"scheduler",
 												"task",
-												"1is2szwvv45j4",
-												"38befbfb-20a3-4bcd-91e1-a2c7240adfa0",
 												"resend"
+											],
+											"query": [
+												{
+													"key": "groupId",
+													"value": "38befbfb-20a3-4bcd-91e1-a2c7240adfa0"
+												},
+												{
+													"key": "taskId",
+													"value": "1j6lk3ebgfwu8"
+												}
 											]
 										}
 									},
@@ -638,7 +662,7 @@
 							"name": "clean",
 							"item": [
 								{
-									"name": "delete",
+									"name": "delete task",
 									"event": [
 										{
 											"listen": "prerequest",
@@ -688,7 +712,7 @@
 											}
 										},
 										"url": {
-                                          "raw": "http://localhost:8080/admin/scheduler/task/1iq133y9d1r0g/38befbfb-20a3-4bcd-91e1-a2c7240adfa0",
+											"raw": "http://localhost:8080/admin/scheduler/task?groupId=38befbfb-20a3-4bcd-91e1-a2c7240adfa0&taskId=1iqxfuocw5yww",
 											"protocol": "http",
 											"host": [
 												"localhost"
@@ -697,9 +721,89 @@
 											"path": [
                                               "admin",
 												"scheduler",
-												"task",
-												"1iq133y9d1r0g",
-												"38befbfb-20a3-4bcd-91e1-a2c7240adfa0"
+												"task"
+											],
+											"query": [
+												{
+													"key": "groupId",
+													"value": "38befbfb-20a3-4bcd-91e1-a2c7240adfa0"
+												},
+												{
+													"key": "taskId",
+													"value": "1iqxfuocw5yww"
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "delete group",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"protocolProfileBehavior": {
+										"strictSSL": false
+									},
+									"request": {
+										"auth": {
+											"type": "basic",
+											"basic": [
+												{
+													"key": "password",
+													"value": "admin",
+													"type": "string"
+												},
+												{
+													"key": "username",
+													"value": "admin",
+													"type": "string"
+												}
+											]
+										},
+										"method": "DELETE",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "",
+												"disabled": true
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"id\": \"38befbfb-20a3-4bcd-91e1-a2c7240adfa0\",\r\n    \"target\": \"EMAIL\",\r\n    \"recipients\": [\"someone@gmail.com\"],\r\n    \"subject\": \"notification\",\r\n    \"content\": \"hello world\",\r\n    \"schedule\": \"2024-06-01T15:42:50\"\r\n}\r\n",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "http://localhost:8080/admin/scheduler/group?groupId=38befbfb-20a3-4bcd-91e1-a2c7240adfa1",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8080",
+											"path": [
+												"admin",
+												"scheduler",
+												"group"
+											],
+											"query": [
+												{
+													"key": "groupId",
+													"value": "38befbfb-20a3-4bcd-91e1-a2c7240adfa1"
+												}
 											]
 										}
 									},
@@ -756,7 +860,7 @@
 											}
 										},
 										"url": {
-                                          "raw": "http://localhost:8080/admin/scheduler/task",
+											"raw": "http://localhost:8080/admin/scheduler",
 											"protocol": "http",
 											"host": [
 												"localhost"
@@ -764,8 +868,7 @@
 											"port": "8080",
 											"path": [
                                               "admin",
-												"scheduler",
-												"task"
+												"scheduler"
 											]
 										}
 									},
@@ -846,7 +949,7 @@
 							"response": []
 						},
 						{
-							"name": "log",
+							"name": "task",
 							"event": [
 								{
 									"listen": "prerequest",
@@ -897,7 +1000,7 @@
 									}
 								},
 								"url": {
-                                  "raw": "http://localhost:8080/admin/scheduler/audit/1irpwav67ad4w/2eb37132-556f-4c9f-a419-8de93906589f",
+									"raw": "http://localhost:8080/admin/scheduler/audit/task?groupId=38befbfb-20a3-4bcd-91e1-a2c7240adfa1&taskId=1j6lg6crxt5vk",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -907,8 +1010,17 @@
                                       "admin",
 										"scheduler",
 										"audit",
-										"1irpwav67ad4w",
-										"2eb37132-556f-4c9f-a419-8de93906589f"
+										"task"
+									],
+									"query": [
+										{
+											"key": "groupId",
+											"value": "38befbfb-20a3-4bcd-91e1-a2c7240adfa1"
+										},
+										{
+											"key": "taskId",
+											"value": "1j6lg6crxt5vk"
+										}
 									]
 								}
 							},
@@ -1037,7 +1149,7 @@
                         }
                       },
                       "url": {
-                        "raw": "http://localhost:8080/admin/events",
+						  "raw": "http://localhost:8080/admin/events/all",
                         "protocol": "http",
                         "host": [
                           "localhost"
@@ -1045,7 +1157,8 @@
                         "port": "8080",
                         "path": [
                           "admin",
-                          "events"
+							"events",
+							"all"
                         ]
                       }
                     },
@@ -1169,7 +1282,7 @@
 								],
 								"body": {
 									"mode": "raw",
-                                  "raw": "{\r\n    \"id\": \"38befbfb-20a3-4bcd-91e1-a2c7240adfa0\",\r\n    \"schedule\": {\r\n        \"start\": \"2024-05-01T15:42:50\",\r\n        \"days\": 0, \"hours\": 0, \"minutes\": 1, \"seconds\": 5\r\n    },\r\n    \"recipients\": [\r\n        { \"target\": \"nickname_1@email.com\", \"name\": \"person_name_1\", \"locale\": \"en\" },\r\n        { \"target\": \"nickname_2@email.com\", \"name\": \"person_name_2\", \"locale\": \"es\" }\r\n    ],\r\n    \"template\": \"simple\",\r\n    \"cc\": [],\r\n    \"subject\": \"Something\",\r\n    \"fields\": {\r\n        \"sender\": \"Sender Name\",\r\n        \"content\": \"Some dynamic content!\"\r\n    }\r\n}\r\n",
+									"raw": "{\r\n    \"id\": \"38befbfb-20a3-4bcd-91e1-a2c7240adfa0\",\r\n    \"schedule\": {\r\n        \"start\": \"2024-05-01T15:42:50\",\r\n        \"days\": 0, \"hours\": 0, \"minutes\": 0, \"seconds\": 5\r\n    },\r\n    \"recipients\": [\r\n        { \"target\": \"nickname_1@email.com\", \"name\": \"person_name_1\", \"locale\": \"en\" },\r\n        { \"target\": \"nickname_2@email.com\", \"name\": \"person_name_2\", \"locale\": \"es\" }\r\n    ],\r\n    \"template\": \"simple\",\r\n    \"cc\": [],\r\n    \"subject\": \"Something\",\r\n    \"fields\": {\r\n        \"sender\": \"Sender Name\",\r\n        \"content\": \"Some dynamic content!\"\r\n    }\r\n}\r\n",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -1569,7 +1682,7 @@
 								],
 								"body": {
 									"mode": "raw",
-                                  "raw": "{\r\n    \"id\": \"38befbfb-20a3-4bcd-91e1-a2c7240adfa0\",\r\n    \"schedule\": {\r\n        \"start\": \"2024-11-13T11:42:50\", \r\n        \"days\": 0, \"hours\": 0, \"minutes\": 0, \"seconds\": 1\r\n    },\r\n    \"data\": \"some data\"\r\n}\r\n",
+									"raw": "{\r\n    \"id\": \"38befbfb-20a3-4bcd-91e1-a2c7240adfa1\",\r\n    \"schedule\": {\r\n        \"start\": \"2024-11-13T11:42:50\", \r\n        \"days\": 0, \"hours\": 0, \"minutes\": 0, \"seconds\": 1\r\n    },\r\n    \"data\": \"some data\"\r\n}\r\n",
 									"options": {
 										"raw": {
 											"language": "json"
