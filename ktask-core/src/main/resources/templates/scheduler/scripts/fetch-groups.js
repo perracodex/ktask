@@ -92,16 +92,16 @@ function updateTaskList(tasks) {
         rowDiv.innerHTML = `
             <span class="expand-trigger">+</span>
             <span class="groupId">${task.groupId}</span>
-            <span class="taskId" data-toggle="tooltip" title="Snowflake ID: ${task.snowflakeData}">${task.taskId}</span> <!-- Use snowflakeData here -->
-            <span class="consumer">${task.consumer}</span>
-            <span class="nextFireTime">${task.nextFireTime}</span>
-            <span class="state">${task.state}</span>
+            <span class="taskId" data-toggle="tooltip" title="Snowflake ID: ${task.snowflakeData}">${task.taskId}</span>
+            <span class="consumer">${task.consumer || ''}</span>
+            <span class="nextFireTime">${task.nextFireTime || ''}</span>
+            <span class="state">${task.state || ''}</span>
             <span class="outcome" style="color: ${task.outcome === 'ERROR' ? '#EA3939FF' : ''}">
-                ${task.outcome}
+                ${task.outcome || ''}
                 ${task.outcome === 'ERROR' ? `<span class="logViewer" data-log="${task.log}" onclick="openLog(this)">👁️</span>` : ''}
             </span>
-            <span class="schedule">${task.schedule}</span>
-            <span class="runs">${task.runs}</span>
+            <span class="schedule">${task.schedule || ''}</span>
+            <span class="runs">${task.runs || ''}</span>
             <div>
                 <button class="icon-button"
                         data-task-id="${task.taskId}" data-group-id="${task.groupId}"
