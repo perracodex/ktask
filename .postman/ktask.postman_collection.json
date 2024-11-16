@@ -404,7 +404,7 @@
 											}
 										},
 										"url": {
-                                          "raw": "http://localhost:8080/admin/scheduler/task/group",
+                                          "raw": "http://localhost:8080/admin/scheduler/group",
 											"protocol": "http",
 											"host": [
 												"localhost"
