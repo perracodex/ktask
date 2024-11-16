@@ -45,5 +45,8 @@ function handleGroupChange() {
         url.searchParams.set('groupId', selectedGroup);
     }
 
-    window.location.href = url.toString();
+    // Only update the URL if the group has actually changed.
+    if (url.toString() !== window.location.toString()) {
+        window.location.href = url.toString();
+    }
 }
