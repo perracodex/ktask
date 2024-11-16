@@ -9,7 +9,7 @@ function openFullAudit() {
 function openTaskAudit(button) {
     const groupId = encodeURIComponent(button.getAttribute('data-group-id'));
     const taskId = encodeURIComponent(button.getAttribute('data-task-id'));
-    window.open(`/admin/scheduler/audit?groupId=${groupId}&taskId=${taskId}`, '_blank');
+    window.open(`/admin/scheduler/audit/task?groupId=${groupId}&taskId=${taskId}`, '_blank');
 }
 
 function refreshPage() {
@@ -26,25 +26,43 @@ function deleteAll() {
                 console.error('Failed to delete all tasks');
                 alert("Failed to delete all tasks.");
             }
-        })
-        .catch(error => console.error('Error:', error));
+        }).catch(error => console.error('Error:', error));
 }
 
 function deleteTask(button) {
     const groupId = encodeURIComponent(button.getAttribute('data-group-id'));
     const taskId = encodeURIComponent(button.getAttribute('data-task-id'));
+    const taskRow = button.closest('.table-container');  // Get the row element of the task to remove.
+    const currentGroup = document.getElementById('groupSelect').value;  // Get the current selected group.
 
     fetch(`/admin/scheduler/task?groupId=${groupId}&taskId=${taskId}`, {method: 'DELETE'})
         .then(response => {
             if (response.ok) {
-                console.log('Task deleted successfully');
-                window.location.reload();
+                taskRow.remove();  // Remove the task row from the DOM.
+
+                // Check if we are filtering by a specific group (not "all").
+                if (currentGroup !== 'all') {
+                    const remainingTasks = document.querySelectorAll(
+                        `.table-container[data-group-id="${groupId}"]`
+                    );
+
+                    if (remainingTasks.length === 0) {
+                        // No tasks left for this group, so reset the group select to "All Groups".
+                        document.getElementById('groupSelect').value = 'all';  // Reset to 'all' group
+                        fetchTasks('all');  // Fetch tasks for "All Groups".
+                    } else {
+                        // If tasks are still remaining for the selected group, refresh tasks for the current group.
+                        fetchTasks(currentGroup);
+                    }
+                } else {
+                    // If we're already in "All Groups", just refresh the task list for "All Groups".
+                    fetchTasks('all');
+                }
+
             } else {
-                console.error('Failed to delete task');
-                alert("Failed to delete task.");
+                alert("Failed to delete task");
             }
-        })
-        .catch(error => console.error('Error:', error));
+        }).catch(error => console.error('Error:', error));
 }
 
 function openLog(element) {
@@ -67,6 +85,7 @@ function openLog(element) {
     newWindow.document.close();
 }
 
+// Pause or Resume a task
 function toggleTaskPauseResume(button) {
     const groupId = encodeURIComponent(button.getAttribute('data-group-id'));
     const taskId = encodeURIComponent(button.getAttribute('data-task-id'));
@@ -76,14 +95,12 @@ function toggleTaskPauseResume(button) {
     fetch(`/admin/scheduler/task/${action}?groupId=${groupId}&taskId=${taskId}`, {method: 'POST'})
         .then(response => {
             if (response.ok) {
-                console.log('Task paused/resumed successfully');
-                window.location.reload();
+                const selectedGroup = document.getElementById('groupSelect').value;
+                fetchTasks(selectedGroup);  // Use selected group in dropdown.
             } else {
-                console.error('Failed to pause/resume task');
-                alert("Failed to pause/resume task.");
+                alert("Failed to update task state");
             }
-        })
-        .catch(error => console.error('Error:', error));
+        }).catch(error => console.error('Error:', error));
 }
 
 function resendTask(button) {
@@ -99,6 +116,5 @@ function resendTask(button) {
                 console.error('Failed to resend task');
                 alert("Failed to pause/resume task.");
             }
-        })
-        .catch(error => console.error('Error:', error));
+        }).catch(error => console.error('Error:', error));
 }
