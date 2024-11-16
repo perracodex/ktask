@@ -5,6 +5,7 @@
 package ktask.core.settings.catalog.section
 
 import io.github.perracodex.ktor.config.IConfigCatalogSection
+import kotlinx.serialization.Serializable
 import ktask.core.env.EnvironmentType
 
 /**
@@ -15,7 +16,7 @@ import ktask.core.env.EnvironmentType
  * @property doubleReceiveEnvironments The list of environments where the double receive plugin is enabled.
  * @property workingDir The working directory where files are stored.
  */
-@kotlinx.serialization.Serializable
+@Serializable
 public data class RuntimeSettings(
     val machineId: Int,
     val environment: EnvironmentType,
