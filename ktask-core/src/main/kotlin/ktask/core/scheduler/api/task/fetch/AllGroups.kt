@@ -15,7 +15,7 @@ import ktask.core.scheduler.service.SchedulerService
  * Gets all scheduler task groups.
  */
 @SchedulerRouteApi
-internal fun Route.getSchedulerTaskGroupsRoute() {
+internal fun Route.getSchedulerAllGroupsRoute() {
     get("/admin/scheduler/group") {
         val groups: List<String> = SchedulerService.tasks.groups()
         call.respond(status = HttpStatusCode.OK, message = groups)

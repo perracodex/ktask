@@ -20,7 +20,7 @@ function fetchGroups() {
 
 function populateGroupSelect(groups) {
     const groupSelect = document.getElementById('groupSelect');
-    const currentGroup = new URLSearchParams(window.location.search).get('group');
+    const currentGroup = new URLSearchParams(window.location.search).get('groupId');
 
     groupSelect.innerHTML = '<option value="all">All Groups</option>';
 
@@ -40,9 +40,9 @@ function handleGroupChange() {
     const url = new URL(window.location);
 
     if (selectedGroup === 'all') {
-        url.searchParams.delete('group');
+        url.searchParams.delete('groupId');
     } else {
-        url.searchParams.set('group', selectedGroup);
+        url.searchParams.set('groupId', selectedGroup);
     }
 
     window.location.href = url.toString();
