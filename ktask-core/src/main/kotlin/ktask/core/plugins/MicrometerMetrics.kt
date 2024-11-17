@@ -4,6 +4,7 @@
 
 package ktask.core.plugins
 
+import io.github.perracodex.kopapi.dsl.operation.api
 import io.ktor.http.*
 import io.ktor.server.application.*
 import io.ktor.server.auth.*
@@ -49,8 +50,20 @@ public fun Application.configureMicroMeterMetrics() {
 
     routing {
         authenticate(AppSettings.security.basicAuth.providerName) {
-            get("/metrics") {
+            get("/admin/metrics") {
                 call.respond(status = HttpStatusCode.OK, message = Telemetry.scrape())
+            } api {
+                tags = setOf("System")
+                summary = "Metrics endpoint."
+                description = "Provides metrics for monitoring the application."
+                operationId = "metrics"
+                response<String>(status = HttpStatusCode.OK) {
+                    description = "The metrics data."
+                    contentType = setOf(ContentType.Text.Plain)
+                }
+                basicSecurity(name = "System") {
+                    description = "Access to system information."
+                }
             }
         }
     }
