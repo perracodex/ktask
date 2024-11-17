@@ -6,7 +6,6 @@ package ktask.notification.error
 
 import io.ktor.http.*
 import ktask.core.error.AppException
-import kotlin.uuid.Uuid
 
 /**
  * Concrete errors for the notifications domain.
@@ -37,14 +36,14 @@ internal sealed class NotificationError(
     /**
      * Error for when an email invalid.
      *
-     * @param id The affected source id.
+     * @param groupId The affected source group id.
      * @param email The invalid email.
      * @param field Optional field identifier, typically the input field that caused the error.
      * @param reason Optional human-readable reason for the exception, providing more context.
      * @param cause Optional underlying cause of the exception, if any.
      */
     class InvalidEmail(
-        id: Uuid?,
+        groupId: String?,
         email: String,
         field: String? = null,
         reason: String? = null,
@@ -52,7 +51,7 @@ internal sealed class NotificationError(
     ) : NotificationError(
         statusCode = STATUS_CODE,
         errorCode = ERROR_CODE,
-        description = "Invalid email: '$email'. Id: $id",
+        description = "Invalid email: '$email'. Group Id: $groupId",
         field = field,
         reason = reason,
         cause = cause
@@ -66,14 +65,14 @@ internal sealed class NotificationError(
     /**
      * Error for when a phone number is invalid, typically due to an incorrect format.
      *
-     * @param id The affected source id.
+     * @param groupId The affected source group id.
      * @param phone The invalid phone number.
      * @param field Optional field identifier, typically the input field that caused the error.
      * @param reason Optional human-readable reason for the exception, providing more context.
      * @param cause Optional underlying cause of the exception, if any.
      */
     class InvalidPhoneNumber(
-        id: Uuid?,
+        groupId: String?,
         phone: String,
         field: String? = null,
         reason: String? = null,
@@ -81,7 +80,7 @@ internal sealed class NotificationError(
     ) : NotificationError(
         statusCode = STATUS_CODE,
         errorCode = ERROR_CODE,
-        description = "Invalid phone number: '$phone'. Id: $id",
+        description = "Invalid phone number: '$phone'. Id: $groupId",
         field = field,
         reason = reason,
         cause = cause

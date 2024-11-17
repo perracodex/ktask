@@ -4,19 +4,18 @@
 
 package ktask.notification.model.action
 
-import ktask.core.persistence.serializer.Uuid
 import ktask.core.scheduler.service.schedule.Schedule
 import ktask.notification.consumer.action.AbsActionConsumer
 
 /**
  * Base interface for all action based requests.
  *
- * @property id The unique identifier of the task request.
+ * @property groupId The group ID of the task.
  * @property description Optional description of the task.
  * @property schedule Optional [Schedule] for the task.
  */
 public interface IActionRequest {
-    public val id: Uuid
+    public val groupId: String
     public val description: String?
     public val schedule: Schedule?
 
@@ -27,7 +26,7 @@ public interface IActionRequest {
      */
     public fun toMap(taskId: String): MutableMap<String, Any?> {
         return mutableMapOf(
-            AbsActionConsumer.Property.GROUP_ID.key to id,
+            AbsActionConsumer.Property.GROUP_ID.key to groupId,
             AbsActionConsumer.Property.TASK_ID.key to taskId,
             AbsActionConsumer.Property.DESCRIPTION.key to description,
         )

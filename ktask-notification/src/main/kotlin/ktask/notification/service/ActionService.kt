@@ -35,7 +35,7 @@ internal object ActionService {
      * @throws IllegalArgumentException if the action request type is unsupported.
      */
     suspend fun schedule(request: IActionRequest): TaskKey = withContext(Dispatchers.IO) {
-        tracer.debug("Scheduling new custom action for ID: ${request.id}")
+        tracer.debug("Scheduling new custom action for ID: ${request.groupId}")
 
         // Resolve the target consumer class.
         val consumerClass: Class<out AbsActionConsumer> = ActionConsumer::class.java
@@ -55,7 +55,7 @@ internal object ActionService {
         // Dispatch the task based on the specified schedule type.
         request.toMap(taskId = taskId).let { parameters ->
             TaskDispatch(
-                groupId = request.id,
+                groupId = request.groupId,
                 taskId = taskId,
                 consumerClass = consumerClass,
                 startAt = taskStartAt,
@@ -72,7 +72,7 @@ internal object ActionService {
 
         // Send a message to the SSE endpoint.
         val schedule: String = request.schedule?.toString() ?: "Immediate"
-        SseService.push(message = "New 'action' task | $schedule | Group Id: ${request.id} | Task Id: $taskId")
+        SseService.push(message = "New 'action' task | $schedule | Group Id: ${request.groupId} | Task Id: $taskId")
 
         return@withContext outputKey
     }

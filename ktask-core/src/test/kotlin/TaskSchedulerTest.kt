@@ -42,7 +42,7 @@ class SchedulerServiceTest {
     fun testImmediate(): Unit = testSuspend {
         val taskValue = "uniqueTestTask_${System.nanoTime()}"
 
-        val groupId: Uuid = Uuid.random()
+        val groupId: String = Uuid.random().toString()
         val taskId: String = SnowflakeFactory.nextId()
 
         val properties: Map<String, Any> = buildProperties(
@@ -73,7 +73,7 @@ class SchedulerServiceTest {
         val taskValue = "uniqueTestTask_${System.nanoTime()}"
 
         val interval: Schedule.Interval = Schedule.Interval(days = 0u, hours = 0u, minutes = 0u, seconds = 1u)
-        val groupId: Uuid = Uuid.random()
+        val groupId: String = Uuid.random().toString()
         val taskId: String = SnowflakeFactory.nextId()
 
         val properties: Map<String, Any> = buildProperties(
@@ -104,7 +104,7 @@ class SchedulerServiceTest {
         val taskValue = "uniqueTestTask_${System.nanoTime()}"
 
         val cron: Schedule.Cron = Schedule.Cron(cron = "0/1 * * * * ?")
-        val groupId: Uuid = Uuid.random()
+        val groupId: String = Uuid.random().toString()
         val taskId: String = SnowflakeFactory.nextId()
 
         val properties: Map<String, Any> = buildProperties(
@@ -192,7 +192,7 @@ class SchedulerServiceTest {
          * @throws IllegalArgumentException If required properties are missing or invalid.
          */
         override fun buildPayload(properties: Map<String, Any>): TestPayload {
-            val groupId: Uuid = properties["GROUP_ID"] as? Uuid
+            val groupId: String = properties["GROUP_ID"] as? String
                 ?: throw IllegalArgumentException("GROUP_ID is missing or invalid.")
             val taskId: String = properties["TASK_ID"] as? String
                 ?: throw IllegalArgumentException("TASK_ID is missing or invalid.")
@@ -226,13 +226,13 @@ class SchedulerServiceTest {
      * @property taskValue A value to verify task execution.
      */
     data class TestPayload(
-        override val groupId: Uuid,
+        override val groupId: String,
         override val taskId: String,
         override val taskType: String = "test",
         val taskValue: String
     ) : TaskConsumer.Payload
 
-    private fun buildProperties(groupId: Uuid, taskId: String, taskValue: String): Map<String, Any> {
+    private fun buildProperties(groupId: String, taskId: String, taskValue: String): Map<String, Any> {
         return mapOf(
             "GROUP_ID" to groupId,
             "TASK_ID" to taskId,

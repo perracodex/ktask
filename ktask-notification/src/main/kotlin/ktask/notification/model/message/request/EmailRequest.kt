@@ -6,7 +6,6 @@ package ktask.notification.model.message.request
 
 import kotlinx.serialization.Serializable
 import ktask.core.error.validator.EmailValidator
-import ktask.core.persistence.serializer.Uuid
 import ktask.core.scheduler.service.schedule.Schedule
 import ktask.notification.consumer.message.task.EmailConsumer
 import ktask.notification.error.NotificationError
@@ -16,7 +15,7 @@ import ktask.notification.model.message.Recipient
 /**
  * Represents a request to send an Email notification task.
  *
- * @property id The unique identifier of the task request.
+ * @property groupId The group ID of the task.
  * @property description Optional description of the task.
  * @property schedule Optional [Schedule] for the task.
  * @property recipients List of target recipients.
@@ -27,7 +26,7 @@ import ktask.notification.model.message.Recipient
  */
 @Serializable
 public data class EmailRequest(
-    override val id: Uuid,
+    override val groupId: String,
     override val description: String? = null,
     override val schedule: Schedule? = null,
     override val recipients: List<Recipient>,
@@ -62,7 +61,7 @@ public data class EmailRequest(
             // 400 Bad Request, which would be raised if the validation was done in the init block.
             request.recipients.forEach { recipient ->
                 EmailValidator.check(value = recipient.target).onFailure { error ->
-                    throw NotificationError.InvalidEmail(id = request.id, email = recipient.target, cause = error)
+                    throw NotificationError.InvalidEmail(groupId = request.groupId, email = recipient.target, cause = error)
                 }
             }
         }

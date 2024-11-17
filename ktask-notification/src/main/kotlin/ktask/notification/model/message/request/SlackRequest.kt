@@ -5,7 +5,6 @@
 package ktask.notification.model.message.request
 
 import kotlinx.serialization.Serializable
-import ktask.core.persistence.serializer.Uuid
 import ktask.core.scheduler.service.schedule.Schedule
 import ktask.notification.consumer.message.task.SlackConsumer
 import ktask.notification.model.message.IMessageRequest
@@ -14,7 +13,7 @@ import ktask.notification.model.message.Recipient
 /**
  * Represents a request to send a Slack notification task.
  *
- * @property id The unique identifier of the task request.
+ * @property groupId The group ID of the task.
  * @property description Optional description of the task.
  * @property schedule Optional [Schedule] for the task.
  * @property recipients List of [Recipient] targets.
@@ -24,7 +23,7 @@ import ktask.notification.model.message.Recipient
  */
 @Serializable
 public data class SlackRequest(
-    override val id: Uuid,
+    override val groupId: String,
     override val description: String? = null,
     override val schedule: Schedule? = null,
     override val recipients: List<Recipient>,

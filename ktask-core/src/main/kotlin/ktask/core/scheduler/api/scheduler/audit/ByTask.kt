@@ -14,6 +14,7 @@ import io.perracodex.exposed.pagination.getPageable
 import ktask.core.scheduler.api.SchedulerRouteApi
 import ktask.core.scheduler.audit.AuditService
 import ktask.core.scheduler.model.audit.AuditLog
+import ktask.core.util.trimOrNull
 
 /**
  * Returns the audit log for a specific task.
@@ -21,8 +22,8 @@ import ktask.core.scheduler.model.audit.AuditLog
 @SchedulerRouteApi
 internal fun Route.schedulerAuditByTaskRoute() {
     get("/admin/scheduler/audit/task") {
-        val groupId: String? = call.queryParameters["groupId"]
-        val taskId: String? = call.queryParameters["taskId"]
+        val groupId: String? = call.queryParameters["groupId"].trimOrNull()
+        val taskId: String? = call.queryParameters["taskId"].trimOrNull()
 
         if (groupId.isNullOrBlank() && taskId.isNullOrBlank()) {
             call.respond(

@@ -41,7 +41,7 @@ internal object NotificationService {
      * @throws IllegalArgumentException if the notification request type is unsupported.
      */
     suspend fun schedule(request: IMessageRequest): List<TaskKey> = withContext(Dispatchers.IO) {
-        tracer.debug("Scheduling new notification for ID: ${request.id}")
+        tracer.debug("Scheduling new notification for ID: ${request.groupId}")
 
         // Identify the target consumer class.
         val consumerClass: Class<out AbsNotificationConsumer> = when (request) {
@@ -72,7 +72,7 @@ internal object NotificationService {
             // Dispatch the task based on the specified schedule type.
             request.toMap(taskId = taskId, recipient = recipient).let { parameters ->
                 TaskDispatch(
-                    groupId = request.id,
+                    groupId = request.groupId,
                     taskId = taskId,
                     consumerClass = consumerClass,
                     startAt = taskStartAt,
@@ -91,7 +91,7 @@ internal object NotificationService {
             val schedule: String = request.schedule?.toString() ?: "Immediate"
             SseService.push(
                 message = "New 'notification' task | $schedule | " +
-                        "${consumerClass.simpleName} | Group Id: ${request.id} | Task Id: $taskId | Recipient: $recipient"
+                        "${consumerClass.simpleName} | Group Id: ${request.groupId} | Task Id: $taskId | Recipient: $recipient"
             )
         }
 

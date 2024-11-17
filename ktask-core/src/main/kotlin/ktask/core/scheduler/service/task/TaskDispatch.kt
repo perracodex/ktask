@@ -12,7 +12,6 @@ import ktask.core.util.DateTimeUtils.toJavaDate
 import ktask.core.util.DateTimeUtils.toJavaInstant
 import org.quartz.*
 import java.util.*
-import kotlin.uuid.Uuid
 
 /**
  * Class to create and send a scheduling request for a task.
@@ -26,7 +25,7 @@ import kotlin.uuid.Uuid
  */
 @OptIn(SchedulerApi::class)
 public class TaskDispatch(
-    private val groupId: Uuid,
+    private val groupId: String,
     private val taskId: String,
     private val consumerClass: Class<out TaskConsumer<*>>,
     private var startAt: TaskStartAt = TaskStartAt.Immediate,

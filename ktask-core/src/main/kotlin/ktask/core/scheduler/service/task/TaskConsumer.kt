@@ -6,7 +6,6 @@ package ktask.core.scheduler.service.task
 
 import kotlinx.datetime.LocalDateTime
 import ktask.core.event.SseService
-import ktask.core.persistence.serializer.Uuid
 import ktask.core.scheduler.service.task.TaskConsumer.Payload
 import ktask.core.util.DateTimeUtils.current
 import ktask.core.util.DateTimeUtils.formatted
@@ -64,7 +63,7 @@ public abstract class TaskConsumer<P : Payload> : Job {
                 message = "${LocalDateTime.current().formatted(timeDelimiter = " | ", precision = 6)} " +
                         "| Consumed task type '${payload.taskType}' " +
                         "| Group Id: ${payload.groupId} " +
-                        "| Task Id: ${payload.taskId}` "
+                        "| Task Id: ${payload.taskId} "
             )
         }
     }
@@ -94,7 +93,7 @@ public abstract class TaskConsumer<P : Payload> : Job {
      * @property taskType A string representing the type of task.
      */
     public interface Payload {
-        public val groupId: Uuid
+        public val groupId: String
         public val taskId: String
         public val taskType: String
     }

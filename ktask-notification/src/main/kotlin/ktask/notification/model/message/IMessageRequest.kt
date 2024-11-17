@@ -4,14 +4,13 @@
 
 package ktask.notification.model.message
 
-import ktask.core.persistence.serializer.Uuid
 import ktask.core.scheduler.service.schedule.Schedule
 import ktask.notification.consumer.message.AbsNotificationConsumer
 
 /**
  * Base interface for all message based requests
  *
- * @property id The unique identifier of the task request.
+ * @property groupId The group ID of the task.
  * @property description Optional description of the task.
  * @property schedule Optional [Schedule] for the task.
  * @property recipients List [Recipient] targets.
@@ -19,7 +18,7 @@ import ktask.notification.consumer.message.AbsNotificationConsumer
  * @property fields Optional fields to be included in the template.
  */
 public interface IMessageRequest {
-    public val id: Uuid
+    public val groupId: String
     public val description: String?
     public val schedule: Schedule?
     public val recipients: List<Recipient>
@@ -41,7 +40,7 @@ public interface IMessageRequest {
      */
     public fun toMap(taskId: String, recipient: Recipient): MutableMap<String, Any?> {
         return mutableMapOf(
-            AbsNotificationConsumer.Property.GROUP_ID.key to id,
+            AbsNotificationConsumer.Property.GROUP_ID.key to groupId,
             AbsNotificationConsumer.Property.TASK_ID.key to taskId,
             AbsNotificationConsumer.Property.DESCRIPTION.key to description,
             AbsNotificationConsumer.Property.RECIPIENT_TARGET.key to recipient.target,

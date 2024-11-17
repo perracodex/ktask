@@ -5,7 +5,6 @@
 package ktask.notification.consumer.action
 
 import ktask.core.scheduler.service.task.TaskConsumer
-import kotlin.uuid.Uuid
 
 /**
  * Abstract base class for processing scheduled tasks, providing common steps for task execution,
@@ -35,14 +34,14 @@ internal abstract class AbsActionConsumer : TaskConsumer<AbsActionConsumer.Consu
      * @property additionalParameters A map of additional parameters required for the task.
      */
     data class ConsumerPayload(
-        override val groupId: Uuid,
+        override val groupId: String,
         override val taskId: String,
         override val taskType: String = TASK_TYPE,
         val additionalParameters: Map<String, Any> = emptyMap()
     ) : Payload {
         companion object {
             fun build(properties: Map<String, Any>): ConsumerPayload {
-                val groupId: Uuid = properties[Property.GROUP_ID.key] as? Uuid
+                val groupId: String = properties[Property.GROUP_ID.key] as? String
                     ?: throw IllegalArgumentException("GROUP_ID is missing or invalid.")
                 val taskId: String = properties[Property.TASK_ID.key] as? String
                     ?: throw IllegalArgumentException("TASK_ID is missing or invalid.")

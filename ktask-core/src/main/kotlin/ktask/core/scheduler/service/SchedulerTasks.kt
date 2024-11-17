@@ -227,7 +227,7 @@ internal class SchedulerTasks private constructor(private val scheduler: Schedul
      * @param sortByFireTime True if the tasks should be sorted by nextFireTime; false to return them in the order they were scheduled.
      * @return A list of [TaskSchedule] objects representing the scheduled tasks.
      */
-    suspend fun all(groupId: Uuid? = null, executing: Boolean = false, sortByFireTime: Boolean = false): List<TaskSchedule> {
+    suspend fun all(groupId: String? = null, executing: Boolean = false, sortByFireTime: Boolean = false): List<TaskSchedule> {
         var taskList: List<TaskSchedule> = if (executing) {
             scheduler.currentlyExecutingJobs.map { task -> toTaskSchedule(taskDetail = task.jobDetail) }
         } else {
@@ -237,7 +237,7 @@ internal class SchedulerTasks private constructor(private val scheduler: Schedul
         }
 
         groupId?.let {
-            taskList = taskList.filter { it.groupId == groupId.toString() }
+            taskList = taskList.filter { it.groupId == groupId }
         }
 
         // Sort the task list by nextFireTime.

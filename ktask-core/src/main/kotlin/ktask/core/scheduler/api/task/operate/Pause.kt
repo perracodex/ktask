@@ -13,6 +13,7 @@ import io.ktor.server.util.*
 import ktask.core.scheduler.api.SchedulerRouteApi
 import ktask.core.scheduler.model.task.TaskStateChange
 import ktask.core.scheduler.service.SchedulerService
+import ktask.core.util.trimOrNull
 
 /**
  * Pause a concrete scheduler task.
@@ -21,7 +22,7 @@ import ktask.core.scheduler.service.SchedulerService
 internal fun Route.pauseSchedulerTaskRoute() {
     post("/admin/scheduler/task/pause") {
         val groupId: String = call.parameters.getOrFail(name = "groupId")
-        val taskId: String? = call.parameters["taskId"]
+        val taskId: String? = call.parameters["taskId"].trimOrNull()
         val state: TaskStateChange = SchedulerService.tasks.pause(groupId = groupId, taskId = taskId)
         call.respond(status = HttpStatusCode.OK, message = state)
     } api {
