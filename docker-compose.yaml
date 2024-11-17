@@ -11,14 +11,33 @@ services:
     image: ktask-image:latest
     container_name: ktask-container
     ports:
-      - "8080:8080"
-      - "8443:8443"
-      - "5005:5005"
+      - "8080:8080"  # HTTP port for the application.
+      - "8443:8443"  # HTTPS port for secure communication.
+      - "5005:5005"  # Remote debugging port for JVM debugging.
     environment:
-      JAVA_OPTS: "-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5005" # Enables remote debugging on port 5005
+      # Memory settings:
+      #   -XX:InitialRAMPercentage=50.0: JVM starts with 50% of the container's allocated memory.
+      #   -XX:MaxRAMPercentage=75.0: JVM can grow heap to 75% of the container's allocated memory.
+      #   -XX:+HeapDumpOnOutOfMemoryError: Enables heap dump generation on OutOfMemoryError.
+      #   -XX:HeapDumpPath=/app/logs: Saves heap dumps to the specified path for analysis.
+      # GC logging:
+      #   -Xlog:gc*: Logs garbage collection events to help monitor memory performance.
+      # Debugging settings:
+      #   -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5005: Enables remote debugging.
+      JAVA_OPTS: >
+        -XX:InitialRAMPercentage=50.0
+        -XX:MaxRAMPercentage=75.0
+        -XX:+HeapDumpOnOutOfMemoryError
+        -XX:HeapDumpPath=/app/logs
+        -Xlog:gc*:file=/app/logs/gc.log:time,uptime,level,tags
+        -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5005
+
+      # Application-specific environment variables
+      # - Defines the path to the SSL key store used by the application.
       KTASK_KTOR_SECURITY_SSL_KEY_STORE: "/app/keystore.p12"
+
     networks:
       - default_network
 
 networks:
-  default_network: { }
+  default_network: { }  # Default network configuration for inter-service communication
