@@ -45,9 +45,11 @@ internal fun Route.schedulerAuditByTaskRoute() {
         operationId = "getAuditLogsByTask"
         queryParameter<String>(name = "groupId") {
             description = "The group of the task."
+            required = false
         }
         queryParameter<String>(name = "taskId") {
             description = "The unique identifier of the task."
+            required = false
         }
         response<Page<AuditLog>>(status = HttpStatusCode.OK) {
             description = "Existing scheduler audit logs for the task."

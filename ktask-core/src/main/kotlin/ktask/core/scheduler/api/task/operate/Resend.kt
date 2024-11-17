@@ -39,6 +39,7 @@ internal fun Route.resendSchedulerTaskRoute() {
         }
         queryParameter<String>(name = "taskId") {
             description = "The Id of the task, or null to resend all tasks in the group."
+            required = false
         }
         response<Unit>(status = HttpStatusCode.OK) {
             description = "The task has been resent."

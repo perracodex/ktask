@@ -11,13 +11,13 @@ import org.quartz.JobKey
 /**
  * Represents a key that uniquely identifies a task in the scheduler.
  *
- * @property name The name of the task.
- * @property group The group to which the task belongs.
+ * @property groupId The group to which the task belongs.
+ * @property taskId The unique identifier of the task.
  */
 @Serializable
 public data class TaskKey(
-    val name: String,
-    val group: String
+    val groupId: String,
+    val taskId: String,
 ) {
     internal companion object {
         /**
@@ -28,7 +28,7 @@ public data class TaskKey(
          */
         @SchedulerApi
         fun fromJobKey(jobKey: JobKey): TaskKey {
-            return TaskKey(name = jobKey.name, group = jobKey.group)
+            return TaskKey(groupId = jobKey.group, taskId = jobKey.name)
         }
     }
 }

@@ -34,6 +34,7 @@ internal fun Route.resumeSchedulerTaskRoute() {
         }
         queryParameter<String>(name = "taskId") {
             description = "The Id of the task, or null to resume all tasks in the group."
+            required = false
         }
         response<TaskStateChange>(status = HttpStatusCode.OK) {
             description = "The state of the task."

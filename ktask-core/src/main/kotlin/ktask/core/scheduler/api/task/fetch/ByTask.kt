@@ -31,6 +31,7 @@ internal fun Route.getSchedulerTasksRoute() {
         operationId = "getSchedulerTasks"
         queryParameter<Uuid>(name = "groupId") {
             description = "The group ID of the tasks."
+            required = false
         }
         response<List<TaskSchedule>>(status = HttpStatusCode.OK) {
             description = "The list of tasks."

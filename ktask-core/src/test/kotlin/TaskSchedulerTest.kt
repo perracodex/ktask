@@ -65,7 +65,7 @@ class SchedulerServiceTest {
         assertTrue(actual = testResults.contains(taskValue))
 
         // Clean up by un-scheduling the task.
-        SchedulerService.tasks.delete(groupId = taskKey.group, taskId = taskKey.name)
+        SchedulerService.tasks.delete(groupId = taskKey.groupId, taskId = taskKey.taskId)
     }
 
     @Test
@@ -96,7 +96,7 @@ class SchedulerServiceTest {
         assertTrue(actual = testResults.contains(taskValue))
 
         // Clean up by un-scheduling the task.
-        SchedulerService.tasks.delete(groupId = taskKey.group, taskId = taskKey.name)
+        SchedulerService.tasks.delete(groupId = taskKey.groupId, taskId = taskKey.taskId)
     }
 
     @Test
@@ -127,7 +127,7 @@ class SchedulerServiceTest {
         assertTrue(actual = testResults.contains(taskValue))
 
         // Clean up by un-scheduling the task.
-        SchedulerService.tasks.delete(groupId = taskKey.group, taskId = taskKey.name)
+        SchedulerService.tasks.delete(groupId = taskKey.groupId, taskId = taskKey.taskId)
     }
 
     @Test
