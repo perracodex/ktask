@@ -29,7 +29,7 @@ public fun Route.healthCheckRoute() {
             description = "The health check status."
         }
         basicSecurity(name = "System") {
-            description = "Access to health check."
+            description = "Access to system information."
         }
     }
 }

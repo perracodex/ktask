@@ -15,8 +15,6 @@ import io.ktor.server.util.*
  * Defines the snowflake route, which is used to parse snowflake IDs.
  */
 public fun Route.snowflakeRoute() {
-
-    // Snowflake parser to read back the components of a snowflake ID.
     get("/admin/snowflake/{id}") {
         val snowflakeId: String = call.parameters.getOrFail(name = "id")
         val data: SnowflakeData = SnowflakeFactory.parse(id = snowflakeId)
@@ -25,7 +23,7 @@ public fun Route.snowflakeRoute() {
         tags = setOf("System")
         summary = "Snowflake parser."
         description = "Reads back the components of a snowflake ID."
-        operationId = "snowflakeParser"
+        operationId = "parseSnowflake"
         pathParameter<String>(name = "id") {
             description = "The snowflake ID to parse."
         }
@@ -33,7 +31,7 @@ public fun Route.snowflakeRoute() {
             description = "The parsed snowflake data."
         }
         basicSecurity(name = "System") {
-            description = "Access to health check."
+            description = "Access to system information."
         }
     }
 }
