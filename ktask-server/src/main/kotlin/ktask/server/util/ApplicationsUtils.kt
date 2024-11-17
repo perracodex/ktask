@@ -30,8 +30,8 @@ internal object ApplicationsUtils {
             NetworkUtils.logEndpoints(reason = "Micrometer Metrics", endpoints = listOf("admin/metrics"))
 
             // Log the server readiness.
-            tracer.withSeverity("Development Mode Enabled: ${application.developmentMode}.")
-            tracer.info("Server configured. Environment: ${AppSettings.runtime.environment}.")
+            tracer.withSeverity("Development Mode Enabled: ${application.developmentMode}")
+            tracer.info("Server configured. Environment: ${AppSettings.runtime.environment}")
         }
     }
 }
