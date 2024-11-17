@@ -25,6 +25,7 @@ function deleteAll() {
                     const groupSelect = document.getElementById('groupSelect');
                     groupSelect.value = '';
                     window.history.pushState({groupId: ''}, '', '?groupId='); // Update URL.
+                    fetchGroups()
                     fetchTasks('');
 
                     console.log('All tasks deleted successfully');
