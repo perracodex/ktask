@@ -36,7 +36,7 @@ internal annotation class SchedulerRouteApi
 public fun Route.schedulerRoutes() {
 
     // Sets up the routing to serve resources as static content for the scheduler.
-    staticResources(remotePath = "/templates/scheduler", basePackage = "/templates/scheduler")
+    staticResources(remotePath = "/scheduler", basePackage = "/scheduler")
 
     // Maintenance related routes.
     schedulerDashboardRoute()
