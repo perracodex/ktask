@@ -9,6 +9,17 @@ dependencies {
 
     implementation(project(":ktask-core"))
     implementation(project(":ktask-notification"))
+    implementation(project(":ktask-scheduler"))
+
+    implementation(libs.exposed.core)
+
+    implementation(libs.hikariCP)
+
+    implementation(libs.kopapi)
+
+    implementation(libs.kotlinx.atomicfu)
+    implementation(libs.kotlinx.datetime)
+    implementation(libs.kotlinx.serialization)
 
     implementation(libs.ktor.server.auth)
     implementation(libs.ktor.server.core)

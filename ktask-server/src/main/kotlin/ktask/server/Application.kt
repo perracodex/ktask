@@ -8,6 +8,7 @@ import io.ktor.server.application.*
 import io.ktor.server.netty.*
 import ktask.core.plugins.*
 import ktask.core.settings.AppSettings
+import ktask.scheduler.plugin.configureTaskScheduler
 import ktask.server.plugins.configureRoutes
 import ktask.server.util.ApplicationsUtils
 

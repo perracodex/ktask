@@ -6,8 +6,8 @@ package ktask.notification.model.action
 
 import ktask.core.persistence.serializer.NoBlankString
 import ktask.core.persistence.serializer.Uuid
-import ktask.core.scheduler.service.schedule.Schedule
 import ktask.notification.consumer.action.AbsActionConsumer
+import ktask.scheduler.service.schedule.Schedule
 
 /**
  * Base interface for all action based requests.

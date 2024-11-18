@@ -8,9 +8,9 @@ import io.github.perracodex.kopapi.dsl.operation.api
 import io.ktor.http.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
-import ktask.core.scheduler.service.task.TaskKey
 import ktask.notification.model.action.request.ActionRequest
 import ktask.notification.service.ActionService
+import ktask.scheduler.service.task.TaskKey
 
 /**
  * Creates a new scheduled action task.

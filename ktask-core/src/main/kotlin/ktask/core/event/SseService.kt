@@ -8,7 +8,6 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
 import ktask.core.env.Tracer
-import ktask.core.scheduler.service.SchedulerAsyncScope
 
 /**
  * Service for managing and broadcasting events using Server-Sent Events (SSE).
@@ -49,7 +48,7 @@ public object SseService {
      */
     public fun push(message: String) {
         runCatching {
-            SchedulerAsyncScope.enqueue {
+            AsyncScope.enqueue {
                 _eventFlow.emit(value = message)
             }
         }.onFailure { error ->

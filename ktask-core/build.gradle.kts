@@ -9,8 +9,6 @@ dependencies {
 
     implementation(libs.database.h2)
 
-    implementation(libs.cron.descriptor)
-
     implementation(libs.kopapi)
 
     implementation(libs.kotlinx.atomicfu)
@@ -45,7 +43,6 @@ dependencies {
     implementation(libs.exposed.jdbc)
     implementation(libs.exposed.json)
     implementation(libs.exposed.kotlin.datetime)
-    implementation(libs.exposed.pagination)
     implementation(libs.flyway.core)
 
     implementation(libs.google.phonenumber)
@@ -56,8 +53,6 @@ dependencies {
 
     implementation(libs.micrometer.metrics)
     implementation(libs.micrometer.metrics.prometheus)
-
-    implementation(libs.quartz.scheduler)
 
     implementation(libs.shared.commons.codec)
 

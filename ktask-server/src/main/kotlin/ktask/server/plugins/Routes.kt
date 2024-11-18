@@ -8,15 +8,15 @@ import io.ktor.server.application.*
 import io.ktor.server.auth.*
 import io.ktor.server.plugins.ratelimit.*
 import io.ktor.server.routing.*
-import ktask.core.env.health.healthCheckRoute
 import ktask.core.event.sseRoutes
 import ktask.core.plugins.RateLimitScope
-import ktask.core.scheduler.api.schedulerRoutes
 import ktask.core.settings.AppSettings
 import ktask.core.snowflake.snowflakeRoute
 import ktask.notification.api.actionTaskRoute
 import ktask.notification.api.emailTaskRoute
 import ktask.notification.api.slackTaskRoute
+import ktask.scheduler.api.schedulerRoutes
+import ktask.server.health.healthCheckRoute
 
 /**
  * Initializes and sets up routing for the application.

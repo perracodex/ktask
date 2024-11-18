@@ -15,4 +15,5 @@ rootProject.name = "KTask"
 
 include("ktask-core")
 include("ktask-notification")
+include("ktask-scheduler")
 include("ktask-server")

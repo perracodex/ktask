@@ -7,7 +7,6 @@ package ktask.core.util
 import io.ktor.server.application.*
 import io.ktor.server.routing.*
 import kotlinx.serialization.Serializable
-import ktask.core.env.health.annotation.HealthCheckApi
 
 /**
  * Holds information about a registered route.
@@ -23,8 +22,7 @@ public data class RouteInfo(val path: String, val method: String)
  *
  * @return A list of all found routes.
  */
-@HealthCheckApi
-internal fun Application.collectRoutes(): List<RouteInfo> {
+public fun Application.collectRoutes(): List<RouteInfo> {
     val routes: MutableList<RouteInfo> = mutableListOf()
 
     // Helper function to recursively traverse and collect routes.

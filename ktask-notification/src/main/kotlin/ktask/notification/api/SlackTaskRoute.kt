@@ -8,9 +8,9 @@ import io.github.perracodex.kopapi.dsl.operation.api
 import io.ktor.http.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
-import ktask.core.scheduler.service.task.TaskKey
 import ktask.notification.model.message.request.SlackRequest
 import ktask.notification.service.NotificationService
+import ktask.scheduler.service.task.TaskKey
 
 /**
  * Creates a new scheduled Slack notification task.

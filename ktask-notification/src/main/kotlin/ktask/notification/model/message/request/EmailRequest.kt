@@ -8,11 +8,11 @@ import kotlinx.serialization.Serializable
 import ktask.core.error.validator.EmailValidator
 import ktask.core.persistence.serializer.NoBlankString
 import ktask.core.persistence.serializer.Uuid
-import ktask.core.scheduler.service.schedule.Schedule
 import ktask.notification.consumer.message.task.EmailConsumer
 import ktask.notification.error.NotificationError
 import ktask.notification.model.message.IMessageRequest
 import ktask.notification.model.message.Recipient
+import ktask.scheduler.service.schedule.Schedule
 
 /**
  * Represents a request to send an Email notification task.
