@@ -47,7 +47,7 @@ public class TaskDispatch(
         val trigger: SimpleTrigger = job.triggerBuilder.withSchedule(scheduleBuilder).build()
         SchedulerService.tasks.schedule(task = job.jobDetail, trigger = trigger)
 
-        return TaskKey.fromJobKey(job.jobKey)
+        return TaskKey.fromJobKey(jobKey = job.jobKey)
     }
 
     /**
@@ -93,7 +93,7 @@ public class TaskDispatch(
         val trigger: SimpleTrigger = job.triggerBuilder.withSchedule(scheduleBuilder).build()
         SchedulerService.tasks.schedule(task = job.jobDetail, trigger = trigger)
 
-        return TaskKey.fromJobKey(job.jobKey)
+        return TaskKey.fromJobKey(jobKey = job.jobKey)
     }
 
     /**
@@ -112,7 +112,7 @@ public class TaskDispatch(
         // Send the task to the scheduler.
         SchedulerService.tasks.schedule(task = job.jobDetail, trigger = trigger)
 
-        return TaskKey.fromJobKey(job.jobKey)
+        return TaskKey.fromJobKey(jobKey = job.jobKey)
     }
 
     /**
