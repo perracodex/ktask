@@ -37,24 +37,18 @@ internal object ActionService {
     suspend fun schedule(request: IActionRequest): TaskKey = withContext(Dispatchers.IO) {
         tracer.debug("Scheduling new custom action for ID: ${request.groupId}")
 
-        // Normalize the group ID.
-        val groupId: String = request.groupId.trim().lowercase()
-        if (groupId.isEmpty()) {
-            throw IllegalArgumentException("Group ID cannot be empty.")
-        }
-
         // Check if the group already exists.
-        if (TaskDispatch.groupExists(groupId = groupId)) {
+        if (TaskDispatch.groupExists(groupId = request.groupId)) {
             if (!request.replace) {
-                val message = "Group already exists. Skipping Re-schedule. Group ID: $groupId"
+                val message = "Group already exists. Skipping Re-schedule. Group ID: ${request.groupId}"
                 tracer.warning(message)
                 SseService.push(message = message)
-                return@withContext TaskDispatch.groupsTaskKeys(groupId = groupId).first()
+                return@withContext TaskDispatch.groupsTaskKeys(groupId = request.groupId).first()
             } else {
-                val message = "Group already exists. Will be replaced, recreating all tasks. Group ID: $groupId"
+                val message = "Group already exists. Will be replaced, recreating all tasks. Group ID: ${request.groupId}"
                 tracer.warning(message)
                 SseService.push(message = message)
-                TaskDispatch.deleteGroup(groupId = groupId)
+                TaskDispatch.deleteGroup(groupId = request.groupId)
             }
         }
 
@@ -69,14 +63,12 @@ internal object ActionService {
             TaskStartAt.AtDateTime(datetime = startDateTime)
         } ?: TaskStartAt.Immediate
 
-        lateinit var outputKey: TaskKey
-
         val taskId: String = SnowflakeFactory.nextId()
 
         // Dispatch the task based on the specified schedule type.
-        request.toMap(taskId = taskId).let { parameters ->
+        val outputKey: TaskKey = request.toMap(taskId = taskId).let { parameters ->
             TaskDispatch(
-                groupId = groupId,
+                groupId = request.groupId,
                 taskId = taskId,
                 consumerClass = consumerClass,
                 startAt = taskStartAt,
@@ -87,13 +79,13 @@ internal object ActionService {
                 } ?: send()
             }.also { taskKey ->
                 tracer.debug("Scheduled ${consumerClass.name}. Task key: $taskKey")
-                outputKey = taskKey
+                taskKey
             }
         }
 
         // Send a message to the SSE endpoint.
         val schedule: String = request.schedule?.toString() ?: "Immediate"
-        SseService.push(message = "New 'action' task | $schedule | Group Id: $groupId | Task Id: $taskId")
+        SseService.push(message = "New 'action' task | $schedule | Group Id: ${request.groupId} | Task Id: $taskId")
 
         return@withContext outputKey
     }

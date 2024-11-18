@@ -10,6 +10,8 @@ import io.ktor.http.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
 import io.ktor.server.util.*
+import ktask.core.persistence.serializer.Uuid
+import ktask.core.persistence.util.toUuid
 import ktask.core.scheduler.api.SchedulerRouteApi
 import ktask.core.scheduler.model.task.TaskStateChange
 import ktask.core.scheduler.service.SchedulerService
@@ -21,7 +23,7 @@ import ktask.core.util.trimOrNull
 @SchedulerRouteApi
 internal fun Route.pauseSchedulerTaskRoute() {
     post("/admin/scheduler/task/pause") {
-        val groupId: String = call.parameters.getOrFail(name = "groupId")
+        val groupId: Uuid = call.parameters.getOrFail(name = "groupId").toUuid()
         val taskId: String? = call.parameters["taskId"].trimOrNull()
         val state: TaskStateChange = SchedulerService.tasks.pause(groupId = groupId, taskId = taskId)
         call.respond(status = HttpStatusCode.OK, message = state)
@@ -30,7 +32,7 @@ internal fun Route.pauseSchedulerTaskRoute() {
         summary = "Pause a scheduler task."
         description = "Pause a concrete scheduler task."
         operationId = "pauseSchedulerTask"
-        queryParameter<String>(name = "groupId") {
+        queryParameter<Uuid>(name = "groupId") {
             description = "The group of the task."
         }
         queryParameter<String>(name = "taskId") {

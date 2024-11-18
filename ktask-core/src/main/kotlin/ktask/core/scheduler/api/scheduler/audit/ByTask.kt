@@ -11,6 +11,8 @@ import io.ktor.server.response.*
 import io.ktor.server.routing.*
 import io.perracodex.exposed.pagination.Page
 import io.perracodex.exposed.pagination.getPageable
+import ktask.core.persistence.serializer.Uuid
+import ktask.core.persistence.util.toUuidOrNull
 import ktask.core.scheduler.api.SchedulerRouteApi
 import ktask.core.scheduler.audit.AuditService
 import ktask.core.scheduler.model.audit.AuditLog
@@ -22,10 +24,10 @@ import ktask.core.util.trimOrNull
 @SchedulerRouteApi
 internal fun Route.schedulerAuditByTaskRoute() {
     get("/admin/scheduler/audit/task") {
-        val groupId: String? = call.queryParameters["groupId"].trimOrNull()
+        val groupId: Uuid? = call.queryParameters["groupId"].toUuidOrNull()
         val taskId: String? = call.queryParameters["taskId"].trimOrNull()
 
-        if (groupId.isNullOrBlank() && taskId.isNullOrBlank()) {
+        if (groupId == null && taskId.isNullOrBlank()) {
             call.respond(
                 status = HttpStatusCode.BadRequest,
                 message = "Missing required parameters. At least one of 'groupId' and 'taskId' is required."
@@ -44,7 +46,7 @@ internal fun Route.schedulerAuditByTaskRoute() {
         summary = "Get audit logs for a specific task."
         description = "Get all existing audit logs for a specific task."
         operationId = "getAuditLogsByTask"
-        queryParameter<String>(name = "groupId") {
+        queryParameter<Uuid>(name = "groupId") {
             description = "The group of the task."
             required = false
         }

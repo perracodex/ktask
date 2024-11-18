@@ -4,6 +4,8 @@
 
 package ktask.notification.model.action
 
+import ktask.core.persistence.serializer.NoBlankString
+import ktask.core.persistence.serializer.Uuid
 import ktask.core.scheduler.service.schedule.Schedule
 import ktask.notification.consumer.action.AbsActionConsumer
 
@@ -11,15 +13,22 @@ import ktask.notification.consumer.action.AbsActionConsumer
  * Base interface for all action based requests.
  *
  * @property groupId The group ID of the task.
+ * @property description The description of the task.
  * @property replace Whether to replace the task if it already exists.
- * @property description Optional description of the task.
  * @property schedule Optional [Schedule] for the task.
  */
 public interface IActionRequest {
-    public val groupId: String
+    public val groupId: Uuid
+    public val description: NoBlankString
     public val replace: Boolean
-    public val description: String?
     public val schedule: Schedule?
+
+    /**
+     * Verifies the integrity of the task request.
+     */
+    public fun verify() {
+        require(description.isNotBlank()) { "Description must not be blank." }
+    }
 
     /**
      * Converts the action request into a map of parameters suitable for task processing.

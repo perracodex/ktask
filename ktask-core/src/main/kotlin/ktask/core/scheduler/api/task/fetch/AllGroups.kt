@@ -9,6 +9,7 @@ import io.ktor.http.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
 import ktask.core.scheduler.api.SchedulerRouteApi
+import ktask.core.scheduler.model.task.TaskGroup
 import ktask.core.scheduler.service.SchedulerService
 
 /**
@@ -17,14 +18,14 @@ import ktask.core.scheduler.service.SchedulerService
 @SchedulerRouteApi
 internal fun Route.getSchedulerAllGroupsRoute() {
     get("/admin/scheduler/group") {
-        val groups: List<String> = SchedulerService.tasks.groups()
+        val groups: List<TaskGroup> = SchedulerService.tasks.groups()
         call.respond(status = HttpStatusCode.OK, message = groups)
     } api {
         tags = setOf("Scheduler")
         summary = "Get all scheduler task groups."
         description = "Get all the scheduler task groups."
         operationId = "getSchedulerTaskGroups"
-        response<List<String>>(status = HttpStatusCode.OK) {
+        response<List<TaskGroup>>(status = HttpStatusCode.OK) {
             description = "The list of task groups."
         }
     }

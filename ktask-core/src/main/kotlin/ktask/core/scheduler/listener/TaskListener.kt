@@ -8,6 +8,7 @@ import io.micrometer.core.instrument.Counter
 import io.micrometer.core.instrument.Timer
 import ktask.core.env.Telemetry
 import ktask.core.env.Tracer
+import ktask.core.persistence.util.toUuid
 import ktask.core.scheduler.audit.AuditService
 import ktask.core.scheduler.model.audit.AuditLogRequest
 import ktask.core.scheduler.service.SchedulerAsyncScope
@@ -92,8 +93,9 @@ internal class TaskListener : JobListener {
 
         // Create audit log for task execution.
         AuditLogRequest(
-            groupId = context.jobDetail.key.group,
+            groupId = context.jobDetail.key.group.toUuid(),
             taskId = context.jobDetail.key.name,
+            description = context.jobDetail.description,
             snowflakeId = SnowflakeFactory.nextId(),
             fireTime = context.fireTime.toKotlinLocalDateTime(),
             runTime = context.jobRunTime,

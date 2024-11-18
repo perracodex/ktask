@@ -1,10 +1,9 @@
 {
 	"info": {
-      "_postman_id": "f3fa22de-8f0f-4752-8aba-1ff0266342aa",
+      "_postman_id": "c2b064d7-bf62-4443-bdc5-fe5824e6c892",
 		"name": "ktask",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-      "_exporter_id": "24519395",
-      "_collection_link": "https://cercli-fernando.postman.co/workspace/Cercli~b5625dd4-3dec-4569-b0bb-04ad5da24012/collection/24519395-f3fa22de-8f0f-4752-8aba-1ff0266342aa?action=share&source=collection_link&creator=24519395"
+      "_exporter_id": "24235465"
 	},
 	"item": [
 		{
@@ -1290,7 +1289,7 @@
 								],
 								"body": {
 									"mode": "raw",
-                                  "raw": "{\r\n    \"groupId\": \"Some Email Group\",\r\n    \"replace\": true,\r\n    \"recipients\": [\r\n        { \"target\": \"nickname_1@email.com\", \"name\": \"person_name_1\", \"locale\": \"en\" },\r\n        { \"target\": \"nickname_2@email.com\", \"name\": \"person_name_2\", \"locale\": \"es\" }\r\n    ],\r\n    \"template\": \"simple\",\r\n    \"cc\": [],\r\n    \"subject\": \"Something\",\r\n    \"fields\": {\r\n        \"sender\": \"Sender Name\",\r\n        \"content\": \"Some dynamic content!\"\r\n    }\r\n}\r\n",
+                                  "raw": "{\r\n    \"groupId\": \"a6821684-9f9a-4015-8f37-266a009dcfb8\",\r\n    \"description\": \"hello\",\r\n    \"replace\": true,\r\n    \"recipients\": [\r\n        { \"target\": \"nickname_1@email.com\", \"name\": \"person_name_1\", \"locale\": \"en\" },\r\n        { \"target\": \"nickname_2@email.com\", \"name\": \"person_name_2\", \"locale\": \"es\" }\r\n    ],\r\n    \"template\": \"simple\",\r\n    \"cc\": [],\r\n    \"subject\": \"Something\",\r\n    \"fields\": {\r\n        \"sender\": \"Sender Name\",\r\n        \"content\": \"Some dynamic content!\"\r\n    }\r\n}\r\n",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -1355,7 +1354,7 @@
 								],
 								"body": {
 									"mode": "raw",
-                                  "raw": "{\r\n    \"groupId\": \"Some Email Group\",\r\n    \"replace\": true,\r\n    \"schedule\": {\r\n        \"start\": \"2024-05-01T15:42:50\",\r\n        \"days\": 0, \"hours\": 0, \"minutes\": 0, \"seconds\": 5\r\n    },\r\n    \"recipients\": [\r\n        { \"target\": \"nickname_1@email.com\", \"name\": \"person_name_1\", \"locale\": \"en\" },\r\n        { \"target\": \"nickname_2@email.com\", \"name\": \"person_name_2\", \"locale\": \"es\" }\r\n    ],\r\n    \"template\": \"simple\",\r\n    \"cc\": [],\r\n    \"subject\": \"Something\",\r\n    \"fields\": {\r\n        \"sender\": \"Sender Name\",\r\n        \"content\": \"Some dynamic content!\"\r\n    }\r\n}\r\n",
+                                  "raw": "{\r\n    \"groupId\": \"a6821684-9f9a-4015-8f37-266a009dcfb8\",\r\n    \"description\": \"hello\",\r\n    \"replace\": true,\r\n    \"schedule\": {\r\n        \"start\": \"2024-05-01T15:42:50\",\r\n        \"days\": 0, \"hours\": 0, \"minutes\": 0, \"seconds\": 5\r\n    },\r\n    \"recipients\": [\r\n        { \"target\": \"nickname_1@email.com\", \"name\": \"person_name_1\", \"locale\": \"en\" },\r\n        { \"target\": \"nickname_2@email.com\", \"name\": \"person_name_2\", \"locale\": \"es\" }\r\n    ],\r\n    \"template\": \"simple\",\r\n    \"cc\": [],\r\n    \"subject\": \"Something\",\r\n    \"fields\": {\r\n        \"sender\": \"Sender Name\",\r\n        \"content\": \"Some dynamic content!\"\r\n    }\r\n}\r\n",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -1420,7 +1419,7 @@
 								],
 								"body": {
 									"mode": "raw",
-                                  "raw": "{\r\n    \"groupId\": \"Some Email Group\",\r\n    \"replace\": true,\r\n    \"schedule\": {\r\n        \"start\": \"2024-05-01T15:42:50\",\r\n        \"cron\": \"0 * * * * ?\"\r\n    },\r\n    \"recipients\": [\r\n        { \"target\": \"nickname_1@email.com\", \"name\": \"person_name_1\", \"locale\": \"en\" },\r\n        { \"target\": \"nickname_2@email.com\", \"name\": \"person_name_2\", \"locale\": \"es\" }\r\n    ],\r\n    \"template\": \"simple\",\r\n    \"cc\": [],\r\n    \"subject\": \"Something\",\r\n    \"fields\": {\r\n        \"sender\": \"Sender Name\",\r\n        \"content\": \"Some dynamic content!\"\r\n    }\r\n}\r\n",
+                                  "raw": "{\r\n    \"groupId\": \"a6821684-9f9a-4015-8f37-266a009dcfb8\",\r\n    \"description\": \"hello\",\r\n    \"replace\": true,\r\n    \"schedule\": {\r\n        \"start\": \"2024-05-01T15:42:50\",\r\n        \"cron\": \"0 * * * * ?\"\r\n    },\r\n    \"recipients\": [\r\n        { \"target\": \"nickname_1@email.com\", \"name\": \"person_name_1\", \"locale\": \"en\" },\r\n        { \"target\": \"nickname_2@email.com\", \"name\": \"person_name_2\", \"locale\": \"es\" }\r\n    ],\r\n    \"template\": \"simple\",\r\n    \"cc\": [],\r\n    \"subject\": \"Something\",\r\n    \"fields\": {\r\n        \"sender\": \"Sender Name\",\r\n        \"content\": \"Some dynamic content!\"\r\n    }\r\n}\r\n",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -1490,7 +1489,7 @@
 								],
 								"body": {
 									"mode": "raw",
-                                  "raw": "{\r\n    \"groupId\": \"Some Slack Group\",\r\n    \"replace\": true,\r\n    \"recipients\": [\r\n        { \"target\": \"person_1_slack_id\", \"name\": \"person_name_1\", \"locale\": \"en\" },\r\n        { \"target\": \"person_2_slack_id\", \"name\": \"person_name_2\", \"locale\": \"es\" }\r\n    ],\r\n    \"template\": \"simple\",\r\n    \"channel\": \"SLACK_CHANNEL_ID\",\r\n    \"fields\": {\r\n        \"sender\": \"Sender Name\",\r\n        \"content\": \"Some dynamic content!\"\r\n    }\r\n}\r\n",
+                                  "raw": "{\r\n    \"groupId\": \"a6821684-9f9a-4015-8f37-266a009dcfb8\",\r\n    \"description\": \"hello\",\r\n    \"replace\": true,\r\n    \"recipients\": [\r\n        { \"target\": \"person_1_slack_id\", \"name\": \"person_name_1\", \"locale\": \"en\" },\r\n        { \"target\": \"person_2_slack_id\", \"name\": \"person_name_2\", \"locale\": \"es\" }\r\n    ],\r\n    \"template\": \"simple\",\r\n    \"channel\": \"SLACK_CHANNEL_ID\",\r\n    \"fields\": {\r\n        \"sender\": \"Sender Name\",\r\n        \"content\": \"Some dynamic content!\"\r\n    }\r\n}\r\n",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -1555,7 +1554,7 @@
 								],
 								"body": {
 									"mode": "raw",
-                                  "raw": "{\r\n    \"groupId\": \"Some Slack Group\",\r\n    \"replace\": false,\r\n    \"schedule\": {\r\n        \"start\": \"2024-05-01T15:42:50\", \r\n        \"days\": 0, \"hours\": 0, \"minutes\": 0, \"seconds\": 5\r\n    },\r\n    \"recipients\": [\r\n        { \"target\": \"person_1_slack_id\", \"name\": \"person_name_1\", \"locale\": \"en\" },\r\n        { \"target\": \"person_2_slack_id\", \"name\": \"person_name_2\", \"locale\": \"es\" }\r\n    ],\r\n    \"template\": \"simple\",\r\n    \"channel\": \"SLACK_CHANNEL_ID\",\r\n    \"fields\": {\r\n        \"sender\": \"Sender Name\",\r\n        \"content\": \"Some dynamic content!\"\r\n    }\r\n}\r\n\r\n",
+                                  "raw": "{\r\n    \"groupId\": \"a6821684-9f9a-4015-8f37-266a009dcfb8\",\r\n    \"description\": \"hello\",\r\n    \"replace\": false,\r\n    \"schedule\": {\r\n        \"start\": \"2024-05-01T15:42:50\", \r\n        \"days\": 0, \"hours\": 0, \"minutes\": 0, \"seconds\": 5\r\n    },\r\n    \"recipients\": [\r\n        { \"target\": \"person_1_slack_id\", \"name\": \"person_name_1\", \"locale\": \"en\" },\r\n        { \"target\": \"person_2_slack_id\", \"name\": \"person_name_2\", \"locale\": \"es\" }\r\n    ],\r\n    \"template\": \"simple\",\r\n    \"channel\": \"SLACK_CHANNEL_ID\",\r\n    \"fields\": {\r\n        \"sender\": \"Sender Name\",\r\n        \"content\": \"Some dynamic content!\"\r\n    }\r\n}\r\n\r\n",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -1620,7 +1619,7 @@
 								],
 								"body": {
 									"mode": "raw",
-                                  "raw": "{\r\n    \"groupId\": \"Some Slack Group\",\r\n    \"replace\": true,\r\n    \"schedule\": {\r\n        \"start\": \"2024-05-01T15:42:50\",\r\n        \"cron\": \"0 * * * * ?\"\r\n    },\r\n    \"recipients\": [\r\n        { \"target\": \"person_1_slack_id\", \"name\": \"person_name_1\", \"locale\": \"en\" },\r\n        { \"target\": \"person_2_slack_id\", \"name\": \"person_name_2\", \"locale\": \"es\" }\r\n    ],\r\n    \"template\": \"simple\",\r\n    \"channel\": \"SLACK_CHANNEL_ID\",\r\n    \"fields\": {\r\n        \"sender\": \"Sender Name\",\r\n        \"content\": \"Some dynamic content!\"\r\n    }\r\n}\r\n",
+                                  "raw": "{\r\n    \"groupId\": \"a6821684-9f9a-4015-8f37-266a009dcfb8\",\r\n    \"description\": \"hello\",\r\n    \"replace\": true,\r\n    \"schedule\": {\r\n        \"start\": \"2024-05-01T15:42:50\",\r\n        \"cron\": \"0 * * * * ?\"\r\n    },\r\n    \"recipients\": [\r\n        { \"target\": \"person_1_slack_id\", \"name\": \"person_name_1\", \"locale\": \"en\" },\r\n        { \"target\": \"person_2_slack_id\", \"name\": \"person_name_2\", \"locale\": \"es\" }\r\n    ],\r\n    \"template\": \"simple\",\r\n    \"channel\": \"SLACK_CHANNEL_ID\",\r\n    \"fields\": {\r\n        \"sender\": \"Sender Name\",\r\n        \"content\": \"Some dynamic content!\"\r\n    }\r\n}\r\n",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -1690,7 +1689,7 @@
 								],
 								"body": {
 									"mode": "raw",
-                                  "raw": "{\r\n    \"groupId\": \"Some Action Group\",\r\n    \"replace\": true,\r\n    \"data\": \"some data\"\r\n}\r\n",
+                                  "raw": "{\r\n    \"groupId\": \"a18ad901-f96b-4b53-b21a-80ff55fa70d5\",\r\n    \"description\": \"xxx\", \r\n    \"replace\": true,\r\n    \"data\": \"some data\"\r\n}\r\n",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -1755,7 +1754,7 @@
 								],
 								"body": {
 									"mode": "raw",
-                                  "raw": "{\r\n    \"groupId\": \"Some Action Group\",\r\n    \"replace\": true,\r\n    \"schedule\": {\r\n        \"start\": \"2024-11-13T11:42:50\", \r\n        \"days\": 0, \"hours\": 0, \"minutes\": 0, \"seconds\": 1\r\n    },\r\n    \"data\": \"some data\"\r\n}\r\n",
+                                  "raw": "{\r\n    \"groupId\": \"a18ad901-f96b-4b53-b21a-80ff55fa70d5\",\r\n    \"description\": \"xxx\", \r\n    \"replace\": true,\r\n    \"schedule\": {\r\n        \"start\": \"2024-11-13T11:42:50\", \r\n        \"days\": 0, \"hours\": 0, \"minutes\": 0, \"seconds\": 1\r\n    },\r\n    \"data\": \"some data\"\r\n}\r\n",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -1820,7 +1819,7 @@
 								],
 								"body": {
 									"mode": "raw",
-                                  "raw": "{\r\n    \"groupId\": \"Some Action Group\",\r\n    \"replace\": true,\r\n    \"schedule\": {\r\n        \"start\": \"2024-05-01T15:42:50\",\r\n        \"cron\": \"0 * * * * ?\"\r\n    },\r\n    \"data\": \"some data\"\r\n}\r\n",
+                                  "raw": "{\r\n    \"groupId\": \"a18ad901-f96b-4b53-b21a-80ff55fa70d5\",\r\n    \"description\": \"xxx\", \r\n    \"replace\": true,\r\n    \"schedule\": {\r\n        \"start\": \"2024-05-01T15:42:50\",\r\n        \"cron\": \"0 * * * * ?\"\r\n    },\r\n    \"data\": \"some data\"\r\n}\r\n",
 									"options": {
 										"raw": {
 											"language": "json"

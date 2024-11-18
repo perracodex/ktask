@@ -12,6 +12,7 @@ import ktask.core.util.DateTimeUtils.formatted
 import org.quartz.Job
 import org.quartz.JobDataMap
 import org.quartz.JobExecutionContext
+import kotlin.uuid.Uuid
 
 /**
  * Abstract class representing a scheduled task.
@@ -93,7 +94,7 @@ public abstract class TaskConsumer<P : Payload> : Job {
      * @property taskType A string representing the type of task.
      */
     public interface Payload {
-        public val groupId: String
+        public val groupId: Uuid
         public val taskId: String
         public val taskType: String
     }

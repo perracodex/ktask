@@ -6,6 +6,7 @@ package ktask.notification.error
 
 import io.ktor.http.*
 import ktask.core.error.AppException
+import kotlin.uuid.Uuid
 
 /**
  * Concrete errors for the notifications domain.
@@ -43,7 +44,7 @@ internal sealed class NotificationError(
      * @param cause Optional underlying cause of the exception, if any.
      */
     class InvalidEmail(
-        groupId: String?,
+        groupId: Uuid?,
         email: String,
         field: String? = null,
         reason: String? = null,
@@ -72,7 +73,7 @@ internal sealed class NotificationError(
      * @param cause Optional underlying cause of the exception, if any.
      */
     class InvalidPhoneNumber(
-        groupId: String?,
+        groupId: Uuid?,
         phone: String,
         field: String? = null,
         reason: String? = null,

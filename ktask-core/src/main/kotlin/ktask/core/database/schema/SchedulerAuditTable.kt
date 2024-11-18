@@ -27,9 +27,8 @@ internal object SchedulerAuditTable : TimestampedTable(name = "scheduler_audit")
     /**
      * The group to which the task belongs.
      */
-    val groupId: Column<String> = varchar(
-        name = "group_id",
-        length = 200
+    val groupId: Column<Uuid> = kotlinUuid(
+        name = "group_id"
     )
 
     /**
@@ -38,6 +37,13 @@ internal object SchedulerAuditTable : TimestampedTable(name = "scheduler_audit")
     val taskId: Column<String> = varchar(
         name = "task_id",
         length = 200
+    )
+
+    /**
+     * The description of the task that was executed
+     */
+    val description: Column<String> = text(
+        name = "description",
     )
 
     /**

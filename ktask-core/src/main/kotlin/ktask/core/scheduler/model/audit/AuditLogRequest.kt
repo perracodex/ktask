@@ -7,12 +7,14 @@ package ktask.core.scheduler.model.audit
 import kotlinx.datetime.LocalDateTime
 import ktask.core.scheduler.service.annotation.SchedulerApi
 import ktask.core.scheduler.service.task.TaskOutcome
+import kotlin.uuid.Uuid
 
 /**
  * Represents a log request to be stored in the database.
  *
  * @property groupId The group of the task.
  * @property taskId The unique identifier of the task.
+ * @property description The description of the task.
  * @property snowflakeId The unique snowflake ID to identify the cluster node that executed the task.
  * @property fireTime The actual time the trigger fired.
  * @property runTime The amount of time the job ran for, in milliseconds.
@@ -22,8 +24,9 @@ import ktask.core.scheduler.service.task.TaskOutcome
  */
 @SchedulerApi
 public data class AuditLogRequest(
-    val groupId: String,
+    val groupId: Uuid,
     val taskId: String,
+    val description: String,
     val snowflakeId: String,
     val fireTime: LocalDateTime,
     val runTime: Long,

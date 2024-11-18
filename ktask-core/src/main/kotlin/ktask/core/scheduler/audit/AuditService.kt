@@ -52,7 +52,7 @@ internal object AuditService {
      * @param taskId Optional unique identifier of the task.
      * @return The list of [AuditLog] instances, or an empty list if none found.
      */
-    suspend fun find(pageable: Pageable?, groupId: String?, taskId: String?): Page<AuditLog> = withContext(Dispatchers.IO) {
+    suspend fun find(pageable: Pageable?, groupId: Uuid?, taskId: String?): Page<AuditLog> = withContext(Dispatchers.IO) {
         tracer.debug("Finding audit entries for task '$taskId' in group '$groupId'.")
         return@withContext AuditRepository.find(pageable = pageable, groupId = groupId, taskId = taskId)
     }
@@ -64,7 +64,7 @@ internal object AuditService {
      * @param taskId The unique identifier of the task.
      * @return The most recent [AuditLog] instance, or `null` if none found.
      */
-    suspend fun mostRecent(groupId: String, taskId: String): AuditLog? = withContext(Dispatchers.IO) {
+    suspend fun mostRecent(groupId: Uuid, taskId: String): AuditLog? = withContext(Dispatchers.IO) {
         tracer.debug("Finding the most recent audit entry for task '$taskId' in group '$groupId'.")
         return@withContext AuditRepository.mostRecent(groupId = groupId, taskId = taskId)
     }
@@ -76,7 +76,7 @@ internal object AuditService {
      * @param taskId The unique identifier of the task.
      * @return The total count of audit entries for the task.
      */
-    suspend fun count(groupId: String, taskId: String): Int = withContext(Dispatchers.IO) {
+    suspend fun count(groupId: Uuid, taskId: String): Int = withContext(Dispatchers.IO) {
         tracer.debug("Counting the audit entries for task '$taskId' in group '$groupId'.")
         return@withContext AuditRepository.count(groupId = groupId, taskId = taskId)
     }
@@ -88,7 +88,7 @@ internal object AuditService {
      * @param taskId The unique identifier of the task.
      * @return The total count of audit entries for the task.
      */
-    suspend fun failures(groupId: String, taskId: String): Int = withContext(Dispatchers.IO) {
+    suspend fun failures(groupId: Uuid, taskId: String): Int = withContext(Dispatchers.IO) {
         tracer.debug("Counting the failures for task '$taskId' in group '$groupId'.")
         return@withContext AuditRepository.failures(groupId = groupId, taskId = taskId)
     }

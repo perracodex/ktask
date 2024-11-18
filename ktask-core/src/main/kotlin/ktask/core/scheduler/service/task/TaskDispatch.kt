@@ -12,6 +12,7 @@ import ktask.core.util.DateTimeUtils.toJavaDate
 import ktask.core.util.DateTimeUtils.toJavaInstant
 import org.quartz.*
 import java.util.*
+import kotlin.uuid.Uuid
 
 /**
  * Class to create and send a scheduling request for a task.
@@ -25,7 +26,7 @@ import java.util.*
  */
 @OptIn(SchedulerApi::class)
 public class TaskDispatch(
-    private val groupId: String,
+    private val groupId: Uuid,
     private val taskId: String,
     private val consumerClass: Class<out TaskConsumer<*>>,
     private var startAt: TaskStartAt = TaskStartAt.Immediate,
@@ -47,7 +48,7 @@ public class TaskDispatch(
         val trigger: SimpleTrigger = job.triggerBuilder.withSchedule(scheduleBuilder).build()
         SchedulerService.tasks.schedule(task = job.jobDetail, trigger = trigger)
 
-        return TaskKey.fromJobKey(jobKey = job.jobKey)
+        return TaskKey.fromJobKey(scheduler = SchedulerService.tasks.scheduler, jobKey = job.jobKey)
     }
 
     /**
@@ -93,7 +94,7 @@ public class TaskDispatch(
         val trigger: SimpleTrigger = job.triggerBuilder.withSchedule(scheduleBuilder).build()
         SchedulerService.tasks.schedule(task = job.jobDetail, trigger = trigger)
 
-        return TaskKey.fromJobKey(jobKey = job.jobKey)
+        return TaskKey.fromJobKey(scheduler = SchedulerService.tasks.scheduler, jobKey = job.jobKey)
     }
 
     /**
@@ -112,7 +113,7 @@ public class TaskDispatch(
         // Send the task to the scheduler.
         SchedulerService.tasks.schedule(task = job.jobDetail, trigger = trigger)
 
-        return TaskKey.fromJobKey(jobKey = job.jobKey)
+        return TaskKey.fromJobKey(scheduler = SchedulerService.tasks.scheduler, jobKey = job.jobKey)
     }
 
     /**
@@ -126,6 +127,7 @@ public class TaskDispatch(
         val jobDetail: JobDetail = JobBuilder
             .newJob(consumerClass)
             .withIdentity(jobKey)
+            .withDescription(parameters["DESCRIPTION"]?.toString())
             .usingJobData(jobDataMap)
             .storeDurably(true) // True to keep the job in the scheduler even after it is completed.
             .build()
@@ -157,7 +159,7 @@ public class TaskDispatch(
          * @param groupId The Group ID to check.
          * @return True if the group exists, false otherwise.
          */
-        public fun groupExists(groupId: String): Boolean {
+        public fun groupExists(groupId: Uuid): Boolean {
             return SchedulerService.tasks.exists(groupId = groupId)
         }
 
@@ -167,7 +169,7 @@ public class TaskDispatch(
          * @param groupId The Group ID to retrieve tasks for.
          * @return A list of [TaskKey] instances for the specified group.
          */
-        public fun groupsTaskKeys(groupId: String): List<TaskKey> {
+        public fun groupsTaskKeys(groupId: Uuid): List<TaskKey> {
             return SchedulerService.tasks.getTaskKeys(groupId = groupId)
         }
 
@@ -177,7 +179,7 @@ public class TaskDispatch(
          * @param groupId The Group ID to delete.
          * @return The number of tasks deleted.
          */
-        public fun deleteGroup(groupId: String): Int {
+        public fun deleteGroup(groupId: Uuid): Int {
             return SchedulerService.tasks.delete(groupId = groupId)
         }
     }

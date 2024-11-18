@@ -5,6 +5,8 @@
 package ktask.notification.model.action.request
 
 import kotlinx.serialization.Serializable
+import ktask.core.persistence.serializer.NoBlankString
+import ktask.core.persistence.serializer.Uuid
 import ktask.core.scheduler.service.schedule.Schedule
 import ktask.notification.consumer.action.task.ActionConsumer
 import ktask.notification.model.action.IActionRequest
@@ -13,19 +15,23 @@ import ktask.notification.model.action.IActionRequest
  * Represents a custom action task request.
  *
  * @property groupId The group ID of the task.
+ * @property description The description of the task.
  * @property replace Whether to replace the task if it already exists.
- * @property description Optional description of the task.
  * @property schedule Optional [Schedule] for the task.
  * @property data Some custom data to be used in the action.
  */
 @Serializable
 public data class ActionRequest(
-    override val groupId: String,
+    override val groupId: Uuid,
+    override val description: String,
     override val replace: Boolean,
-    override val description: String? = null,
     override val schedule: Schedule? = null,
-    val data: String,
+    val data: NoBlankString,
 ) : IActionRequest {
+
+    init {
+        verify()
+    }
 
     override fun toMap(taskId: String): MutableMap<String, Any?> {
         return super.toMap(taskId = taskId).apply {

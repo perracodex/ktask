@@ -6,12 +6,14 @@ package ktask.core.scheduler.model.task
 
 import kotlinx.datetime.LocalDateTime
 import kotlinx.serialization.Serializable
+import ktask.core.persistence.serializer.Uuid
 
 /**
  * Represents the details of a scheduled task.
  *
  * @property groupId The group of the task.
  * @property taskId The ID of the task.
+ * @property description The description of the task.
  * @property snowflakeData The snowflake details of the task.
  * @property consumer The consumer that will execute the task.
  * @property nextFireTime The next time the task is scheduled to be executed. Or null if it is not scheduled.
@@ -26,8 +28,9 @@ import kotlinx.serialization.Serializable
  */
 @Serializable
 public data class TaskSchedule(
-    val groupId: String,
+    val groupId: Uuid,
     val taskId: String,
+    val description: String,
     val snowflakeData: String,
     val consumer: String,
     val nextFireTime: LocalDateTime?,
@@ -38,5 +41,5 @@ public data class TaskSchedule(
     val scheduleInfo: String?,
     val runs: Int?,
     val failures: Int?,
-    val dataMap: List<String>,
+    val dataMap: List<String>
 )

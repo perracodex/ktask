@@ -4,33 +4,36 @@
 
 package ktask.notification.model.message
 
+import ktask.core.persistence.serializer.NoBlankString
 import ktask.core.scheduler.service.schedule.Schedule
 import ktask.notification.consumer.message.AbsNotificationConsumer
+import kotlin.uuid.Uuid
 
 /**
  * Base interface for all message based requests
  *
  * @property groupId The group ID of the task.
+ * @property description The description of the task.
  * @property replace Whether to replace the task if it already exists.
- * @property description Optional description of the task.
  * @property schedule Optional [Schedule] for the task.
  * @property recipients List [Recipient] targets.
  * @property template The template to be used for the notification.
  * @property fields Optional fields to be included in the template.
  */
 public interface IMessageRequest {
-    public val groupId: String
+    public val groupId: Uuid
+    public val description: NoBlankString
     public val replace: Boolean
-    public val description: String?
     public val schedule: Schedule?
     public val recipients: List<Recipient>
-    public val template: String
-    public val fields: Map<String, String>?
+    public val template: NoBlankString
+    public val fields: Map<NoBlankString, NoBlankString>?
 
     /**
      * Verifies the integrity of the task request.
      */
     public fun verify() {
+        require(description.isNotBlank()) { "Description must not be blank." }
         require(recipients.isNotEmpty()) { "Recipients must not be empty." }
         require(template.isNotBlank()) { "Template must not be blank." }
     }

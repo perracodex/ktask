@@ -5,41 +5,41 @@
 package ktask.core.scheduler.service.task
 
 import kotlinx.serialization.Serializable
+import ktask.core.persistence.serializer.Uuid
+import ktask.core.persistence.util.toUuid
 import ktask.core.scheduler.service.annotation.SchedulerApi
 import org.quartz.JobKey
+import org.quartz.Scheduler
 
 /**
  * Represents a key that uniquely identifies a task in the scheduler.
  *
  * @property groupId The group to which the task belongs.
  * @property taskId The unique identifier of the task.
+ * @property description The description of the task.
  */
 @Serializable
-public data class TaskKey internal constructor(
-    val groupId: String,
+public data class TaskKey private constructor(
+    val groupId: Uuid,
     val taskId: String,
+    val description: String?
 ) {
     public companion object {
         /**
          * Creates a [TaskKey] from a Quartz [JobKey].
          *
          * @param jobKey The Quartz [JobKey].
+         * @param scheduler The Quartz [Scheduler] instance.
          * @return The [TaskKey] instance.
          */
         @SchedulerApi
-        internal fun fromJobKey(jobKey: JobKey): TaskKey {
-            return TaskKey(groupId = jobKey.group, taskId = jobKey.name)
-        }
-
-        /**
-         * Creates a [TaskKey] from the specified group and task IDs.
-         *
-         * @param groupId The group ID of the task.
-         * @param taskId The unique ID of the task.
-         * @return The [TaskKey] instance.
-         */
-        public fun fromIDs(groupId: String, taskId: String): TaskKey {
-            return TaskKey(groupId = groupId, taskId = taskId)
+        internal fun fromJobKey(scheduler: Scheduler, jobKey: JobKey): TaskKey {
+            val description: String? = scheduler.getJobDetail(jobKey).description
+            return TaskKey(
+                groupId = jobKey.group.toUuid(),
+                taskId = jobKey.name,
+                description = description
+            )
         }
     }
 }

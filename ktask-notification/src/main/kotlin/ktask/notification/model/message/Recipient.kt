@@ -5,6 +5,7 @@
 package ktask.notification.model.message
 
 import kotlinx.serialization.Serializable
+import ktask.core.persistence.serializer.NoBlankString
 import ktask.core.util.LocaleUtils
 
 /**
@@ -16,9 +17,9 @@ import ktask.core.util.LocaleUtils
  */
 @Serializable
 public data class Recipient(
-    val target: String,
-    val name: String,
-    val locale: String
+    val target: NoBlankString,
+    val name: NoBlankString,
+    val locale: NoBlankString
 ) {
     init {
         require(target.isNotBlank()) { "Target cannot be blank." }

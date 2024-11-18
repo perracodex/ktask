@@ -14,6 +14,7 @@ import org.thymeleaf.TemplateEngine
 import org.thymeleaf.context.Context
 import org.thymeleaf.templatemode.TemplateMode
 import org.thymeleaf.templateresolver.FileTemplateResolver
+import kotlin.uuid.Uuid
 
 /**
  * Abstract base class for processing scheduled tasks, providing common steps for task execution,
@@ -126,7 +127,7 @@ internal abstract class AbsNotificationConsumer : TaskConsumer<AbsNotificationCo
      * @param additionalParameters A map of additional parameters required for the task.
      */
     data class ConsumerPayload(
-        override val groupId: String,
+        override val groupId: Uuid,
         override val taskId: String,
         override val taskType: String = TASK_TYPE,
         val description: String?,
@@ -144,7 +145,7 @@ internal abstract class AbsNotificationConsumer : TaskConsumer<AbsNotificationCo
                     locale = properties[Property.RECIPIENT_LOCALE.key] as String
                 )
 
-                val groupId: String = properties[Property.GROUP_ID.key] as? String
+                val groupId: Uuid = properties[Property.GROUP_ID.key] as? Uuid
                     ?: throw IllegalArgumentException("GROUP_ID is missing or invalid.")
                 val taskId: String = properties[Property.TASK_ID.key] as? String
                     ?: throw IllegalArgumentException("TASK_ID is missing or invalid.")

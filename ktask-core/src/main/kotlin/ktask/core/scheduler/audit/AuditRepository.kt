@@ -35,6 +35,7 @@ internal object AuditRepository {
             SchedulerAuditTable.insert { statement ->
                 statement[groupId] = request.groupId
                 statement[taskId] = request.taskId
+                statement[description] = request.description
                 statement[snowflakeId] = request.snowflakeId
                 statement[fireTime] = request.fireTime
                 statement[runTime] = request.runTime
@@ -67,7 +68,7 @@ internal object AuditRepository {
      * @param taskId Optional unique identifier of the task. If omitted, all tasks in the group are returned.
      * @return The list of [AuditLog] instances, or an empty list if none found.
      */
-    fun find(pageable: Pageable?, groupId: String?, taskId: String?): Page<AuditLog> {
+    fun find(pageable: Pageable?, groupId: Uuid?, taskId: String?): Page<AuditLog> {
         return transaction {
             SchedulerAuditTable
                 .selectAll()
@@ -95,7 +96,7 @@ internal object AuditRepository {
      * @param taskId The unique identifier of the task.
      * @return The most recent [AuditLog] instance, or `null` if none found.
      */
-    fun mostRecent(groupId: String, taskId: String): AuditLog? {
+    fun mostRecent(groupId: Uuid, taskId: String): AuditLog? {
         return transaction {
             SchedulerAuditTable.selectAll()
                 .where { SchedulerAuditTable.groupId eq groupId }
@@ -114,7 +115,7 @@ internal object AuditRepository {
      * @param taskId The unique identifier of the task.
      * @return The total count of audit entries for the task.
      */
-    fun count(groupId: String, taskId: String): Int {
+    fun count(groupId: Uuid, taskId: String): Int {
         return transaction {
             // Enabled to print the SQL query for debugging purposes.
             // addLogger(StdOutSqlLogger)
@@ -143,7 +144,7 @@ internal object AuditRepository {
      * @param taskId The unique identifier of the task.
      * @return The total count of audit entries for the task.
      */
-    fun failures(groupId: String, taskId: String): Int {
+    fun failures(groupId: Uuid, taskId: String): Int {
         return transaction {
             SchedulerAuditTable
                 .selectAll()

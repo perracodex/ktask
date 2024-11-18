@@ -5,6 +5,8 @@
 package ktask.notification.model.message.request
 
 import kotlinx.serialization.Serializable
+import ktask.core.persistence.serializer.NoBlankString
+import ktask.core.persistence.serializer.Uuid
 import ktask.core.scheduler.service.schedule.Schedule
 import ktask.notification.consumer.message.task.SlackConsumer
 import ktask.notification.model.message.IMessageRequest
@@ -14,8 +16,8 @@ import ktask.notification.model.message.Recipient
  * Represents a request to send a Slack notification task.
  *
  * @property groupId The group ID of the task.
+ * @property description The description of the task.
  * @property replace Whether to replace the task if it already exists.
- * @property description Optional description of the task.
  * @property schedule Optional [Schedule] for the task.
  * @property recipients List of [Recipient] targets.
  * @property template The template to be used for the notification.
@@ -24,14 +26,14 @@ import ktask.notification.model.message.Recipient
  */
 @Serializable
 public data class SlackRequest(
-    override val groupId: String,
+    override val groupId: Uuid,
+    override val description: NoBlankString,
     override val replace: Boolean,
-    override val description: String? = null,
     override val schedule: Schedule? = null,
     override val recipients: List<Recipient>,
-    override val template: String,
-    override val fields: Map<String, String>? = null,
-    val channel: String,
+    override val template: NoBlankString,
+    override val fields: Map<NoBlankString, NoBlankString>? = null,
+    val channel: NoBlankString,
 ) : IMessageRequest {
 
     init {

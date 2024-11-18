@@ -19,6 +19,7 @@ import org.jetbrains.exposed.sql.ResultRow
  * @property id The unique identifier of the audit log.
  * @property groupId The group of the task.
  * @property taskId The unique identifier of the task.
+ * @property description The description of the task.
  * @property snowflakeId The unique snowflake ID to identify the cluster node that executed the task.
  * @property fireTime The actual time the trigger fired.
  * @property runTime The amount of time the task ran for, in milliseconds.
@@ -30,8 +31,9 @@ import org.jetbrains.exposed.sql.ResultRow
 @Serializable
 public data class AuditLog(
     val id: Uuid,
-    val groupId: String,
+    val groupId: Uuid,
     val taskId: String,
+    val description: String,
     val snowflakeId: String,
     val fireTime: LocalDateTime,
     val runTime: Long,
@@ -52,6 +54,7 @@ public data class AuditLog(
                 id = row[SchedulerAuditTable.id],
                 groupId = row[SchedulerAuditTable.groupId],
                 taskId = row[SchedulerAuditTable.taskId],
+                description = row[SchedulerAuditTable.description],
                 snowflakeId = row[SchedulerAuditTable.snowflakeId],
                 fireTime = row[SchedulerAuditTable.fireTime],
                 runTime = row[SchedulerAuditTable.runTime],

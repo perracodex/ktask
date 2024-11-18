@@ -10,10 +10,11 @@ import io.ktor.http.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
 import io.ktor.server.thymeleaf.*
+import ktask.core.persistence.util.toUuidOrNull
 import ktask.core.scheduler.api.SchedulerRouteApi
 import ktask.core.scheduler.model.task.TaskSchedule
 import ktask.core.scheduler.service.SchedulerService
-import ktask.core.util.trimOrNull
+import kotlin.uuid.Uuid
 
 /**
  * The scheduler dashboard route.
@@ -21,7 +22,7 @@ import ktask.core.util.trimOrNull
 @SchedulerRouteApi
 internal fun Route.schedulerDashboardRoute() {
     get("/admin/scheduler/dashboard") {
-        val groupId: String? = call.queryParameters["groupId"].trimOrNull()
+        val groupId: Uuid? = call.queryParameters["groupId"].toUuidOrNull()
         val tasks: List<TaskSchedule> = SchedulerService.tasks.all(groupId = groupId)
         val content = ThymeleafContent(template = "scheduler/dashboard", model = mapOf("data" to tasks))
         call.respond(message = content)
@@ -30,7 +31,7 @@ internal fun Route.schedulerDashboardRoute() {
         summary = "Get the scheduler dashboard."
         description = "Get the scheduler dashboard, listing all scheduled tasks."
         operationId = "getSchedulerDashboard"
-        queryParameter<String>(name = "groupId") {
+        queryParameter<Uuid>(name = "groupId") {
             description = "The group ID to filter tasks by."
             required = false
         }

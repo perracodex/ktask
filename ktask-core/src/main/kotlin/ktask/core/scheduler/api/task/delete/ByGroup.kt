@@ -10,6 +10,8 @@ import io.ktor.http.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
 import io.ktor.server.util.*
+import ktask.core.persistence.serializer.Uuid
+import ktask.core.persistence.util.toUuid
 import ktask.core.scheduler.api.SchedulerRouteApi
 import ktask.core.scheduler.service.SchedulerService
 
@@ -19,7 +21,7 @@ import ktask.core.scheduler.service.SchedulerService
 @SchedulerRouteApi
 internal fun Route.deleteSchedulerGroupRoute() {
     delete("/admin/scheduler/group") {
-        val groupId: String = call.queryParameters.getOrFail(name = "groupId")
+        val groupId: Uuid = call.queryParameters.getOrFail(name = "groupId").toUuid()
         val deletedCount: Int = SchedulerService.tasks.delete(groupId = groupId)
         call.respond(status = HttpStatusCode.OK, message = deletedCount)
     } api {
@@ -27,7 +29,7 @@ internal fun Route.deleteSchedulerGroupRoute() {
         summary = "Delete a scheduler group."
         description = "Deletes all scheduler tasks in a group."
         operationId = "deleteSchedulerGroup"
-        queryParameter<String>(name = "groupId") {
+        queryParameter<Uuid>(name = "groupId") {
             description = "The group of the task."
         }
         response<Int>(status = HttpStatusCode.OK) {

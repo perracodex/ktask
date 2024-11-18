@@ -13,15 +13,13 @@ function fetchGroups() {
             'Pragma': 'no-cache',
             'Expires': '0'
         }
-    })
-        .then(response => response.json())
+    }).then(response => response.json())
         .then(groups => {
             populateGroupSelect(groups);
             const defaultGroup = new URLSearchParams(window.location.search).get('groupId') || '';
             document.getElementById('groupSelect').value = defaultGroup; // Ensure the correct group is selected.
             fetchTasks(defaultGroup);
-        })
-        .catch(error => {
+        }).catch(error => {
             console.error('Error fetching groups:', error);
         });
 }
@@ -35,8 +33,10 @@ function populateGroupSelect(groups) {
 
     groups.forEach(group => {
         const option = document.createElement('option');
-        option.value = group;
-        option.textContent = group;
+        option.value = group.groupId;
+        option.textContent = group.description
+            ? `${group.groupId} | ${group.description}`
+            : group.groupId; // Show description if available, otherwise just groupId
         groupSelect.appendChild(option);
     });
 
@@ -92,7 +92,9 @@ function updateTaskList(tasks) {
 
         rowDiv.innerHTML = `
             <span class="expand-trigger">+</span>
-            <span class="groupId">${task.groupId}</span>
+            <span class="groupId">
+                ${task.description ? `${task.description}<br>` : ''}${task.groupId}
+            </span>
             <span class="taskId" data-toggle="tooltip" title="Snowflake ID: ${task.snowflakeData}">${task.taskId}</span>
             <span class="consumer">${task.consumer || ''}</span>
             <span class="nextFireTime">${task.nextFireTime || ''}</span>

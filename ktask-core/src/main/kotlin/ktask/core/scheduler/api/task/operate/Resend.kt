@@ -10,6 +10,8 @@ import io.ktor.http.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
 import io.ktor.server.util.*
+import ktask.core.persistence.serializer.Uuid
+import ktask.core.persistence.util.toUuid
 import ktask.core.scheduler.api.SchedulerRouteApi
 import ktask.core.scheduler.service.SchedulerService
 import ktask.core.util.trimOrNull
@@ -20,7 +22,7 @@ import ktask.core.util.trimOrNull
 @SchedulerRouteApi
 internal fun Route.resendSchedulerTaskRoute() {
     post("/admin/scheduler/task/resend") {
-        val groupId: String = call.parameters.getOrFail(name = "groupId")
+        val groupId: Uuid = call.parameters.getOrFail(name = "groupId").toUuid()
         val taskId: String? = call.parameters["taskId"].trimOrNull()
 
         if (taskId.isNullOrBlank()) {
@@ -35,7 +37,7 @@ internal fun Route.resendSchedulerTaskRoute() {
         summary = "Resend a scheduler task."
         description = "Resend a concrete scheduler task."
         operationId = "resendSchedulerTask"
-        queryParameter<String>(name = "groupId") {
+        queryParameter<Uuid>(name = "groupId") {
             description = "The group of the task."
         }
         queryParameter<String>(name = "taskId") {
