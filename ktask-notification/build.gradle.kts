@@ -18,7 +18,6 @@ dependencies {
     implementation(libs.ktor.server.content.negotiation)
     implementation(libs.ktor.server.core)
     implementation(libs.ktor.server.html.builder)
-    implementation(libs.ktor.server.netty)
     implementation(libs.ktor.server.rateLimit)
     implementation(libs.ktor.server.thymeleaf)
 
