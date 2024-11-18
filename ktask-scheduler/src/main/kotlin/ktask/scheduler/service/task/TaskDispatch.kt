@@ -7,7 +7,6 @@ package ktask.scheduler.service.task
 import ktask.core.util.DateTimeUtils.toJavaDate
 import ktask.core.util.DateTimeUtils.toJavaInstant
 import ktask.scheduler.service.SchedulerService
-import ktask.scheduler.service.annotation.SchedulerApi
 import ktask.scheduler.service.schedule.Schedule
 import ktask.scheduler.service.schedule.TaskStartAt
 import org.quartz.*
@@ -24,7 +23,6 @@ import kotlin.uuid.Uuid
  * @property startAt Specifies when the task should start. Defaults to immediate execution.
  * @property parameters Optional parameters to be passed to the task class.
  */
-@OptIn(SchedulerApi::class)
 public class TaskDispatch(
     private val groupId: Uuid,
     private val taskId: String,

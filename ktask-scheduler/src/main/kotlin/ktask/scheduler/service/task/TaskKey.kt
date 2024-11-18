@@ -7,7 +7,6 @@ package ktask.scheduler.service.task
 import kotlinx.serialization.Serializable
 import ktask.core.persistence.serializer.Uuid
 import ktask.core.persistence.util.toUuid
-import ktask.scheduler.service.annotation.SchedulerApi
 import org.quartz.JobKey
 import org.quartz.Scheduler
 
@@ -32,7 +31,6 @@ public data class TaskKey private constructor(
          * @param scheduler The Quartz [Scheduler] instance.
          * @return The [TaskKey] instance.
          */
-        @SchedulerApi
         internal fun fromJobKey(scheduler: Scheduler, jobKey: JobKey): TaskKey {
             val description: String? = scheduler.getJobDetail(jobKey).description
             return TaskKey(

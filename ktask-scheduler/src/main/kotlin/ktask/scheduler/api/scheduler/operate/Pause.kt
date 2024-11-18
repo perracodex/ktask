@@ -8,14 +8,12 @@ import io.github.perracodex.kopapi.dsl.operation.api
 import io.ktor.http.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
-import ktask.scheduler.api.SchedulerRouteApi
 import ktask.scheduler.model.task.TaskStateChange
 import ktask.scheduler.service.SchedulerService
 
 /**
  * Pauses all the scheduler tasks.
  */
-@SchedulerRouteApi
 internal fun Route.pauseSchedulerRoute() {
     post("/admin/scheduler/pause") {
         val state: TaskStateChange = SchedulerService.pause()

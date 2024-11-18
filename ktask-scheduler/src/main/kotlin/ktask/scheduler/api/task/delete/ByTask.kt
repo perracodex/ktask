@@ -12,13 +12,11 @@ import io.ktor.server.routing.*
 import io.ktor.server.util.*
 import ktask.core.persistence.serializer.Uuid
 import ktask.core.persistence.util.toUuid
-import ktask.scheduler.api.SchedulerRouteApi
 import ktask.scheduler.service.SchedulerService
 
 /**
  * Deletes a concrete scheduler task.
  */
-@SchedulerRouteApi
 internal fun Route.deleteSchedulerTaskRoute() {
     delete("/admin/scheduler/task") {
         val groupId: Uuid = call.queryParameters.getOrFail(name = "groupId").toUuid()

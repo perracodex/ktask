@@ -14,14 +14,12 @@ import io.perracodex.exposed.pagination.getPageable
 import ktask.core.persistence.serializer.Uuid
 import ktask.core.persistence.util.toUuidOrNull
 import ktask.core.util.trimOrNull
-import ktask.scheduler.api.SchedulerRouteApi
 import ktask.scheduler.audit.AuditService
 import ktask.scheduler.model.audit.AuditLog
 
 /**
  * Returns the audit log for a specific task.
  */
-@SchedulerRouteApi
 internal fun Route.schedulerAuditByTaskRoute() {
     get("/admin/scheduler/audit/task") {
         val groupId: Uuid? = call.queryParameters["groupId"].toUuidOrNull()

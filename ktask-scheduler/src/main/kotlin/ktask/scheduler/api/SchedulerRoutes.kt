@@ -23,16 +23,8 @@ import ktask.scheduler.api.task.operate.resumeSchedulerTaskRoute
 import ktask.scheduler.api.view.schedulerDashboardRoute
 
 /**
- * Annotation for controlled access to the Scheduler Routes API.
- */
-@RequiresOptIn(level = RequiresOptIn.Level.ERROR, message = "Only to be used within the Scheduler Routes API.")
-@Retention(AnnotationRetention.BINARY)
-internal annotation class SchedulerRouteApi
-
-/**
  * Route administers all scheduled tasks, allowing to list and delete them.
  */
-@OptIn(SchedulerRouteApi::class)
 public fun Route.schedulerRoutes() {
 
     // Sets up the routing to serve resources as static content for the scheduler.

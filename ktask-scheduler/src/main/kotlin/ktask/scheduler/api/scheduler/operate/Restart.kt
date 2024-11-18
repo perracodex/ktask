@@ -10,13 +10,11 @@ import io.github.perracodex.kopapi.type.DefaultValue
 import io.ktor.http.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
-import ktask.scheduler.api.SchedulerRouteApi
 import ktask.scheduler.service.SchedulerService
 
 /**
  * Restart the task scheduler.
  */
-@SchedulerRouteApi
 internal fun Route.restartSchedulerRoute() {
     post("/admin/scheduler/restart") {
         val interrupt: Boolean = call.queryParameters["interrupt"].toBoolean()

@@ -15,7 +15,6 @@ import ktask.core.snowflake.SnowflakeFactory
 import ktask.core.util.DateTimeUtils.toKotlinLocalDateTime
 import ktask.scheduler.audit.AuditService
 import ktask.scheduler.model.audit.AuditLogRequest
-import ktask.scheduler.service.annotation.SchedulerApi
 import org.quartz.JobExecutionContext
 import org.quartz.JobExecutionException
 import org.quartz.JobListener
@@ -26,7 +25,6 @@ import java.util.concurrent.TimeUnit
  * In addition to logging task execution events, it also stores audit logs.
  * Micro-metrics are also exposed for external monitoring.
  */
-@SchedulerApi
 internal class TaskListener : JobListener {
     private val tracer = Tracer<TaskListener>()
 

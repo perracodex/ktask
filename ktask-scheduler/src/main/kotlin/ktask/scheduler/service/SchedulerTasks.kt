@@ -16,7 +16,6 @@ import ktask.scheduler.model.task.TaskGroup
 import ktask.scheduler.model.task.TaskSchedule
 import ktask.scheduler.model.task.TaskStateChange
 import ktask.scheduler.service.SchedulerTasks.Companion.create
-import ktask.scheduler.service.annotation.SchedulerApi
 import ktask.scheduler.service.task.TaskKey
 import ktask.scheduler.service.task.TaskState
 import org.quartz.*
@@ -31,10 +30,7 @@ import kotlin.uuid.Uuid
  * Helper class to manage tasks in the scheduler.
  *
  * Instances should be created using the [create] method in the companion object.
- * The constructor is private to prevent instantiation from outside modules and ensure
- * that only components annotated with [SchedulerApi] can create instances.
  */
-@OptIn(SchedulerApi::class)
 internal class SchedulerTasks private constructor(val scheduler: Scheduler) {
     private val tracer = Tracer<SchedulerService>()
 
@@ -388,7 +384,6 @@ internal class SchedulerTasks private constructor(val scheduler: Scheduler) {
          * @param scheduler The [Scheduler] instance to be used.
          * @return A new instance of [SchedulerTasks].
          */
-        @SchedulerApi
         internal fun create(scheduler: Scheduler): SchedulerTasks {
             return SchedulerTasks(scheduler = scheduler)
         }

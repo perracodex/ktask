@@ -10,14 +10,12 @@ import io.ktor.server.response.*
 import io.ktor.server.routing.*
 import io.perracodex.exposed.pagination.Page
 import io.perracodex.exposed.pagination.getPageable
-import ktask.scheduler.api.SchedulerRouteApi
 import ktask.scheduler.audit.AuditService
 import ktask.scheduler.model.audit.AuditLog
 
 /**
  * Returns all existing audit logs for the scheduler.
  */
-@SchedulerRouteApi
 internal fun Route.schedulerAllAuditRoute() {
     get("/admin/scheduler/audit") {
         val audit: Page<AuditLog> = AuditService.findAll(pageable = call.getPageable())

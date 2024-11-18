@@ -8,13 +8,11 @@ import io.github.perracodex.kopapi.dsl.operation.api
 import io.ktor.http.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
-import ktask.scheduler.api.SchedulerRouteApi
 import ktask.scheduler.service.SchedulerService
 
 /**
  * Returns the state of the task scheduler.
  */
-@SchedulerRouteApi
 internal fun Route.schedulerStateRoute() {
     get("/admin/scheduler/state") {
         val state: SchedulerService.TaskSchedulerState = SchedulerService.state()

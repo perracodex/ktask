@@ -6,7 +6,6 @@ package ktask.scheduler.model.audit
 
 import kotlinx.datetime.LocalDateTime
 import ktask.core.database.schema.scheduler.type.TaskOutcome
-import ktask.scheduler.service.annotation.SchedulerApi
 import kotlin.uuid.Uuid
 
 /**
@@ -22,8 +21,7 @@ import kotlin.uuid.Uuid
  * @property log The log information.
  * @property detail The detail that provides more information about the log.
  */
-@SchedulerApi
-public data class AuditLogRequest(
+internal data class AuditLogRequest(
     val groupId: Uuid,
     val taskId: String,
     val description: String,

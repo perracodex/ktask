@@ -11,7 +11,6 @@ import io.ktor.server.response.*
 import io.ktor.server.routing.*
 import io.ktor.server.thymeleaf.*
 import ktask.core.persistence.util.toUuidOrNull
-import ktask.scheduler.api.SchedulerRouteApi
 import ktask.scheduler.model.task.TaskSchedule
 import ktask.scheduler.service.SchedulerService
 import kotlin.uuid.Uuid
@@ -19,7 +18,6 @@ import kotlin.uuid.Uuid
 /**
  * The scheduler dashboard route.
  */
-@SchedulerRouteApi
 internal fun Route.schedulerDashboardRoute() {
     get("/admin/scheduler/dashboard") {
         val groupId: Uuid? = call.queryParameters["groupId"].toUuidOrNull()

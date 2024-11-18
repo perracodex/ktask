@@ -11,7 +11,6 @@ import ktask.scheduler.listener.TaskListener
 import ktask.scheduler.listener.TriggerListener
 import ktask.scheduler.model.task.TaskStateChange
 import ktask.scheduler.service.SchedulerService.pause
-import ktask.scheduler.service.annotation.SchedulerApi
 import ktask.scheduler.service.task.TaskFactory
 import ktask.scheduler.service.task.TaskState
 import org.quartz.Scheduler
@@ -28,7 +27,6 @@ import java.util.*
  * - [Quartz Scheduler Documentation](https://github.com/quartz-scheduler/quartz/blob/main/docs/index.adoc)
  * - [Quartz Scheduler Configuration](https://www.quartz-scheduler.org/documentation/2.4.0-SNAPSHOT/configuration.html)
  */
-@OptIn(SchedulerApi::class)
 public object SchedulerService {
     private val tracer = Tracer<SchedulerService>()
 

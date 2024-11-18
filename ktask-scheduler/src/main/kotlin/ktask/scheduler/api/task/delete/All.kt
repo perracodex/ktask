@@ -8,13 +8,11 @@ import io.github.perracodex.kopapi.dsl.operation.api
 import io.ktor.http.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
-import ktask.scheduler.api.SchedulerRouteApi
 import ktask.scheduler.service.SchedulerService
 
 /**
  * Deletes all the scheduler tasks.
  */
-@SchedulerRouteApi
 internal fun Route.deleteAllSchedulerTasksRoute() {
     delete("/admin/scheduler") {
         val deletedCount: Int = SchedulerService.tasks.deleteAll()

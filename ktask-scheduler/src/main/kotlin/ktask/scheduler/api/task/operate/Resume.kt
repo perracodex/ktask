@@ -13,14 +13,12 @@ import io.ktor.server.util.*
 import ktask.core.persistence.serializer.Uuid
 import ktask.core.persistence.util.toUuid
 import ktask.core.util.trimOrNull
-import ktask.scheduler.api.SchedulerRouteApi
 import ktask.scheduler.model.task.TaskStateChange
 import ktask.scheduler.service.SchedulerService
 
 /**
  * Resume a concrete scheduler task.
  */
-@SchedulerRouteApi
 internal fun Route.resumeSchedulerTaskRoute() {
     post("/admin/scheduler/task/resume") {
         val groupId: Uuid = call.parameters.getOrFail(name = "groupId").toUuid()

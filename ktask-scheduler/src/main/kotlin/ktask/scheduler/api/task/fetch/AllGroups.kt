@@ -8,14 +8,12 @@ import io.github.perracodex.kopapi.dsl.operation.api
 import io.ktor.http.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
-import ktask.scheduler.api.SchedulerRouteApi
 import ktask.scheduler.model.task.TaskGroup
 import ktask.scheduler.service.SchedulerService
 
 /**
  * Gets all scheduler task groups.
  */
-@SchedulerRouteApi
 internal fun Route.getSchedulerAllGroupsRoute() {
     get("/admin/scheduler/group") {
         val groups: List<TaskGroup> = SchedulerService.tasks.groups()

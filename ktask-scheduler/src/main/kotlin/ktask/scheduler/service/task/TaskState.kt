@@ -5,7 +5,6 @@
 package ktask.scheduler.service.task
 
 import ktask.scheduler.model.task.TaskStateChange
-import ktask.scheduler.service.annotation.SchedulerApi
 import org.quartz.JobDetail
 import org.quartz.JobKey
 import org.quartz.Scheduler
@@ -16,7 +15,6 @@ import org.quartz.impl.matchers.GroupMatcher
 /**
  * Utility class for managing the task state in the scheduler.
  */
-@SchedulerApi
 internal object TaskState {
 
     /**

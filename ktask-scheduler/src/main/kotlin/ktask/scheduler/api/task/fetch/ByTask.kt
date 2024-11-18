@@ -11,14 +11,12 @@ import io.ktor.server.response.*
 import io.ktor.server.routing.*
 import ktask.core.persistence.serializer.Uuid
 import ktask.core.persistence.util.toUuidOrNull
-import ktask.scheduler.api.SchedulerRouteApi
 import ktask.scheduler.model.task.TaskSchedule
 import ktask.scheduler.service.SchedulerService
 
 /**
  * Gets all scheduler tasks.
  */
-@SchedulerRouteApi
 internal fun Route.getSchedulerTasksRoute() {
     get("/admin/scheduler/task") {
         val groupId: Uuid? = call.queryParameters["groupId"].toUuidOrNull()
