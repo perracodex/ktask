@@ -4,7 +4,6 @@
 
 package ktask.scheduler.api
 
-import io.ktor.server.http.content.*
 import io.ktor.server.routing.*
 import ktask.scheduler.api.scheduler.audit.schedulerAllAuditRoute
 import ktask.scheduler.api.scheduler.audit.schedulerAuditByTaskRoute
@@ -26,9 +25,6 @@ import ktask.scheduler.api.view.schedulerDashboardRoute
  * Route administers all scheduled tasks, allowing to list and delete them.
  */
 public fun Route.schedulerRoutes() {
-
-    // Sets up the routing to serve resources as static content for the scheduler.
-    staticResources(remotePath = "/scheduler", basePackage = "/scheduler")
 
     // Maintenance related routes.
     schedulerDashboardRoute()
