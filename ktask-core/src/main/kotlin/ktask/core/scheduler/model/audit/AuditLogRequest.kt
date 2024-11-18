@@ -13,6 +13,7 @@ import ktask.core.scheduler.service.task.TaskOutcome
  *
  * @property groupId The group of the task.
  * @property taskId The unique identifier of the task.
+ * @property snowflakeId The unique snowflake ID to identify the cluster node that executed the task.
  * @property fireTime The actual time the trigger fired.
  * @property runTime The amount of time the job ran for, in milliseconds.
  * @property outcome The log [TaskOutcome] status.
@@ -23,6 +24,7 @@ import ktask.core.scheduler.service.task.TaskOutcome
 public data class AuditLogRequest(
     val groupId: String,
     val taskId: String,
+    val snowflakeId: String,
     val fireTime: LocalDateTime,
     val runTime: Long,
     val outcome: TaskOutcome,

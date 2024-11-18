@@ -43,6 +43,27 @@ internal object NotificationService {
     suspend fun schedule(request: IMessageRequest): List<TaskKey> = withContext(Dispatchers.IO) {
         tracer.debug("Scheduling new notification for ID: ${request.groupId}")
 
+        // Normalize the group ID.
+        val groupId: String = request.groupId.trim().lowercase()
+        if (groupId.isEmpty()) {
+            throw IllegalArgumentException("Group ID cannot be empty.")
+        }
+
+        // Check if the group already exists.
+        if (TaskDispatch.groupExists(groupId = groupId)) {
+            if (!request.replace) {
+                val message = "Group already exists. Skipping Re-schedule. Group ID: $groupId"
+                tracer.warning(message)
+                SseService.push(message = message)
+                return@withContext TaskDispatch.groupsTaskKeys(groupId = request.groupId)
+            } else {
+                val message = "Group already exists. Will be replaced, recreating all tasks. Group ID: $groupId"
+                tracer.warning(message)
+                SseService.push(message = message)
+                TaskDispatch.deleteGroup(groupId = groupId)
+            }
+        }
+
         // Identify the target consumer class.
         val consumerClass: Class<out AbsNotificationConsumer> = when (request) {
             is EmailRequest -> {
@@ -66,13 +87,13 @@ internal object NotificationService {
 
         // Iterate over each recipient and schedule a task for each one.
         request.recipients.forEach { recipient ->
-
+            // Generate the new unique task ID.
             val taskId: String = SnowflakeFactory.nextId()
 
             // Dispatch the task based on the specified schedule type.
             request.toMap(taskId = taskId, recipient = recipient).let { parameters ->
                 TaskDispatch(
-                    groupId = request.groupId,
+                    groupId = groupId,
                     taskId = taskId,
                     consumerClass = consumerClass,
                     startAt = taskStartAt,
@@ -91,7 +112,7 @@ internal object NotificationService {
             val schedule: String = request.schedule?.toString() ?: "Immediate"
             SseService.push(
                 message = "New 'notification' task | $schedule | " +
-                        "${consumerClass.simpleName} | Group Id: ${request.groupId} | Task Id: $taskId | Recipient: $recipient"
+                        "${consumerClass.simpleName} | Group Id: $groupId | Task Id: $taskId | Recipient: $recipient"
             )
         }
 

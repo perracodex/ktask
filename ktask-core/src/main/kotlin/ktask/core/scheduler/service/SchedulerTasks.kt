@@ -13,6 +13,7 @@ import ktask.core.scheduler.model.task.TaskSchedule
 import ktask.core.scheduler.model.task.TaskStateChange
 import ktask.core.scheduler.service.SchedulerTasks.Companion.create
 import ktask.core.scheduler.service.annotation.SchedulerApi
+import ktask.core.scheduler.service.task.TaskKey
 import ktask.core.scheduler.service.task.TaskState
 import ktask.core.snowflake.SnowflakeFactory
 import ktask.core.util.DateTimeUtils.toKotlinLocalDateTime
@@ -37,6 +38,9 @@ internal class SchedulerTasks private constructor(private val scheduler: Schedul
 
     /**
      * Schedules a new task with the given trigger.
+     *
+     * @param task The job detail of the task to be scheduled.
+     * @param trigger The trigger to be associated with the task.
      */
     fun schedule(task: JobDetail, trigger: Trigger) {
         tracer.debug("Scheduling new task: $task. Trigger: $trigger.")
@@ -269,8 +273,9 @@ internal class SchedulerTasks private constructor(private val scheduler: Schedul
         val mostRecentAudit: AuditLog? = AuditService.mostRecent(groupId = jobKey.group, taskId = jobKey.name)
         val outcome: String? = mostRecentAudit?.outcome?.name
 
-        // Get how many times the task has been executed.
+        // Get how many times the task has been executed and the number of failures.
         val runs: Int = AuditService.count(groupId = jobKey.group, taskId = jobKey.name)
+        val failures: Int = AuditService.failures(groupId = jobKey.group, taskId = jobKey.name)
 
         // Resolve the schedule metrics.
         val (schedule: String?, scheduleInfo: String?) = triggers.firstOrNull()?.let { trigger ->
@@ -288,7 +293,6 @@ internal class SchedulerTasks private constructor(private val scheduler: Schedul
                 else -> null to null
             }
         } ?: (null to null)
-
 
         // Resolve the concrete parameters of the task.
         val dataMap: List<String> = taskDetail.jobDataMap
@@ -313,8 +317,57 @@ internal class SchedulerTasks private constructor(private val scheduler: Schedul
             schedule = schedule,
             scheduleInfo = scheduleInfo,
             runs = runs,
+            failures = failures,
             dataMap = dataMap,
         )
+    }
+
+    /**
+     * Check if the given [groupId] exists in the scheduler (case-insensitive).
+     *
+     * Quartz groups are used to organize both jobs and triggers, but these are managed
+     * separately. A group may exist for jobs, triggers, or both. This function checks
+     * both job groups and trigger groups to determine if the given group exists in any
+     * capacity.
+     *
+     * @param groupId The Group ID to be checked.
+     * @return True if the group exists in the scheduler as either a job group or a trigger group; false otherwise.
+     */
+    fun exists(groupId: String): Boolean {
+        val lowerGroupId: String = groupId.lowercase()
+
+        // Check job groups for a case-insensitive match.
+        if (scheduler.jobGroupNames.any { it.equals(lowerGroupId, ignoreCase = true) }) {
+            return true
+        }
+
+        // Check trigger groups for a case-insensitive match.
+        if (scheduler.triggerGroupNames.any { it.equals(lowerGroupId, ignoreCase = true) }) {
+            return true
+        }
+
+        return false
+    }
+
+    /**
+     * Retrieve all existing task keys for a specified group (case-insensitive).
+     *
+     * Quartz job group names are case-sensitive by default. This function retrieves
+     * task keys for a group by matching the group name in a case-insensitive manner.
+     *
+     * @param groupId The Group ID to retrieve tasks for.
+     * @return A list of [TaskKey] instances for the specified group.
+     */
+    fun getTaskKeys(groupId: String): List<TaskKey> {
+        val lowerGroupId = groupId.lowercase()
+
+        // Find the actual group name matching the given groupId in a case-insensitive way.
+        val matchingGroup = scheduler.jobGroupNames.firstOrNull { it.equals(lowerGroupId, ignoreCase = true) }
+            ?: return emptyList()
+
+        // Retrieve all job keys for the matching group and convert to TaskKey
+        return scheduler.getJobKeys(GroupMatcher.jobGroupEquals(matchingGroup))
+            .map { TaskKey.fromJobKey(it) }
     }
 
     companion object {

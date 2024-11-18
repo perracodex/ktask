@@ -11,6 +11,7 @@ import ktask.notification.consumer.message.AbsNotificationConsumer
  * Base interface for all message based requests
  *
  * @property groupId The group ID of the task.
+ * @property replace Whether to replace the task if it already exists.
  * @property description Optional description of the task.
  * @property schedule Optional [Schedule] for the task.
  * @property recipients List [Recipient] targets.
@@ -19,6 +20,7 @@ import ktask.notification.consumer.message.AbsNotificationConsumer
  */
 public interface IMessageRequest {
     public val groupId: String
+    public val replace: Boolean
     public val description: String?
     public val schedule: Schedule?
     public val recipients: List<Recipient>

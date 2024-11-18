@@ -11,6 +11,7 @@ import ktask.core.database.schema.SchedulerAuditTable
 import ktask.core.scheduler.model.audit.AuditLog
 import ktask.core.scheduler.model.audit.AuditLogRequest
 import ktask.core.scheduler.service.annotation.SchedulerApi
+import ktask.core.scheduler.service.task.TaskOutcome
 import org.jetbrains.exposed.sql.SortOrder
 import org.jetbrains.exposed.sql.andWhere
 import org.jetbrains.exposed.sql.insert
@@ -34,6 +35,7 @@ internal object AuditRepository {
             SchedulerAuditTable.insert { statement ->
                 statement[groupId] = request.groupId
                 statement[taskId] = request.taskId
+                statement[snowflakeId] = request.snowflakeId
                 statement[fireTime] = request.fireTime
                 statement[runTime] = request.runTime
                 statement[outcome] = request.outcome
@@ -129,6 +131,25 @@ internal object AuditRepository {
                 .selectAll()
                 .where { SchedulerAuditTable.groupId eq groupId }
                 .andWhere { SchedulerAuditTable.taskId eq taskId }
+                .count()
+                .toInt()
+        }
+    }
+
+    /**
+     * Returns the total count of execution failures for a specific task.
+     *
+     * @param groupId The group of the task.
+     * @param taskId The unique identifier of the task.
+     * @return The total count of audit entries for the task.
+     */
+    fun failures(groupId: String, taskId: String): Int {
+        return transaction {
+            SchedulerAuditTable
+                .selectAll()
+                .where { SchedulerAuditTable.groupId eq groupId }
+                .andWhere { SchedulerAuditTable.taskId eq taskId }
+                .andWhere { SchedulerAuditTable.outcome eq TaskOutcome.ERROR }
                 .count()
                 .toInt()
         }

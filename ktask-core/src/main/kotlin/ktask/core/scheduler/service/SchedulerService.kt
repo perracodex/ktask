@@ -177,18 +177,12 @@ internal object SchedulerService {
             tracer.info("Attempting to pause all triggers...")
             scheduler.pauseAll()
 
-            // Check if there are any non-paused trigger groups after pauseAll.
-            val nonPausedGroups: List<String> = scheduler.jobGroupNames.filter { group ->
-                scheduler.getJobKeys(GroupMatcher.jobGroupEquals(group)).any { jobKey ->
-                    scheduler.getTriggersOfJob(jobKey).any { trigger ->
-                        scheduler.getTriggerState(trigger.key) != TriggerState.PAUSED
-                    }
-                }
-            }
-            tracer.info("Non-paused trigger groups after pauseAll: $nonPausedGroups")
-
-            // If there are non-paused groups, attempt to pause them individually.
+            // Find any non-paused trigger groups.
+            val nonPausedGroups = findNonPausedGroups()
             if (nonPausedGroups.isNotEmpty()) {
+                tracer.info("Non-paused trigger groups after pauseAll: $nonPausedGroups")
+
+                // Attempt to pause remaining groups individually.
                 nonPausedGroups.forEach { group ->
                     tracer.info("Pausing trigger group: $group")
                     scheduler.getJobKeys(GroupMatcher.jobGroupEquals(group)).forEach { jobKey ->
@@ -199,14 +193,8 @@ internal object SchedulerService {
                 }
             }
 
-            // Verify if all triggers have been paused.
-            val remainingNonPausedGroups: List<String> = scheduler.jobGroupNames.filter { group ->
-                scheduler.getJobKeys(GroupMatcher.jobGroupEquals(group)).any { jobKey ->
-                    scheduler.getTriggersOfJob(jobKey).any { trigger ->
-                        scheduler.getTriggerState(trigger.key) != TriggerState.PAUSED
-                    }
-                }
-            }
+            // Final check to ensure all triggers are paused.
+            val remainingNonPausedGroups = findNonPausedGroups()
             if (remainingNonPausedGroups.isEmpty()) {
                 tracer.info("All triggers have been paused successfully.")
             } else {
@@ -215,6 +203,21 @@ internal object SchedulerService {
 
             // Return the current state of the scheduler.
             return@change state().name
+        }
+    }
+
+    /**
+     * Finds groups with non-paused triggers in the scheduler.
+     *
+     * @return A list of group names with non-paused triggers.
+     */
+    private fun findNonPausedGroups(): List<String> {
+        return scheduler.jobGroupNames.filter { group ->
+            scheduler.getJobKeys(GroupMatcher.jobGroupEquals(group)).any { jobKey ->
+                scheduler.getTriggersOfJob(jobKey).any { trigger ->
+                    scheduler.getTriggerState(trigger.key) != TriggerState.PAUSED
+                }
+            }
         }
     }
 

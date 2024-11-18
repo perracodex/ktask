@@ -13,6 +13,7 @@ import ktask.notification.model.action.IActionRequest
  * Represents a custom action task request.
  *
  * @property groupId The group ID of the task.
+ * @property replace Whether to replace the task if it already exists.
  * @property description Optional description of the task.
  * @property schedule Optional [Schedule] for the task.
  * @property data Some custom data to be used in the action.
@@ -20,6 +21,7 @@ import ktask.notification.model.action.IActionRequest
 @Serializable
 public data class ActionRequest(
     override val groupId: String,
+    override val replace: Boolean,
     override val description: String? = null,
     override val schedule: Schedule? = null,
     val data: String,

@@ -80,4 +80,16 @@ internal object AuditService {
         tracer.debug("Counting the audit entries for task '$taskId' in group '$groupId'.")
         return@withContext AuditRepository.count(groupId = groupId, taskId = taskId)
     }
+
+    /**
+     * Returns the total count of execution failures for a specific task.
+     *
+     * @param groupId The group of the task.
+     * @param taskId The unique identifier of the task.
+     * @return The total count of audit entries for the task.
+     */
+    suspend fun failures(groupId: String, taskId: String): Int = withContext(Dispatchers.IO) {
+        tracer.debug("Counting the failures for task '$taskId' in group '$groupId'.")
+        return@withContext AuditRepository.failures(groupId = groupId, taskId = taskId)
+    }
 }

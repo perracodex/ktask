@@ -37,6 +37,27 @@ internal object ActionService {
     suspend fun schedule(request: IActionRequest): TaskKey = withContext(Dispatchers.IO) {
         tracer.debug("Scheduling new custom action for ID: ${request.groupId}")
 
+        // Normalize the group ID.
+        val groupId: String = request.groupId.trim().lowercase()
+        if (groupId.isEmpty()) {
+            throw IllegalArgumentException("Group ID cannot be empty.")
+        }
+
+        // Check if the group already exists.
+        if (TaskDispatch.groupExists(groupId = groupId)) {
+            if (!request.replace) {
+                val message = "Group already exists. Skipping Re-schedule. Group ID: $groupId"
+                tracer.warning(message)
+                SseService.push(message = message)
+                return@withContext TaskDispatch.groupsTaskKeys(groupId = groupId).first()
+            } else {
+                val message = "Group already exists. Will be replaced, recreating all tasks. Group ID: $groupId"
+                tracer.warning(message)
+                SseService.push(message = message)
+                TaskDispatch.deleteGroup(groupId = groupId)
+            }
+        }
+
         // Resolve the target consumer class.
         val consumerClass: Class<out AbsActionConsumer> = ActionConsumer::class.java
 
@@ -55,7 +76,7 @@ internal object ActionService {
         // Dispatch the task based on the specified schedule type.
         request.toMap(taskId = taskId).let { parameters ->
             TaskDispatch(
-                groupId = request.groupId,
+                groupId = groupId,
                 taskId = taskId,
                 consumerClass = consumerClass,
                 startAt = taskStartAt,
@@ -72,7 +93,7 @@ internal object ActionService {
 
         // Send a message to the SSE endpoint.
         val schedule: String = request.schedule?.toString() ?: "Immediate"
-        SseService.push(message = "New 'action' task | $schedule | Group Id: ${request.groupId} | Task Id: $taskId")
+        SseService.push(message = "New 'action' task | $schedule | Group Id: $groupId | Task Id: $taskId")
 
         return@withContext outputKey
     }

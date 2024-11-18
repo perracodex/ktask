@@ -103,6 +103,7 @@ function updateTaskList(tasks) {
             </span>
             <span class="schedule">${task.schedule || ''}</span>
             <span class="runs">${task.runs || ''}</span>
+            <span class="failures">${task.failures || ''}</span>
             <div>
                 <button class="icon-button"
                         data-task-id="${task.taskId}" data-group-id="${task.groupId}"

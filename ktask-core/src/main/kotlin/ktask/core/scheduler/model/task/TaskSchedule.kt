@@ -21,6 +21,7 @@ import kotlinx.serialization.Serializable
  * @property schedule The schedule at which the task should repeat.
  * @property scheduleInfo Optional information about the schedule. For example a raw cron expression.
  * @property runs The number of times the task has been triggered.
+ * @property failures The number of times the task has failed.
  * @property dataMap Concrete parameters of the task.
  */
 @Serializable
@@ -36,5 +37,6 @@ public data class TaskSchedule(
     val schedule: String?,
     val scheduleInfo: String?,
     val runs: Int?,
+    val failures: Int?,
     val dataMap: List<String>,
 )

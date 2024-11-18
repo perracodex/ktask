@@ -16,6 +16,7 @@ import ktask.notification.model.message.Recipient
  * Represents a request to send an Email notification task.
  *
  * @property groupId The group ID of the task.
+ * @property replace Whether to replace the task if it already exists.
  * @property description Optional description of the task.
  * @property schedule Optional [Schedule] for the task.
  * @property recipients List of target recipients.
@@ -27,6 +28,7 @@ import ktask.notification.model.message.Recipient
 @Serializable
 public data class EmailRequest(
     override val groupId: String,
+    override val replace: Boolean,
     override val description: String? = null,
     override val schedule: Schedule? = null,
     override val recipients: List<Recipient>,

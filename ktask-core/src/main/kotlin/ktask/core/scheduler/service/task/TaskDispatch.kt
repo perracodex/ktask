@@ -149,4 +149,36 @@ public class TaskDispatch(
         val jobDetail: JobDetail,
         val triggerBuilder: TriggerBuilder<Trigger>
     )
+
+    public companion object {
+        /**
+         * Check if a group exists in the scheduler.
+         *
+         * @param groupId The Group ID to check.
+         * @return True if the group exists, false otherwise.
+         */
+        public fun groupExists(groupId: String): Boolean {
+            return SchedulerService.tasks.exists(groupId = groupId)
+        }
+
+        /**
+         * Retrieve all existing task keys for a specified group.
+         *
+         * @param groupId The Group ID to retrieve tasks for.
+         * @return A list of [TaskKey] instances for the specified group.
+         */
+        public fun groupsTaskKeys(groupId: String): List<TaskKey> {
+            return SchedulerService.tasks.getTaskKeys(groupId = groupId)
+        }
+
+        /**
+         * Delete a group and all associated tasks from the scheduler.
+         *
+         * @param groupId The Group ID to delete.
+         * @return The number of tasks deleted.
+         */
+        public fun deleteGroup(groupId: String): Int {
+            return SchedulerService.tasks.delete(groupId = groupId)
+        }
+    }
 }

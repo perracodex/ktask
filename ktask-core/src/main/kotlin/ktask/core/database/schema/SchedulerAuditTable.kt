@@ -41,6 +41,14 @@ internal object SchedulerAuditTable : TimestampedTable(name = "scheduler_audit")
     )
 
     /**
+     * A unique snowflake ID to identify the cluster node that executed the task.
+     */
+    val snowflakeId: Column<String> = varchar(
+        name = "snowflake_id",
+        length = 13
+    )
+
+    /**
      * The time the task was scheduled to run.
      */
     val fireTime: Column<LocalDateTime> = datetime(

@@ -13,6 +13,7 @@ import ktask.core.scheduler.model.audit.AuditLogRequest
 import ktask.core.scheduler.service.SchedulerAsyncScope
 import ktask.core.scheduler.service.annotation.SchedulerApi
 import ktask.core.scheduler.service.task.TaskOutcome
+import ktask.core.snowflake.SnowflakeFactory
 import ktask.core.util.DateTimeUtils.toKotlinLocalDateTime
 import org.quartz.JobExecutionContext
 import org.quartz.JobExecutionException
@@ -90,10 +91,10 @@ internal class TaskListener : JobListener {
         tracer.debug("Task executed: ${context.jobDetail.key}. Outcome: $outcome")
 
         // Create audit log for task execution.
-
         AuditLogRequest(
             groupId = context.jobDetail.key.group,
             taskId = context.jobDetail.key.name,
+            snowflakeId = SnowflakeFactory.nextId(),
             fireTime = context.fireTime.toKotlinLocalDateTime(),
             runTime = context.jobRunTime,
             outcome = outcome,

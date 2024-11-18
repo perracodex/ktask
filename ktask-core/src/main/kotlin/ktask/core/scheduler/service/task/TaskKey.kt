@@ -15,11 +15,11 @@ import org.quartz.JobKey
  * @property taskId The unique identifier of the task.
  */
 @Serializable
-public data class TaskKey(
+public data class TaskKey internal constructor(
     val groupId: String,
     val taskId: String,
 ) {
-    internal companion object {
+    public companion object {
         /**
          * Creates a [TaskKey] from a Quartz [JobKey].
          *
@@ -27,8 +27,19 @@ public data class TaskKey(
          * @return The [TaskKey] instance.
          */
         @SchedulerApi
-        fun fromJobKey(jobKey: JobKey): TaskKey {
+        internal fun fromJobKey(jobKey: JobKey): TaskKey {
             return TaskKey(groupId = jobKey.group, taskId = jobKey.name)
+        }
+
+        /**
+         * Creates a [TaskKey] from the specified group and task IDs.
+         *
+         * @param groupId The group ID of the task.
+         * @param taskId The unique ID of the task.
+         * @return The [TaskKey] instance.
+         */
+        public fun fromIDs(groupId: String, taskId: String): TaskKey {
+            return TaskKey(groupId = groupId, taskId = taskId)
         }
     }
 }
