@@ -131,12 +131,12 @@ public class TaskDispatch(
                 when (val strategy: BackoffStrategy = policy.backoffStrategy) {
                     is BackoffStrategy.Fixed -> {
                         put(RetryPolicy.BACKOFF_TYPE_KEY, BackoffStrategy.FIXED_KEY)
-                        put(RetryPolicy.DELAY_MILLIS_KEY, strategy.delay.inWholeMilliseconds)
+                        put(RetryPolicy.DELAY_MS_KEY, strategy.delay.inWholeMilliseconds)
                     }
 
                     is BackoffStrategy.Exponential -> {
                         put(RetryPolicy.BACKOFF_TYPE_KEY, BackoffStrategy.EXPONENTIAL_KEY)
-                        put(RetryPolicy.INITIAL_DELAY_MILLIS_KEY, strategy.initialDelay.inWholeMilliseconds)
+                        put(RetryPolicy.INITIAL_DELAY_MS_KEY, strategy.initialDelay.inWholeMilliseconds)
                         put(RetryPolicy.MULTIPLIER_KEY, strategy.multiplier)
                     }
                 }

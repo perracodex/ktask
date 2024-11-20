@@ -53,15 +53,15 @@ internal class TaskRetryHandler(
             // Schedule a retry.
             val newRetryCount: Int = retryCount + 1
             val delay: Duration = calculateBackoffDelay(retryPolicy = retryPolicy, retryCount = newRetryCount)
-            val retryTimeInMillis: Long = System.currentTimeMillis() + delay.inWholeMilliseconds
+            val retryTimeMs: Long = System.currentTimeMillis() + delay.inWholeMilliseconds
 
             // Get the next scheduled execution time of the original triggers.
             val triggers: List<Trigger?>? = scheduler.getTriggersOfJob(jobKey)
             val nextFireTimes: List<Long>? = triggers?.mapNotNull { it?.nextFireTime?.time }
-            val nextScheduledTimeInMillis: Long? = nextFireTimes?.minOrNull()
+            val nextScheduledTimeMs: Long? = nextFireTimes?.minOrNull()
 
             // Decide whether to schedule a retry.
-            if (nextScheduledTimeInMillis != null && nextScheduledTimeInMillis <= retryTimeInMillis) {
+            if (nextScheduledTimeMs != null && nextScheduledTimeMs <= retryTimeMs) {
                 // The next scheduled execution occurs before the retry, skip retry.
                 SseService.push(
                     message = "${LocalDateTime.current().formatted(timeDelimiter = " | ", precision = 6)} " +
@@ -80,7 +80,7 @@ internal class TaskRetryHandler(
 
                 val retryTrigger: Trigger = TriggerBuilder.newTrigger()
                     .withIdentity(retryTriggerKey)
-                    .startAt(Date(retryTimeInMillis))
+                    .startAt(Date(retryTimeMs))
                     .usingJobData(newJobDataMap)
                     .forJob(jobDetail)
                     .build()
@@ -106,17 +106,17 @@ internal class TaskRetryHandler(
 
         return when (backoffStrategyType) {
             BackoffStrategy.FIXED_KEY -> {
-                val delayMillis: Long = jobDataMap[RetryPolicy.DELAY_MILLIS_KEY] as? Long ?: 0L
-                BackoffStrategy.Fixed(delay = delayMillis.milliseconds)
+                val delayMs: Long = jobDataMap[RetryPolicy.DELAY_MS_KEY] as? Long ?: 10.seconds.inWholeMilliseconds
+                BackoffStrategy.Fixed(delay = delayMs.milliseconds)
             }
 
             BackoffStrategy.EXPONENTIAL_KEY -> {
-                val initialDelayMillis: Long = jobDataMap[RetryPolicy.INITIAL_DELAY_MILLIS_KEY] as? Long ?: 0L
+                val initialDelayMs: Long = jobDataMap[RetryPolicy.INITIAL_DELAY_MS_KEY] as? Long ?: 10.seconds.inWholeMilliseconds
                 val multiplier: Double = jobDataMap[RetryPolicy.MULTIPLIER_KEY] as? Double ?: 2.0
-                BackoffStrategy.Exponential(initialDelay = initialDelayMillis.milliseconds, multiplier = multiplier)
+                BackoffStrategy.Exponential(initialDelay = initialDelayMs.milliseconds, multiplier = multiplier)
             }
 
-            else -> BackoffStrategy.Fixed(delay = 10.seconds)
+            else -> BackoffStrategy.Fixed()
         }
     }
 

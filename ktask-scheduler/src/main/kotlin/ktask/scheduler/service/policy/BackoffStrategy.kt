@@ -5,6 +5,7 @@
 package ktask.scheduler.service.policy
 
 import kotlin.time.Duration
+import kotlin.time.Duration.Companion.seconds
 
 /**
  * Sealed class representing the different backoff strategies for retrying a task.
@@ -15,7 +16,7 @@ public sealed class BackoffStrategy {
      *
      * @property delay The fixed delay for retrying the task.
      */
-    public data class Fixed(val delay: Duration) : BackoffStrategy()
+    public data class Fixed(val delay: Duration = 10.seconds) : BackoffStrategy()
 
     /**
      * Data class representing an exponential backoff strategy for retrying the task.
@@ -23,7 +24,7 @@ public sealed class BackoffStrategy {
      * @property initialDelay The initial delay for retrying the task.
      * @property multiplier The multiplier for the exponential backoff.
      */
-    public data class Exponential(val initialDelay: Duration, val multiplier: Double) : BackoffStrategy()
+    public data class Exponential(val initialDelay: Duration = 10.seconds, val multiplier: Double = 2.0) : BackoffStrategy()
 
     internal companion object {
         const val FIXED_KEY: String = "#BACKOFF_STRATEGY_FIXED_KEY#"
