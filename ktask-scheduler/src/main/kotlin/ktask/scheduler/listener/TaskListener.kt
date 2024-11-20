@@ -15,6 +15,7 @@ import ktask.core.snowflake.SnowflakeFactory
 import ktask.core.util.DateTimeUtils.toKotlinLocalDateTime
 import ktask.scheduler.audit.AuditService
 import ktask.scheduler.model.audit.AuditLogRequest
+import org.quartz.JobDetail
 import org.quartz.JobExecutionContext
 import org.quartz.JobExecutionException
 import org.quartz.JobListener
@@ -88,19 +89,20 @@ internal class TaskListener : JobListener {
             TaskOutcome.ERROR
         } ?: TaskOutcome.SUCCESS
 
-        tracer.debug("Task executed: ${context.jobDetail.key}. Outcome: $outcome")
+        val jobDetail: JobDetail = context.jobDetail
+        tracer.debug("Task executed: ${jobDetail.key}. Outcome: $outcome")
 
         // Create audit log for task execution.
         AuditLogRequest(
-            groupId = context.jobDetail.key.group.toUuid(),
-            taskId = context.jobDetail.key.name,
-            description = context.jobDetail.description,
+            groupId = jobDetail.key.group.toUuid(),
+            taskId = jobDetail.key.name,
+            description = jobDetail.description,
             snowflakeId = SnowflakeFactory.nextId(),
             fireTime = context.fireTime.toKotlinLocalDateTime(),
             runTime = context.jobRunTime,
             outcome = outcome,
             log = jobException?.message,
-            detail = context.jobDetail.jobDataMap.toMap().toString()
+            detail = jobDetail.jobDataMap.toMap().toString()
         ).also { request ->
             AsyncScope.enqueue {
                 AuditService.create(request = request)
