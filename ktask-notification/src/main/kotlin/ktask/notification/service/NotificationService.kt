@@ -46,14 +46,10 @@ internal object NotificationService {
         // Check if the group already exists.
         if (TaskDispatch.groupExists(groupId = request.groupId)) {
             if (!request.replace) {
-                val message = "Group already exists. Skipping Re-schedule. Group ID: ${request.groupId}"
-                tracer.warning(message)
-                SseService.push(message = message)
+                SseService.push(message = "Group already exists. Skipping Re-schedule. Group ID: ${request.groupId}")
                 return@withContext TaskDispatch.groupsTaskKeys(groupId = request.groupId)
             } else {
-                val message = "Group already exists. Will be replaced, recreating all tasks. Group ID: ${request.groupId}"
-                tracer.warning(message)
-                SseService.push(message = message)
+                SseService.push(message = "Group already exists. Will be replaced, recreating all tasks. Group ID: ${request.groupId}")
                 TaskDispatch.deleteGroup(groupId = request.groupId)
             }
         }

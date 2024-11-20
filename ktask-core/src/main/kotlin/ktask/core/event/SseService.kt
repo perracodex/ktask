@@ -48,6 +48,8 @@ public object SseService {
      */
     public fun push(message: String) {
         runCatching {
+            tracer.debug(message = message)
+
             AsyncScope.enqueue {
                 _eventFlow.emit(value = message)
             }
