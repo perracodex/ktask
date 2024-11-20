@@ -124,7 +124,7 @@ public class TaskDispatch(
     private fun buildJob(): BasicJob {
         val groupName: String = groupId.toString()
         val jobKey: JobKey = JobKey.jobKey(taskId, groupName)
-        val jobDataMap = JobDataMap(parameters).apply {
+        val jobDataMap: JobDataMap = JobDataMap(parameters).apply {
             retryPolicy?.let { policy ->
                 put(RetryPolicy.MAX_RETRIES_KEY, policy.maxRetries)
                 put(RetryPolicy.COUNT_KEY, 0)
