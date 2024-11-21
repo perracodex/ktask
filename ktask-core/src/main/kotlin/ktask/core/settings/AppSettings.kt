@@ -30,7 +30,7 @@ import kotlin.system.measureTimeMillis
  * The [load] method uses [runBlocking] to synchronize configuration loading, making it safe for one-time initialization.
  */
 public object AppSettings {
-    private val tracer = Tracer<AppSettings>()
+    private val tracer: Tracer = Tracer<AppSettings>()
 
     /**
      * Provides access to the communication configuration settings.

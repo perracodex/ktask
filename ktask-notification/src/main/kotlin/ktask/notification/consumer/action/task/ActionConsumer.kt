@@ -11,7 +11,7 @@ import ktask.notification.consumer.action.AbsActionConsumer
  * Represents a scheduled task that processes an action.
  */
 internal class ActionConsumer : AbsActionConsumer() {
-    private val tracer = Tracer<ActionConsumer>()
+    private val tracer: Tracer = Tracer<ActionConsumer>()
 
     /**
      * Represents the concrete properties for the action task.

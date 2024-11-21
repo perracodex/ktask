@@ -17,7 +17,7 @@ import org.apache.commons.mail.HtmlEmail
  * Represents a scheduled task that processes emails.
  */
 internal class EmailConsumer : AbsNotificationConsumer() {
-    private val tracer = Tracer<EmailConsumer>()
+    private val tracer: Tracer = Tracer<EmailConsumer>()
 
     /**
      * Represents the concrete properties for the email task.

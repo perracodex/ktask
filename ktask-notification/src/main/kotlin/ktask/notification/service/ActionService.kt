@@ -22,7 +22,7 @@ import ktask.scheduler.service.task.TaskKey
  * Custom action service for managing scheduling related operations.
  */
 internal object ActionService {
-    private val tracer = Tracer<ActionService>()
+    private val tracer: Tracer = Tracer<ActionService>()
 
     /**
      * Submits a new custom action request to the task scheduler.

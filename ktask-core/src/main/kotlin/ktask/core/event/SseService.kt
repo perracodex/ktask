@@ -13,7 +13,7 @@ import ktask.core.env.Tracer
  * Service for managing and broadcasting events using Server-Sent Events (SSE).
  */
 public object SseService {
-    private val tracer = Tracer<SseService>()
+    private val tracer: Tracer = Tracer<SseService>()
 
     /**
      * The number of events to replay when a new subscriber connects.

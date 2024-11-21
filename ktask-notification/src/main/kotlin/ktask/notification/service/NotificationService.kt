@@ -25,7 +25,7 @@ import ktask.scheduler.service.task.TaskKey
  * Notification service for managing scheduling related operations.
  */
 internal object NotificationService {
-    private val tracer = Tracer<NotificationService>()
+    private val tracer: Tracer = Tracer<NotificationService>()
 
     /**
      * Submits a new notification request to the task scheduler.

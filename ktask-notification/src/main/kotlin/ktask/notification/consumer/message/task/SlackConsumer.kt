@@ -18,7 +18,7 @@ import ktask.notification.consumer.message.AbsNotificationConsumer
  * - [Slack SDK](https://github.com/slackapi/java-slack-sdk)
  */
 internal class SlackConsumer : AbsNotificationConsumer() {
-    private val tracer = Tracer<SlackConsumer>()
+    private val tracer: Tracer = Tracer<SlackConsumer>()
 
     /**
      * Represents the concrete properties for the Slack task.
