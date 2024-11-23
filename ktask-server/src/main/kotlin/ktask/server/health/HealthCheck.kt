@@ -8,9 +8,9 @@ import io.ktor.server.application.*
 import kotlinx.serialization.Serializable
 import ktask.core.database.service.DatabaseHealth
 import ktask.core.database.service.DatabaseService
+import ktask.core.env.HealthCheckApi
 import ktask.core.util.RouteInfo
 import ktask.core.util.collectRoutes
-import ktask.server.health.annotation.HealthCheckApi
 import ktask.server.health.check.*
 
 /**

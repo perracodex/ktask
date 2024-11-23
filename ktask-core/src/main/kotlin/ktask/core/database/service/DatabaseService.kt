@@ -8,6 +8,7 @@ import com.zaxxer.hikari.HikariDataSource
 import io.micrometer.prometheusmetrics.PrometheusMeterRegistry
 import ktask.core.database.annotation.DatabaseApi
 import ktask.core.database.util.IsolationLevel
+import ktask.core.env.HealthCheckApi
 import ktask.core.env.Tracer
 import ktask.core.settings.AppSettings
 import ktask.core.settings.catalog.section.DatabaseSettings
@@ -242,6 +243,7 @@ public object DatabaseService {
     /**
      * Retrieves HikariCP health metrics.
      */
+    @HealthCheckApi
     public fun getHealthCheck(): DatabaseHealth {
         return runCatching {
             val databaseTest: Result<DatabaseHealth.ConnectionTest> = DatabaseHealth.ConnectionTest.build(database = database)

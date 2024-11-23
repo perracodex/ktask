@@ -6,6 +6,7 @@ package ktask.core.database.service
 
 import com.zaxxer.hikari.HikariDataSource
 import kotlinx.serialization.Serializable
+import ktask.core.env.HealthCheckApi
 import ktask.core.settings.AppSettings
 import org.jetbrains.exposed.sql.Database
 import org.jetbrains.exposed.sql.name
@@ -23,6 +24,7 @@ import org.jetbrains.exposed.sql.vendors.currentDialect
  * @property configuration The database [Configuration].
  * @property tables The list of tables in the database.
  */
+@HealthCheckApi
 @Serializable
 public data class DatabaseHealth(
     val errors: MutableList<String>,

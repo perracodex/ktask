@@ -6,8 +6,8 @@ package ktask.server.health.check
 
 import kotlinx.serialization.Serializable
 import ktask.core.env.EnvironmentType
+import ktask.core.env.HealthCheckApi
 import ktask.core.settings.AppSettings
-import ktask.server.health.annotation.HealthCheckApi
 
 /**
  * Used to check general application's health checks

@@ -5,9 +5,9 @@
 package ktask.server.health.check
 
 import kotlinx.serialization.Serializable
+import ktask.core.env.HealthCheckApi
 import ktask.core.snowflake.SnowflakeData
 import ktask.core.snowflake.SnowflakeFactory
-import ktask.server.health.annotation.HealthCheckApi
 
 /**
  * A health check that generates a snowflake id and parses it.

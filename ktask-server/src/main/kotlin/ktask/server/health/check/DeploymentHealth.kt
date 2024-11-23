@@ -8,9 +8,9 @@ import io.ktor.server.application.*
 import io.ktor.server.request.*
 import kotlinx.serialization.Serializable
 import ktask.core.env.EnvironmentType
+import ktask.core.env.HealthCheckApi
 import ktask.core.settings.AppSettings
 import ktask.core.util.NetworkUtils
-import ktask.server.health.annotation.HealthCheckApi
 
 /**
  * Used to check the deployment configuration of the application.

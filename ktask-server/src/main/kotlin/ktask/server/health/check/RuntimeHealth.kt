@@ -9,9 +9,9 @@ import kotlinx.datetime.Instant
 import kotlinx.datetime.LocalDateTime
 import kotlinx.serialization.Serializable
 import ktask.core.env.EnvironmentType
+import ktask.core.env.HealthCheckApi
 import ktask.core.settings.AppSettings
 import ktask.core.util.DateTimeUtils.current
-import ktask.server.health.annotation.HealthCheckApi
 
 /**
  * Used to check the runtime configuration of the application.
