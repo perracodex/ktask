@@ -97,18 +97,20 @@ internal abstract class AbsNotificationConsumer : TaskConsumer<AbsNotificationCo
         }
 
         // Resolve the template name based on the recipient's language.
-        val targetTemplate = "${payload.template}-${locale}"
+        val targetTemplate = "${payload.template}-$locale"
 
         // The task runs in a different class loader, so the template engine
         // doesn't have any resolvers set by default, even if the application
         // has them configured. We need to set the resolvers manually.
         val templateEngine: TemplateEngine = TemplateEngine().apply {
-            addTemplateResolver(FileTemplateResolver().apply {
-                prefix = "${AppSettings.communication.templatesPath}/${type.location}/"
-                suffix = type.suffix
-                characterEncoding = ENCODING
-                templateMode = type.mode
-            })
+            addTemplateResolver(
+                FileTemplateResolver().apply {
+                    prefix = "${AppSettings.communication.templatesPath}/${type.location}/"
+                    suffix = type.suffix
+                    characterEncoding = ENCODING
+                    templateMode = type.mode
+                }
+            )
         }
 
         // Process the template with the context variables.

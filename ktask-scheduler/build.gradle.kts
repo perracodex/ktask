@@ -6,8 +6,9 @@ group = "ktask.scheduler"
 version = "1.0.0"
 
 dependencies {
-
     implementation(project(":ktask-core"))
+
+    detektPlugins(libs.detekt.formatting)
 
     implementation(libs.cron.descriptor)
 

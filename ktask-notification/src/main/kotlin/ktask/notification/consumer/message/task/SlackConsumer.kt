@@ -10,7 +10,6 @@ import ktask.core.settings.AppSettings
 import ktask.core.settings.catalog.section.CommunicationSettings
 import ktask.notification.consumer.message.AbsNotificationConsumer
 
-
 /**
  * Represents a scheduled task that processes Slack messages.
  *
@@ -41,7 +40,7 @@ internal class SlackConsumer : AbsNotificationConsumer() {
 
         // Append attachment links to the message.
         val attachmentLinks: String? = payload.attachments?.joinToString("\n") { attachmentUrl ->
-            "Attachment: <${attachmentUrl}|Download>"
+            "Attachment: <$attachmentUrl|Download>"
         }
 
         val finalMessage: String = if (attachmentLinks.isNullOrBlank()) {

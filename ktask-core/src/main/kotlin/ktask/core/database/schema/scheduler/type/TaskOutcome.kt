@@ -12,5 +12,5 @@ public enum class TaskOutcome {
     SUCCESS,
 
     /** The task has failed to complete. */
-    ERROR,
+    ERROR
 }

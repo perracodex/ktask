@@ -127,7 +127,7 @@ public data class DatabaseHealth(
                         connector.close()
                     }
                 }.recoverCatching { error ->
-                    throw Exception("${ConnectionTest::class.simpleName}: ${error.message}", error)
+                    throw IllegalStateException("${ConnectionTest::class.simpleName}: ${error.message}", error)
                 }
             }
         }

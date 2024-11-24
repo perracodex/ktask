@@ -6,9 +6,10 @@ group = "ktask.notification"
 version = "1.0.0"
 
 dependencies {
-
     implementation(project(":ktask-core"))
     implementation(project(":ktask-scheduler"))
+
+    detektPlugins(libs.detekt.formatting)
 
     implementation(libs.kopapi)
 

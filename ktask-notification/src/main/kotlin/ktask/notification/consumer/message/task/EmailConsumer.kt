@@ -46,8 +46,8 @@ internal class EmailConsumer : AbsNotificationConsumer() {
 
         // Add recipients to be copied on the email notification.
         val cc: List<String>? = CastUtils.toStringList(list = payload.additionalParameters[Property.CC.key])
-        if (!cc.isNullOrEmpty()) {
-            email.addCc(*cc.toTypedArray())
+        cc?.forEach { ccAddress ->
+            email.addCc(ccAddress)
         }
 
         // Add attachments to the email.
