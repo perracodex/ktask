@@ -5,7 +5,6 @@
 package ktask.core.util
 
 import io.ktor.server.config.*
-import ktask.core.database.service.DatabaseService
 import ktask.core.settings.AppSettings
 import java.io.File
 
@@ -24,18 +23,9 @@ public object TestUtils {
     }
 
     /**
-     * Sets up the database for testing.
-     */
-    public fun setupDatabase() {
-        DatabaseService.init(settings = AppSettings.database)
-    }
-
-    /**
      * Tears down the testing environment.
      */
     public fun tearDown() {
-        DatabaseService.close()
-
         val tempRuntime = File(AppSettings.runtime.workingDir)
         if (tempRuntime.exists()) {
             tempRuntime.deleteRecursively()

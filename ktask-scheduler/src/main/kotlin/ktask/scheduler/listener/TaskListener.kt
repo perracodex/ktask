@@ -6,13 +6,13 @@ package ktask.scheduler.listener
 
 import io.micrometer.core.instrument.Counter
 import io.micrometer.core.instrument.Timer
-import ktask.core.database.schema.scheduler.type.TaskOutcome
 import ktask.core.env.Telemetry
 import ktask.core.env.Tracer
 import ktask.core.event.AsyncScope
-import ktask.core.persistence.util.toUuid
 import ktask.core.snowflake.SnowflakeFactory
 import ktask.core.util.DateTimeUtils.toKotlinLocalDateTime
+import ktask.core.util.toUuid
+import ktask.database.schema.scheduler.type.TaskOutcome
 import ktask.scheduler.audit.AuditService
 import ktask.scheduler.model.audit.AuditLogRequest
 import org.quartz.JobDetail

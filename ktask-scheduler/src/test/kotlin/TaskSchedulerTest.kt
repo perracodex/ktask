@@ -4,9 +4,10 @@
 
 import io.ktor.test.dispatcher.*
 import kotlinx.coroutines.delay
-import ktask.core.persistence.util.toUuid
 import ktask.core.snowflake.SnowflakeFactory
 import ktask.core.util.TestUtils
+import ktask.core.util.toUuid
+import ktask.database.test.DatabaseTestUtils
 import ktask.scheduler.service.SchedulerService
 import ktask.scheduler.service.schedule.Schedule
 import ktask.scheduler.service.schedule.TaskStartAt
@@ -29,12 +30,13 @@ class TaskSchedulerTest {
     @BeforeTest
     fun setUp() {
         TestUtils.loadSettings()
-        TestUtils.setupDatabase()
+        DatabaseTestUtils.setupDatabase()
         SchedulerService.start()
     }
 
     @AfterTest
     fun tearDown() {
+        DatabaseTestUtils.closeDatabase()
         TestUtils.tearDown()
         SchedulerService.stop(interrupt = true)
     }

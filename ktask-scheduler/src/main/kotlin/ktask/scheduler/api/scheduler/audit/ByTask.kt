@@ -11,8 +11,8 @@ import io.ktor.server.response.*
 import io.ktor.server.routing.*
 import io.perracodex.exposed.pagination.Page
 import io.perracodex.exposed.pagination.getPageable
-import ktask.core.persistence.serializer.Uuid
-import ktask.core.persistence.util.toUuidOrNull
+import ktask.core.serializer.Uuid
+import ktask.core.util.toUuidOrNull
 import ktask.core.util.trimOrNull
 import ktask.scheduler.audit.AuditService
 import ktask.scheduler.model.audit.AuditLog

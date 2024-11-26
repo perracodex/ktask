@@ -116,6 +116,7 @@ subprojects {
 
 dependencies {
     implementation(project(":ktask-core"))
+    implementation(project(":ktask-database"))
     implementation(project(":ktask-notification"))
     implementation(project(":ktask-scheduler"))
     implementation(project(":ktask-server"))

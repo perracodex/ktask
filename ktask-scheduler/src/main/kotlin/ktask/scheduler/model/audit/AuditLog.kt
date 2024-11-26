@@ -7,10 +7,10 @@ package ktask.scheduler.model.audit
 import io.perracodex.exposed.pagination.IModelTransform
 import kotlinx.datetime.LocalDateTime
 import kotlinx.serialization.Serializable
-import ktask.core.database.schema.scheduler.SchedulerAuditTable
-import ktask.core.database.schema.scheduler.type.TaskOutcome
-import ktask.core.persistence.model.Meta
-import ktask.core.persistence.serializer.Uuid
+import ktask.core.serializer.Uuid
+import ktask.database.model.Meta
+import ktask.database.schema.scheduler.SchedulerAuditTable
+import ktask.database.schema.scheduler.type.TaskOutcome
 import org.jetbrains.exposed.sql.ResultRow
 
 /**

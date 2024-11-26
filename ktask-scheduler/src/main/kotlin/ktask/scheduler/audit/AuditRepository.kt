@@ -7,8 +7,8 @@ package ktask.scheduler.audit
 import io.perracodex.exposed.pagination.Page
 import io.perracodex.exposed.pagination.Pageable
 import io.perracodex.exposed.pagination.paginate
-import ktask.core.database.schema.scheduler.SchedulerAuditTable
-import ktask.core.database.schema.scheduler.type.TaskOutcome
+import ktask.database.schema.scheduler.SchedulerAuditTable
+import ktask.database.schema.scheduler.type.TaskOutcome
 import ktask.scheduler.model.audit.AuditLog
 import ktask.scheduler.model.audit.AuditLogRequest
 import org.jetbrains.exposed.sql.SortOrder

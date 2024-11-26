@@ -5,7 +5,7 @@
 package ktask.scheduler.model.audit
 
 import kotlinx.datetime.LocalDateTime
-import ktask.core.database.schema.scheduler.type.TaskOutcome
+import ktask.database.schema.scheduler.type.TaskOutcome
 import kotlin.uuid.Uuid
 
 /**

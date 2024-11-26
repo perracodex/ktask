@@ -24,7 +24,7 @@ public object Telemetry {
     /**
      * The [PrometheusMeterRegistry] instance used to manage metrics.
      */
-    internal val registry: PrometheusMeterRegistry = PrometheusMeterRegistry(PrometheusConfig.DEFAULT).apply {
+    public val registry: PrometheusMeterRegistry = PrometheusMeterRegistry(PrometheusConfig.DEFAULT).apply {
         config().meterFilter(
             MeterFilter.deny { id ->
                 id.name == "ktor.http.server.requests" && id.getTag("route") == "/rbac"

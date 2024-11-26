@@ -7,6 +7,7 @@ version = "1.0.0"
 
 dependencies {
     implementation(project(":ktask-core"))
+    implementation(project(":ktask-database"))
 
     detektPlugins(libs.detekt.formatting)
 

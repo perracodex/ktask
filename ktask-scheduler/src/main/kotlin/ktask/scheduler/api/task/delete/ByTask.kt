@@ -10,8 +10,8 @@ import io.ktor.http.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
 import io.ktor.server.util.*
-import ktask.core.persistence.serializer.Uuid
-import ktask.core.persistence.util.toUuid
+import ktask.core.serializer.Uuid
+import ktask.core.util.toUuid
 import ktask.scheduler.service.SchedulerService
 
 /**

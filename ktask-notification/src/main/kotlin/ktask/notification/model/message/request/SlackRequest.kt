@@ -5,8 +5,8 @@
 package ktask.notification.model.message.request
 
 import kotlinx.serialization.Serializable
-import ktask.core.persistence.serializer.NoBlankString
-import ktask.core.persistence.serializer.Uuid
+import ktask.core.serializer.NoBlankString
+import ktask.core.serializer.Uuid
 import ktask.notification.consumer.message.task.SlackConsumer
 import ktask.notification.model.message.IMessageRequest
 import ktask.notification.model.message.Recipient

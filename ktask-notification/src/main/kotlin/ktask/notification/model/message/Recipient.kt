@@ -5,7 +5,7 @@
 package ktask.notification.model.message
 
 import kotlinx.serialization.Serializable
-import ktask.core.persistence.serializer.NoBlankString
+import ktask.core.serializer.NoBlankString
 import ktask.core.util.LocaleUtils
 
 /**
