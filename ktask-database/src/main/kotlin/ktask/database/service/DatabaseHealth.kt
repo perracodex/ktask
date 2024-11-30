@@ -7,6 +7,7 @@ package ktask.database.service
 import com.zaxxer.hikari.HikariDataSource
 import kotlinx.serialization.Serializable
 import ktask.core.env.HealthCheckApi
+import ktask.core.env.Tracer
 import ktask.core.settings.AppSettings
 import org.jetbrains.exposed.sql.Database
 import org.jetbrains.exposed.sql.name
@@ -202,4 +203,43 @@ public data class DatabaseHealth(
         val jdbcDriver: String = AppSettings.database.jdbcDriver,
         val jdbcUrl: String = AppSettings.database.jdbcUrl,
     )
+
+    public companion object {
+        /**
+         * Retrieves the database health check.
+         */
+        public fun create(): DatabaseHealth {
+            return runCatching {
+                val databaseTest: Result<ConnectionTest> = ConnectionTest.build(database = DatabaseService.database)
+
+                val isAlive: Boolean = DatabaseService.ping()
+                val connectionTest: ConnectionTest? = databaseTest.getOrNull()
+                val datasource: Datasource? = Datasource.build(datasource = DatabaseService.hikariDataSource)
+                val tables: List<String> = DatabaseService.dumpTables()
+
+                val databaseHealth = DatabaseHealth(
+                    isAlive = isAlive,
+                    connectionTest = connectionTest,
+                    datasource = datasource,
+                    tables = tables
+                )
+
+                if (databaseTest.isFailure) {
+                    databaseHealth.errors.add(databaseTest.exceptionOrNull()?.message ?: "Database connection test failed.")
+                }
+
+                databaseHealth
+            }.getOrElse { error ->
+                Tracer(ref = ::create).error(message = "Failed to retrieve database health check.", cause = error)
+                DatabaseHealth(
+                    isAlive = false,
+                    connectionTest = null,
+                    datasource = null,
+                    tables = emptyList(),
+                ).apply {
+                    errors.add("Failed to retrieve database health check. ${error.message}")
+                }
+            }
+        }
+    }
 }

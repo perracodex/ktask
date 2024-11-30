@@ -10,7 +10,6 @@ import ktask.core.env.HealthCheckApi
 import ktask.core.util.RouteInfo
 import ktask.core.util.collectRoutes
 import ktask.database.service.DatabaseHealth
-import ktask.database.service.DatabaseService
 import ktask.scheduler.service.SchedulerHealth
 import ktask.server.health.check.*
 
@@ -71,7 +70,7 @@ public data class HealthCheck internal constructor(
                 scheduler = SchedulerHealth.create(),
                 security = SecurityHealth(),
                 snowflake = SnowflakeHealth(),
-                database = DatabaseService.getHealthCheck(),
+                database = DatabaseHealth.create(),
                 endpoints = call.application.collectRoutes(),
             )
         }
