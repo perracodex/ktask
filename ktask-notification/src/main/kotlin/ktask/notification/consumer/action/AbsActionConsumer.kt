@@ -4,7 +4,7 @@
 
 package ktask.notification.consumer.action
 
-import ktask.scheduler.service.task.TaskConsumer
+import ktask.scheduler.task.TaskConsumer
 import kotlin.uuid.Uuid
 
 /**

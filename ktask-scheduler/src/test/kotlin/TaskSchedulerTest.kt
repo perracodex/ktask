@@ -9,11 +9,11 @@ import ktask.core.util.TestUtils
 import ktask.core.util.toUuid
 import ktask.database.test.DatabaseTestUtils
 import ktask.scheduler.service.SchedulerService
-import ktask.scheduler.service.schedule.Schedule
-import ktask.scheduler.service.schedule.TaskStartAt
-import ktask.scheduler.service.task.TaskConsumer
-import ktask.scheduler.service.task.TaskDispatch
-import ktask.scheduler.service.task.TaskKey
+import ktask.scheduler.task.TaskConsumer
+import ktask.scheduler.task.TaskDispatch
+import ktask.scheduler.task.TaskKey
+import ktask.scheduler.task.schedule.Schedule
+import ktask.scheduler.task.schedule.TaskStartAt
 import org.quartz.*
 import kotlin.test.AfterTest
 import kotlin.test.BeforeTest

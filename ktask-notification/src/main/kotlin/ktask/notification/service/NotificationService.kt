@@ -17,9 +17,9 @@ import ktask.notification.consumer.message.task.SlackConsumer
 import ktask.notification.model.message.IMessageRequest
 import ktask.notification.model.message.request.EmailRequest
 import ktask.notification.model.message.request.SlackRequest
-import ktask.scheduler.service.schedule.TaskStartAt
-import ktask.scheduler.service.task.TaskDispatch
-import ktask.scheduler.service.task.TaskKey
+import ktask.scheduler.task.TaskDispatch
+import ktask.scheduler.task.TaskKey
+import ktask.scheduler.task.schedule.TaskStartAt
 
 /**
  * Notification service for managing scheduling related operations.

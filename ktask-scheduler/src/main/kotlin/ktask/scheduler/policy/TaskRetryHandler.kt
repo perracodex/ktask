@@ -2,7 +2,7 @@
  * Copyright (c) 2024-Present Perracodex. Use of this source code is governed by an MIT license.
  */
 
-package ktask.scheduler.service.policy
+package ktask.scheduler.policy
 
 import kotlinx.datetime.LocalDateTime
 import ktask.core.event.SseService

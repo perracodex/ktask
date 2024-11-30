@@ -10,7 +10,7 @@ import io.ktor.server.response.*
 import io.ktor.server.routing.*
 import ktask.notification.model.message.request.SlackRequest
 import ktask.notification.service.NotificationService
-import ktask.scheduler.service.task.TaskKey
+import ktask.scheduler.task.TaskKey
 
 /**
  * Creates a new scheduled Slack notification task.

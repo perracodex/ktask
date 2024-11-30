@@ -2,15 +2,15 @@
  * Copyright (c) 2024-Present Perracodex. Use of this source code is governed by an MIT license.
  */
 
-package ktask.scheduler.service.task
+package ktask.scheduler.task
 
 import kotlinx.datetime.LocalDateTime
 import ktask.core.event.SseService
 import ktask.core.util.DateTimeUtils.current
 import ktask.core.util.DateTimeUtils.formatted
-import ktask.scheduler.service.policy.RetryPolicy
-import ktask.scheduler.service.policy.TaskRetryHandler
-import ktask.scheduler.service.task.TaskConsumer.Payload
+import ktask.scheduler.policy.RetryPolicy
+import ktask.scheduler.policy.TaskRetryHandler
+import ktask.scheduler.task.TaskConsumer.Payload
 import org.quartz.Job
 import org.quartz.JobDataMap
 import org.quartz.JobExecutionContext

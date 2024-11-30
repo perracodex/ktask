@@ -7,7 +7,7 @@ package ktask.notification.model.action
 import ktask.core.serializer.NoBlankString
 import ktask.core.serializer.Uuid
 import ktask.notification.consumer.action.AbsActionConsumer
-import ktask.scheduler.service.schedule.Schedule
+import ktask.scheduler.task.schedule.Schedule
 
 /**
  * Base interface for all action based requests.

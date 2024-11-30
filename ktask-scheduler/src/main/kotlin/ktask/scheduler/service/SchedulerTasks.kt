@@ -16,8 +16,8 @@ import ktask.scheduler.model.task.TaskGroup
 import ktask.scheduler.model.task.TaskSchedule
 import ktask.scheduler.model.task.TaskStateChange
 import ktask.scheduler.service.SchedulerTasks.Companion.create
-import ktask.scheduler.service.task.TaskKey
-import ktask.scheduler.service.task.TaskState
+import ktask.scheduler.task.TaskKey
+import ktask.scheduler.task.TaskState
 import org.quartz.*
 import org.quartz.impl.matchers.GroupMatcher
 import java.util.*

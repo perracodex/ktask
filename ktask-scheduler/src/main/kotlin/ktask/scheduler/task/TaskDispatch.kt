@@ -2,15 +2,15 @@
  * Copyright (c) 2024-Present Perracodex. Use of this source code is governed by an MIT license.
  */
 
-package ktask.scheduler.service.task
+package ktask.scheduler.task
 
 import ktask.core.util.DateTimeUtils.toJavaDate
 import ktask.core.util.DateTimeUtils.toJavaInstant
+import ktask.scheduler.policy.BackoffStrategy
+import ktask.scheduler.policy.RetryPolicy
 import ktask.scheduler.service.SchedulerService
-import ktask.scheduler.service.policy.BackoffStrategy
-import ktask.scheduler.service.policy.RetryPolicy
-import ktask.scheduler.service.schedule.Schedule
-import ktask.scheduler.service.schedule.TaskStartAt
+import ktask.scheduler.task.schedule.Schedule
+import ktask.scheduler.task.schedule.TaskStartAt
 import org.quartz.*
 import java.util.*
 import kotlin.uuid.Uuid

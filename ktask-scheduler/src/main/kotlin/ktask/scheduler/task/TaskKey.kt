@@ -2,7 +2,7 @@
  * Copyright (c) 2024-Present Perracodex. Use of this source code is governed by an MIT license.
  */
 
-package ktask.scheduler.service.task
+package ktask.scheduler.task
 
 import kotlinx.serialization.Serializable
 import ktask.core.serializer.Uuid

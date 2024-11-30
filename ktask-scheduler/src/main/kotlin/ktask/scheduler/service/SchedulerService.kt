@@ -11,8 +11,8 @@ import ktask.scheduler.listener.TaskListener
 import ktask.scheduler.listener.TriggerListener
 import ktask.scheduler.model.task.TaskStateChange
 import ktask.scheduler.service.SchedulerService.pause
-import ktask.scheduler.service.task.TaskFactory
-import ktask.scheduler.service.task.TaskState
+import ktask.scheduler.task.TaskFactory
+import ktask.scheduler.task.TaskState
 import org.quartz.Scheduler
 import org.quartz.SchedulerFactory
 import org.quartz.Trigger.TriggerState

@@ -10,7 +10,7 @@ import ktask.core.serializer.Uuid
 import ktask.notification.consumer.message.task.SlackConsumer
 import ktask.notification.model.message.IMessageRequest
 import ktask.notification.model.message.Recipient
-import ktask.scheduler.service.schedule.Schedule
+import ktask.scheduler.task.schedule.Schedule
 
 /**
  * Represents a request to send a Slack notification task.

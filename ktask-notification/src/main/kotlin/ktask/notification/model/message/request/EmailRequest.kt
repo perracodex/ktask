@@ -12,7 +12,7 @@ import ktask.notification.consumer.message.task.EmailConsumer
 import ktask.notification.error.NotificationError
 import ktask.notification.model.message.IMessageRequest
 import ktask.notification.model.message.Recipient
-import ktask.scheduler.service.schedule.Schedule
+import ktask.scheduler.task.schedule.Schedule
 
 /**
  * Represents a request to send an Email notification task.

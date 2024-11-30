@@ -10,7 +10,7 @@ import io.ktor.server.response.*
 import io.ktor.server.routing.*
 import ktask.notification.model.action.request.ActionRequest
 import ktask.notification.service.ActionService
-import ktask.scheduler.service.task.TaskKey
+import ktask.scheduler.task.TaskKey
 
 /**
  * Creates a new scheduled action task.
