@@ -5,14 +5,21 @@
             <pattern>%d{YYYY-MM-dd HH:mm:ss.SSS} | [%thread] | %-5level | %X{id} | %logger | %msg%n</pattern>
         </encoder>
     </appender>
+
+    <!-- Root Logger -->
     <root level="TRACE">
         <appender-ref ref="STDOUT"/>
     </root>
 
+    <!-- Specific Logger Configurations -->
     <logger name="Application" level="INFO"/>
     <logger name="ktask" level="DEBUG"/>
 
-    <logger name="io.ktor.routing.Routing" level="DEBUG"/>
+    <!-- Ktor Logger Names -->
+    <logger name="io.ktor.server.routing.Routing" level="DEBUG"/>
+    <logger name="io.ktor.server.plugins.statuspages.StatusPages" level="DEBUG"/>
+
+    <!-- Other Logger Configurations -->
     <logger name="io.netty" level="WARN"/>
     <logger name="io.swagger" level="ERROR"/>
     <logger name="com.github.jknack" level="OFF"/>
