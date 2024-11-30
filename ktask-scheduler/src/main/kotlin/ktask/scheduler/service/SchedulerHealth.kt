@@ -2,11 +2,10 @@
  * Copyright (c) 2024-Present Perracodex. Use of this source code is governed by an MIT license.
  */
 
-package ktask.server.health.check
+package ktask.scheduler.service
 
 import kotlinx.serialization.Serializable
 import ktask.core.env.HealthCheckApi
-import ktask.scheduler.service.SchedulerService
 
 /**
  * Used to check the health of the scheduler.
@@ -30,12 +29,12 @@ public class SchedulerHealth private constructor(
         }
     }
 
-    internal companion object {
+    public companion object {
         /**
          * Creates a new [SchedulerHealth] instance.
          * We need to use a suspendable factory method as totalTasks is a suspend function.
          */
-        suspend fun create(): SchedulerHealth {
+        public suspend fun create(): SchedulerHealth {
             return SchedulerHealth(
                 errors = mutableListOf(),
                 isStarted = SchedulerService.isStarted(),

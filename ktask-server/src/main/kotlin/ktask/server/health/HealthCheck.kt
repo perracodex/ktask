@@ -11,6 +11,7 @@ import ktask.core.util.RouteInfo
 import ktask.core.util.collectRoutes
 import ktask.database.service.DatabaseHealth
 import ktask.database.service.DatabaseService
+import ktask.scheduler.service.SchedulerHealth
 import ktask.server.health.check.*
 
 /**
@@ -20,7 +21,7 @@ import ktask.server.health.check.*
  * @property application The [ApplicationHealth] check.
  * @property deployment The [DeploymentHealth] check.
  * @property runtime The [RuntimeHealth] check.
- * @property scheduler The [SchedulerHealth] check.
+ * @property scheduler The [ktask.scheduler.service.SchedulerHealth] check.
  * @property security The [SecurityHealth] check.
  * @property snowflake The [SnowflakeHealth] check.
  * @property database The [DatabaseHealth] check.
