@@ -14,10 +14,12 @@
     <!-- Specific Logger Configurations -->
     <logger name="Application" level="INFO"/>
     <logger name="ktask" level="DEBUG"/>
+    <logger name="ktask.core.event" level="WARNING" additivity="false"/>
 
-    <!-- Ktor Logger Names -->
-    <logger name="io.ktor.server.routing.Routing" level="DEBUG"/>
-    <logger name="io.ktor.server.plugins.statuspages.StatusPages" level="DEBUG"/>
+    <!-- Ktor Logger Configurations -->
+    <logger name="io.ktor.server.auth" level="DEBUG"/>
+    <logger name="io.ktor.server.plugins" level="DEBUG"/>
+    <logger name="io.ktor.server.routing" level="DEBUG"/>
 
     <!-- Other Logger Configurations -->
     <logger name="io.netty" level="WARN"/>
