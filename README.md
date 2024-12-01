@@ -32,7 +32,7 @@ either for Email and/or Slack services. These credentials should be specified in
 For convenience, it is included a *[Postman Collection](./.postman/ktask.postman_collection.json)* with all the available REST endpoints.
 
 For credentials `Basic Authentication` is used. Default: `admin` / `admin`.
-See: [security.conf](./ktask-core/src/main/resources/config/config_security.conf)
+See: [security.conf](./ktask-system/core/src/main/resources/config/config_security.conf)
 
 ---
 

@@ -21,8 +21,7 @@ import ktask.core.settings.catalog.section.CorsSettings
  * - [CORS Documentation](https://ktor.io/docs/server-cors.html)
  */
 public fun Application.configureCors() {
-
-    val tracer: Tracer = Tracer(ref = Application::configureCors)
+    val tracer = Tracer(ref = Application::configureCors)
 
     // Install and configure the CORS feature.
     install(plugin = CORS) {

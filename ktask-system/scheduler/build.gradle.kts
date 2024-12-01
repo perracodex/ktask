@@ -6,8 +6,8 @@ group = "ktask.scheduler"
 version = "1.0.0"
 
 dependencies {
-    implementation(project(":ktask-core"))
-    implementation(project(":ktask-database"))
+    implementation(project(":ktask-system:core"))
+    implementation(project(":ktask-system:database"))
 
     detektPlugins(libs.detekt.formatting)
 

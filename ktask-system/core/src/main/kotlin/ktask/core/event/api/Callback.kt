@@ -20,7 +20,7 @@ import ktask.core.event.SseService
  */
 @SseRouteApi
 internal fun Route.sseCallbackRoute() {
-    val tracer: Tracer = Tracer(ref = ::sseCallbackRoute)
+    val tracer = Tracer(ref = ::sseCallbackRoute)
 
     sse("/admin/events") {
         try {

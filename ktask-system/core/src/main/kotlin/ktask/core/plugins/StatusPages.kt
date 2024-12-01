@@ -26,7 +26,7 @@ import org.jetbrains.exposed.exceptions.ExposedSQLException
  * - [StatusPages Plugin](https://ktor.io/docs/server-status-pages.html)
  */
 public fun Application.configureStatusPages() {
-    val tracer: Tracer = Tracer<Application>()
+    val tracer = Tracer<Application>()
 
     install(plugin = StatusPages) {
         // Custom application exceptions.
