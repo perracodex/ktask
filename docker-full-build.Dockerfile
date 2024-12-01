@@ -5,7 +5,7 @@
 
 #-------------------------------------------------------------------------------------------------
 # Build stage.
-FROM gradle:8.3-jdk17 AS build
+FROM gradle:8.8-jdk17 AS build
 LABEL authors="perracodex"
 LABEL image.tag="ktask-build"
 LABEL name="ktask-build-image"

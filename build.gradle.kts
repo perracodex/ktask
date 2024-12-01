@@ -114,14 +114,6 @@ subprojects {
     }
 }
 
-dependencies {
-    implementation(project(":ktask-system:core"))
-    implementation(project(":ktask-system:database"))
-    implementation(project(":ktask-system:scheduler"))
-    implementation(project(":ktask-notification"))
-    implementation(project(":ktask-server"))
-}
-
 /** Part of the fat JAR workflow: Task to copy the SSL keystore file for secure deployment. */
 val copyKeystoreTask: TaskProvider<Copy> by tasks.registering(Copy::class) {
     from("keystore.p12")
