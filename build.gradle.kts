@@ -30,7 +30,7 @@ application {
     // Specify the fully qualified name of the main class for the application.
     // This setting is used to define the entry point for the executable JAR generated
     // by Gradle, which is essential for running the application with 'java -jar' command.
-    mainClass.set("io.ktor.server.netty.EngineMain")
+    mainClass.set("ktask.server.ApplicationKt")
 
     // Configure detailed coroutine debug logging.
     // https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-debug/
