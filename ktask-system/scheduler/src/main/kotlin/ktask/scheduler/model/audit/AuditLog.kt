@@ -4,7 +4,7 @@
 
 package ktask.scheduler.model.audit
 
-import io.perracodex.exposed.pagination.IModelTransform
+import io.perracodex.exposed.pagination.MapModel
 import kotlinx.datetime.LocalDateTime
 import kotlinx.serialization.Serializable
 import ktask.core.serializer.Uuid
@@ -42,7 +42,7 @@ public data class AuditLog(
     val detail: String?,
     val meta: Meta
 ) {
-    internal companion object : IModelTransform<AuditLog> {
+    internal companion object : MapModel<AuditLog> {
         /**
          * Maps a [ResultRow] to a [AuditLog] instance.
          *

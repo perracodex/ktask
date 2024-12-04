@@ -4,7 +4,6 @@
 
 package ktask.core.settings.catalog.section.security.node
 
-import io.github.perracodex.ktor.config.IConfigCatalogSection
 import kotlinx.serialization.Serializable
 
 /**
@@ -15,7 +14,7 @@ import kotlinx.serialization.Serializable
 @Serializable
 public data class ConstraintsSettings(
     val privateApi: LimitSpec,
-) : IConfigCatalogSection {
+) {
 
     /**
      * Rate limit specification.

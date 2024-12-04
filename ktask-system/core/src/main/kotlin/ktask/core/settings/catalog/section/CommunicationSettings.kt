@@ -4,7 +4,6 @@
 
 package ktask.core.settings.catalog.section
 
-import io.github.perracodex.ktor.config.IConfigCatalogSection
 import kotlinx.serialization.Serializable
 
 /**
@@ -22,7 +21,7 @@ public data class CommunicationSettings(
     val templatesPath: String,
     val emailSpec: EmailSpec,
     val slackSpec: SlackSpec,
-) : IConfigCatalogSection {
+) {
 
     /**
      * Contains settings related to email communication.
@@ -50,5 +49,5 @@ public data class CommunicationSettings(
     @Serializable
     public data class SlackSpec(
         val token: String,
-    ) : IConfigCatalogSection
+    )
 }

@@ -4,7 +4,6 @@
 
 package ktask.core.settings.catalog.section.security.node
 
-import io.github.perracodex.ktor.config.IConfigCatalogSection
 import kotlinx.serialization.Serializable
 
 /**
@@ -21,4 +20,4 @@ public data class BasicAuthSettings(
     val realm: String,
     val username: String,
     val password: String
-) : IConfigCatalogSection
+)

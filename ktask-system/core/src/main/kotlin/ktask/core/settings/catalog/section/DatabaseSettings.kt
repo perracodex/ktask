@@ -4,7 +4,6 @@
 
 package ktask.core.settings.catalog.section
 
-import io.github.perracodex.ktor.config.IConfigCatalogSection
 import kotlinx.serialization.Serializable
 import ktask.core.env.EnvironmentType
 
@@ -44,4 +43,4 @@ public data class DatabaseSettings(
     val useMigrations: Boolean,
     val username: String? = null,
     val password: String? = null,
-) : IConfigCatalogSection
+)

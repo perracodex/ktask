@@ -4,7 +4,6 @@
 
 package ktask.core.settings.catalog.section.security
 
-import io.github.perracodex.ktor.config.IConfigCatalogSection
 import kotlinx.serialization.Serializable
 import ktask.core.settings.catalog.section.security.node.BasicAuthSettings
 import ktask.core.settings.catalog.section.security.node.ConstraintsSettings
@@ -21,4 +20,4 @@ public data class SecuritySettings(
     val useSecureConnection: Boolean,
     val constraints: ConstraintsSettings,
     val basicAuth: BasicAuthSettings,
-) : IConfigCatalogSection
+)
