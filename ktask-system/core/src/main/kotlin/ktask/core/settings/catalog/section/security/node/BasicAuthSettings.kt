@@ -4,8 +4,6 @@
 
 package ktask.core.settings.catalog.section.security.node
 
-import kotlinx.serialization.Serializable
-
 /**
  * Configuration parameters for HTTP authentication mechanisms.
  *
@@ -14,7 +12,6 @@ import kotlinx.serialization.Serializable
  * @property username Username for the basic authentication.
  * @property password Password for the basic authentication.
  */
-@Serializable
 public data class BasicAuthSettings(
     val providerName: String,
     val realm: String,

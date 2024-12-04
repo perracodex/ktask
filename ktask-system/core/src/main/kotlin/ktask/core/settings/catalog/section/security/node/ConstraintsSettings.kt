@@ -11,7 +11,6 @@ import kotlinx.serialization.Serializable
  *
  * @property privateApi Rate limit specification for the Private API endpoints.
  */
-@Serializable
 public data class ConstraintsSettings(
     val privateApi: LimitSpec,
 ) {

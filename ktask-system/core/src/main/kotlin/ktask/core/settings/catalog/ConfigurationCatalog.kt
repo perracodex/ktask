@@ -4,7 +4,6 @@
 
 package ktask.core.settings.catalog
 
-import kotlinx.serialization.Serializable
 import ktask.core.settings.catalog.section.*
 import ktask.core.settings.catalog.section.security.SecuritySettings
 
@@ -26,7 +25,6 @@ import ktask.core.settings.catalog.section.security.SecuritySettings
  * @property runtime The runtime settings for the application.
  * @property security The security settings for the application.
  */
-@Serializable
 internal data class ConfigurationCatalog(
     val apiSchema: ApiSchemaSettings,
     val communication: CommunicationSettings,

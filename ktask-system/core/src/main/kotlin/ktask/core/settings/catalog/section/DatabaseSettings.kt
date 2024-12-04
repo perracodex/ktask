@@ -4,7 +4,6 @@
 
 package ktask.core.settings.catalog.section
 
-import kotlinx.serialization.Serializable
 import ktask.core.env.EnvironmentType
 
 /**
@@ -26,7 +25,6 @@ import ktask.core.env.EnvironmentType
  * @property username Optional database username.
  * @property password Optional database password.
  */
-@Serializable
 public data class DatabaseSettings(
     val name: String,
     val path: String,

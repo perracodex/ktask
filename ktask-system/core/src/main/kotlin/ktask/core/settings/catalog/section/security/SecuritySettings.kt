@@ -4,7 +4,6 @@
 
 package ktask.core.settings.catalog.section.security
 
-import kotlinx.serialization.Serializable
 import ktask.core.settings.catalog.section.security.node.BasicAuthSettings
 import ktask.core.settings.catalog.section.security.node.ConstraintsSettings
 
@@ -15,7 +14,6 @@ import ktask.core.settings.catalog.section.security.node.ConstraintsSettings
  * @property constraints Settings related to security constraints, such endpoints rate limits.
  * @property basicAuth Settings related to basic authentication, such as the realm and provider name.
  */
-@Serializable
 public data class SecuritySettings(
     val useSecureConnection: Boolean,
     val constraints: ConstraintsSettings,

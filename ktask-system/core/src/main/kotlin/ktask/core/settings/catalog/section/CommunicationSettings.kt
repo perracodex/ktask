@@ -4,8 +4,6 @@
 
 package ktask.core.settings.catalog.section
 
-import kotlinx.serialization.Serializable
-
 /**
  * Contains settings related to communication.
  *
@@ -16,7 +14,6 @@ import kotlinx.serialization.Serializable
  * @property emailSpec The email configuration settings.
  * @property slackSpec The Slack configuration settings.
  */
-@Serializable
 public data class CommunicationSettings(
     val templatesPath: String,
     val emailSpec: EmailSpec,
@@ -32,7 +29,6 @@ public data class CommunicationSettings(
      * @property username The username to use when authentication is requested from the mail server.
      * @property password The password to use when authentication is requested from the mail server.
      */
-    @Serializable
     public data class EmailSpec(
         val hostName: String,
         val smtpPort: Int,
@@ -46,7 +42,6 @@ public data class CommunicationSettings(
      *
      * @property token The Slack API token.
      */
-    @Serializable
     public data class SlackSpec(
         val token: String,
     )
