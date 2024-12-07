@@ -5,6 +5,7 @@
 package ktask.database.test
 
 import ktask.core.settings.AppSettings
+import ktask.database.schema.scheduler.SchedulerAuditTable
 import ktask.database.service.DatabaseService
 
 /**
@@ -16,7 +17,12 @@ public object DatabaseTestUtils {
      * Sets up the database for testing.
      */
     public fun setupDatabase() {
-        DatabaseService.init(settings = AppSettings.database)
+        DatabaseService.init(
+            settings = AppSettings.database,
+            environment = AppSettings.runtime.environment
+        ) {
+            addTable(table = SchedulerAuditTable)
+        }
     }
 
     /**
