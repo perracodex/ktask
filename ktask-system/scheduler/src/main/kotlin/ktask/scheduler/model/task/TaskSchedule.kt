@@ -27,7 +27,7 @@ import ktask.core.serializer.Uuid
  * @property dataMap Concrete parameters of the task.
  */
 @Serializable
-public data class TaskSchedule(
+public data class TaskSchedule internal constructor(
     val groupId: Uuid,
     val taskId: String,
     val description: String,

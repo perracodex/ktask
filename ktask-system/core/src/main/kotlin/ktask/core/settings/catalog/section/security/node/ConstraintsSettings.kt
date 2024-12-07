@@ -11,7 +11,7 @@ import kotlinx.serialization.Serializable
  *
  * @property privateApi Rate limit specification for the Private API endpoints.
  */
-public data class ConstraintsSettings(
+public data class ConstraintsSettings internal constructor(
     val privateApi: LimitSpec,
 ) {
 
@@ -26,7 +26,7 @@ public data class ConstraintsSettings(
      * @property refillMs The time period in milliseconds after which the limit is reset. Must be > 0.
      */
     @Serializable
-    public data class LimitSpec(
+    public data class LimitSpec internal constructor(
         val limit: Int,
         val refillMs: Long
     ) {

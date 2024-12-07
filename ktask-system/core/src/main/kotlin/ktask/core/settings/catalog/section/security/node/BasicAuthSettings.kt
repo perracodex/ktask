@@ -12,7 +12,7 @@ package ktask.core.settings.catalog.section.security.node
  * @property username Username for the basic authentication.
  * @property password Password for the basic authentication.
  */
-public data class BasicAuthSettings(
+public data class BasicAuthSettings internal constructor(
     val providerName: String,
     val realm: String,
     val username: String,

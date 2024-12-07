@@ -18,7 +18,7 @@ import ktask.core.settings.AppSettings
  */
 @HealthCheckApi
 @Serializable
-public data class ApplicationHealth(
+public data class ApplicationHealth private constructor(
     val errors: MutableList<String>,
     val apiSchemaEnabled: Boolean
 ) {

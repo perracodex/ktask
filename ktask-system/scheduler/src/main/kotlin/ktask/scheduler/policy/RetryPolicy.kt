@@ -10,7 +10,7 @@ package ktask.scheduler.policy
  * @property maxRetries The maximum number of retries allowed for the task.
  * @property backoffStrategy The backoff strategy to use for retrying the task.
  */
-public data class RetryPolicy(
+public data class RetryPolicy internal constructor(
     val maxRetries: Int = 3,
     val backoffStrategy: BackoffStrategy = BackoffStrategy.Exponential()
 ) {

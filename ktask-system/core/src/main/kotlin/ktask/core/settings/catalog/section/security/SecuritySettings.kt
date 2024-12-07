@@ -14,7 +14,7 @@ import ktask.core.settings.catalog.section.security.node.ConstraintsSettings
  * @property constraints Settings related to security constraints, such endpoints rate limits.
  * @property basicAuth Settings related to basic authentication, such as the realm and provider name.
  */
-public data class SecuritySettings(
+public data class SecuritySettings internal constructor(
     val useSecureConnection: Boolean,
     val constraints: ConstraintsSettings,
     val basicAuth: BasicAuthSettings,

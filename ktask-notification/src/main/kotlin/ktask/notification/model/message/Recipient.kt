@@ -16,7 +16,7 @@ import ktask.core.util.LocaleUtils
  * @property locale The recipient language locale.
  */
 @Serializable
-public data class Recipient(
+public data class Recipient internal constructor(
     val target: NoBlankString,
     val name: NoBlankString,
     val locale: NoBlankString

@@ -14,7 +14,7 @@ import ktask.core.serializer.Uuid
  * @property description The description of the task.
  */
 @Serializable
-public data class TaskGroup(
+public data class TaskGroup internal constructor(
     val groupId: Uuid,
     val description: String
 )

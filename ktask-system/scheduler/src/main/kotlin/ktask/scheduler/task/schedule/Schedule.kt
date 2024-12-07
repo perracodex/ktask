@@ -68,7 +68,7 @@ public sealed class Schedule {
      * @property seconds The number of seconds in the interval.
      */
     @Serializable
-    public data class Interval(
+    public data class Interval internal constructor(
         override val start: LocalDateTime? = null,
         val days: UInt = 0u,
         val hours: UInt = 0u,
@@ -119,7 +119,7 @@ public sealed class Schedule {
      * @property cron The cron expression at which the task should be executed.
      */
     @Serializable
-    public data class Cron(
+    public data class Cron internal constructor(
         override val start: LocalDateTime? = null,
         val cron: String
     ) : Schedule() {

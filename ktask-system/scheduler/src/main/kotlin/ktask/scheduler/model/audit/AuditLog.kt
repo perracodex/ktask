@@ -29,7 +29,7 @@ import org.jetbrains.exposed.sql.ResultRow
  * @property meta The metadata of the record.
  */
 @Serializable
-public data class AuditLog(
+public data class AuditLog private constructor(
     val id: Uuid,
     val groupId: Uuid,
     val taskId: String,

@@ -25,7 +25,7 @@ import ktask.scheduler.task.schedule.Schedule
  * @property channel The channel to send the notification to.
  */
 @Serializable
-public data class SlackRequest(
+public data class SlackRequest internal constructor(
     override val groupId: Uuid,
     override val description: NoBlankString,
     override val replace: Boolean,

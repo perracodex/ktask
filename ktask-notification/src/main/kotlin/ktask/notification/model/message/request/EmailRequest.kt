@@ -28,7 +28,7 @@ import ktask.scheduler.task.schedule.Schedule
  * @property subject The subject or title of the notification.
  */
 @Serializable
-public data class EmailRequest(
+public data class EmailRequest internal constructor(
     override val groupId: Uuid,
     override val description: NoBlankString,
     override val replace: Boolean,

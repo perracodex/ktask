@@ -14,7 +14,7 @@ package ktask.core.settings.catalog.section
  * @property emailSpec The email configuration settings.
  * @property slackSpec The Slack configuration settings.
  */
-public data class CommunicationSettings(
+public data class CommunicationSettings internal constructor(
     val templatesPath: String,
     val emailSpec: EmailSpec,
     val slackSpec: SlackSpec,
@@ -29,7 +29,7 @@ public data class CommunicationSettings(
      * @property username The username to use when authentication is requested from the mail server.
      * @property password The password to use when authentication is requested from the mail server.
      */
-    public data class EmailSpec(
+    public data class EmailSpec internal constructor(
         val hostName: String,
         val smtpPort: Int,
         val isSSLOnConnect: Boolean,
@@ -42,7 +42,7 @@ public data class CommunicationSettings(
      *
      * @property token The Slack API token.
      */
-    public data class SlackSpec(
+    public data class SlackSpec internal constructor(
         val token: String,
     )
 }

@@ -21,7 +21,7 @@ import ktask.scheduler.task.schedule.Schedule
  * @property data Some custom data to be used in the action.
  */
 @Serializable
-public data class ActionRequest(
+public data class ActionRequest internal constructor(
     override val groupId: Uuid,
     override val description: String,
     override val replace: Boolean,
