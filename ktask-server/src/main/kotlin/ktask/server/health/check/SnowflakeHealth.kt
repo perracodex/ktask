@@ -52,4 +52,3 @@ public data class SnowflakeHealth private constructor(
         }
     }
 }
-
