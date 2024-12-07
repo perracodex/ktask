@@ -9,7 +9,6 @@ import io.ktor.server.netty.*
 import ktask.core.plugins.*
 import ktask.core.settings.AppSettings
 import ktask.database.plugins.configureDatabase
-import ktask.scheduler.plugin.configureTaskScheduler
 import ktask.server.plugins.configureRoutes
 import ktask.server.util.ApplicationsUtils
 
@@ -77,9 +76,7 @@ internal fun Application.ktaskModule() {
 
     configureDoubleReceive()
 
-    configureTaskScheduler()
-
     configureThymeleaf()
 
-    ApplicationsUtils.watchServer(application = this)
+    ApplicationsUtils.completeServerConfiguration(application = this)
 }

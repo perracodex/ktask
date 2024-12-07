@@ -4,7 +4,6 @@
 
 package ktask.scheduler.service
 
-import io.ktor.server.application.*
 import ktask.core.env.Tracer
 import ktask.core.event.AsyncScope
 import ktask.scheduler.listener.TaskListener
@@ -27,7 +26,7 @@ import java.util.*
  * - [Quartz Scheduler Documentation](https://github.com/quartz-scheduler/quartz/blob/main/docs/index.adoc)
  * - [Quartz Scheduler Configuration](https://www.quartz-scheduler.org/documentation/2.4.0-SNAPSHOT/configuration.html)
  */
-internal object SchedulerService {
+public object SchedulerService {
     private val tracer: Tracer = Tracer<SchedulerService>()
 
     /** The possible states of the task scheduler. */
@@ -46,7 +45,7 @@ internal object SchedulerService {
     private lateinit var scheduler: Scheduler
 
     /** Manage tasks in the scheduler. */
-    lateinit var tasks: SchedulerTasks
+    internal lateinit var tasks: SchedulerTasks
         private set
 
     /**
@@ -69,7 +68,7 @@ internal object SchedulerService {
     /**
      * Starts the task scheduler.
      */
-    fun start() {
+    public fun start() {
         if (!SchedulerService::scheduler.isInitialized || scheduler.isShutdown) {
             setup()
         }
@@ -87,7 +86,7 @@ internal object SchedulerService {
      *
      * @param interrupt Whether the scheduler should interrupt all actively executing tasks.
      */
-    fun stop(interrupt: Boolean) {
+    internal fun stop(interrupt: Boolean) {
         tracer.info("Shutting down task scheduler.")
         if (SchedulerService::scheduler.isInitialized) {
             scheduler.shutdown(!interrupt)
@@ -103,7 +102,7 @@ internal object SchedulerService {
      * @param interrupt Whether the scheduler should interrupt all actively executing tasks.
      * @return The current state of the task scheduler.
      */
-    fun restart(interrupt: Boolean): TaskSchedulerState {
+    internal fun restart(interrupt: Boolean): TaskSchedulerState {
         tracer.info("Restarting task scheduler.")
 
         stop(interrupt = interrupt)
@@ -120,7 +119,7 @@ internal object SchedulerService {
     /**
      * Returns the current state of the task scheduler.
      */
-    fun state(): TaskSchedulerState {
+    internal fun state(): TaskSchedulerState {
         return when {
             !SchedulerService::scheduler.isInitialized || !scheduler.isStarted -> TaskSchedulerState.STOPPED
             isPaused() -> TaskSchedulerState.PAUSED
@@ -131,7 +130,7 @@ internal object SchedulerService {
     /**
      * Returns whether the task scheduler is started.
      */
-    fun isStarted(): Boolean {
+    internal fun isStarted(): Boolean {
         return SchedulerService::scheduler.isInitialized && scheduler.isStarted
     }
 
@@ -142,21 +141,21 @@ internal object SchedulerService {
      *
      * @see [pause]
      */
-    fun isPaused(): Boolean {
+    internal fun isPaused(): Boolean {
         return SchedulerService::scheduler.isInitialized && scheduler.pausedTriggerGroups.isNotEmpty()
     }
 
     /**
-     * Configures the task scheduler to shut down when the application is stopped.
+     * Stops the task scheduler and releases all resources.
      *
-     * @param application The server [Application] instance.
+     * This method should be called only when the server is shutting down.
+     *
+     * The scheduler will not interrupt any actively executing tasks
+     * and will wait for them to complete before shutting down.
      */
-    fun configure(application: Application) {
-        // Add a shutdown hook to stop the scheduler when the application is stopped.
-        application.monitor.subscribe(ApplicationStopping) {
-            stop(interrupt = false)
-            AsyncScope.close()
-        }
+    public fun release() {
+        stop(interrupt = false)
+        AsyncScope.close()
     }
 
     /**
@@ -170,7 +169,7 @@ internal object SchedulerService {
      *
      * @return [TaskStateChange] containing details of the operation.
      */
-    fun pause(): TaskStateChange {
+    internal fun pause(): TaskStateChange {
         return TaskState.change(scheduler = scheduler, targetState = TriggerState.PAUSED) {
             // Attempt to pause all triggers
             tracer.info("Attempting to pause all triggers...")
@@ -225,7 +224,7 @@ internal object SchedulerService {
      *
      * @return [TaskStateChange] containing details of the operation.
      */
-    fun resume(): TaskStateChange {
+    internal fun resume(): TaskStateChange {
         return TaskState.change(scheduler = scheduler, targetState = TriggerState.NORMAL) {
             // Attempt to resume all triggers.
             tracer.info("Attempting to resume all triggers.")
@@ -259,7 +258,7 @@ internal object SchedulerService {
     /**
      * Returns the total number of tasks currently scheduled in the scheduler.
      */
-    suspend fun totalTasks(): Int {
+    internal suspend fun totalTasks(): Int {
         if (!SchedulerService::scheduler.isInitialized) {
             return 0
         }
