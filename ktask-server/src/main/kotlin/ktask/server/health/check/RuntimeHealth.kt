@@ -10,7 +10,7 @@ import kotlinx.datetime.LocalDateTime
 import kotlinx.serialization.Serializable
 import ktask.core.env.EnvironmentType
 import ktask.core.env.HealthCheckApi
-import ktask.core.settings.AppSettings
+import ktask.core.settings.catalog.section.RuntimeSettings
 import ktask.core.util.DateTimeUtils.current
 
 /**
@@ -25,7 +25,7 @@ import ktask.core.util.DateTimeUtils.current
  */
 @HealthCheckApi
 @Serializable
-public data class RuntimeHealth(
+public data class RuntimeHealth private constructor(
     val errors: MutableList<String>,
     val machineId: Int,
     val environment: EnvironmentType,
@@ -33,10 +33,10 @@ public data class RuntimeHealth(
     val utc: Instant,
     val local: LocalDateTime,
 ) {
-    internal constructor(call: ApplicationCall) : this(
+    internal constructor(call: ApplicationCall, settings: RuntimeSettings) : this(
         errors = mutableListOf(),
-        machineId = AppSettings.runtime.machineId,
-        environment = AppSettings.runtime.environment,
+        machineId = settings.machineId,
+        environment = settings.environment,
         developmentModeEnabled = call.application.developmentMode,
         utc = Instant.current(),
         local = LocalDateTime.current()

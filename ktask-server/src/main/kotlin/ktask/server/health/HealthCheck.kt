@@ -7,6 +7,7 @@ package ktask.server.health
 import io.ktor.server.application.*
 import kotlinx.serialization.Serializable
 import ktask.core.env.HealthCheckApi
+import ktask.core.settings.AppSettings
 import ktask.core.util.RouteInfo
 import ktask.core.util.collectRoutes
 import ktask.database.service.DatabaseHealth
@@ -66,11 +67,11 @@ public data class HealthCheck private constructor(
                 health = mutableListOf(),
                 application = ApplicationHealth(),
                 deployment = DeploymentHealth.create(call = call),
-                runtime = RuntimeHealth(call = call),
+                runtime = RuntimeHealth(call = call, settings = AppSettings.runtime),
                 scheduler = SchedulerHealth.create(),
                 security = SecurityHealth(),
                 snowflake = SnowflakeHealth(),
-                database = DatabaseHealth.create(),
+                database = DatabaseHealth.create(settings = AppSettings.database),
                 endpoints = call.application.collectRoutes(),
             )
         }
