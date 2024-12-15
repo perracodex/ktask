@@ -4,9 +4,12 @@
 
 package ktask.server.plugins
 
+import io.github.perracodex.kopapi.dsl.operation.api
+import io.ktor.http.*
 import io.ktor.server.application.*
 import io.ktor.server.auth.*
 import io.ktor.server.plugins.ratelimit.*
+import io.ktor.server.response.*
 import io.ktor.server.routing.*
 import ktask.base.event.sseRoutes
 import ktask.base.plugins.RateLimitScope
@@ -50,6 +53,19 @@ internal fun Application.configureRoutes() {
                 // Infrastructure routes.
                 snowflakeRoute()
                 healthCheckRoute()
+            }
+        }
+
+        // Server root endpoint.
+        get("/") {
+            call.respondText(text = "Hello World.")
+        } api {
+            tags = setOf("Root")
+            summary = "Root endpoint."
+            description = "The root endpoint of the server."
+            operationId = "root"
+            response<String>(status = HttpStatusCode.OK) {
+                description = "Root endpoint response."
             }
         }
     }
