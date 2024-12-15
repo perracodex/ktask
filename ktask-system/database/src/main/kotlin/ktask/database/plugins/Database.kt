@@ -5,7 +5,7 @@
 package ktask.database.plugins
 
 import io.ktor.server.application.*
-import ktask.core.env.Telemetry
+import ktask.base.env.Telemetry
 import ktask.database.schema.scheduler.SchedulerAuditTable
 
 /**

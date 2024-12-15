@@ -4,8 +4,8 @@
 
 package ktask.scheduler.task
 
-import ktask.core.util.DateTimeUtils.toJavaDate
-import ktask.core.util.DateTimeUtils.toJavaInstant
+import ktask.base.util.DateTimeUtils.toJavaDate
+import ktask.base.util.DateTimeUtils.toJavaInstant
 import ktask.scheduler.policy.BackoffStrategy
 import ktask.scheduler.policy.RetryPolicy
 import ktask.scheduler.service.SchedulerService

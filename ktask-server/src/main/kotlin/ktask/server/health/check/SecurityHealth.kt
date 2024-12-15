@@ -5,9 +5,9 @@
 package ktask.server.health.check
 
 import kotlinx.serialization.Serializable
-import ktask.core.env.HealthCheckApi
-import ktask.core.settings.AppSettings
-import ktask.core.settings.catalog.section.security.node.ConstraintsSettings
+import ktask.base.env.HealthCheckApi
+import ktask.base.settings.AppSettings
+import ktask.base.settings.catalog.section.security.node.ConstraintsSettings
 
 /**
  * Used to check the security configuration of the application.

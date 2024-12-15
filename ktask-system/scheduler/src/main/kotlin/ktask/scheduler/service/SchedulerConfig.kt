@@ -4,7 +4,7 @@
 
 package ktask.scheduler.service
 
-import ktask.core.settings.AppSettings
+import ktask.base.settings.AppSettings
 import java.util.*
 
 /**

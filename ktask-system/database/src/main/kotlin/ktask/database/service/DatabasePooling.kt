@@ -7,7 +7,7 @@ package ktask.database.service
 import com.zaxxer.hikari.HikariConfig
 import com.zaxxer.hikari.HikariDataSource
 import io.micrometer.prometheusmetrics.PrometheusMeterRegistry
-import ktask.core.settings.catalog.section.DatabaseSettings
+import ktask.base.settings.catalog.section.DatabaseSettings
 import ktask.database.util.IsolationLevel
 
 internal object DatabasePooling {

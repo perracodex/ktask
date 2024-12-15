@@ -9,8 +9,8 @@ import io.github.perracodex.kopapi.dsl.parameter.queryParameter
 import io.ktor.http.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
-import ktask.core.serializer.Uuid
-import ktask.core.util.toUuidOrNull
+import ktask.base.serializer.Uuid
+import ktask.base.util.toUuidOrNull
 import ktask.scheduler.model.task.TaskSchedule
 import ktask.scheduler.service.SchedulerService
 

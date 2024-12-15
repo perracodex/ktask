@@ -5,7 +5,7 @@
 package ktask.scheduler.service
 
 import kotlinx.serialization.Serializable
-import ktask.core.env.HealthCheckApi
+import ktask.base.env.HealthCheckApi
 
 /**
  * Used to check the health of the scheduler.

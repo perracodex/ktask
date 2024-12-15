@@ -6,9 +6,9 @@ package ktask.database.service
 
 import com.zaxxer.hikari.HikariDataSource
 import io.micrometer.prometheusmetrics.PrometheusMeterRegistry
-import ktask.core.env.EnvironmentType
-import ktask.core.env.Tracer
-import ktask.core.settings.catalog.section.DatabaseSettings
+import ktask.base.env.EnvironmentType
+import ktask.base.env.Tracer
+import ktask.base.settings.catalog.section.DatabaseSettings
 import ktask.database.util.IsolationLevel
 import org.flywaydb.core.Flyway
 import org.jetbrains.exposed.sql.Database

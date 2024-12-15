@@ -6,10 +6,10 @@ package ktask.server.health
 
 import io.ktor.server.application.*
 import kotlinx.serialization.Serializable
-import ktask.core.env.HealthCheckApi
-import ktask.core.settings.AppSettings
-import ktask.core.util.RouteInfo
-import ktask.core.util.collectRoutes
+import ktask.base.env.HealthCheckApi
+import ktask.base.settings.AppSettings
+import ktask.base.util.RouteInfo
+import ktask.base.util.collectRoutes
 import ktask.database.service.DatabaseHealth
 import ktask.scheduler.service.SchedulerHealth
 import ktask.server.health.check.*

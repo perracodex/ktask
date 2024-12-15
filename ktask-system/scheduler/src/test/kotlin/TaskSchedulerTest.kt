@@ -4,9 +4,9 @@
 
 import io.ktor.test.dispatcher.*
 import kotlinx.coroutines.delay
-import ktask.core.snowflake.SnowflakeFactory
-import ktask.core.util.TestUtils
-import ktask.core.util.toUuid
+import ktask.base.snowflake.SnowflakeFactory
+import ktask.base.util.TestUtils
+import ktask.base.util.toUuid
 import ktask.database.test.DatabaseTestUtils
 import ktask.scheduler.service.SchedulerService
 import ktask.scheduler.task.TaskConsumer

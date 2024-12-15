@@ -5,10 +5,10 @@
 package ktask.server.util
 
 import io.ktor.server.application.*
-import ktask.core.env.Tracer
-import ktask.core.settings.AppSettings
-import ktask.core.snowflake.SnowflakeFactory
-import ktask.core.util.NetworkUtils
+import ktask.base.env.Tracer
+import ktask.base.settings.AppSettings
+import ktask.base.snowflake.SnowflakeFactory
+import ktask.base.util.NetworkUtils
 import ktask.scheduler.service.SchedulerService
 
 /**

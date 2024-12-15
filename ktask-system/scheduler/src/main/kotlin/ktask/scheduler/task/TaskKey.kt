@@ -5,8 +5,8 @@
 package ktask.scheduler.task
 
 import kotlinx.serialization.Serializable
-import ktask.core.serializer.Uuid
-import ktask.core.util.toUuid
+import ktask.base.serializer.Uuid
+import ktask.base.util.toUuid
 import org.quartz.JobKey
 import org.quartz.Scheduler
 

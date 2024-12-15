@@ -5,9 +5,9 @@
 package ktask.notification.consumer.message
 
 import kotlinx.datetime.LocalDate
-import ktask.core.settings.AppSettings
-import ktask.core.util.CastUtils
-import ktask.core.util.DateTimeUtils.current
+import ktask.base.settings.AppSettings
+import ktask.base.util.CastUtils
+import ktask.base.util.DateTimeUtils.current
 import ktask.notification.model.message.Recipient
 import ktask.scheduler.task.TaskConsumer
 import org.thymeleaf.TemplateEngine

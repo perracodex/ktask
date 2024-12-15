@@ -7,7 +7,7 @@ package ktask.scheduler.model.audit
 import io.perracodex.exposed.pagination.MapModel
 import kotlinx.datetime.LocalDateTime
 import kotlinx.serialization.Serializable
-import ktask.core.serializer.Uuid
+import ktask.base.serializer.Uuid
 import ktask.database.model.Meta
 import ktask.database.schema.scheduler.SchedulerAuditTable
 import ktask.database.schema.scheduler.type.TaskOutcome

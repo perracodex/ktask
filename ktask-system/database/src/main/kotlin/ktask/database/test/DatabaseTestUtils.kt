@@ -4,7 +4,7 @@
 
 package ktask.database.test
 
-import ktask.core.settings.AppSettings
+import ktask.base.settings.AppSettings
 import ktask.database.schema.scheduler.SchedulerAuditTable
 import ktask.database.service.DatabaseService
 

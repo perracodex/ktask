@@ -8,10 +8,10 @@ import io.ktor.server.application.*
 import kotlinx.datetime.Instant
 import kotlinx.datetime.LocalDateTime
 import kotlinx.serialization.Serializable
-import ktask.core.env.EnvironmentType
-import ktask.core.env.HealthCheckApi
-import ktask.core.settings.catalog.section.RuntimeSettings
-import ktask.core.util.DateTimeUtils.current
+import ktask.base.env.EnvironmentType
+import ktask.base.env.HealthCheckApi
+import ktask.base.settings.catalog.section.RuntimeSettings
+import ktask.base.util.DateTimeUtils.current
 
 /**
  * Used to check the runtime configuration of the application.

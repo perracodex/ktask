@@ -6,7 +6,7 @@ group = "ktask.database"
 version = "1.0.0"
 
 dependencies {
-    implementation(project(":ktask-system:core"))
+    implementation(project(":ktask-system:base"))
 
     detektPlugins(libs.detekt.formatting)
 

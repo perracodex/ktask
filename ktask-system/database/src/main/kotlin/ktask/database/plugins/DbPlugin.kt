@@ -6,7 +6,7 @@ package ktask.database.plugins
 
 import io.ktor.server.application.*
 import io.micrometer.prometheusmetrics.PrometheusMeterRegistry
-import ktask.core.settings.AppSettings
+import ktask.base.settings.AppSettings
 import ktask.database.service.DatabaseService
 import org.jetbrains.exposed.sql.Table
 

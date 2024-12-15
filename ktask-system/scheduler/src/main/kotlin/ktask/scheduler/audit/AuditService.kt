@@ -8,7 +8,7 @@ import io.perracodex.exposed.pagination.Page
 import io.perracodex.exposed.pagination.Pageable
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import ktask.core.env.Tracer
+import ktask.base.env.Tracer
 import ktask.scheduler.model.audit.AuditLog
 import ktask.scheduler.model.audit.AuditLogRequest
 import kotlin.uuid.Uuid

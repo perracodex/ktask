@@ -5,9 +5,9 @@
 package ktask.notification.model.message.request
 
 import kotlinx.serialization.Serializable
-import ktask.core.error.validator.EmailValidator
-import ktask.core.serializer.NoBlankString
-import ktask.core.serializer.Uuid
+import ktask.base.error.validator.EmailValidator
+import ktask.base.serializer.NoBlankString
+import ktask.base.serializer.Uuid
 import ktask.notification.consumer.message.task.EmailConsumer
 import ktask.notification.error.NotificationError
 import ktask.notification.model.message.IMessageRequest

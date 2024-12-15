@@ -4,8 +4,8 @@
 
 package ktask.scheduler.service
 
-import ktask.core.env.Tracer
-import ktask.core.event.AsyncScope
+import ktask.base.env.Tracer
+import ktask.base.event.AsyncScope
 import ktask.scheduler.listener.TaskListener
 import ktask.scheduler.listener.TriggerListener
 import ktask.scheduler.model.task.TaskStateChange

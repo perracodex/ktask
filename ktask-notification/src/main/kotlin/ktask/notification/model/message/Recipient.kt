@@ -5,8 +5,8 @@
 package ktask.notification.model.message
 
 import kotlinx.serialization.Serializable
-import ktask.core.serializer.NoBlankString
-import ktask.core.util.LocaleUtils
+import ktask.base.serializer.NoBlankString
+import ktask.base.util.LocaleUtils
 
 /**
  * Represents a recipient of a notification.

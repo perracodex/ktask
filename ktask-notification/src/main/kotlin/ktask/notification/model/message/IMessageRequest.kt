@@ -4,7 +4,7 @@
 
 package ktask.notification.model.message
 
-import ktask.core.serializer.NoBlankString
+import ktask.base.serializer.NoBlankString
 import ktask.notification.consumer.message.AbsNotificationConsumer
 import ktask.scheduler.task.schedule.Schedule
 import kotlin.uuid.Uuid

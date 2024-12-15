@@ -5,9 +5,9 @@
 package ktask.notification.consumer.message.task
 
 import com.slack.api.Slack
-import ktask.core.env.Tracer
-import ktask.core.settings.AppSettings
-import ktask.core.settings.catalog.section.CommunicationSettings
+import ktask.base.env.Tracer
+import ktask.base.settings.AppSettings
+import ktask.base.settings.catalog.section.CommunicationSettings
 import ktask.notification.consumer.message.AbsNotificationConsumer
 
 /**

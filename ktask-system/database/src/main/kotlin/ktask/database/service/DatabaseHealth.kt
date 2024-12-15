@@ -6,9 +6,9 @@ package ktask.database.service
 
 import com.zaxxer.hikari.HikariDataSource
 import kotlinx.serialization.Serializable
-import ktask.core.env.HealthCheckApi
-import ktask.core.env.Tracer
-import ktask.core.settings.catalog.section.DatabaseSettings
+import ktask.base.env.HealthCheckApi
+import ktask.base.env.Tracer
+import ktask.base.settings.catalog.section.DatabaseSettings
 import org.jetbrains.exposed.sql.Database
 import org.jetbrains.exposed.sql.name
 import org.jetbrains.exposed.sql.statements.api.ExposedConnection

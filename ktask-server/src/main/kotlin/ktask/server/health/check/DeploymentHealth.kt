@@ -7,10 +7,10 @@ package ktask.server.health.check
 import io.ktor.server.application.*
 import io.ktor.server.request.*
 import kotlinx.serialization.Serializable
-import ktask.core.env.EnvironmentType
-import ktask.core.env.HealthCheckApi
-import ktask.core.settings.AppSettings
-import ktask.core.util.NetworkUtils
+import ktask.base.env.EnvironmentType
+import ktask.base.env.HealthCheckApi
+import ktask.base.settings.AppSettings
+import ktask.base.util.NetworkUtils
 
 /**
  * Used to check the deployment configuration of the application.
