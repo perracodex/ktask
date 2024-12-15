@@ -6,8 +6,8 @@ group = "ktask.notification"
 version = "1.0.0"
 
 dependencies {
-    implementation(project(":ktask-system:base"))
-    implementation(project(":ktask-system:scheduler"))
+    implementation(project(":ktask-core:base"))
+    implementation(project(":ktask-core:scheduler"))
 
     detektPlugins(libs.detekt.formatting)
 

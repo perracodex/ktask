@@ -13,8 +13,9 @@ plugins {
 
 rootProject.name = "KTask"
 
-include("ktask-system:base")
-include("ktask-system:database")
-include("ktask-system:scheduler")
+include("ktask-core:base")
+include("ktask-core:database")
+include("ktask-core:scheduler")
+include("ktask-core")
 include("ktask-notification")
 include("ktask-server")
