@@ -46,3 +46,9 @@ See: [security.conf](./ktask-core/base/src/main/resources/config/config_security
 * ### [Email Notification Endpoints](./.wiki/06.email_notification_endpoints.md)
 * ### [Slack Notification Endpoints](./.wiki/07.slack_notification_endpoints.md)
 * ### [Administration Endpoints](./.wiki/08.administration_endpoints.md)
+
+---
+
+### License
+
+This project is licensed under an MIT License - see the [LICENSE](LICENSE) file for details.
