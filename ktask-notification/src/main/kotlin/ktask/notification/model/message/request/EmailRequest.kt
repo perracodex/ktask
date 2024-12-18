@@ -64,7 +64,7 @@ public data class EmailRequest internal constructor(
             // This way we can raise a custom error response, as opposed to a generic
             // 400 Bad Request, which would be raised if the validation was done in the init block.
             request.recipients.forEach { recipient ->
-                EmailValidator.check(value = recipient.target).onFailure { error ->
+                EmailValidator.verify(value = recipient.target).onFailure { error ->
                     throw NotificationError.InvalidEmail(groupId = request.groupId, email = recipient.target, cause = error)
                 }
             }
