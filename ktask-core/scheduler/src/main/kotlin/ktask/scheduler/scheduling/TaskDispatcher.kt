@@ -2,15 +2,15 @@
  * Copyright (c) 2024-Present Perracodex. Use of this source code is governed by an MIT license.
  */
 
-package ktask.scheduler.task
+package ktask.scheduler.scheduling
 
 import ktask.base.util.DateTimeUtils.toJavaDate
 import ktask.base.util.DateTimeUtils.toJavaInstant
 import ktask.scheduler.policy.BackoffStrategy
 import ktask.scheduler.policy.RetryPolicy
 import ktask.scheduler.service.SchedulerService
-import ktask.scheduler.task.schedule.Schedule
-import ktask.scheduler.task.schedule.TaskStartAt
+import ktask.scheduler.task.TaskConsumer
+import ktask.scheduler.task.TaskKey
 import org.quartz.*
 import java.util.*
 import kotlin.uuid.Uuid
@@ -26,7 +26,7 @@ import kotlin.uuid.Uuid
  * @property parameters Optional parameters to be passed to the task class.
  * @property retryPolicy The retry policy for the task.
  */
-public class TaskDispatch(
+public class TaskDispatcher(
     private val groupId: Uuid,
     private val taskId: String,
     private val consumerClass: Class<out TaskConsumer<*>>,
@@ -54,28 +54,28 @@ public class TaskDispatch(
     }
 
     /**
-     * Schedule the task based on the specified [Schedule].
+     * Schedule the task based on the specified [ScheduleType].
      *
-     * @param schedule The [Schedule] at which the task should be executed.
+     * @param scheduleType The [ScheduleType] at which the task should be executed.
      */
-    public fun send(schedule: Schedule): TaskKey {
+    public fun send(scheduleType: ScheduleType): TaskKey {
         val job: BasicJob = buildJob()
 
-        return when (schedule) {
-            is Schedule.Interval -> send(job = job, interval = schedule)
-            is Schedule.Cron -> send(job = job, cron = schedule.cron)
+        return when (scheduleType) {
+            is ScheduleType.Interval -> send(job = job, interval = scheduleType)
+            is ScheduleType.Cron -> send(job = job, cron = scheduleType.cron)
         }
     }
 
     /**
-     * Schedule the task to be repeated at a specified [Schedule.Interval].
+     * Schedule the task to be repeated at a specified [ScheduleType.Interval].
      *
      * @param job The job details and trigger builder for the task.
-     * @param interval The [Schedule.Interval] at which the task should be repeated.
+     * @param interval The [ScheduleType.Interval] at which the task should be repeated.
      *
-     * @see [Schedule.Interval]
+     * @see [ScheduleType.Interval]
      */
-    private fun send(job: BasicJob, interval: Schedule.Interval): TaskKey {
+    private fun send(job: BasicJob, interval: ScheduleType.Interval): TaskKey {
         // Define the schedule builder and set misfire instructions to
         // handle cases where the trigger misses its scheduled time,
         // in which case the task will be executed immediately.
@@ -100,12 +100,12 @@ public class TaskDispatch(
     }
 
     /**
-     * Schedule the task to be executed at a specified [Schedule.Cron] expression.
+     * Schedule the task to be executed at a specified [ScheduleType.Cron] expression.
      *
      * @param job The job details and trigger builder for the task.
-     * @param cron The [Schedule.Cron] expression at which the task should be executed.
+     * @param cron The [ScheduleType.Cron] expression at which the task should be executed.
      *
-     * @see [Schedule.Cron]
+     * @see [ScheduleType.Cron]
      */
     private fun send(job: BasicJob, cron: String): TaskKey {
         val trigger: CronTrigger = job.triggerBuilder
@@ -126,18 +126,18 @@ public class TaskDispatch(
         val jobKey: JobKey = JobKey.jobKey(taskId, groupName)
         val jobDataMap: JobDataMap = JobDataMap(parameters).apply {
             retryPolicy?.let { policy ->
-                put(RetryPolicy.MAX_RETRIES_KEY, policy.maxRetries)
-                put(RetryPolicy.COUNT_KEY, 0)
+                put(RetryPolicy.Companion.MAX_RETRIES_KEY, policy.maxRetries)
+                put(RetryPolicy.Companion.COUNT_KEY, 0)
                 when (val strategy: BackoffStrategy = policy.backoffStrategy) {
                     is BackoffStrategy.Fixed -> {
-                        put(RetryPolicy.BACKOFF_TYPE_KEY, BackoffStrategy.FIXED_KEY)
-                        put(RetryPolicy.DELAY_MS_KEY, strategy.delay.inWholeMilliseconds)
+                        put(RetryPolicy.Companion.BACKOFF_TYPE_KEY, BackoffStrategy.Companion.FIXED_KEY)
+                        put(RetryPolicy.Companion.DELAY_MS_KEY, strategy.delay.inWholeMilliseconds)
                     }
 
                     is BackoffStrategy.Exponential -> {
-                        put(RetryPolicy.BACKOFF_TYPE_KEY, BackoffStrategy.EXPONENTIAL_KEY)
-                        put(RetryPolicy.INITIAL_DELAY_MS_KEY, strategy.initialDelay.inWholeMilliseconds)
-                        put(RetryPolicy.MULTIPLIER_KEY, strategy.multiplier)
+                        put(RetryPolicy.Companion.BACKOFF_TYPE_KEY, BackoffStrategy.Companion.EXPONENTIAL_KEY)
+                        put(RetryPolicy.Companion.INITIAL_DELAY_MS_KEY, strategy.initialDelay.inWholeMilliseconds)
+                        put(RetryPolicy.Companion.MULTIPLIER_KEY, strategy.multiplier)
                     }
                 }
             }
