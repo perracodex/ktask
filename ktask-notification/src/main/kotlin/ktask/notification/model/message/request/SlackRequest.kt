@@ -10,7 +10,7 @@ import ktask.base.serializer.Uuid
 import ktask.notification.consumer.message.task.SlackConsumer
 import ktask.notification.model.message.IMessageRequest
 import ktask.notification.model.message.Recipient
-import ktask.scheduler.task.schedule.Schedule
+import ktask.scheduler.scheduling.ScheduleType
 
 /**
  * Represents a request to send a Slack notification task.
@@ -18,7 +18,7 @@ import ktask.scheduler.task.schedule.Schedule
  * @property groupId The group ID of the task.
  * @property description The description of the task.
  * @property replace Whether to replace the task if it already exists.
- * @property schedule Optional [Schedule] for the task.
+ * @property scheduleType Optional [ScheduleType] for the task.
  * @property recipients List of [Recipient] targets.
  * @property template The template to be used for the notification.
  * @property fields Optional fields to be included in the template.
@@ -29,7 +29,7 @@ public data class SlackRequest internal constructor(
     override val groupId: Uuid,
     override val description: NoBlankString,
     override val replace: Boolean,
-    override val schedule: Schedule? = null,
+    override val scheduleType: ScheduleType? = null,
     override val recipients: List<Recipient>,
     override val template: NoBlankString,
     override val fields: Map<NoBlankString, NoBlankString>? = null,

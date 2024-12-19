@@ -6,7 +6,7 @@ package ktask.notification.model.message
 
 import ktask.base.serializer.NoBlankString
 import ktask.notification.consumer.message.AbsNotificationConsumer
-import ktask.scheduler.task.schedule.Schedule
+import ktask.scheduler.scheduling.ScheduleType
 import kotlin.uuid.Uuid
 
 /**
@@ -15,7 +15,7 @@ import kotlin.uuid.Uuid
  * @property groupId The group ID of the task.
  * @property description The description of the task.
  * @property replace Whether to replace the task if it already exists.
- * @property schedule Optional [Schedule] for the task.
+ * @property scheduleType Optional [ScheduleType] for the task.
  * @property recipients List [Recipient] targets.
  * @property template The template to be used for the notification.
  * @property fields Optional fields to be included in the template.
@@ -24,7 +24,7 @@ public interface IMessageRequest {
     public val groupId: Uuid
     public val description: NoBlankString
     public val replace: Boolean
-    public val schedule: Schedule?
+    public val scheduleType: ScheduleType?
     public val recipients: List<Recipient>
     public val template: NoBlankString
     public val fields: Map<NoBlankString, NoBlankString>?

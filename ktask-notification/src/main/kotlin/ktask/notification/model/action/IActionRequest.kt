@@ -7,7 +7,7 @@ package ktask.notification.model.action
 import ktask.base.serializer.NoBlankString
 import ktask.base.serializer.Uuid
 import ktask.notification.consumer.action.AbsActionConsumer
-import ktask.scheduler.task.schedule.Schedule
+import ktask.scheduler.scheduling.ScheduleType
 
 /**
  * Base interface for all action based requests.
@@ -15,13 +15,13 @@ import ktask.scheduler.task.schedule.Schedule
  * @property groupId The group ID of the task.
  * @property description The description of the task.
  * @property replace Whether to replace the task if it already exists.
- * @property schedule Optional [Schedule] for the task.
+ * @property scheduleType Optional [ScheduleType] for the task.
  */
 public interface IActionRequest {
     public val groupId: Uuid
     public val description: NoBlankString
     public val replace: Boolean
-    public val schedule: Schedule?
+    public val scheduleType: ScheduleType?
 
     /**
      * Verifies the integrity of the task request.

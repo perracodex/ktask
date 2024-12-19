@@ -2,7 +2,7 @@
  * Copyright (c) 2024-Present Perracodex. Use of this source code is governed by an MIT license.
  */
 
-package ktask.scheduler.task.schedule
+package ktask.scheduler.scheduling
 
 import kotlinx.datetime.LocalDateTime
 import kotlin.time.Duration

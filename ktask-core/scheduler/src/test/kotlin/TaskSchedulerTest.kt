@@ -8,12 +8,12 @@ import ktask.base.snowflake.SnowflakeFactory
 import ktask.base.util.TestUtils
 import ktask.base.util.toUuid
 import ktask.database.test.DatabaseTestUtils
+import ktask.scheduler.scheduling.ScheduleType
+import ktask.scheduler.scheduling.TaskDispatcher
+import ktask.scheduler.scheduling.TaskStartAt
 import ktask.scheduler.service.SchedulerService
 import ktask.scheduler.task.TaskConsumer
-import ktask.scheduler.task.TaskDispatch
 import ktask.scheduler.task.TaskKey
-import ktask.scheduler.task.schedule.Schedule
-import ktask.scheduler.task.schedule.TaskStartAt
 import org.quartz.*
 import kotlin.test.AfterTest
 import kotlin.test.BeforeTest
@@ -54,7 +54,7 @@ class TaskSchedulerTest {
             taskValue = taskValue
         )
 
-        val taskKey: TaskKey = TaskDispatch(
+        val taskKey: TaskKey = TaskDispatcher(
             groupId = groupId,
             taskId = taskId,
             consumerClass = SimpleTestConsumer::class.java,
@@ -75,7 +75,7 @@ class TaskSchedulerTest {
     fun testInterval(): Unit = testSuspend {
         val taskValue = "uniqueTestTask_${System.nanoTime()}"
 
-        val interval: Schedule.Interval = Schedule.Interval(days = 0u, hours = 0u, minutes = 0u, seconds = 1u)
+        val interval: ScheduleType.Interval = ScheduleType.Interval(days = 0u, hours = 0u, minutes = 0u, seconds = 1u)
         val groupId: Uuid = Uuid.random()
         val taskId: String = SnowflakeFactory.nextId()
 
@@ -85,13 +85,13 @@ class TaskSchedulerTest {
             taskValue = taskValue
         )
 
-        val taskKey: TaskKey = TaskDispatch(
+        val taskKey: TaskKey = TaskDispatcher(
             groupId = groupId,
             taskId = taskId,
             consumerClass = SimpleTestConsumer::class.java,
             startAt = TaskStartAt.Immediate,
             parameters = properties
-        ).send(schedule = interval)
+        ).send(scheduleType = interval)
 
         // Wait for enough time to allow the task to execute.
         delay(timeMillis = 3000L)
@@ -106,7 +106,7 @@ class TaskSchedulerTest {
     fun testCron(): Unit = testSuspend {
         val taskValue = "uniqueTestTask_${System.nanoTime()}"
 
-        val cron: Schedule.Cron = Schedule.Cron(cron = "0/1 * * * * ?")
+        val cron: ScheduleType.Cron = ScheduleType.Cron(cron = "0/1 * * * * ?")
         val groupId: Uuid = Uuid.random()
         val taskId: String = SnowflakeFactory.nextId()
 
@@ -116,13 +116,13 @@ class TaskSchedulerTest {
             taskValue = taskValue
         )
 
-        val taskKey: TaskKey = TaskDispatch(
+        val taskKey: TaskKey = TaskDispatcher(
             groupId = groupId,
             taskId = taskId,
             consumerClass = SimpleTestConsumer::class.java,
             startAt = TaskStartAt.Immediate,
             parameters = properties
-        ).send(schedule = cron)
+        ).send(scheduleType = cron)
 
         // Wait for enough time to allow the task to execute.
         delay(timeMillis = 3000L)

@@ -17,9 +17,9 @@ import ktask.notification.consumer.message.task.SlackConsumer
 import ktask.notification.model.message.IMessageRequest
 import ktask.notification.model.message.request.EmailRequest
 import ktask.notification.model.message.request.SlackRequest
-import ktask.scheduler.task.TaskDispatch
+import ktask.scheduler.scheduling.TaskDispatcher
+import ktask.scheduler.scheduling.TaskStartAt
 import ktask.scheduler.task.TaskKey
-import ktask.scheduler.task.schedule.TaskStartAt
 
 /**
  * Notification service for managing scheduling related operations.
@@ -44,13 +44,13 @@ internal object NotificationService {
         tracer.debug("Scheduling new notification for ID: ${request.groupId}")
 
         // Check if the group already exists.
-        if (TaskDispatch.groupExists(groupId = request.groupId)) {
+        if (TaskDispatcher.groupExists(groupId = request.groupId)) {
             if (!request.replace) {
                 SseService.push(message = "Group already exists. Skipping Re-schedule. Group ID: ${request.groupId}")
-                return@withContext TaskDispatch.groupsTaskKeys(groupId = request.groupId)
+                return@withContext TaskDispatcher.groupsTaskKeys(groupId = request.groupId)
             } else {
                 SseService.push(message = "Group already exists. Will be replaced, recreating all tasks. Group ID: ${request.groupId}")
-                TaskDispatch.deleteGroup(groupId = request.groupId)
+                TaskDispatcher.deleteGroup(groupId = request.groupId)
             }
         }
 
@@ -68,7 +68,7 @@ internal object NotificationService {
         // Determine the start date/time for the task.
         // Note: If the scheduled time is in the past, the Task Scheduler Service
         // will automatically start the task as soon as it becomes possible.
-        val taskStartAt: TaskStartAt = request.schedule?.let { schedule ->
+        val taskStartAt: TaskStartAt = request.scheduleType?.let { schedule ->
             val startDateTime: LocalDateTime = schedule.start ?: LocalDateTime.current()
             TaskStartAt.AtDateTime(datetime = startDateTime)
         } ?: TaskStartAt.Immediate
@@ -82,15 +82,15 @@ internal object NotificationService {
 
             // Dispatch the task based on the specified schedule type.
             request.toMap(taskId = taskId, recipient = recipient).let { parameters ->
-                TaskDispatch(
+                TaskDispatcher(
                     groupId = request.groupId,
                     taskId = taskId,
                     consumerClass = consumerClass,
                     startAt = taskStartAt,
                     parameters = parameters
                 ).run {
-                    request.schedule?.let { schedule ->
-                        send(schedule = schedule)
+                    request.scheduleType?.let { schedule ->
+                        send(scheduleType = schedule)
                     } ?: send()
                 }.also { taskKey ->
                     tracer.debug("Scheduled ${consumerClass.name} for recipient: $recipient. Task key: $taskKey")
@@ -99,7 +99,7 @@ internal object NotificationService {
             }
 
             // Send a message to the SSE endpoint.
-            val schedule: String = request.schedule?.toString() ?: "Immediate"
+            val schedule: String = request.scheduleType?.toString() ?: "Immediate"
             SseService.push(
                 message = "New 'notification' task | $schedule | " +
                         "${consumerClass.simpleName} | Group Id: ${request.groupId} | Task Id: $taskId | Recipient: $recipient"

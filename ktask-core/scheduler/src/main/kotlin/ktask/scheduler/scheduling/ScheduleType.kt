@@ -2,7 +2,7 @@
  * Copyright (c) 2024-Present Perracodex. Use of this source code is governed by an MIT license.
  */
 
-package ktask.scheduler.task.schedule
+package ktask.scheduler.scheduling
 
 import kotlinx.datetime.LocalDateTime
 import kotlinx.serialization.Serializable
@@ -54,7 +54,7 @@ import kotlinx.serialization.Serializable
  * @see [ScheduleSerializer]
  */
 @Serializable(ScheduleSerializer::class)
-public sealed class Schedule {
+public sealed class ScheduleType {
     /** Optional datetime when the task must start. Null to start immediately. */
     public abstract val start: LocalDateTime?
 
@@ -74,7 +74,7 @@ public sealed class Schedule {
         val hours: UInt = 0u,
         val minutes: UInt = 0u,
         val seconds: UInt = 0u
-    ) : Schedule() {
+    ) : ScheduleType() {
         /**
          * Converts the overall interval into a total number of seconds.
          */
@@ -122,7 +122,7 @@ public sealed class Schedule {
     public data class Cron internal constructor(
         override val start: LocalDateTime? = null,
         val cron: String
-    ) : Schedule() {
+    ) : ScheduleType() {
         init {
             require(cron.isNotBlank()) { "Cron expression cannot be blank." }
         }

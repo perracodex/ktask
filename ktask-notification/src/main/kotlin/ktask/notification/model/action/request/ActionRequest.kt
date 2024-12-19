@@ -9,7 +9,7 @@ import ktask.base.serializer.NoBlankString
 import ktask.base.serializer.Uuid
 import ktask.notification.consumer.action.task.ActionConsumer
 import ktask.notification.model.action.IActionRequest
-import ktask.scheduler.task.schedule.Schedule
+import ktask.scheduler.scheduling.ScheduleType
 
 /**
  * Represents a custom action task request.
@@ -17,7 +17,7 @@ import ktask.scheduler.task.schedule.Schedule
  * @property groupId The group ID of the task.
  * @property description The description of the task.
  * @property replace Whether to replace the task if it already exists.
- * @property schedule Optional [Schedule] for the task.
+ * @property scheduleType Optional [ScheduleType] for the task.
  * @property data Some custom data to be used in the action.
  */
 @Serializable
@@ -25,7 +25,7 @@ public data class ActionRequest internal constructor(
     override val groupId: Uuid,
     override val description: String,
     override val replace: Boolean,
-    override val schedule: Schedule? = null,
+    override val scheduleType: ScheduleType? = null,
     val data: NoBlankString,
 ) : IActionRequest {
 
