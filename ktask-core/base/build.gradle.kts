@@ -8,11 +8,10 @@ version = "1.0.0"
 dependencies {
     detektPlugins(libs.detekt.formatting)
 
-    implementation(libs.database.h2)
-
     implementation(libs.kopapi)
 
     implementation(libs.kotlinx.atomicfu)
+    implementation(libs.kotlinx.coroutines)
     implementation(libs.kotlinx.datetime)
     implementation(libs.kotlinx.serialization)
 

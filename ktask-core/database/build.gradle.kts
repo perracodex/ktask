@@ -12,6 +12,8 @@ dependencies {
 
     implementation(libs.database.h2)
 
+    implementation(libs.kotlinx.coroutines)
+
     implementation(libs.ktor.config)
 
     implementation(libs.exposed.core)

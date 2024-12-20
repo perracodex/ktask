@@ -18,6 +18,7 @@ dependencies {
     implementation(libs.kopapi)
 
     implementation(libs.kotlinx.atomicfu)
+    implementation(libs.kotlinx.coroutines)
     implementation(libs.kotlinx.datetime)
     implementation(libs.kotlinx.serialization)
 
