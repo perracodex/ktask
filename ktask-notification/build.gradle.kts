@@ -24,8 +24,6 @@ dependencies {
     implementation(libs.ktor.server.rateLimit)
     implementation(libs.ktor.server.thymeleaf)
 
-    implementation(libs.ktor.config)
-
     implementation(libs.quartz.scheduler)
 
     implementation(libs.shared.commons.codec)

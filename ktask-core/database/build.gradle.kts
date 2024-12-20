@@ -18,12 +18,9 @@ dependencies {
     implementation(libs.exposed.kotlin.datetime)
     implementation(libs.exposed.pagination)
     implementation(libs.flyway.core)
+    implementation(libs.hikariCP)
 
     implementation(libs.kotlinx.coroutines)
-
-    implementation(libs.ktor.config)
-
-    implementation(libs.hikariCP)
 
     implementation(libs.micrometer.metrics)
     implementation(libs.micrometer.metrics.prometheus)

@@ -11,10 +11,6 @@ dependencies {
 
     detektPlugins(libs.detekt.formatting)
 
-    implementation(libs.exposed.core)
-
-    implementation(libs.hikariCP)
-
     implementation(libs.kopapi)
 
     implementation(libs.kotlinx.atomicfu)
@@ -26,8 +22,6 @@ dependencies {
     implementation(libs.ktor.server.core)
     implementation(libs.ktor.server.netty)
     implementation(libs.ktor.server.rateLimit)
-
-    implementation(libs.ktor.config)
 
     testImplementation(libs.test.kotlin.junit)
     testImplementation(libs.test.mockk)
