@@ -13,6 +13,10 @@ dependencies {
 
     implementation(libs.cron.descriptor)
 
+    implementation(libs.exposed.core)
+    implementation(libs.exposed.kotlin.datetime)
+    implementation(libs.exposed.pagination)
+
     implementation(libs.kopapi)
 
     implementation(libs.kotlinx.coroutines)
@@ -27,10 +31,6 @@ dependencies {
     implementation(libs.ktor.server.thymeleaf)
 
     implementation(libs.ktor.config)
-
-    implementation(libs.exposed.core)
-    implementation(libs.exposed.kotlin.datetime)
-    implementation(libs.exposed.pagination)
 
     implementation(libs.micrometer.metrics)
 

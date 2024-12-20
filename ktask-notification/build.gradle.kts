@@ -28,10 +28,10 @@ dependencies {
 
     implementation(libs.quartz.scheduler)
 
-    implementation(libs.slack.api.client)
-
     implementation(libs.shared.commons.codec)
     implementation(libs.shared.commons.email)
+
+    implementation(libs.slack.api.client)
 
     testImplementation(libs.test.kotlin.junit)
     testImplementation(libs.test.mockk)
