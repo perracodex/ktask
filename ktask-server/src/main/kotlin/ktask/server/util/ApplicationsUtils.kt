@@ -29,7 +29,7 @@ internal object ApplicationsUtils {
         }
 
         // Add a shutdown hook to stop the scheduler when the server stops.
-        application.monitor.subscribe(ApplicationStopping) {
+        application.monitor.subscribe(definition = ApplicationStopping) {
             SchedulerService.release()
         }
 
