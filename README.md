@@ -1,6 +1,6 @@
 # [KTask](https://github.com/perracodex/KTask)
 
-A [Quartz](https://github.com/quartz-scheduler) scheduler based notification system using the [Ktor](https://ktor.io/) framework.
+A [Quartz](https://github.com/quartz-scheduler) task manager and scheduler based notification system using the [Ktor](https://ktor.io/) framework.
 
 ---
 
