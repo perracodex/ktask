@@ -11,11 +11,11 @@ import io.ktor.server.response.*
 import io.ktor.server.routing.*
 import io.perracodex.exposed.pagination.Page
 import io.perracodex.exposed.pagination.getPageable
-import ktask.base.serializer.Uuid
 import ktask.base.util.toUuidOrNull
 import ktask.base.util.trimOrNull
 import ktask.scheduler.audit.AuditService
 import ktask.scheduler.model.audit.AuditLog
+import kotlin.uuid.Uuid
 
 /**
  * Returns the audit log for a specific task.

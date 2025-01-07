@@ -5,9 +5,9 @@
 package ktask.notification.model.action
 
 import ktask.base.serializer.NoBlankString
-import ktask.base.serializer.Uuid
 import ktask.notification.consumer.action.AbsActionConsumer
 import ktask.scheduler.scheduling.ScheduleType
+import kotlin.uuid.Uuid
 
 /**
  * Base interface for all action based requests.

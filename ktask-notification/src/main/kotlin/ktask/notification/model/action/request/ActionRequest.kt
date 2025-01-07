@@ -6,10 +6,10 @@ package ktask.notification.model.action.request
 
 import kotlinx.serialization.Serializable
 import ktask.base.serializer.NoBlankString
-import ktask.base.serializer.Uuid
 import ktask.notification.consumer.action.task.ActionConsumer
 import ktask.notification.model.action.IActionRequest
 import ktask.scheduler.scheduling.ScheduleType
+import kotlin.uuid.Uuid
 
 /**
  * Represents a custom action task request.

@@ -5,10 +5,10 @@
 package ktask.scheduler.task
 
 import kotlinx.serialization.Serializable
-import ktask.base.serializer.Uuid
 import ktask.base.util.toUuid
 import org.quartz.JobKey
 import org.quartz.Scheduler
+import kotlin.uuid.Uuid
 
 /**
  * Represents a key that uniquely identifies a task in the scheduler.

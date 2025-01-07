@@ -6,7 +6,7 @@ package ktask.scheduler.model.task
 
 import kotlinx.datetime.LocalDateTime
 import kotlinx.serialization.Serializable
-import ktask.base.serializer.Uuid
+import kotlin.uuid.Uuid
 
 /**
  * Represents the details of a scheduled task.

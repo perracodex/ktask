@@ -10,11 +10,11 @@ import io.ktor.http.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
 import io.ktor.server.util.*
-import ktask.base.serializer.Uuid
 import ktask.base.util.toUuid
 import ktask.base.util.trimOrNull
 import ktask.scheduler.model.task.TaskStateChange
 import ktask.scheduler.service.SchedulerService
+import kotlin.uuid.Uuid
 
 /**
  * Pause a concrete scheduler task.

@@ -5,7 +5,7 @@
 package ktask.scheduler.model.task
 
 import kotlinx.serialization.Serializable
-import ktask.base.serializer.Uuid
+import kotlin.uuid.Uuid
 
 /**
  * Represents a task group.

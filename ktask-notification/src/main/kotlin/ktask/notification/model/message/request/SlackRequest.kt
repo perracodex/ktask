@@ -6,11 +6,11 @@ package ktask.notification.model.message.request
 
 import kotlinx.serialization.Serializable
 import ktask.base.serializer.NoBlankString
-import ktask.base.serializer.Uuid
 import ktask.notification.consumer.message.task.SlackConsumer
 import ktask.notification.model.message.IMessageRequest
 import ktask.notification.model.message.Recipient
 import ktask.scheduler.scheduling.ScheduleType
+import kotlin.uuid.Uuid
 
 /**
  * Represents a request to send a Slack notification task.
