@@ -11,11 +11,11 @@ plugins {
     id("org.gradle.toolchains.foojay-resolver-convention") version "0.8.0"
 }
 
-rootProject.name = "KTask"
+rootProject.name = "TaskManager"
 
-include("ktask-core:base")
-include("ktask-core:database")
-include("ktask-core:scheduler")
-include("ktask-core")
-include("ktask-notification")
-include("ktask-server")
+include("taskmanager-core:base")
+include("taskmanager-core:database")
+include("taskmanager-core:scheduler")
+include("taskmanager-core")
+include("taskmanager-notification")
+include("taskmanager-server")

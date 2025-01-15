@@ -4,12 +4,12 @@
 version: '3.8'
 
 services:
-  ktask:
+  taskmanager:
     build:
       context: .
       dockerfile: docker-full-build.Dockerfile
-    image: ktask-image:latest
-    container_name: ktask-container
+    image: taskmanager-image:latest
+    container_name: taskmanager-container
     ports:
       - "8080:8080"  # HTTP port for the application.
       - "8443:8443"  # HTTPS port for secure communication.
@@ -34,7 +34,7 @@ services:
 
       # Application-specific environment variables
       # - Defines the path to the SSL key store used by the application.
-      KTASK_KTOR_SECURITY_SSL_KEY_STORE: "/app/keystore.p12"
+      TASK_MANAGER_KTOR_SECURITY_SSL_KEY_STORE: "/app/keystore.p12"
 
     networks:
       - default_network

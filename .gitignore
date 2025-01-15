@@ -43,10 +43,10 @@ bin/
 
 ### Swagger ###
 /docs/*
-/ktask-server/docs/*
+/taskmanager-server/docs/*
 
 ### Custom ###
-/ktask-server/.runtime/database/*
+/taskmanager-server/.runtime/database/*
 .runtime/*
 /.database/*
 .idea/

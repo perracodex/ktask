@@ -7,7 +7,7 @@
 !gradlew
 !gradlew.bat
 !keystore.p12
-!ktask-core/**
-!ktask-notification/**
-!ktask-server/**
+!taskmanager-core/**
+!taskmanager-notification/**
+!taskmanager-server/**
 !build/libs/**

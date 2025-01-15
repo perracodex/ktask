@@ -1,4 +1,4 @@
-# [KTask](https://github.com/perracodex/KTask)
+# [TaskManager](https://github.com/perracodex/taskmananger)
 
 A [Quartz](https://github.com/quartz-scheduler) based task manager and notification system using the [Ktor](https://ktor.io/) framework.
 
@@ -6,7 +6,7 @@ A [Quartz](https://github.com/quartz-scheduler) based task manager and notificat
 
 ## Preface
 
-[KTask](https://github.com/perracodex/KTask) serves as a comprehensive example of a scheduler-based notification system.
+[TaskManager](https://github.com/perracodex/taskmananger) serves as a comprehensive example of a scheduler-based notification system.
 It showcases dispatching of tasks at scheduled times, for example sending emails, Slack messages, or any other custom action.
 
 The system allows for scheduling tasks to be sent either immediately or at a specified future time to multiple recipients.
@@ -29,10 +29,10 @@ either for Email and/or Slack services. These credentials should be specified in
 * Micrometer-Metrics: Ready for integration with monitoring tools like Prometheus or Grafana.
 
 ---
-For convenience, it is included a *[Postman Collection](./.postman/ktask.postman_collection.json)* with all the available REST endpoints.
+For convenience, it is included a *[Postman Collection](./.postman/taskmanager.postman_collection.json)* with all the available REST endpoints.
 
 For credentials `Basic Authentication` is used. Default: `admin` / `admin`.
-See: [security.conf](./ktask-core/base/src/main/resources/config/config_security.conf)
+See: [security.conf](./taskmanager-core/base/src/main/resources/config/config_security.conf)
 
 ---
 
